@@ -14,7 +14,7 @@ const config: StorybookConfig = {
   ],
   framework: '@storybook/react-vite',
   viteFinal: async (config) => {
-    config.base = '/';
+    config.base = '/storybook-ui/';
     return config;
   },
 };
