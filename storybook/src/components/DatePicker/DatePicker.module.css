@@ -1,0 +1,295 @@
+/* ─────────────────────────────────────────────────────
+   DatePicker — Althus Design System
+   Horizontal layout: calendar grid (left) + controls (right)
+───────────────────────────────────────────────────── */
+
+/* ── Trigger ── */
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-md);
+  height: 36px;
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+  white-space: nowrap;
+  user-select: none;
+}
+.trigger:hover {
+  border-color: var(--color-border-muted);
+  background: var(--color-bg-elevated);
+}
+.trigger.open {
+  border-color: var(--color-border-focus);
+}
+
+.triggerIcon {
+  display: flex;
+  align-items: center;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+.triggerText {
+  flex: 1;
+  color: var(--color-text-primary);
+}
+.triggerPlaceholder {
+  flex: 1;
+  color: var(--color-text-tertiary);
+}
+.triggerClear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-full);
+  color: var(--color-text-tertiary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.triggerClear:hover {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-primary);
+}
+
+/* ── Popover wrapper ── */
+.popoverWrap {
+  position: relative;
+  display: inline-block;
+}
+
+/* ── Popover panel ── */
+.popover {
+  position: absolute;
+  top: calc(100% + var(--spacing-xs));
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-glass-surface);
+  border: var(--border-width-thin) solid var(--color-glass-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-xl);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  display: flex;
+  flex-direction: row;
+  z-index: 200;
+  overflow: hidden;
+}
+.popover[hidden] { display: none; }
+
+/* ── Calendar panel (left) ── */
+.calPanel {
+  padding: var(--spacing-md);
+  min-width: 272px;
+}
+
+.calHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-sm);
+}
+
+.calMonthLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.calNavBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-xs);
+  color: var(--color-text-tertiary);
+  transition: background var(--transition-fast), color var(--transition-fast);
+  padding: 0;
+}
+.calNavBtn:hover {
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+}
+
+/* ── Day grid ── */
+.calGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.calDayName {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-tertiary);
+}
+
+.calDay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  border-radius: var(--radius-xs);
+  background: none;
+  border: none;
+  padding: 0;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.calDay:hover:not(.calDayOutside):not(.calDayStart):not(.calDayEnd) {
+  background: var(--color-bg-surface);
+}
+
+/* Days from other month */
+.calDayOutside {
+  color: var(--color-text-disabled);
+  cursor: default;
+}
+
+/* Today */
+.calDayToday {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-brand);
+}
+
+/* Days within the selected range */
+.calDayInRange {
+  background: var(--color-bg-brand);
+  color: var(--color-text-primary);
+  border-radius: 0;
+}
+[data-theme="light"] .calDayInRange {
+  background: var(--color-gray-200);
+  opacity: var(--opacity-50);
+}
+
+/* Range start — filled pill */
+.calDayStart {
+  background: var(--color-bg-brand-strong);
+  color: var(--color-gray-white);
+  border-radius: var(--radius-xs);
+  font-weight: var(--font-weight-semibold);
+}
+.calDayStart:hover {
+  background: var(--color-bg-brand-strong);
+}
+
+/* Range end — outlined pill */
+.calDayEnd {
+  background: transparent;
+  color: var(--color-text-brand);
+  border: var(--border-width-medium) solid var(--color-border-focus);
+  border-radius: var(--radius-xs);
+  font-weight: var(--font-weight-semibold);
+}
+.calDayEnd:hover {
+  background: var(--color-bg-brand);
+}
+
+/* ── Vertical divider between panels ── */
+.panelDivider {
+  width: var(--border-width-thin);
+  background: var(--color-border-default);
+  align-self: stretch;
+  flex-shrink: 0;
+}
+
+/* ── Controls panel (right) ── */
+.ctrlPanel {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-md);
+  min-width: 172px;
+  gap: var(--spacing-sm);
+}
+
+.ctrlFieldLabel {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--spacing-2xs);
+}
+
+.ctrlDateInput {
+  width: 100%;
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  outline: none;
+  transition: border-color var(--transition-fast);
+  box-sizing: border-box;
+}
+.ctrlDateInput:focus {
+  border-color: var(--color-border-focus);
+}
+.ctrlDateInput::placeholder {
+  color: var(--color-text-disabled);
+}
+
+.ctrlSpacer { flex: 1; }
+
+.ctrlApply {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--color-bg-brand-strong);
+  color: var(--color-gray-white);
+  border: none;
+  border-radius: var(--radius-xs);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+  white-space: nowrap;
+}
+.ctrlApply:hover { opacity: var(--opacity-90); }
+
+.ctrlTzSelect {
+  width: 100%;
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+}
+.ctrlTzSelect:focus {
+  border-color: var(--color-border-focus);
+}

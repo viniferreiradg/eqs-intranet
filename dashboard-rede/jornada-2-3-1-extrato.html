@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Extrato — Althus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Design system -->
+  <link rel="stylesheet" href="../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Background/Background.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Input/Input.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Table/Table.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Pagination/Pagination.module.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background: var(--color-bg-default);
+      color: var(--color-text-primary);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Main ── */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+
+    /* ── Page header ── */
+    .pageHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: calc(var(--spacing-lg) + var(--spacing-xs)) var(--spacing-xl) 0;
+      flex-shrink: 0;
+    }
+    .pageTitle {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      line-height: var(--line-height-tight);
+    }
+    .pageSubtitle {
+      margin: var(--spacing-xs) 0 0;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+    }
+
+    /* ── Toolbar ── */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-md) var(--spacing-xl) 0;
+      flex-shrink: 0;
+    }
+    .filterWrap { width: 180px; }
+    .toolbarSep {
+      width: 1px;
+      height: 36px;
+      background: var(--color-border-subtle);
+      flex-shrink: 0;
+    }
+
+    /* ── DatePicker (page-level, evita conflito com .trigger do Dropdown) ── */
+    .dpWrap { position: relative; display: inline-block; }
+
+    .dpTrigger {
+      display: inline-flex; align-items: center; gap: var(--spacing-sm);
+      padding: var(--spacing-xs) var(--spacing-md); height: 36px;
+      background: var(--color-bg-surface);
+      border: var(--border-width-thin) solid var(--color-border-default);
+      border-radius: var(--radius-full); cursor: pointer;
+      color: var(--color-text-primary); font-family: var(--font-body);
+      font-size: var(--font-size-sm); font-weight: var(--font-weight-medium);
+      transition: border-color var(--transition-fast), background var(--transition-fast);
+      white-space: nowrap; user-select: none;
+    }
+    .dpTrigger:hover { border-color: var(--color-border-muted); background: var(--color-bg-elevated); }
+    .dpTrigger.open  { border-color: var(--color-border-focus); }
+    .dpTriggerIcon   { display: flex; align-items: center; color: var(--color-text-tertiary); flex-shrink: 0; }
+    .dpTriggerText   { color: var(--color-text-primary); }
+    .dpTriggerPlaceholder { color: var(--color-text-tertiary); }
+    .dpTriggerClear {
+      display: flex; align-items: center; justify-content: center;
+      width: 18px; height: 18px; border-radius: var(--radius-full);
+      color: var(--color-text-tertiary); background: none; border: none;
+      cursor: pointer; padding: 0; flex-shrink: 0;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+    .dpTriggerClear:hover { background: var(--color-bg-subtle); color: var(--color-text-primary); }
+
+    .dpPopover {
+      position: absolute; top: calc(100% + var(--spacing-xs)); left: 0;
+      background: var(--color-glass-surface);
+      border: var(--border-width-thin) solid var(--color-glass-border);
+      border-radius: var(--radius-sm); box-shadow: var(--shadow-xl);
+      backdrop-filter: blur(var(--blur-glass)); -webkit-backdrop-filter: blur(var(--blur-glass));
+      display: flex; flex-direction: row; z-index: 200; overflow: hidden;
+    }
+    .dpPopover[hidden] { display: none; }
+
+    .dpCalPanel { padding: var(--spacing-md); min-width: 272px; }
+    .dpCalHeader { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--spacing-sm); }
+    .dpMonthLabel { font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); color: var(--color-text-primary); }
+    .dpNavBtn {
+      display: flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; background: none; border: none; cursor: pointer;
+      border-radius: var(--radius-xs); color: var(--color-text-tertiary); padding: 0;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+    .dpNavBtn:hover { background: var(--color-bg-surface); color: var(--color-text-primary); }
+
+    .dpGrid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+    .dpDayName { display: flex; align-items: center; justify-content: center; height: 32px; font-size: var(--font-size-xs); font-weight: var(--font-weight-medium); color: var(--color-text-tertiary); }
+    .dpDay {
+      display: flex; align-items: center; justify-content: center; height: 32px;
+      font-size: var(--font-size-xs); font-weight: var(--font-weight-regular);
+      color: var(--color-text-primary); cursor: pointer;
+      border-radius: var(--radius-xs); background: none; border: none; padding: 0;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+    .dpDay:hover:not(.dpDayOutside):not(.dpDayStart):not(.dpDayEnd) { background: var(--color-bg-surface); }
+    .dpDayOutside { color: var(--color-text-disabled); cursor: default; }
+    .dpDayToday   { font-weight: var(--font-weight-semibold); color: var(--color-text-brand); }
+    .dpDayInRange { background: var(--color-bg-brand); border-radius: 0; }
+    [data-theme="light"] .dpDayInRange { background: var(--color-gray-200); opacity: var(--opacity-50); }
+    .dpDayStart   { background: var(--color-bg-brand-strong); color: var(--color-gray-white); border-radius: var(--radius-xs); font-weight: var(--font-weight-semibold); }
+    .dpDayEnd     { background: transparent; color: var(--color-text-brand); border: var(--border-width-medium) solid var(--color-border-focus); border-radius: var(--radius-xs); font-weight: var(--font-weight-semibold); }
+    .dpDayEnd:hover { background: var(--color-bg-brand); }
+
+    .dpPanelDivider { width: var(--border-width-thin); background: var(--color-border-default); align-self: stretch; flex-shrink: 0; }
+
+    .dpCtrlPanel { display: flex; flex-direction: column; padding: var(--spacing-md); min-width: 172px; gap: var(--spacing-sm); }
+    .dpFieldLabel { font-size: var(--font-size-xs); font-weight: var(--font-weight-medium); color: var(--color-text-tertiary); margin-bottom: var(--spacing-2xs); }
+    .dpDateInput {
+      width: 100%; background: var(--color-bg-surface);
+      border: var(--border-width-thin) solid var(--color-border-default);
+      border-radius: var(--radius-xs); padding: var(--spacing-xs) var(--spacing-sm);
+      font-family: var(--font-body); font-size: var(--font-size-sm);
+      color: var(--color-text-primary); outline: none; box-sizing: border-box;
+      transition: border-color var(--transition-fast);
+    }
+    .dpDateInput:focus { border-color: var(--color-border-focus); }
+    .dpSpacer { flex: 1; }
+    .dpApply {
+      width: 100%; display: flex; align-items: center; justify-content: center; gap: var(--spacing-xs);
+      padding: var(--spacing-xs) var(--spacing-sm); background: var(--color-bg-brand-strong);
+      color: var(--color-gray-white); border: none; border-radius: var(--radius-xs);
+      font-family: var(--font-body); font-size: var(--font-size-sm); font-weight: var(--font-weight-medium);
+      cursor: pointer; transition: opacity var(--transition-fast); white-space: nowrap;
+    }
+    .dpApply:hover { opacity: var(--opacity-90); }
+    .dpTzSelect {
+      width: 100%; background: var(--color-bg-surface);
+      border: var(--border-width-thin) solid var(--color-border-default);
+      border-radius: var(--radius-xs); padding: var(--spacing-xs) var(--spacing-sm);
+      font-family: var(--font-body); font-size: var(--font-size-xs); color: var(--color-text-tertiary);
+      cursor: pointer; outline: none; appearance: none; -webkit-appearance: none; box-sizing: border-box;
+    }
+
+    /* ── Scrollable content ── */
+    .pageContent {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--spacing-md) var(--spacing-xl) var(--spacing-xl);
+      position: relative;
+      z-index: 1;
+    }
+    .pageContent::-webkit-scrollbar { width: var(--spacing-xs); }
+    .pageContent::-webkit-scrollbar-track { background: transparent; }
+    .pageContent::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: var(--radius-xs); }
+
+    /* ── Summary bar ── */
+    .summaryBar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
+    }
+    .summaryItem {
+      padding: var(--spacing-md) var(--spacing-lg);
+      border-right: var(--border-width-thin) solid var(--color-border-subtle);
+    }
+    .summaryItem:last-child { border-right: none; }
+    .summaryLabel {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: var(--spacing-xs);
+    }
+    .summaryValue {
+      font-family: var(--font-display);
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      line-height: 1;
+    }
+    .summaryValue.highlight { color: var(--color-text-brand); }
+    .summaryValue.dim { color: var(--color-text-secondary); }
+
+    /* ── Table tweaks ── */
+    .tdFirst  { padding-left: var(--spacing-md) !important; }
+    .thFirst  { padding-left: var(--spacing-md) !important; }
+    .tdMuted  { color: var(--color-text-tertiary) !important; }
+    .tdStrong { font-weight: var(--font-weight-medium); color: var(--color-text-primary); }
+
+    /* ── Sidebar collapsed ── */
+    .closed .navLabel, .closed .navLabelLogout, .closed .userInfo { display: none; }
+    .closed .toggleIcon-left  { display: none; }
+    .closed .toggleIcon-right { display: inline-flex; }
+    .toggleIcon-right { display: none; }
+
+    /* ── Logo ── */
+    .logo-img { display: block; filter: brightness(0) invert(1); }
+    [data-theme="light"] .logo-img { filter: none; }
+    .logo-symbol { display: none; }
+    .closed .logo-full   { display: none; }
+    .closed .logo-symbol { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- ── Sidebar ── -->
+<aside class="sidebar open" id="sidebar">
+  <button class="toggleBtn" id="toggle-btn" aria-label="Recolher menu">
+    <i data-lucide="chevron-left" class="toggleIcon-left" width="14" height="14"></i>
+    <i data-lucide="chevron-right" class="toggleIcon-right" width="14" height="14"></i>
+  </button>
+
+  <div class="logoRow">
+    <div class="logoWrap">
+      <img class="logo-img logo-full" src="../storybook/src/components/Logo/logo-default.svg" width="120" alt="Althus" />
+      <img class="logo-img logo-symbol" src="../storybook/src/components/Logo/logo-symbol.svg" width="28" alt="Althus" />
+    </div>
+  </div>
+
+  <div class="body">
+    <nav class="navList">
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="layout-dashboard" width="18" height="18"></i></span>
+        <span class="navLabel">Dashboard</span>
+      </button>
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="map-pin" width="18" height="18"></i></span>
+        <span class="navLabel">Locais</span>
+      </button>
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="zap" width="18" height="18"></i></span>
+        <span class="navLabel">Carregadores</span>
+      </button>
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="receipt" width="18" height="18"></i></span>
+        <span class="navLabel">Tarifas</span>
+      </button>
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="tag" width="18" height="18"></i></span>
+        <span class="navLabel">Cupons</span>
+      </button>
+      <button class="navItem navItemActive">
+        <span class="navIcon"><i data-lucide="file-text" width="18" height="18"></i></span>
+        <span class="navLabel">Extrato</span>
+      </button>
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="triangle-alert" width="18" height="18"></i></span>
+        <span class="navLabel">Logs de Erros</span>
+      </button>
+    </nav>
+
+    <div class="spacer"></div>
+
+    <div class="bottomList">
+      <div class="separator"></div>
+      <div class="userRow">
+        <div class="avatar md"><span class="avatarInitials">AR</span></div>
+        <div class="userInfo">
+          <div class="userName">Admin Rede</div>
+          <div class="userEmail">admin@rededemo.com.br</div>
+        </div>
+      </div>
+      <button class="navItem" id="theme-btn" title="Modo claro">
+        <span class="navIcon" id="theme-icon"><i data-lucide="sun" width="18" height="18"></i></span>
+        <span class="navLabel" id="theme-label">Modo claro</span>
+      </button>
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="log-out" width="18" height="18"></i></span>
+        <span class="navLabelLogout">Sair</span>
+      </button>
+    </div>
+  </div>
+</aside>
+
+<!-- ── Main ── -->
+<main class="main bgWrapper" id="main">
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+
+  <!-- Page header -->
+  <div class="pageHeader">
+    <div>
+      <h1 class="pageTitle">Extrato</h1>
+      <p class="pageSubtitle">Transações de recarga da sua rede</p>
+    </div>
+    <button class="btn secondary hasLeft">
+      <span class="icon"><i data-lucide="download" width="16" height="16"></i></span>
+      Exportar CSV
+    </button>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <!-- DatePicker -->
+    <div class="dpWrap" id="dp-wrap">
+      <div class="dpTrigger" id="dp-trigger" role="button" tabindex="0">
+        <span class="dpTriggerIcon"><i data-lucide="calendar" width="14" height="14"></i></span>
+        <span id="dp-text" class="dpTriggerText">01/05 – 22/05/2026</span>
+        <button class="dpTriggerClear" id="dp-clear" aria-label="Limpar período">
+          <i data-lucide="x" width="12" height="12"></i>
+        </button>
+      </div>
+
+      <div class="dpPopover" id="dp-popover" hidden>
+        <div class="dpCalPanel">
+          <div class="dpCalHeader">
+            <button class="dpNavBtn" id="dp-prev"><i data-lucide="chevron-left" width="14" height="14"></i></button>
+            <span class="dpMonthLabel" id="dp-month-label"></span>
+            <button class="dpNavBtn" id="dp-next"><i data-lucide="chevron-right" width="14" height="14"></i></button>
+          </div>
+          <div class="dpGrid" id="dp-grid"></div>
+        </div>
+        <div class="dpPanelDivider"></div>
+        <div class="dpCtrlPanel">
+          <div>
+            <div class="dpFieldLabel">Início</div>
+            <input class="dpDateInput" id="dp-start-input" placeholder="dd/mm/aaaa" readonly />
+          </div>
+          <div>
+            <div class="dpFieldLabel">Fim</div>
+            <input class="dpDateInput" id="dp-end-input" placeholder="dd/mm/aaaa" readonly />
+          </div>
+          <div class="dpSpacer"></div>
+          <button class="dpApply" id="dp-apply">
+            Aplicar <i data-lucide="corner-down-left" width="12" height="12"></i>
+          </button>
+          <select class="dpTzSelect">
+            <option value="America/Sao_Paulo">Local (America/Sao_Paulo)</option>
+            <option value="UTC">UTC</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolbarSep"></div>
+
+    <!-- Localidade -->
+    <div class="filterWrap">
+      <div class="wrapper" id="localidade-dropdown">
+        <div class="trigger" id="localidade-trigger">
+          <span id="localidade-value" class="placeholder">Localidade</span>
+          <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+        </div>
+        <div class="menu">
+          <div class="option selected" data-value="">Todas</div>
+          <div class="option" data-value="iguatemi">Shopping Iguatemi SP</div>
+          <div class="option" data-value="shell">Posto Shell Anhanguera</div>
+          <div class="option" data-value="vila-olimpia">Estac. Vila Olímpia</div>
+          <div class="option" data-value="morumbi">Shopping Morumbi</div>
+          <div class="option" data-value="congonhas">Aeroporto de Congonhas</div>
+        </div>
+      </div>
+    </div>
+    <!-- Carregador -->
+    <div class="filterWrap">
+      <div class="wrapper" id="carregador-dropdown">
+        <div class="trigger" id="carregador-trigger">
+          <span id="carregador-value" class="placeholder">Carregador</span>
+          <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+        </div>
+        <div class="menu">
+          <div class="option selected" data-value="">Todos</div>
+          <div class="option" data-value="alt-001">ALT-001</div>
+          <div class="option" data-value="alt-002">ALT-002</div>
+          <div class="option" data-value="alt-003">ALT-003</div>
+          <div class="option" data-value="alt-004">ALT-004</div>
+          <div class="option" data-value="alt-005">ALT-005</div>
+          <div class="option" data-value="alt-006">ALT-006</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="pageContent">
+    <div class="card">
+
+      <!-- Summary bar -->
+      <div class="summaryBar">
+        <div class="summaryItem">
+          <div class="summaryLabel">Transações</div>
+          <div class="summaryValue dim">147</div>
+        </div>
+        <div class="summaryItem">
+          <div class="summaryLabel">Total kWh</div>
+          <div class="summaryValue dim">2.841 kWh</div>
+        </div>
+        <div class="summaryItem">
+          <div class="summaryLabel">Receita bruta</div>
+          <div class="summaryValue dim">R$ 7.103</div>
+        </div>
+        <div class="summaryItem">
+          <div class="summaryLabel">Descontos</div>
+          <div class="summaryValue dim">R$ 612</div>
+        </div>
+        <div class="summaryItem">
+          <div class="summaryLabel">Receita líquida</div>
+          <div class="summaryValue highlight">R$ 6.491</div>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="tableWrap">
+        <table class="table">
+          <thead>
+            <tr class="headerRow">
+              <th class="th thFirst sortable" style="width:14%;">
+                <span class="thInner">Data/hora <span class="sortIcon"><i data-lucide="chevrons-up-down" width="12" height="12"></i></span></span>
+              </th>
+              <th class="th" style="width:15%;">Usuário</th>
+              <th class="th" style="width:11%;">Carregador</th>
+              <th class="th sortable" style="width:9%;">
+                <span class="thInner">kWh <span class="sortIcon"><i data-lucide="chevrons-up-down" width="12" height="12"></i></span></span>
+              </th>
+              <th class="th sortable" style="width:11%;">
+                <span class="thInner">Cobrado <span class="sortIcon"><i data-lucide="chevrons-up-down" width="12" height="12"></i></span></span>
+              </th>
+              <th class="th" style="width:10%;">Desconto</th>
+              <th class="th sortable" style="width:11%;">
+                <span class="thInner">Pago <span class="sortIcon"><i data-lucide="chevrons-up-down" width="12" height="12"></i></span></span>
+              </th>
+              <th class="th" style="width:5%;"></th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr class="tr">
+              <td class="td tdFirst" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">22/05/2026 14:30</td>
+              <td class="td" style="font-family:var(--font-mono); font-size:var(--font-size-xs); color:var(--color-text-tertiary);">***.***.***-12</td>
+              <td class="td" style="font-family:var(--font-mono); font-size:var(--font-size-xs);">ALT-001</td>
+              <td class="td">25,4 kWh</td>
+              <td class="td" style="color:var(--color-text-secondary);">R$ 63,50</td>
+              <td class="td tdMuted">—</td>
+              <td class="td tdStrong">R$ 63,50</td>
+              <td class="td">
+                <div class="cellActions">
+                  <a href="jornada-2-3-2-detalhe-abastecimento.html" class="actionBtn" aria-label="Ver detalhe"><i data-lucide="eye" width="15" height="15"></i></a>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">22/05/2026 13:15</td>
+              <td class="td" style="font-family:var(--font-mono); font-size:var(--font-size-xs); color:var(--color-text-tertiary);">***.***.***-89</td>
+              <td class="td" style="font-family:var(--font-mono); font-size:var(--font-size-xs);">ALT-003</td>
+              <td class="td">18,2 kWh</td>
+              <td class="td" style="color:var(--color-text-secondary);">R$ 45,50</td>
+              <td class="td" style="color:var(--color-text-brand); font-size:var(--font-size-xs);">−R$ 9,55</td>
+              <td class="td tdStrong">R$ 35,95</td>
+              <td class="td">
+                <div class="cellActions">
+                  <button class="actionBtn" aria-label="Ver detalhe"><i data-lucide="eye" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">22/05/2026 11:00</td>
+              <td class="td" style="font-family:var(--font-mono); font-size:var(--font-size-xs); color:var(--color-text-tertiary);">***.***.***-45</td>
+              <td class="td" style="font-family:var(--font-mono); font-size:var(--font-size-xs);">ALT-001</td>
+              <td class="td">30,0 kWh</td>
+              <td class="td" style="color:var(--color-text-secondary);">R$ 75,00</td>
+              <td class="td" style="color:var(--color-text-brand); font-size:var(--font-size-xs);">−R$ 15,00</td>
+              <td class="td tdStrong">R$ 60,00</td>
+              <td class="td">
+                <div class="cellActions">
+                  <button class="actionBtn" aria-label="Ver detalhe"><i data-lucide="eye" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">21/05/2026 19:45</td>
+              <td class="td" style="font-family:var(--font-mono); font-size:var(--font-size-xs); color:var(--color-text-tertiary);">***.***.***-67</td>
+              <td class="td" style="font-family:var(--font-mono); font-size:var(--font-size-xs);">ALT-002</td>
+              <td class="td">12,8 kWh</td>
+              <td class="td" style="color:var(--color-text-secondary);">R$ 32,00</td>
+              <td class="td tdMuted">—</td>
+              <td class="td tdStrong">R$ 32,00</td>
+              <td class="td">
+                <div class="cellActions">
+                  <button class="actionBtn" aria-label="Ver detalhe"><i data-lucide="eye" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">21/05/2026 16:20</td>
+              <td class="td" style="font-family:var(--font-mono); font-size:var(--font-size-xs); color:var(--color-text-tertiary);">***.***.***-33</td>
+              <td class="td" style="font-family:var(--font-mono); font-size:var(--font-size-xs);">ALT-004</td>
+              <td class="td">22,0 kWh</td>
+              <td class="td" style="color:var(--color-text-secondary);">R$ 55,00</td>
+              <td class="td tdMuted">—</td>
+              <td class="td tdStrong">R$ 55,00</td>
+              <td class="td">
+                <div class="cellActions">
+                  <button class="actionBtn" aria-label="Ver detalhe"><i data-lucide="eye" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">21/05/2026 14:05</td>
+              <td class="td" style="font-family:var(--font-mono); font-size:var(--font-size-xs); color:var(--color-text-tertiary);">***.***.***-78</td>
+              <td class="td" style="font-family:var(--font-mono); font-size:var(--font-size-xs);">ALT-001</td>
+              <td class="td">40,5 kWh</td>
+              <td class="td" style="color:var(--color-text-secondary);">R$ 101,25</td>
+              <td class="td" style="color:var(--color-text-brand); font-size:var(--font-size-xs);">−R$ 20,00</td>
+              <td class="td tdStrong">R$ 81,25</td>
+              <td class="td">
+                <div class="cellActions">
+                  <button class="actionBtn" aria-label="Ver detalhe"><i data-lucide="eye" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">20/05/2026 20:30</td>
+              <td class="td" style="font-family:var(--font-mono); font-size:var(--font-size-xs); color:var(--color-text-tertiary);">***.***.***-21</td>
+              <td class="td" style="font-family:var(--font-mono); font-size:var(--font-size-xs);">ALT-006</td>
+              <td class="td">15,0 kWh</td>
+              <td class="td" style="color:var(--color-text-secondary);">R$ 37,50</td>
+              <td class="td tdMuted">—</td>
+              <td class="td tdStrong">R$ 37,50</td>
+              <td class="td">
+                <div class="cellActions">
+                  <button class="actionBtn" aria-label="Ver detalhe"><i data-lucide="eye" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <span class="info">Exibindo 1–7 de 147 resultados</span>
+        <div class="controls">
+          <button class="paginBtn" disabled aria-label="Página anterior">
+            <i data-lucide="chevron-left" width="14" height="14"></i>
+          </button>
+          <button class="paginBtn paginBtnActive" aria-current="page">1</button>
+          <button class="paginBtn">2</button>
+          <button class="paginBtn">3</button>
+          <span class="ellipsis">…</span>
+          <button class="paginBtn">21</button>
+          <button class="paginBtn" aria-label="Próxima página">
+            <i data-lucide="chevron-right" width="14" height="14"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  /* ── Sidebar toggle ── */
+  const sidebar   = document.getElementById('sidebar');
+  const toggleBtn = document.getElementById('toggle-btn');
+  toggleBtn.addEventListener('click', () => {
+    const isOpen = sidebar.classList.contains('open');
+    sidebar.classList.toggle('open', !isOpen);
+    sidebar.classList.toggle('closed', isOpen);
+    toggleBtn.setAttribute('aria-label', isOpen ? 'Expandir menu' : 'Recolher menu');
+  });
+
+  /* ── Theme toggle ── */
+  const htmlEl     = document.documentElement;
+  const themeBtn   = document.getElementById('theme-btn');
+  const themeIcon  = document.getElementById('theme-icon');
+  const themeLabel = document.getElementById('theme-label');
+  themeBtn.addEventListener('click', () => {
+    const isDark = htmlEl.getAttribute('data-theme') !== 'light';
+    htmlEl.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    themeIcon.innerHTML = isDark
+      ? '<i data-lucide="moon" width="18" height="18"></i>'
+      : '<i data-lucide="sun" width="18" height="18"></i>';
+    themeLabel.textContent = isDark ? 'Modo escuro' : 'Modo claro';
+    lucide.createIcons();
+  });
+
+  /* ── Dropdown: Localidade ── */
+  const localidadeDropdown = document.getElementById('localidade-dropdown');
+  const localidadeTrigger  = document.getElementById('localidade-trigger');
+  const localidadeValue    = document.getElementById('localidade-value');
+  localidadeTrigger.addEventListener('click', e => {
+    e.stopPropagation();
+    carregadorDropdown.classList.remove('open');
+    localidadeDropdown.classList.toggle('open');
+  });
+  localidadeDropdown.querySelectorAll('.option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      localidadeDropdown.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      const val = opt.dataset.value;
+      localidadeValue.textContent = val ? opt.textContent : 'Localidade';
+      localidadeValue.classList.toggle('placeholder', !val);
+      localidadeDropdown.classList.remove('open');
+    });
+  });
+
+  /* ── Dropdown: Carregador ── */
+  const carregadorDropdown = document.getElementById('carregador-dropdown');
+  const carregadorTrigger  = document.getElementById('carregador-trigger');
+  const carregadorValue    = document.getElementById('carregador-value');
+  carregadorTrigger.addEventListener('click', e => {
+    e.stopPropagation();
+    localidadeDropdown.classList.remove('open');
+    carregadorDropdown.classList.toggle('open');
+  });
+  carregadorDropdown.querySelectorAll('.option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      carregadorDropdown.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      const val = opt.dataset.value;
+      carregadorValue.textContent = val ? opt.textContent : 'Carregador';
+      carregadorValue.classList.toggle('placeholder', !val);
+      carregadorDropdown.classList.remove('open');
+    });
+  });
+
+  document.addEventListener('click', () => {
+    localidadeDropdown.classList.remove('open');
+    carregadorDropdown.classList.remove('open');
+  });
+
+  /* ── DatePicker ── */
+  (function () {
+    const MESES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+    const DIAS  = ['D','S','T','Q','Q','S','S'];
+
+    let viewYear = 2026, viewMonth = 4;
+    let startDate = new Date(2026, 4, 1);
+    let endDate   = new Date(2026, 4, 22);
+    let step = 'start'; // 'start' | 'end'
+
+    const wrap       = document.getElementById('dp-wrap');
+    const triggerBtn = document.getElementById('dp-trigger');
+    const popover    = document.getElementById('dp-popover');
+    const clearBtn   = document.getElementById('dp-clear');
+    const prevBtn    = document.getElementById('dp-prev');
+    const nextBtn    = document.getElementById('dp-next');
+    const monthLabel = document.getElementById('dp-month-label');
+    const grid       = document.getElementById('dp-grid');
+    const startInput = document.getElementById('dp-start-input');
+    const endInput   = document.getElementById('dp-end-input');
+    const applyBtn   = document.getElementById('dp-apply');
+    const dpText     = document.getElementById('dp-text');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+    function fmt(d) { return d ? `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}` : ''; }
+    function fmtShort(d) { return d ? `${pad(d.getDate())}/${pad(d.getMonth()+1)}` : ''; }
+    function sameDay(a, b) { return a && b && a.toDateString() === b.toDateString(); }
+    function inRange(d) { return startDate && endDate && d > startDate && d < endDate; }
+
+    function updateTrigger() {
+      if (startDate && endDate) {
+        dpText.textContent = `${fmtShort(startDate)} – ${fmt(endDate)}`;
+        dpText.className = 'dpTriggerText';
+      } else if (startDate) {
+        dpText.textContent = fmt(startDate);
+        dpText.className = 'dpTriggerText';
+      } else {
+        dpText.textContent = 'Selecionar período';
+        dpText.className = 'dpTriggerPlaceholder';
+      }
+    }
+
+    function updateInputs() {
+      startInput.value = fmt(startDate);
+      endInput.value   = fmt(endDate);
+    }
+
+    function renderGrid() {
+      monthLabel.textContent = `${MESES[viewMonth]} ${viewYear}`;
+      grid.innerHTML = '';
+
+      DIAS.forEach(d => {
+        const cell = document.createElement('div');
+        cell.className = 'dpDayName';
+        cell.textContent = d;
+        grid.appendChild(cell);
+      });
+
+      const firstDow = new Date(viewYear, viewMonth, 1).getDay();
+      const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+      const total = firstDow + daysInMonth;
+      const rows  = total <= 35 ? 35 : 42;
+
+      for (let i = 0; i < rows; i++) {
+        const dayNum = i - firstDow + 1;
+        const d = new Date(viewYear, viewMonth, dayNum);
+        const outside = i < firstDow || dayNum > daysInMonth;
+
+        const btn = document.createElement('button');
+        let cls = 'dpDay';
+        if (outside)          cls += ' dpDayOutside';
+        if (!outside && sameDay(d, new Date())) cls += ' dpDayToday';
+        if (sameDay(d, startDate))  cls += ' dpDayStart';
+        else if (sameDay(d, endDate)) cls += ' dpDayEnd';
+        else if (!outside && inRange(d)) cls += ' dpDayInRange';
+
+        btn.className = cls;
+        btn.textContent = d.getDate();
+
+        if (!outside) {
+          btn.addEventListener('click', () => {
+            const clicked = new Date(viewYear, viewMonth, d.getDate());
+            if (step === 'start') {
+              startDate = clicked; endDate = null; step = 'end';
+            } else {
+              if (clicked < startDate) { endDate = startDate; startDate = clicked; }
+              else { endDate = clicked; }
+              step = 'start';
+            }
+            updateInputs();
+            renderGrid();
+            lucide.createIcons();
+          });
+        }
+        grid.appendChild(btn);
+      }
+    }
+
+    function openPicker() {
+      popover.removeAttribute('hidden');
+      triggerBtn.classList.add('open');
+      renderGrid();
+      updateInputs();
+      lucide.createIcons();
+    }
+
+    function closePicker() {
+      popover.setAttribute('hidden', '');
+      triggerBtn.classList.remove('open');
+      step = 'start';
+    }
+
+    triggerBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      popover.hasAttribute('hidden') ? openPicker() : closePicker();
+    });
+
+    clearBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      startDate = null; endDate = null;
+      updateTrigger(); closePicker();
+    });
+
+    prevBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      if (--viewMonth < 0) { viewMonth = 11; viewYear--; }
+      renderGrid(); lucide.createIcons();
+    });
+
+    nextBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      if (++viewMonth > 11) { viewMonth = 0; viewYear++; }
+      renderGrid(); lucide.createIcons();
+    });
+
+    applyBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      updateTrigger(); closePicker(); lucide.createIcons();
+    });
+
+    wrap.addEventListener('click', e => e.stopPropagation());
+    document.addEventListener('click', closePicker);
+
+    updateTrigger();
+  })();
+
+  lucide.createIcons();
+</script>
+
+</body>
+</html>

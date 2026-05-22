@@ -239,7 +239,7 @@ const [senha, setSenha] = useState('');
 ### Divider
 **Import:** `import { Divider } from '../components/Divider/Divider'`
 
-Separador horizontal. Sem props. Usa `--color-border-subtle`.
+Separador horizontal. Sem props. Usa `--color-border-glass` (rgba translúcido — ≈ `#ffffff21` dark / `#00000015` light) com `margin: 0 var(--spacing-xl)` para inset dentro de cards.
 
 ```tsx
 <Divider />
@@ -469,6 +469,66 @@ const [page, setPage] = useState(1);
 
 ---
 
+### DatePicker
+**CSS:** `../storybook/src/components/DatePicker/DatePicker.module.css`
+
+Seletor de intervalo de datas com layout horizontal (calendário à esquerda, controles à direita). Inspirado no Geist Calendar `horizontalLayout`, adaptado com os tokens do Althus.
+
+| Classe | Descrição |
+|--------|-----------|
+| `.trigger` | Botão pill que abre o popover |
+| `.triggerIcon` | Ícone de calendário |
+| `.triggerText` | Texto do intervalo selecionado |
+| `.triggerPlaceholder` | Texto quando vazio |
+| `.triggerClear` | Botão X para limpar |
+| `.trigger.open` | Estado aberto (borda focus) |
+| `.popoverWrap` | Container `position: relative` |
+| `.popover` | Painel absoluto (flex row) |
+| `.calPanel` | Painel esquerdo — grade de dias |
+| `.calHeader` | Mês + botões nav |
+| `.calMonthLabel` | "May 2026" |
+| `.calNavBtn` | Seta anterior/próximo |
+| `.calGrid` | Grid 7 colunas |
+| `.calDayName` | S M T W T F S |
+| `.calDay` | Célula de dia |
+| `.calDayOutside` | Dia de outro mês (dimmed) |
+| `.calDayToday` | Hoje (brand color, bold) |
+| `.calDayStart` | Início do range (filled brand) |
+| `.calDayEnd` | Fim do range (outlined brand) |
+| `.calDayInRange` | Dias dentro do range (bg-brand) |
+| `.panelDivider` | Divisória vertical entre painéis |
+| `.ctrlPanel` | Painel direito — Start/End/Apply |
+| `.ctrlFieldLabel` | Label "Start" / "End" |
+| `.ctrlDateInput` | Input de data digitável |
+| `.ctrlSpacer` | Flex spacer empurra Apply para baixo |
+| `.ctrlApply` | Botão "Apply" brand |
+| `.ctrlTzSelect` | Select de timezone |
+
+**HTML standalone — uso:**
+```html
+<link rel="stylesheet" href="../storybook/src/components/DatePicker/DatePicker.module.css" />
+
+<div class="popoverWrap">
+  <button class="trigger open">
+    <span class="triggerIcon"><i data-lucide="calendar" width="14" height="14"></i></span>
+    <span class="triggerText">22/05/2026 – 31/05/2026</span>
+    <button class="triggerClear"><i data-lucide="x" width="12" height="12"></i></button>
+  </button>
+  <div class="popover">
+    <div class="calPanel">...</div>
+    <div class="panelDivider"></div>
+    <div class="ctrlPanel">...</div>
+  </div>
+</div>
+```
+
+**Notas:**
+- `.popover[hidden]` esconde o painel (use JS para alternar o atributo `hidden`)
+- O JS de renderização do calendário (navegar meses, selecionar range) deve viver na `<script>` da página HTML
+- `.calDayStart` e `.calDayEnd` não devem receber `.calDayInRange`
+
+---
+
 ### Card
 **CSS:** `../storybook/src/components/Card/Card.module.css`
 
@@ -644,6 +704,7 @@ Gráfico de rosca com ApexCharts. Total centralizado automático, legenda na bas
 | `--color-border-subtle` | gray-800 | gray-100 |
 | `--color-border-muted` | gray-600 | gray-200 |
 | `--color-border-focus` | brand-400 | brand-500 |
+| `--color-border-glass` | rgba(255,255,255,0.13) | rgba(0,0,0,0.08) |
 
 #### Ação
 | Token | Uso |

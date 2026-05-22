@@ -18,7 +18,7 @@
 .input {
   width: 100%;
   font-family: var(--font-body);
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
   color: var(--color-text-primary);
   background: var(--color-bg-surface);
   border: var(--border-width-thin) solid var(--color-border-muted);

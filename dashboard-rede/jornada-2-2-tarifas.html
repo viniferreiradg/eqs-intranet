@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tarifas — Althus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Design system -->
+  <link rel="stylesheet" href="../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Background/Background.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Input/Input.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Divider/Divider.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Feedback/Feedback.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Card/Card.module.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background: var(--color-bg-default);
+      color: var(--color-text-primary);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Main ── */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+
+    /* ── Page header ── */
+    .pageHeader {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: calc(var(--spacing-lg) + var(--spacing-xs)) var(--spacing-xl) 0;
+      flex-shrink: 0;
+    }
+    .pageTitle {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      line-height: var(--line-height-tight);
+    }
+    .pageSubtitle {
+      margin: var(--spacing-xs) 0 0;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+      font-weight: var(--font-weight-regular);
+    }
+
+    /* ── Scrollable content ── */
+    .pageContent {
+      flex: 1; overflow-y: auto;
+      padding: var(--spacing-md) var(--spacing-xl) var(--spacing-xl);
+      position: relative; z-index: 1;
+    }
+    .pageContent::-webkit-scrollbar { width: var(--spacing-xs); }
+    .pageContent::-webkit-scrollbar-track { background: transparent; }
+    .pageContent::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: var(--radius-xs); }
+
+    /* ── Feedback ── */
+    .feedbackWrap { margin-bottom: var(--spacing-md); display: none; }
+    .feedbackWrap.visible { display: block; }
+
+    /* ── Form section ── */
+    .formSection { padding: var(--spacing-xl); }
+    .sectionTitle { margin: 0 0 var(--spacing-xs); font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); color: var(--color-text-primary); }
+    .sectionSubtitle { margin: 0; font-size: var(--font-size-sm); color: var(--color-text-tertiary); font-weight: var(--font-weight-regular); }
+
+    /* Section header row (title + toggle) */
+    .sectionHeaderRow {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    /* ── Form grid ── */
+    .formGrid { display: grid; gap: var(--spacing-md); }
+    .grid2 { grid-template-columns: 1fr 1fr; }
+    .grid3 { grid-template-columns: 1fr 1fr 1fr; }
+    .grid1 { grid-template-columns: 1fr; }
+
+    /* ── Subsection label ── */
+    .subsectionLabel {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-tertiary);
+      margin: var(--spacing-lg) 0 var(--spacing-sm);
+    }
+    .subsectionLabel span {
+      font-weight: var(--font-weight-regular);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    /* ── Conditional section fields ── */
+    .sectionFields { }
+    .sectionFields.hidden { display: none; }
+
+    /* ── Form footer ── */
+    .formFooter {
+      display: flex; justify-content: flex-end; align-items: center;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-lg) var(--spacing-xl);
+      border-top: var(--border-width-thin) solid var(--color-border-subtle);
+    }
+
+    /* ── Toggle switch (page-level — avoids .wrapper conflict with Dropdown) ── */
+    .switchLabel {
+      display: inline-flex; align-items: center;
+      gap: var(--spacing-sm);
+      cursor: pointer; user-select: none;
+      flex-shrink: 0;
+      margin-top: var(--spacing-xs);
+    }
+    .switchInput { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+    .switchTrack {
+      position: relative;
+      width: 44px; height: 24px;
+      background: var(--color-glass-surface);
+      border: var(--border-width-thin) solid var(--color-glass-border);
+      border-radius: var(--radius-full);
+      transition: background var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+      flex-shrink: 0;
+    }
+    .switchThumb {
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 16px; height: 16px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: var(--shadow-xs);
+      transition: transform var(--transition-fast);
+    }
+    .switchLabel:has(input:checked) .switchTrack {
+      background: var(--gradient-brand);
+      border-color: transparent;
+      box-shadow: var(--shadow-highlight), var(--shadow-glow-sm);
+    }
+    .switchLabel:has(input:checked) .switchThumb { transform: translateX(20px); }
+    .switchStatus {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    /* ── Sidebar collapsed ── */
+    .closed .navLabel, .closed .navLabelLogout, .closed .userInfo { display: none; }
+    .closed .toggleIcon-left  { display: none; }
+    .closed .toggleIcon-right { display: inline-flex; }
+    .toggleIcon-right { display: none; }
+
+    /* ── Logo ── */
+    .logo-img { display: block; filter: brightness(0) invert(1); }
+    [data-theme="light"] .logo-img { filter: none; }
+    .logo-symbol { display: none; }
+    .closed .logo-full   { display: none; }
+    .closed .logo-symbol { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- ── Sidebar ── -->
+<aside class="sidebar open" id="sidebar">
+  <button class="toggleBtn" id="toggle-btn" aria-label="Recolher menu">
+    <i data-lucide="chevron-left" class="toggleIcon-left" width="14" height="14"></i>
+    <i data-lucide="chevron-right" class="toggleIcon-right" width="14" height="14"></i>
+  </button>
+
+  <div class="logoRow">
+    <div class="logoWrap">
+      <img class="logo-img logo-full" src="../storybook/src/components/Logo/logo-default.svg" width="120" alt="Althus" />
+      <img class="logo-img logo-symbol" src="../storybook/src/components/Logo/logo-symbol.svg" width="28" alt="Althus" />
+    </div>
+  </div>
+
+  <div class="body">
+    <nav class="navList">
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="layout-dashboard" width="18" height="18"></i></span>
+        <span class="navLabel">Dashboard</span>
+      </button>
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="map-pin" width="18" height="18"></i></span>
+        <span class="navLabel">Locais</span>
+      </button>
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="zap" width="18" height="18"></i></span>
+        <span class="navLabel">Carregadores</span>
+      </button>
+      <button class="navItem navItemActive">
+        <span class="navIcon"><i data-lucide="receipt" width="18" height="18"></i></span>
+        <span class="navLabel">Tarifas</span>
+      </button>
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="tag" width="18" height="18"></i></span>
+        <span class="navLabel">Cupons</span>
+      </button>
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="file-text" width="18" height="18"></i></span>
+        <span class="navLabel">Extrato</span>
+      </button>
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="triangle-alert" width="18" height="18"></i></span>
+        <span class="navLabel">Logs de Erros</span>
+      </button>
+    </nav>
+
+    <div class="spacer"></div>
+
+    <div class="bottomList">
+      <div class="separator"></div>
+      <div class="userRow">
+        <div class="avatar md"><span class="avatarInitials">AR</span></div>
+        <div class="userInfo">
+          <div class="userName">Admin Rede</div>
+          <div class="userEmail">admin@rededemo.com.br</div>
+        </div>
+      </div>
+      <button class="navItem" id="theme-btn" title="Modo claro">
+        <span class="navIcon" id="theme-icon"><i data-lucide="sun" width="18" height="18"></i></span>
+        <span class="navLabel" id="theme-label">Modo claro</span>
+      </button>
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="log-out" width="18" height="18"></i></span>
+        <span class="navLabelLogout">Sair</span>
+      </button>
+    </div>
+  </div>
+</aside>
+
+<!-- ── Main ── -->
+<main class="main bgWrapper" id="main">
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+
+  <!-- Page header -->
+  <div class="pageHeader">
+    <div>
+      <h1 class="pageTitle">Tarifas</h1>
+      <p class="pageSubtitle">Configure valores de recarga, ociosidade e reserva</p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="pageContent">
+
+    <!-- Feedback -->
+    <div class="feedbackWrap" id="feedback-wrap">
+      <div class="alert success" role="alert">
+        <span style="font-size: 18px; flex-shrink: 0; margin-top: 1px;">
+          <i data-lucide="circle-check" width="18" height="18"></i>
+        </span>
+        <div class="body">
+          <div class="title">Tarifas salvas com sucesso!</div>
+          <div class="message">As alterações foram aplicadas e já estão disponíveis para os carregadores.</div>
+        </div>
+        <button class="dismiss" aria-label="Fechar" onclick="document.getElementById('feedback-wrap').classList.remove('visible')">
+          <i data-lucide="x" width="14" height="14"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Form card -->
+    <div class="card">
+
+      <!-- ── Seção 1: Tarifa de Recarga ── -->
+      <div class="formSection">
+        <h2 class="sectionTitle">Tarifa de Recarga</h2>
+        <p class="sectionSubtitle">Configurada individualmente por carregador</p>
+
+        <!-- Seletor de carregador -->
+        <div style="margin-top: var(--spacing-md);">
+          <div class="wrapper" id="carregador-dropdown">
+            <label class="label" for="carregador-trigger">Carregador</label>
+            <div class="trigger" id="carregador-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+              <span id="carregador-value">ALT-001 — ABB Terra 54 · Shopping Iguatemi SP</span>
+              <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+            </div>
+            <div class="menu" role="listbox">
+              <div class="option selected" data-value="alt-001" role="option">ALT-001 — ABB Terra 54 · Shopping Iguatemi SP</div>
+              <div class="option" data-value="alt-002" role="option">ALT-002 — WEG EVCS-W22 · Posto Shell Anhanguera</div>
+              <div class="option" data-value="alt-003" role="option">ALT-003 — Schneider EVlink · Estac. Vila Olímpia</div>
+              <div class="option" data-value="alt-004" role="option">ALT-004 — ABB Terra 54 · Shopping Morumbi</div>
+              <div class="option" data-value="alt-005" role="option">ALT-005 — Siemens VersiCharge · Aeroporto de Congonhas</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Valor padrão -->
+        <p class="subsectionLabel">Valor base <span>— aplicado 24h nos turnos não configurados</span></p>
+        <div class="formGrid grid2">
+          <div class="wrapper">
+            <label class="label" for="valor-padrao">Valor padrão (R$/kWh)</label>
+            <div class="inputWrap">
+              <input class="input" id="valor-padrao" type="number" step="0.01" min="0" value="2.50" placeholder="0,00" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarifas por turno -->
+        <p class="subsectionLabel">Tarifas por turno <span>— opcional</span></p>
+        <div class="formGrid grid3">
+          <div class="wrapper">
+            <label class="label" for="turno-dia">Turno Dia (R$/kWh)</label>
+            <div class="inputWrap">
+              <input class="input" id="turno-dia" type="number" step="0.01" min="0" value="2.80" placeholder="0,00" />
+            </div>
+            <span class="helperText">06h – 18h</span>
+          </div>
+          <div class="wrapper">
+            <label class="label" for="turno-noite">Turno Noite (R$/kWh)</label>
+            <div class="inputWrap">
+              <input class="input" id="turno-noite" type="number" step="0.01" min="0" value="2.20" placeholder="0,00" />
+            </div>
+            <span class="helperText">18h – 00h</span>
+          </div>
+          <div class="wrapper">
+            <label class="label" for="turno-madrugada">Madrugada (R$/kWh)</label>
+            <div class="inputWrap">
+              <input class="input" id="turno-madrugada" type="number" step="0.01" min="0" value="1.80" placeholder="0,00" />
+            </div>
+            <span class="helperText">00h – 06h</span>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- ── Seção 2: Taxa de Ociosidade ── -->
+      <div class="formSection">
+        <div class="sectionHeaderRow">
+          <div>
+            <h2 class="sectionTitle">Taxa de Ociosidade</h2>
+            <p class="sectionSubtitle">Cobrada por minuto após o fim da recarga</p>
+          </div>
+          <label class="switchLabel" for="ociosidade-toggle">
+            <input type="checkbox" class="switchInput" id="ociosidade-toggle" checked onchange="toggleSection('ociosidade')" />
+            <span class="switchTrack"><span class="switchThumb"></span></span>
+            <span class="switchStatus" id="ociosidade-status">Ativa</span>
+          </label>
+        </div>
+
+        <div class="sectionFields" id="ociosidade-fields">
+          <div class="formGrid grid2" style="margin-bottom: var(--spacing-md);">
+            <div class="wrapper">
+              <label class="label" for="ocio-valor">Valor por minuto (R$/min)</label>
+              <div class="inputWrap">
+                <input class="input" id="ocio-valor" type="number" step="0.01" min="0" value="0.50" placeholder="0,00" />
+              </div>
+            </div>
+            <div class="wrapper">
+              <label class="label" for="ocio-carencia">Tempo de carência (min)</label>
+              <div class="inputWrap">
+                <input class="input" id="ocio-carencia" type="number" min="0" value="10" placeholder="Ex: 10" />
+              </div>
+              <span class="helperText">Período sem cobrança após o fim da recarga</span>
+            </div>
+          </div>
+          <div class="wrapper" id="ocio-localidade-dropdown">
+            <label class="label" for="ocio-localidade-trigger">Localidade <span style="font-weight: var(--font-weight-regular); color: var(--color-text-tertiary);">(opcional)</span></label>
+            <div class="trigger" id="ocio-localidade-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+              <span id="ocio-localidade-value" style="color: var(--color-text-tertiary);">Toda a rede (padrão)</span>
+              <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+            </div>
+            <div class="menu" role="listbox">
+              <div class="option selected" data-value="" role="option">Toda a rede (padrão)</div>
+              <div class="option" data-value="iguatemi" role="option">Shopping Iguatemi SP</div>
+              <div class="option" data-value="shell" role="option">Posto Shell Anhanguera</div>
+              <div class="option" data-value="vila-olimpia" role="option">Estac. Vila Olímpia</div>
+              <div class="option" data-value="morumbi" role="option">Shopping Morumbi</div>
+              <div class="option" data-value="congonhas" role="option">Aeroporto de Congonhas</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- ── Seção 3: Taxa de Reserva ── -->
+      <div class="formSection">
+        <div class="sectionHeaderRow">
+          <div>
+            <h2 class="sectionTitle">Taxa de Reserva</h2>
+            <p class="sectionSubtitle">Cobrada na confirmação de uma reserva de carregador</p>
+          </div>
+          <label class="switchLabel" for="reserva-toggle">
+            <input type="checkbox" class="switchInput" id="reserva-toggle" checked onchange="toggleSection('reserva')" />
+            <span class="switchTrack"><span class="switchThumb"></span></span>
+            <span class="switchStatus" id="reserva-status">Ativa</span>
+          </label>
+        </div>
+
+        <div class="sectionFields" id="reserva-fields">
+          <div class="formGrid grid2" style="margin-bottom: var(--spacing-md);">
+            <div class="wrapper">
+              <label class="label" for="reserva-valor">Valor da reserva (R$)</label>
+              <div class="inputWrap">
+                <input class="input" id="reserva-valor" type="number" step="0.01" min="0" value="5.00" placeholder="0,00" />
+              </div>
+              <span class="helperText">Debitado na confirmação da reserva</span>
+            </div>
+            <div class="wrapper">
+              <label class="label" for="reserva-tempo">Tempo de reserva (min)</label>
+              <div class="inputWrap">
+                <input class="input" id="reserva-tempo" type="number" min="1" value="15" placeholder="15" />
+              </div>
+              <span class="helperText">Prazo antes do cancelamento automático</span>
+            </div>
+          </div>
+          <div class="formGrid grid2">
+            <div class="wrapper">
+              <label class="label" for="reserva-cancelamento">Taxa de cancelamento (%) <span style="font-weight: var(--font-weight-regular); color: var(--color-text-tertiary);">(opcional)</span></label>
+              <div class="inputWrap">
+                <input class="input" id="reserva-cancelamento" type="number" step="1" min="0" max="100" value="0" placeholder="0" />
+              </div>
+              <span class="helperText">% sobre o valor da reserva; 0 = sem taxa</span>
+            </div>
+            <div class="wrapper" id="reserva-localidade-dropdown">
+              <label class="label" for="reserva-localidade-trigger">Localidade <span style="font-weight: var(--font-weight-regular); color: var(--color-text-tertiary);">(opcional)</span></label>
+              <div class="trigger" id="reserva-localidade-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+                <span id="reserva-localidade-value" style="color: var(--color-text-tertiary);">Toda a rede (padrão)</span>
+                <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+              </div>
+              <div class="menu" role="listbox">
+                <div class="option selected" data-value="" role="option">Toda a rede (padrão)</div>
+                <div class="option" data-value="iguatemi" role="option">Shopping Iguatemi SP</div>
+                <div class="option" data-value="shell" role="option">Posto Shell Anhanguera</div>
+                <div class="option" data-value="vila-olimpia" role="option">Estac. Vila Olímpia</div>
+                <div class="option" data-value="morumbi" role="option">Shopping Morumbi</div>
+                <div class="option" data-value="congonhas" role="option">Aeroporto de Congonhas</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form footer -->
+      <div class="formFooter">
+        <button class="btn secondary">Cancelar</button>
+        <button class="btn primary hasLeft" onclick="document.getElementById('feedback-wrap').classList.add('visible'); window.scrollTo({top:0,behavior:'smooth'})">
+          <span class="icon"><i data-lucide="save" width="16" height="16"></i></span>
+          Salvar alterações
+        </button>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script>
+  /* ── Toggle section fields ── */
+  function toggleSection(name) {
+    const toggle  = document.getElementById(name + '-toggle');
+    const fields  = document.getElementById(name + '-fields');
+    const statusEl = document.getElementById(name + '-status');
+    const isActive = toggle.checked;
+    fields.classList.toggle('hidden', !isActive);
+    if (statusEl) statusEl.textContent = isActive ? 'Ativa' : 'Inativa';
+  }
+
+  /* ── Dropdown logic ── */
+  document.querySelectorAll('[id$="-dropdown"]').forEach(dropdown => {
+    const trigger = dropdown.querySelector('.trigger');
+    const menu    = dropdown.querySelector('.menu');
+    const options = dropdown.querySelectorAll('.option');
+    const valueEl = dropdown.querySelector('[id$="-value"]');
+
+    trigger.addEventListener('click', e => {
+      e.stopPropagation();
+      const isOpen = dropdown.classList.contains('open');
+      document.querySelectorAll('[id$="-dropdown"].open').forEach(d => d.classList.remove('open'));
+      dropdown.classList.toggle('open', !isOpen);
+    });
+
+    trigger.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trigger.click(); }
+    });
+
+    options.forEach(opt => {
+      opt.addEventListener('click', () => {
+        options.forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        if (valueEl) {
+          const text = opt.textContent.trim();
+          valueEl.textContent = text;
+          const isPlaceholder = opt.dataset.value === '';
+          valueEl.style.color = isPlaceholder ? 'var(--color-text-tertiary)' : '';
+        }
+        dropdown.classList.remove('open');
+      });
+    });
+  });
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll('[id$="-dropdown"].open').forEach(d => d.classList.remove('open'));
+  });
+
+  /* ── Sidebar toggle ── */
+  const sidebar   = document.getElementById('sidebar');
+  const toggleBtn = document.getElementById('toggle-btn');
+  toggleBtn.addEventListener('click', () => {
+    const isOpen = sidebar.classList.contains('open');
+    sidebar.classList.toggle('open', !isOpen);
+    sidebar.classList.toggle('closed', isOpen);
+    toggleBtn.setAttribute('aria-label', isOpen ? 'Expandir menu' : 'Recolher menu');
+  });
+
+  /* ── Theme toggle ── */
+  const htmlEl    = document.documentElement;
+  const themeBtn  = document.getElementById('theme-btn');
+  const themeIcon = document.getElementById('theme-icon');
+  const themeLabel = document.getElementById('theme-label');
+  themeBtn.addEventListener('click', () => {
+    const isDark = htmlEl.getAttribute('data-theme') !== 'light';
+    htmlEl.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    themeIcon.innerHTML = isDark
+      ? '<i data-lucide="moon" width="18" height="18"></i>'
+      : '<i data-lucide="sun" width="18" height="18"></i>';
+    themeLabel.textContent = isDark ? 'Modo escuro' : 'Modo claro';
+    lucide.createIcons();
+  });
+
+  lucide.createIcons();
+</script>
+
+</body>
+</html>
