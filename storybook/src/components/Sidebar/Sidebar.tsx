@@ -11,7 +11,10 @@ import {
   ChevronRight,
   Sun,
   Moon,
+  Settings,
+  Bell,
 } from 'lucide-react';
+import { NotificationBadge } from '../NotificationBadge/NotificationBadge';
 import styles from './Sidebar.module.css';
 import { Logo, LogoSymbol } from '../Logo/Logo';
 import { Avatar } from '../Avatar/Avatar';
@@ -46,6 +49,8 @@ export type SidebarProps = {
   role?: 'adm' | 'empresa';
   theme?: 'dark' | 'light';
   onThemeToggle?: () => void;
+  /** Número de notificações exibido no badge do sininho. 0 = sem badge. */
+  notificationCount?: number;
 };
 
 /** Itens visíveis apenas para administradores */
@@ -80,6 +85,7 @@ export function Sidebar({
   role = 'adm',
   theme = 'dark',
   onThemeToggle,
+  notificationCount = 0,
 }: SidebarProps) {
   const navItems = role === 'empresa'
     ? defaultNavItems.filter(item => !ADM_ONLY_IDS.has(item.id))
@@ -140,6 +146,40 @@ export function Sidebar({
 
         {/* Bottom — separador + usuário + sair */}
         <div className={styles.bottomList}>
+          {/* Icon row: tema + configurações + notificações */}
+          <div className={styles.iconRow}>
+            <button
+              className={styles.iconBtn}
+              onClick={onThemeToggle}
+              aria-label={theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
+              title={theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
+              type="button"
+            >
+              {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
+
+            <button
+              className={styles.iconBtn}
+              onClick={() => onNavClick?.('configuracoes')}
+              aria-label="Configurações"
+              title="Configurações"
+              type="button"
+            >
+              <Settings size={16} />
+            </button>
+
+            <NotificationBadge count={notificationCount}>
+              <button
+                className={styles.iconBtn}
+                aria-label={notificationCount > 0 ? `${notificationCount} notificações` : 'Notificações'}
+                title="Notificações"
+                type="button"
+              >
+                <Bell size={16} />
+              </button>
+            </NotificationBadge>
+          </div>
+
           <div className={styles.separator} />
 
           {/* Avatar + nome/email */}
@@ -152,23 +192,6 @@ export function Sidebar({
               </div>
             )}
           </div>
-
-          {/* Tema */}
-          <button
-            className={styles.navItem}
-            onClick={onThemeToggle}
-            title={!open ? (theme === 'dark' ? 'Modo claro' : 'Modo escuro') : undefined}
-            type="button"
-          >
-            <span className={styles.navIcon}>
-              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-            </span>
-            {open && (
-              <span className={styles.navLabel}>
-                {theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
-              </span>
-            )}
-          </button>
 
           {/* Sair */}
           <button

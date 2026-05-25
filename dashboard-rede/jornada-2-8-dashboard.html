@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="../storybook/src/components/DonutChart/DonutChart.module.css" />
   <link rel="stylesheet" href="../storybook/src/components/Button/Button.module.css" />
   <link rel="stylesheet" href="../storybook/src/components/Background/Background.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Sheet/Sheet.module.css" />
 
 
 </head>
@@ -106,8 +107,115 @@
   </div>
 </main>
 
+<!-- ── Sheet: Notificações ── -->
+<div class="sheetOverlay" id="notif-sheet" onclick="notifSheetClose()">
+  <aside class="sheetPanel" style="width:400px" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="Notificações">
+    <div class="sheetHeader">
+      <span class="sheetTitle">Notificações</span>
+      <button class="sheetClose" onclick="notifSheetClose()" aria-label="Fechar" type="button">
+        <i data-lucide="x" width="16" height="16"></i>
+      </button>
+    </div>
+    <div class="sheetBody">
+      <div class="notifList">
+
+        <div class="notifListItem unread">
+          <div class="notifListIcon error">
+            <i data-lucide="wifi-off" width="16" height="16"></i>
+          </div>
+          <div class="notifListBody">
+            <div class="notifListTitle">
+              <span class="notifListDot"></span>
+              Carregador ALT-003 offline
+            </div>
+            <div class="notifListDesc">Posto Shell Anhanguera perdeu conexão.</div>
+          </div>
+          <span class="notifListTime">Agora</span>
+        </div>
+
+        <div class="notifListItem unread">
+          <div class="notifListIcon warning">
+            <i data-lucide="clock" width="16" height="16"></i>
+          </div>
+          <div class="notifListBody">
+            <div class="notifListTitle">
+              <span class="notifListDot"></span>
+              Tarifa vence em 2 dias
+            </div>
+            <div class="notifListDesc">Tarifa "Noturna Shell" expira em 27/05.</div>
+          </div>
+          <span class="notifListTime">14 min</span>
+        </div>
+
+        <div class="notifListItem unread">
+          <div class="notifListIcon success">
+            <i data-lucide="calendar-check" width="16" height="16"></i>
+          </div>
+          <div class="notifListBody">
+            <div class="notifListTitle">
+              <span class="notifListDot"></span>
+              Nova reserva confirmada
+            </div>
+            <div class="notifListDesc">ALT-007 — Shopping Morumbi, 17h30.</div>
+          </div>
+          <span class="notifListTime">1h</span>
+        </div>
+
+        <div class="notifListItem">
+          <div class="notifListIcon info">
+            <i data-lucide="file-text" width="16" height="16"></i>
+          </div>
+          <div class="notifListBody">
+            <div class="notifListTitle">Relatório mensal disponível</div>
+            <div class="notifListDesc">Abril/2026 pronto para download.</div>
+          </div>
+          <span class="notifListTime">Ontem</span>
+        </div>
+
+        <div class="notifListItem">
+          <div class="notifListIcon info">
+            <i data-lucide="user-plus" width="16" height="16"></i>
+          </div>
+          <div class="notifListBody">
+            <div class="notifListTitle">Novo usuário cadastrado</div>
+            <div class="notifListDesc">Carlos Mendes adicionado como Operador.</div>
+          </div>
+          <span class="notifListTime">Ontem</span>
+        </div>
+
+      </div>
+    </div>
+    <div class="sheetFooter">
+      <button class="btn ghost hasLeft" type="button" onclick="notifMarkAllRead()">
+        <span class="icon"><i data-lucide="check-check" width="15" height="15"></i></span>
+        Marcar todas como lidas
+      </button>
+    </div>
+  </aside>
+</div>
+
 <script src="shared/sidebar.js"></script>
 <script>
+  /* ── Sheet de notificações ── */
+  function notifSheetOpen() {
+    document.getElementById('notif-sheet').classList.add('sheetOpen');
+    document.body.style.overflow = 'hidden';
+  }
+  function notifSheetClose() {
+    document.getElementById('notif-sheet').classList.remove('sheetOpen');
+    document.body.style.overflow = '';
+  }
+  function notifMarkAllRead() {
+    document.querySelectorAll('.notifListItem.unread').forEach(el => el.classList.remove('unread'));
+    const badge = document.getElementById('notif-badge');
+    if (badge) { badge.textContent = '0'; badge.style.display = 'none'; }
+    const btn = document.getElementById('notif-btn');
+    if (btn) btn.setAttribute('aria-label', 'Notificações');
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') notifSheetClose();
+  });
+
   lucide.createIcons();
 
   /* ── Period filter ── */
@@ -133,7 +241,7 @@
   const css = (token) => getComputedStyle(document.documentElement).getPropertyValue(token).trim();
 
   /* ── Charts base config ── */
-  const mode = htmlEl.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  const mode = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
   const base = {
     chart: {
       background: 'transparent',

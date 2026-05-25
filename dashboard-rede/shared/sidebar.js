@@ -31,7 +31,6 @@
     { id: 'reservas',      label: 'Reservas',         icon: 'calendar-clock',   href: 'jornada-2-9-1-lista-reservas.html' },
     { id: 'logs',          label: 'Logs de Erros',    icon: 'triangle-alert',   href: 'jornada-2-5-1-logs-de-erros.html' },
     { id: 'usuarios',      label: 'Usuários',         icon: 'users',            href: 'jornada-2-6-1-lista-usuarios.html' },
-    { id: 'configuracoes', label: 'Configurações',    icon: 'settings',         href: 'jornada-2-8-1-minha-conta.html' },
   ];
 
   /* ── 3. Página ativa ───────────────────────────────────────────────────── */
@@ -74,6 +73,18 @@
       <div class="spacer"></div>
 
       <div class="bottomList">
+        <div class="iconRow">
+          <button class="iconBtn" id="theme-btn" type="button" aria-label="${themeLabelText}" title="${themeLabelText}">
+            <span id="theme-icon"><i data-lucide="${themeIconName}" width="16" height="16"></i></span>
+          </button>
+          <button class="iconBtn" type="button" aria-label="Configurações" title="Configurações" onclick="location.href='jornada-2-10-1-minha-conta.html'">
+            <i data-lucide="settings" width="16" height="16"></i>
+          </button>
+          <button class="iconBtn" type="button" id="notif-btn" aria-label="3 notificações" title="Notificações">
+            <i data-lucide="bell" width="16" height="16"></i>
+            <span class="notifBadge" id="notif-badge">3</span>
+          </button>
+        </div>
         <div class="separator"></div>
         <div class="userRow">
           <div class="avatar md"><span class="avatarInitials">AR</span></div>
@@ -82,12 +93,6 @@
             <div class="userEmail">admin@rededemo.com.br</div>
           </div>
         </div>
-        <button class="navItem" id="theme-btn" type="button">
-          <span class="navIcon" id="theme-icon">
-            <i data-lucide="${themeIconName}" width="18" height="18"></i>
-          </span>
-          <span class="navLabel" id="theme-label">${themeLabelText}</span>
-        </button>
         <button class="navItem" type="button">
           <span class="navIcon"><i data-lucide="log-out" width="18" height="18"></i></span>
           <span class="navLabelLogout">Sair</span>
@@ -115,18 +120,30 @@
 
   /* ── 9. Tema toggle (persiste via localStorage) ────────────────────────── */
   document.getElementById('theme-btn').addEventListener('click', () => {
-    const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
-    const next   = isDark ? 'light' : 'dark';
+    const isDark   = document.documentElement.getAttribute('data-theme') !== 'light';
+    const next     = isDark ? 'light' : 'dark';
+    const newLabel = isDark ? 'Modo escuro' : 'Modo claro';
+    const newIcon  = isDark ? 'moon' : 'sun';
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('althus-theme', next);
     document.getElementById('theme-icon').innerHTML =
-      `<i data-lucide="${isDark ? 'moon' : 'sun'}" width="18" height="18"></i>`;
-    document.getElementById('theme-label').textContent =
-      isDark ? 'Modo escuro' : 'Modo claro';
+      `<i data-lucide="${newIcon}" width="16" height="16"></i>`;
+    document.getElementById('theme-btn').setAttribute('aria-label', newLabel);
+    document.getElementById('theme-btn').setAttribute('title', newLabel);
     if (window.lucide) lucide.createIcons();
   });
 
   /* ── 10. Renderizar ícones Lucide do sidebar ───────────────────────────── */
   if (window.lucide) lucide.createIcons();
+
+  /* ── 11. Notificações — abre Sheet se existir na página ───────────────── */
+  const notifBtn = document.getElementById('notif-btn');
+  if (notifBtn) {
+    notifBtn.addEventListener('click', () => {
+      if (typeof notifSheetOpen === 'function') {
+        notifSheetOpen();
+      }
+    });
+  }
 
 })();

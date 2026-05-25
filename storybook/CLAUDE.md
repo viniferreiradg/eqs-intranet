@@ -93,6 +93,7 @@ Os tokens semânticos (ex: `--color-text-primary`, `--color-bg-default`) se adap
 | `role` | `'adm' \| 'empresa'` | `'adm'` | Filtra itens do menu |
 | `theme` | `'dark' \| 'light'` | `'dark'` | Tema atual — controla ícone Sun/Moon |
 | `onThemeToggle` | `() => void` | — | Callback do botão de alternância de tema |
+| `notificationCount` | `number` | `0` | Número no badge do sininho. 0 = sem badge |
 
 **Itens de navegação padrão:**
 
@@ -105,9 +106,13 @@ Os tokens semânticos (ex: `--color-text-primary`, `--color-bg-default`) se adap
 | `clientes` | Clientes | `Building2` | somente adm |
 | `pesquisa` | Pesquisa | `FileText` | adm + empresa |
 
-**Nota:** Usa `Logo` e `LogoSymbol` internamente.
+**Nota:** Usa `Logo`, `LogoSymbol` e `NotificationBadge` internamente.
+
+**Bottom area:** O rodapé da sidebar tem um `iconRow` com 3 botões redondos (`.iconBtn`): tema, configurações e notificações. O de notificações usa `NotificationBadge`. Ao clicar em configurações, chama `onNavClick?.('configuracoes')`.
 
 **Aviso CSS (HTML standalone):** Os seletores de largura em `Sidebar.module.css` são **`.sidebar.open`** e **`.sidebar.closed`** (compostos com `.sidebar`) — não são seletores nus `.open`/`.closed`. Isso evita conflito com o Accordion, que também usa a classe `.open` em seus itens. Nunca reverter para seletores nus.
+
+**`.iconRow` collapsed:** Quando sidebar está fechada (`.sidebar.closed`), o `iconRow` muda para `flex-direction: column`, empilhando os 3 ícones verticalmente. Isso está em `Sidebar.module.css` e se aplica automaticamente ao HTML standalone.
 
 ```tsx
 const [open, setOpen] = useState(true);
@@ -317,6 +322,115 @@ Sem props. Header da área pública (beneficiário/profissional). Logo centraliz
 ```tsx
 const [val, setVal] = useState('');
 <Dropdown options={options} value={val} onChange={setVal} label="Status" placeholder="Selecione..." />
+```
+
+---
+
+### Sheet
+**Import:** `import { Sheet } from '../components/Sheet/Sheet'`
+
+Painel deslizante da direita (right drawer). Overlay com backdrop escurecido, animação `translateX`, scroll interno, Escape para fechar.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `open` | `boolean` | — | Visibilidade |
+| `onClose` | `() => void` | — | Callback de fechar (botão X, overlay, Escape) |
+| `title` | `string` | — | Título no header |
+| `children` | `ReactNode` | — | Conteúdo scrollável |
+| `footer` | `ReactNode` | — | Ações no rodapé (opcional) |
+| `width` | `number \| string` | `400` | Largura do painel |
+
+```tsx
+const [open, setOpen] = useState(false);
+
+<Button onClick={() => setOpen(true)}>Notificações</Button>
+
+<Sheet
+  open={open}
+  onClose={() => setOpen(false)}
+  title="Notificações"
+  width={420}
+  footer={<Button variant="ghost">Marcar todas como lidas</Button>}
+>
+  {/* conteúdo */}
+</Sheet>
+```
+
+**HTML standalone — classes:**
+
+| Classe | Descrição |
+|--------|-----------|
+| `.sheetOverlay` | Backdrop fixo `inset: 0`, fundo escurecido |
+| `.sheetOverlay.sheetOpen` | Estado aberto (fundo visível, pointer-events ativo) |
+| `.sheetPanel` | Painel lateral direito (`translateX(100%)` → `translateX(0)`) |
+| `.sheetHeader` | Barra de título + botão fechar |
+| `.sheetTitle` | Texto do título |
+| `.sheetClose` | Botão X |
+| `.sheetBody` | Área de conteúdo scrollável |
+| `.sheetFooter` | Rodapé com ações (opcional) |
+
+```html
+<link rel="stylesheet" href="../storybook/src/components/Sheet/Sheet.module.css" />
+
+<div class="sheetOverlay" id="notif-sheet" onclick="closeSheet()">
+  <aside class="sheetPanel" onclick="event.stopPropagation()">
+    <div class="sheetHeader">
+      <span class="sheetTitle">Notificações</span>
+      <button class="sheetClose" onclick="closeSheet()" aria-label="Fechar">
+        <i data-lucide="x" width="16" height="16"></i>
+      </button>
+    </div>
+    <div class="sheetBody"><!-- conteúdo --></div>
+    <div class="sheetFooter"><!-- ações --></div>
+  </aside>
+</div>
+
+<script>
+  function openSheet()  { document.getElementById('notif-sheet').classList.add('sheetOpen'); }
+  function closeSheet() { document.getElementById('notif-sheet').classList.remove('sheetOpen'); }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+</script>
+```
+
+---
+
+### NotificationBadge
+**Import:** `import { NotificationBadge } from '../components/NotificationBadge/NotificationBadge'`
+
+Envolve qualquer elemento (ícone, botão) e sobrepõe um badge vermelho com contagem de notificações. Badge oculto quando `count === 0`. Acima de `max`, exibe `max+`.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `count` | `number` | — | Número de notificações. 0 = badge oculto |
+| `max` | `number` | `9` | Limite antes de exibir "+" (ex: `9+`) |
+| `children` | `ReactNode` | — | Elemento envolvido (ícone, botão) |
+
+**Tokens usados:** `--color-action-error` (fundo), `--color-gray-white` (texto), `--color-bg-default` (ring de separação via `box-shadow`).
+
+```tsx
+<NotificationBadge count={3}>
+  <button className={styles.iconBtn} aria-label="3 notificações">
+    <Bell size={16} />
+  </button>
+</NotificationBadge>
+
+{/* Acima do limite */}
+<NotificationBadge count={12} max={9}>  {/* exibe "9+" */}
+  <button>...</button>
+</NotificationBadge>
+
+{/* Sem badge */}
+<NotificationBadge count={0}>
+  <button>...</button>
+</NotificationBadge>
+```
+
+**HTML standalone:** use `.notifBadge` dentro de um `.iconBtn` (position: relative) do `Sidebar.module.css`:
+```html
+<button class="iconBtn" aria-label="3 notificações">
+  <i data-lucide="bell" width="16" height="16"></i>
+  <span class="notifBadge">3</span>
+</button>
 ```
 
 ---

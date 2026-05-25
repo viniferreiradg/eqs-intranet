@@ -177,6 +177,70 @@
   text-overflow: ellipsis;
 }
 
+/* ── Icon row (tema + config + notificações) ────────────── */
+.iconRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+
+.sidebar.closed .iconRow {
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2xs);
+}
+
+.iconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--color-glass-surface);
+  border: var(--border-width-thin) solid var(--color-glass-border);
+  cursor: pointer;
+  color: var(--color-nav-idle);
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+  flex-shrink: 0;
+  position: relative;
+}
+.iconBtn:hover {
+  background: var(--color-bg-elevated);
+  border-color: var(--color-border-default);
+  color: var(--color-text-secondary);
+}
+.iconBtn:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Badge de notificação para HTML standalone (dentro do .iconBtn) */
+.notifBadge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(3px, -3px);
+  min-width: 16px;
+  height: 16px;
+  padding: 0 var(--spacing-2xs);
+  border-radius: var(--radius-full);
+  background: var(--color-action-error);
+  color: var(--color-gray-white);
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  box-shadow: 0 0 0 1.5px var(--color-sidebar-bg);
+}
+
 .toggleBtn {
   display: flex;
   align-items: center;
