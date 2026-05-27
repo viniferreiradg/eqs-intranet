@@ -13,6 +13,8 @@ mkdir -p public/storybook/src
 mkdir -p public/storybook-ui
 mkdir -p public/dashboard-rede
 mkdir -p public/dashboard-adm
+mkdir -p public/app
+mkdir -p public/shared
 
 echo "→ Copying Storybook UI..."
 cp -r storybook/storybook-static/. public/storybook-ui/
@@ -20,9 +22,15 @@ cp -r storybook/storybook-static/. public/storybook-ui/
 echo "→ Copying CSS source files..."
 cp -r storybook/src/. public/storybook/src/
 
+echo "→ Copying shared CSS..."
+cp -r shared/. public/shared/
+
 echo "→ Copying dashboard files..."
 cp -r dashboard-rede/. public/dashboard-rede/
 cp -r dashboard-adm/. public/dashboard-adm/
+
+echo "→ Copying app files..."
+cp -r app/. public/app/
 
 echo "→ Creating root redirect..."
 cat > public/index.html << 'EOF'
