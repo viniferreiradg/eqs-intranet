@@ -216,13 +216,32 @@ body.login-screen {
   pointer-events: none;
 }
 
-/* Pin fixo no centro do mapa (marcador de posição atual) */
+/* Pin Althus próximo ao centro (deslocado para liberar espaço ao marcador do usuário) */
 .map-pin-center {
+  position: absolute;
+  top: 50%;
+  left: 62%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* Marcador de localização do usuário — círculo brand + ícone user */
+.map-user-pin {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: calc(var(--spacing-xl) + var(--spacing-sm));    /* 40px */
+  height: calc(var(--spacing-xl) + var(--spacing-sm));   /* 40px */
+  border-radius: var(--radius-full);
+  background: var(--color-action-primary);
+  color: var(--color-text-inverse);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   pointer-events: none;
+  box-shadow: var(--shadow-lg);
+  z-index: 2;
 }
 
 /* ─── Distributor pin positions (demo) ──────────────── */
