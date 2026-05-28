@@ -118,64 +118,68 @@ router.tab('screen-id')       // trocar aba (fade + shift)
 
 ## Screens
 
-### Onboarding
+### RF002 — Login
 | Status | ID | Title |
 |---|---|---|
-| ✅ | splash | Splash Screen |
-| ✅ | login | Login |
-| ⬜ | cadastro-step1 | Cadastro — Dados pessoais |
-| ⬜ | cadastro-step2 | Cadastro — Verificação OTP |
-| ⬜ | cadastro-step3 | Cadastro — Dados financeiros |
-| ⬜ | cadastro-step4 | Cadastro — Definir senha |
-| ⬜ | cadastro-step5 | Cadastro — Aceitar termos |
-| ✅ | recuperar-canal | Recuperar senha — Canal |
-| ✅ | recuperar-otp | Recuperar senha — OTP |
-| ✅ | recuperar-senha | Recuperar senha — Nova senha |
+| ✅ | jornada-1-2-0-splash | Splash Screen |
+| ✅ | jornada-1-2-1-login | Login |
+| ⬜ | jornada-1-2-2-cadastro-step1 | Cadastro — Dados pessoais |
+| ⬜ | jornada-1-2-3-cadastro-step2 | Cadastro — Verificação OTP |
+| ⬜ | jornada-1-2-4-cadastro-step3 | Cadastro — Dados financeiros |
+| ⬜ | jornada-1-2-5-cadastro-step4 | Cadastro — Definir senha |
+| ⬜ | jornada-1-2-6-cadastro-step5 | Cadastro — Aceitar termos |
 
-### Tab: Mapa
+### RF003 — Recuperação de Senha
 | Status | ID | Title |
 |---|---|---|
-| ✅ | home-map | Home — Mapa |
-| ⬜ | map-sheet | Detalhe da localidade |
-| ⬜ | map-device | Detalhe do dispositivo |
-| ⬜ | map-filters | Filtros de busca |
-| ⬜ | recarga-metodo | Iniciar Recarga — QR / Código |
-| ⬜ | recarga-pagamento | Iniciar Recarga — Pagamento |
-| ⬜ | recarga-andamento | Recarga em andamento |
-| ⬜ | recarga-avaliacao | Avaliação pós-recarga |
-| ⬜ | reserva-confirmar | Fazer reserva — Confirmação |
-| ⬜ | reserva-confirmada | Reserva confirmada |
+| ✅ | jornada-1-3-1-recuperar-canal | Recuperar senha — Canal |
+| ✅ | jornada-1-3-2-recuperar-otp | Recuperar senha — OTP |
+| ✅ | jornada-1-3-3-recuperar-senha | Recuperar senha — Nova senha |
 
-### Tab: Histórico
+### RF004 — Mapa de Postos
 | Status | ID | Title |
 |---|---|---|
-| ⬜ | historico-lista | Histórico de abastecimentos |
-| ⬜ | historico-detalhe | Abastecimento — Detalhe |
-| ⬜ | reservas-lista | Histórico de reservas |
-| ⬜ | reservas-detalhe | Reserva — Detalhe |
-| ⬜ | reserva-cancelar | Cancelar reserva |
+| ✅ | jornada-1-4-1-home-map | Home — Mapa |
+| ⬜ | jornada-1-4-2-map-sheet | Detalhe da localidade |
+| ⬜ | jornada-1-4-3-map-device | Detalhe do dispositivo |
+| ⬜ | jornada-1-4-4-map-filters | Filtros de busca |
+| ⬜ | jornada-1-4-5-recarga-metodo | Iniciar Recarga — QR / Código |
+| ⬜ | jornada-1-4-6-recarga-pagamento | Iniciar Recarga — Pagamento |
+| ⬜ | jornada-1-4-7-recarga-andamento | Recarga em andamento |
+| ⬜ | jornada-1-4-8-recarga-avaliacao | Avaliação pós-recarga |
+| ⬜ | jornada-1-4-9-reserva-confirmar | Fazer reserva — Confirmação |
+| ⬜ | jornada-1-4-10-reserva-confirmada | Reserva confirmada |
 
-### Tab: Carteira
+### RF005 — Histórico
 | Status | ID | Title |
 |---|---|---|
-| ⬜ | carteira | Carteira digital |
-| ⬜ | carteira-pix | Adicionar saldo — PIX |
-| ⬜ | carteira-cartao | Adicionar saldo — Cartão |
-| ⬜ | extrato | Extrato de créditos |
-| ⬜ | cupons | Meus cupons |
-| ⬜ | cartoes | Gerenciar cartões |
+| ⬜ | jornada-1-5-1-historico-lista | Histórico de abastecimentos |
+| ⬜ | jornada-1-5-2-historico-detalhe | Abastecimento — Detalhe |
+| ⬜ | jornada-1-5-3-reservas-lista | Histórico de reservas |
+| ⬜ | jornada-1-5-4-reservas-detalhe | Reserva — Detalhe |
+| ⬜ | jornada-1-5-5-reserva-cancelar | Cancelar reserva |
 
-### Tab: Perfil
+### RF006 — Carteira
 | Status | ID | Title |
 |---|---|---|
-| ⬜ | perfil | Perfil — Menu |
-| ⬜ | perfil-dados | Editar dados pessoais |
-| ⬜ | perfil-senha | Alterar senha |
-| ⬜ | veiculos-lista | Meus veículos |
-| ⬜ | veiculos-form | Cadastrar / Editar veículo |
-| ⬜ | notificacoes | Notificações |
-| ⬜ | notificacao-detalhe | Detalhe da notificação |
-| ⬜ | termos | Termos e Políticas |
+| ⬜ | jornada-1-6-1-carteira | Carteira digital |
+| ⬜ | jornada-1-6-2-carteira-pix | Adicionar saldo — PIX |
+| ⬜ | jornada-1-6-3-carteira-cartao | Adicionar saldo — Cartão |
+| ⬜ | jornada-1-6-4-extrato | Extrato de créditos |
+| ⬜ | jornada-1-6-5-cupons | Meus cupons |
+| ⬜ | jornada-1-6-6-cartoes | Gerenciar cartões |
+
+### RF007 — Perfil
+| Status | ID | Title |
+|---|---|---|
+| ⬜ | jornada-1-7-1-perfil | Perfil — Menu |
+| ⬜ | jornada-1-7-2-perfil-dados | Editar dados pessoais |
+| ⬜ | jornada-1-7-3-perfil-senha | Alterar senha |
+| ⬜ | jornada-1-7-4-veiculos-lista | Meus veículos |
+| ⬜ | jornada-1-7-5-veiculos-form | Cadastrar / Editar veículo |
+| ⬜ | jornada-1-7-6-notificacoes | Notificações |
+| ⬜ | jornada-1-7-7-notificacao-detalhe | Detalhe da notificação |
+| ⬜ | jornada-1-7-8-termos | Termos e Políticas |
 
 ---
 

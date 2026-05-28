@@ -564,7 +564,7 @@
       <div class="preview-bar-dot"></div>
       <div class="preview-bar-dot"></div>
       <div class="preview-bar-dot"></div>
-      <span class="preview-url" id="preview-url">screens/splash.html</span>
+      <span class="preview-url" id="preview-url">screens/jornada-1-2-0-splash.html</span>
     </div>
 
     <!-- Phone frame -->
@@ -598,7 +598,7 @@
         <div id="app">
           <div id="screen-container"></div>
           <nav id="bottom-nav" class="bottomNav" hidden aria-label="Navegação principal">
-            <button class="navItem navActive" data-tab="mapa" onclick="router.tab('home-map')" aria-label="Mapa" aria-current="page">
+            <button class="navItem navActive" data-tab="mapa" onclick="router.tab('jornada-1-4-1-home-map')" aria-label="Mapa" aria-current="page">
               <span class="navIcon"><i data-lucide="map" width="22" height="22"></i></span>
             </button>
             <button class="navItem" data-tab="historico" onclick="router.tab('historico-lista')" aria-label="Histórico">
@@ -636,19 +636,24 @@
   <script>
     const FLOWS = [
       {
-        label: 'Onboarding',
+        label: 'RF002 — Login',
         screens: [
-          { label: 'Splash Screen',           id: 'splash',          built: true },
-          { label: 'Login',                   id: 'login',           built: true },
-          { label: 'Recuperar senha — Canal', id: 'recuperar-canal', built: true },
-          { label: 'Recuperar senha — OTP',    id: 'recuperar-otp',    built: true },
-          { label: 'Recuperar senha — Senha', id: 'recuperar-senha', built: true },
+          { label: 'Splash Screen', id: 'jornada-1-2-0-splash', built: true },
+          { label: 'Login',         id: 'jornada-1-2-1-login',  built: true },
         ],
       },
       {
-        label: 'Tab: Mapa',
+        label: 'RF003 — Recuperação de Senha',
         screens: [
-          { label: 'Home — Mapa', id: 'home-map', built: true },
+          { label: 'Canal de recuperação', id: 'jornada-1-3-1-recuperar-canal', built: true },
+          { label: 'Código OTP',           id: 'jornada-1-3-2-recuperar-otp',   built: true },
+          { label: 'Nova senha',           id: 'jornada-1-3-3-recuperar-senha', built: true },
+        ],
+      },
+      {
+        label: 'RF004 — Mapa de Postos',
+        screens: [
+          { label: 'Home — Mapa', id: 'jornada-1-4-1-home-map', built: true },
         ],
       },
     ];
@@ -805,8 +810,8 @@
 
     /* ── Boot ───────────────────────────────────────── */
     lucide.createIcons();
-    router.init('splash').then(() => {
-      const firstBtn = list.querySelector('.screen-btn[data-screen-id="splash"]');
+    router.init('jornada-1-2-0-splash').then(() => {
+      const firstBtn = list.querySelector('.screen-btn[data-screen-id="jornada-1-2-0-splash"]');
       if (firstBtn) {
         firstBtn.closest('.flow-screens').classList.remove('collapsed');
         firstBtn.closest('.flow-screens').previousElementSibling.classList.remove('collapsed');
