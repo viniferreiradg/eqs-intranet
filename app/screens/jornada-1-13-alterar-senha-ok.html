@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../../shared/page-mobile.css" />
   <link rel="stylesheet" href="../../storybook/src/components/AppBar/AppBar.module.css" />
   <link rel="stylesheet" href="../../storybook/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/Feedback/Feedback.module.css" />
   <link rel="stylesheet" href="../../storybook/src/components/BottomNav/BottomNav.module.css" />
   <link rel="stylesheet" href="../../storybook/src/components/NotificationBadge/NotificationBadge.module.css" />
   <link rel="stylesheet" href="../../storybook/src/components/Button/Button.module.css" />
@@ -22,6 +23,14 @@
   </header>
 
   <div class="screen-content" style="padding-top: 0; overflow-y: auto; scrollbar-width: none;">
+
+    <!-- Banner de sucesso flutuante -->
+    <div class="alert success anim-enter-top alert-float" role="alert">
+      <span class="icon"><i data-lucide="circle-check" width="18" height="18"></i></span>
+      <div class="body">
+        <p class="message">Senha alterada com sucesso.</p>
+      </div>
+    </div>
 
     <!-- Avatar + dados do usuário -->
     <div class="profile-header">
@@ -109,10 +118,8 @@
     </button>
     <button class="navItem" data-tab="notificacoes" onclick="router.tab('notificacoes')" aria-label="Notificações">
       <span class="navIcon">
-        <span class="wrap">
-          <i data-lucide="bell" width="22" height="22"></i>
-          <span class="badge">3</span>
-        </span>
+        <span class="notifBadge">3</span>
+        <i data-lucide="bell" width="22" height="22"></i>
       </span>
     </button>
     <button class="navItem" data-tab="carteira" onclick="router.tab('jornada-1-6-1-carteira')" aria-label="Carteira">
@@ -128,6 +135,15 @@
       ? window.parent.router
       : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
 
+    // Auto-dismiss do banner de sucesso após 3s
+    var alertEl = document.querySelector('.alert-float');
+    if (alertEl) {
+      setTimeout(function() {
+        alertEl.classList.remove('anim-enter-top');
+        alertEl.classList.add('anim-exit-top');
+        setTimeout(function() { alertEl.hidden = true; }, 380);
+      }, 3000);
+    }
   </script>
   <script>lucide.createIcons();</script>
 

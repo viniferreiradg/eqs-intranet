@@ -19,7 +19,12 @@
     var router = (window.parent && window.parent.router)
       ? window.parent.router
       : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
-    setTimeout(function() { router.replace('jornada-1-2-1-login'); }, 2500);
+
+    // Não disparar o redirect se estiver rodando como thumbnail na sidebar
+    var isThumbnail = window.frameElement && window.frameElement.classList.contains('thumb-frame');
+    if (!isThumbnail) {
+      setTimeout(function() { router.replace('jornada-1-2-1-login'); }, 2500);
+    }
   </script>
 
 </body>

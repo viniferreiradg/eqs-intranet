@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Detalhes da reserva — Althus</title>
+  <title>Cancelar reserva — Althus</title>
   <link rel="stylesheet" href="../../storybook/src/tokens/tokens.css" />
   <link rel="stylesheet" href="../../shared/page-mobile.css" />
   <link rel="stylesheet" href="../../storybook/src/components/AppBar/AppBar.module.css" />
@@ -112,8 +112,8 @@
     </div>
   </main>
 
-  <!-- ── Dialog de confirmação de cancelamento ─────── -->
-  <div class="dialogOverlay" id="cancel-dialog" style="display:none;" onclick="closeCancelDialog()">
+  <!-- ── Dialog de confirmação de cancelamento (aberto por padrão) ── -->
+  <div class="dialogOverlay" id="cancel-dialog" onclick="closeCancelDialog()">
     <div class="dialog sm" onclick="event.stopPropagation()" role="dialog" aria-modal="true"
          aria-labelledby="cancel-dialog-title">
       <div class="dialogHeader">

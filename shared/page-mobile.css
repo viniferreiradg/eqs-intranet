@@ -3386,6 +3386,41 @@ body.avaliar-modal-body {
   color: var(--color-text-brand);
 }
 
+/* ─── Utility: animações de entrada ─────────────────────
+   .anim-enter-top  — desliza de cima para baixo + fade in.
+   Usar em qualquer elemento que deva aparecer vindo do topo:
+   banners de sucesso, toasts, alertas flutuantes.
+   ─────────────────────────────────────────────────────── */
+
+@keyframes enterFromTop {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.anim-enter-top {
+  animation: enterFromTop 380ms var(--easing-entrance) both;
+}
+
+@keyframes exitToTop {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-10px); }
+}
+
+.anim-exit-top {
+  animation: exitToTop 380ms var(--easing-exit) forwards;
+}
+
+/* Banner flutuante abaixo do AppBar — não desloca o conteúdo.
+   Combinar com .anim-enter-top para a animação de entrada.
+   Exemplo: <div class="alert success anim-enter-top alert-float"> */
+.alert-float {
+  position: fixed;
+  top: calc(var(--status-bar-height) + 56px + var(--spacing-sm));
+  left: var(--spacing-md);
+  right: var(--spacing-md);
+  z-index: 20;
+}
+
 /* ─── Recarga em andamento — barra de status no mapa ─── */
 
 /* Barra clicável que aparece acima da SearchBar quando há uma recarga ativa.
