@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
@@ -70,6 +70,19 @@
         <span class="circle"><span class="dot"></span></span>
       </label>
 
+      <label class="option option--card" onclick="selectCustom(this)">
+        <input class="input" type="radio" name="pix-preset" value="custom" />
+        <span class="optionLabel">Outro valor</span>
+        <span class="circle"><span class="dot"></span></span>
+      </label>
+
+    </div>
+
+    <div class="custom-amount-wrap" id="custom-amount-wrap">
+      <input class="custom-amount-input" id="custom-amount"
+             type="text" inputmode="numeric"
+             placeholder="R$ 0,00" autocomplete="off"
+             aria-label="Valor personalizado" />
     </div>
 
   </div>
@@ -93,7 +106,40 @@
       });
       el.classList.add('checked');
       document.getElementById('pix-amount').value = val;
+      /* esconde input customizado */
+      var wrap = document.getElementById('custom-amount-wrap');
+      wrap.classList.remove('visible');
+      document.getElementById('custom-amount').value = '';
     }
+
+    function selectCustom(el) {
+      document.querySelectorAll('.option--card').forEach(function(o) {
+        o.classList.remove('checked');
+      });
+      el.classList.add('checked');
+      document.getElementById('pix-amount').value = '';
+      var wrap = document.getElementById('custom-amount-wrap');
+      wrap.classList.add('visible');
+      /* após a transição: remove overflow:hidden para não cortar borda/sombra */
+      wrap.addEventListener('transitionend', function handler() {
+        wrap.classList.add('custom-amount-wrap--open');
+        wrap.removeEventListener('transitionend', handler);
+      });
+      setTimeout(function() { document.getElementById('custom-amount').focus(); }, 220);
+    }
+
+    /* Máscara BRL: digita centavos e formata R$ 0,00 */
+    document.getElementById('custom-amount').addEventListener('input', function () {
+      var digits = this.value.replace(/\D/g, '').slice(0, 10);
+      if (!digits) { this.value = ''; document.getElementById('pix-amount').value = ''; return; }
+      digits = digits.padStart(3, '0');
+      var intPart = digits.slice(0, -2).replace(/^0+/, '') || '0';
+      var decPart = digits.slice(-2);
+      intPart = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      this.value = 'R$ ' + intPart + ',' + decPart;
+      document.getElementById('pix-amount').value =
+        parseFloat(intPart.replace(/\./g, '') + '.' + decPart);
+    });
 
     function showQR() {
       document.getElementById('state-input').hidden = true;
@@ -143,8 +189,8 @@
     <button class="navItem" data-tab="mapa" onclick="router.tab('jornada-1-4-1-home-map')" aria-label="Mapa">
       <span class="navIcon"><i data-lucide="map" width="22" height="22"></i></span>
     </button>
-    <button class="navItem" data-tab="postos" onclick="router.tab('jornada-1-4-lista-postos')" aria-label="Postos">
-      <span class="navIcon"><i data-lucide="zap" width="22" height="22"></i></span>
+    <button class="navItem" data-tab="pontos" onclick="router.tab('jornada-1-4-lista-postos')" aria-label="Pontos de recarga">
+      <span class="navIcon"><i data-lucide="fuel" width="22" height="22"></i></span>
     </button>
     <button class="navItem" data-tab="notificacoes" onclick="router.tab('notificacoes')" aria-label="Notificações">
       <span class="navIcon">

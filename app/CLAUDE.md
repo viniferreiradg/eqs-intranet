@@ -123,11 +123,12 @@ router.tab('screen-id')       // trocar aba (fade + shift)
 |---|---|---|
 | ✅ | jornada-1-2-0-splash | Splash Screen |
 | ✅ | jornada-1-2-1-login | Login |
-| ✅ | jornada-1-2-2-cadastro-step1 | Cadastro — Dados pessoais |
-| ✅ | jornada-1-2-3-cadastro-step2 | Cadastro — Verificação OTP |
-| ✅ | jornada-1-2-4-cadastro-step3 | Cadastro — Dados financeiros |
-| ✅ | jornada-1-2-5-cadastro-step4 | Cadastro — Definir senha |
-| ✅ | jornada-1-2-6-cadastro-step5 | Cadastro — Aceitar termos |
+| ✅ | jornada-1-2-2-cadastro-step1  | Cadastro — Passo 1: Dados pessoais |
+| ✅ | jornada-1-2-3-cadastro-step2  | Cadastro — Passo 2: Verificar e-mail (OTP) |
+| ✅ | jornada-1-2-3b-cadastro-step2 | Cadastro — Passo 3: Verificação 2FA (cel + OTP SMS) |
+| ✅ | jornada-1-2-4-cadastro-step3  | Cadastro — Passo 4: Forma de pagamento |
+| ✅ | jornada-1-2-5-cadastro-step4  | Cadastro — Passo 5: Definir senha |
+| ✅ | jornada-1-2-6-cadastro-step5  | Cadastro — Passo 6: Aceitar termos |
 
 ### RF003 — Recuperação de Senha
 | Status | ID | Title |

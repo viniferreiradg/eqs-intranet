@@ -243,6 +243,12 @@
           </div>
 
         </div>
+
+        <button class="btn secondary hasLeft" type="button" id="btn-link-acesso" style="margin-top:24px;">
+          <span class="icon" id="btn-link-icon"><i data-lucide="link-2" width="16" height="16"></i></span>
+          <span id="btn-link-label">Gerar link de acesso</span>
+        </button>
+
       </div>
 
       <div class="divider"></div>
@@ -438,6 +444,20 @@
     const wrap = document.getElementById('feedback-wrap');
     wrap.classList.add('visible');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ── Gerar link de acesso ── */
+  document.getElementById('btn-link-acesso').addEventListener('click', () => {
+    const icon  = document.getElementById('btn-link-icon');
+    const label = document.getElementById('btn-link-label');
+    icon.innerHTML  = '<i data-lucide="check" width="16" height="16"></i>';
+    label.textContent = 'Link copiado';
+    lucide.createIcons();
+    setTimeout(() => {
+      icon.innerHTML  = '<i data-lucide="link-2" width="16" height="16"></i>';
+      label.textContent = 'Gerar link de acesso';
+      lucide.createIcons();
+    }, 2000);
   });
 
   /* ── Desativar (simulado) ── */

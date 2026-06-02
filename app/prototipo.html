@@ -622,8 +622,9 @@
       {
         label: 'RF002 — Cadastro de Usuário',
         screens: [
-          { label: 'Dados pessoais',    id: 'jornada-1-2-2-cadastro-step1', built: true },
-          { label: 'Verificar contato', id: 'jornada-1-2-3-cadastro-step2', built: true },
+          { label: 'Dados pessoais',      id: 'jornada-1-2-2-cadastro-step1',  built: true },
+          { label: 'Verificar e-mail',    id: 'jornada-1-2-3-cadastro-step2',  built: true },
+          { label: 'Verificação 2FA',     id: 'jornada-1-2-3b-cadastro-step2', built: true },
           { label: 'Forma de pgto.',    id: 'jornada-1-2-4-cadastro-step3', built: true },
           { label: 'Criar senha',       id: 'jornada-1-2-5-cadastro-step4', built: true },
           { label: 'Aceitar termos',    id: 'jornada-1-2-6-cadastro-step5', built: true },
@@ -644,7 +645,8 @@
           { label: 'Detalhe da localidade', id: 'jornada-1-4-2-map-sheet',    built: true },
           { label: 'Filtros do mapa',       id: 'jornada-1-4-3-filtros-mapa', built: true },
           { label: 'Iniciar Recarga — QR',  id: 'jornada-1-4-5-recarga-metodo',      built: true },
-          { label: 'Confirmar recarga',     id: 'jornada-1-4-6-recarga-pagamento',  built: true },
+          { label: 'Confirmar recarga',         id: 'jornada-1-4-6-recarga-pagamento', built: true },
+          { label: 'Confirmar recarga (sem saldo)', id: 'jornada-1-4-6b-sem-saldo',  built: true },
           { label: 'Recarga em andamento', id: 'jornada-1-4-7-recarga-andamento',  built: true },
           { label: 'Detalhes da recarga', id: 'jornada-1-4-7-recarga-detalhes',   built: true },
           { label: 'Recarga concluída',  id: 'jornada-1-4-8-recarga-avaliacao', built: true },
@@ -662,16 +664,6 @@
         label: 'RF005 — Lista de Postos',
         screens: [
           { label: 'Lista de postos', id: 'jornada-1-4-lista-postos', built: true },
-        ],
-      },
-      {
-        label: 'RF005B — Pontos de Recarga',
-        screens: [
-          { label: 'Pontos de recarga — Reservas',   id: 'jornada-1-5-pontos-recarga',    built: true },
-          { label: 'Pontos de recarga — Recargas',   id: 'jornada-1-5-pontos-recargas',   built: true },
-          { label: 'Pontos de recarga — Avaliações', id: 'jornada-1-5-pontos-avaliacoes', built: true },
-          { label: 'Detalhes da reserva',             id: 'jornada-1-5-reserva-detalhe',   built: true },
-          { label: 'Avaliar posto',                   id: 'jornada-1-5-avaliar-posto',      built: true },
         ],
       },
       {
@@ -701,28 +693,33 @@
       {
         label: 'RF010 — Perfil',
         screens: [
-          { label: 'Perfil',        id: 'jornada-1-7-1-perfil',          built: true },
-          { label: 'Editar perfil', id: 'jornada-1-7-8-editar-perfil',   built: true },
-          { label: 'Excluir conta', id: 'jornada-1-7-10-excluir-conta',  built: true },
+          { label: 'Perfil',           id: 'jornada-1-7-1-perfil',         built: true },
+          { label: 'Editar perfil',    id: 'jornada-1-7-8-editar-perfil',  built: true },
+          { label: 'Minhas reservas',  id: 'jornada-1-7-reservas',         built: true },
+          { label: 'Excluir conta',    id: 'jornada-1-7-10-excluir-conta', built: true },
         ],
       },
       {
         label: 'RF011 — Gestão de Veículos',
         screens: [
-          { label: 'Meus veículos',      id: 'jornada-1-7-9-meus-veiculos',      built: true },
-          { label: 'Detalhe do veículo', id: 'jornada-1-7-9-1-veiculo-detalhe',  built: true },
-          { label: 'Novo veículo',       id: 'jornada-1-7-9-2-veiculo-criar',    built: true },
-          { label: 'Editar veículo',     id: 'jornada-1-7-9-2-veiculo-editar',   built: true },
+          { label: 'Meus veículos',      id: 'jornada-1-7-9-meus-veiculos',     built: true },
+          { label: 'Detalhe do veículo', id: 'jornada-1-7-9-1-veiculo-detalhe', built: true },
+          { label: 'Novo veículo',       id: 'jornada-1-7-9-2-veiculo-criar',   built: true },
+          { label: 'Editar veículo',     id: 'jornada-1-7-9-2-veiculo-editar',  built: true },
+          { label: 'Veículo manual',     id: 'jornada-1-7-veiculo-manual',      built: true },
         ],
       },
       {
         label: 'RF012 — Configurações',
         screens: [
-          { label: 'Configurações',      id: 'jornada-1-7-2-configuracoes', built: true },
-          { label: 'Notificações',       id: 'jornada-1-7-3-notificacoes',  built: true },
-          { label: 'Tema',               id: 'jornada-1-7-4-tema',          built: true },
-          { label: 'Termos de uso',      id: 'jornada-1-7-5-termos',        built: true },
-          { label: 'Sobre o App',        id: 'jornada-1-7-7-sobre',         built: true },
+          { label: 'Configurações',      id: 'jornada-1-7-2-configuracoes',    built: true },
+          { label: 'Notificações',       id: 'jornada-1-7-3-notificacoes',     built: true },
+          { label: 'Tema',               id: 'jornada-1-7-4-tema',             built: true },
+          { label: 'Termos de uso',      id: 'jornada-1-7-5-termos',           built: true },
+          { label: 'Histórico',          id: 'jornada-1-5-1-historico-lista',  built: true },
+          { label: 'Segurança',          id: 'jornada-1-7-seguranca',          built: true },
+          { label: 'Verificação 2FA',    id: 'jornada-1-7-2fa',                built: true },
+          { label: 'Sobre o App',        id: 'jornada-1-7-7-sobre',           built: true },
         ],
       },
     ];

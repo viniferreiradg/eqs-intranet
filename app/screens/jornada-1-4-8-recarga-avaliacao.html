@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
@@ -15,10 +15,10 @@
   <link rel="stylesheet" href="../../storybook/src/components/Button/Button.module.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
-<body class="layout-fullbleed map-bg-dark">
+<body class="layout-fullbleed map-bg-dark" style="background-position: -80px 3px">
 
   <!-- ── Pins layer ──────────────────────────────────── -->
-  <div class="map-pins-layer" id="map-pins-layer">
+  <div class="map-pins-layer" id="map-pins-layer" style="top: -47px;">
 
     <div class="map-user-pin userPin pulse" role="img" aria-label="Sua localização">
       <span class="pingRing" aria-hidden="true"></span>
@@ -94,7 +94,7 @@
     <button class="navItem navActive" data-tab="mapa" onclick="router.tab('jornada-1-4-1-home-map')" aria-label="Mapa" aria-current="page">
       <span class="navIcon"><i data-lucide="map" width="22" height="22"></i></span>
     </button>
-    <button class="navItem" data-tab="pontos" onclick="router.tab('jornada-1-5-pontos-recarga')" aria-label="Pontos de recarga">
+    <button class="navItem" data-tab="pontos" onclick="router.tab('jornada-1-4-lista-postos')" aria-label="Pontos de recarga">
       <span class="navIcon"><i data-lucide="fuel" width="22" height="22"></i></span>
     </button>
     <button class="navItem" data-tab="notificacoes" onclick="router.tab('notificacoes')" aria-label="Notificações">
@@ -118,7 +118,7 @@
       <div class="map-sheet-handle-bar"></div>
     </div>
 
-    <div class="map-sheet-scroll">
+    <div class="map-sheet-scroll" style="padding-bottom: 84px;">
 
       <!-- Hero de conclusão -->
       <div class="sheet-complete-hero">
@@ -143,7 +143,7 @@
       </div>
 
       <!-- Avaliação -->
-      <p class="sheet-section-label">Como foi a recarga?</p>
+      <p class="sheet-section-label">Como foi a sua experiência?</p>
 
       <div class="avaliar-stars" role="group" aria-label="Avaliação em estrelas">
         <button class="avaliar-star" type="button" aria-label="1 estrela" onclick="setRating(1)">
@@ -163,7 +163,7 @@
         </button>
       </div>
 
-      <p class="avaliar-star-label" id="star-label" aria-live="polite"></p>
+   
 
       <!-- CTA -->
       <div class="sheet-actions">

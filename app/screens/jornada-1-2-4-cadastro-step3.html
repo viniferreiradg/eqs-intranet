@@ -28,16 +28,17 @@
   <!-- ── Step indicator + título ──────────────────────── -->
   <div class="cadastro-header">
     <div class="stepRoot" role="progressbar"
-         aria-valuenow="3" aria-valuemin="1" aria-valuemax="5"
-         aria-label="Passo 3 de 5">
+         aria-valuenow="4" aria-valuemin="1" aria-valuemax="6"
+         aria-label="Passo 4 de 6">
       <div class="stepBars">
+        <div class="stepBar done"></div>
         <div class="stepBar done"></div>
         <div class="stepBar done"></div>
         <div class="stepBar done"></div>
         <div class="stepBar pending"></div>
         <div class="stepBar pending"></div>
       </div>
-      <span class="stepLabel" aria-hidden="true">Passo 3 de 5</span>
+      <span class="stepLabel" aria-hidden="true">Passo 4 de 6</span>
     </div>
     <p class="cadastro-title">Forma de pagamento</p>
     <p class="cadastro-subtitle">Opcional — adicione um cartão agora ou faça isso depois na carteira.</p>
@@ -104,14 +105,15 @@
 
   <!-- ── Rodapé fixo ───────────────────────────────────── -->
   <div class="cadastro-footer">
+    <button class="btn ghost full-width"
+    onclick="router.push('jornada-1-2-5-cadastro-step4')">
+Pular esta etapa
+</button>
     <button class="btn primary full-width"
             onclick="router.push('jornada-1-2-5-cadastro-step4')">
       Próximo
     </button>
-    <button class="btn ghost full-width"
-            onclick="router.push('jornada-1-2-5-cadastro-step4')">
-      Pular esta etapa
-    </button>
+
   </div>
 
   <script>

@@ -12,6 +12,13 @@
   background-size: cover;
   background-position: -49px center;
   background-repeat: no-repeat;
+  transition: background-position 450ms var(--easing-entrance);
+}
+[data-theme="light"] .map-bg-dark {
+  background-image: url('../links/mapa-light-2.png');
+}
+.map-bg-dark.map-focused {
+  background-position: -93px -137px;
 }
 
 /* ─── html/body: comportamento duplo ─────────────────────
@@ -336,6 +343,11 @@ body.layout-screen:has(.screen-nav) .cadastro-footer {
   width: 100%;
   height: 100%;
   pointer-events: none;
+  transition: left 450ms var(--easing-entrance), top 450ms var(--easing-entrance);
+}
+.map-pins-layer.map-focused {
+  left: -45px;
+  top: -137px;
 }
 
 /* Variante com offset: empurra a camada de pins para baixo do painel de filtros */
@@ -463,6 +475,11 @@ body.layout-screen:has(.screen-nav) .cadastro-footer {
   max-height: 62%;
   box-shadow: var(--shadow-xl);
   z-index: 10;
+  transition: transform 450ms var(--easing-entrance);
+}
+/* Estado inicial oculto — sheet fora da tela antes da animação */
+.map-sheet-panel--hidden {
+  transform: translateY(110%);
 }
 
 .map-sheet-close {
@@ -508,10 +525,21 @@ body.layout-screen:has(.screen-nav) .cadastro-footer {
   flex-direction: column;
   gap: var(--spacing-md);
   padding: 0 var(--spacing-md) calc(var(--spacing-3xl) + var(--spacing-sm) + env(safe-area-inset-bottom));
-  padding-bottom: 88px;
+  padding-bottom: var(--spacing-md);
 }
 
 .map-sheet-scroll::-webkit-scrollbar { display: none; }
+
+/* Botões fixos no rodapé do sheet (fora do scroll) */
+.botoes-sheet {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  border-top: var(--border-width-thin) solid var(--color-glass-border);
+  padding-bottom: 87px;
+}
 
 /* Station header */
 .station-header { display: flex; flex-direction: column; gap: var(--spacing-2xs); padding: 16px 0px; }
@@ -566,6 +594,7 @@ body.layout-screen:has(.screen-nav) .cadastro-footer {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: var(--spacing-xs);
+  text-align: center;
 }
 
 /* Carrossel de carregadores */
@@ -1575,6 +1604,47 @@ select.input option {
 
 .amount-input-field::placeholder {
   color: var(--color-text-disabled);
+}
+
+/* Input de valor customizado — revela ao selecionar "Outro valor" */
+.custom-amount-wrap {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height var(--transition-normal) var(--easing-entrance),
+              opacity var(--transition-normal) var(--easing-entrance);
+}
+.custom-amount-wrap.visible {
+  max-height: 120px;
+  opacity: 1;
+  padding-top: var(--spacing-sm);
+  padding-bottom: var(--spacing-sm);
+}
+/* Após transição completar: permite que borda/sombra não seja cortada */
+.custom-amount-wrap--open {
+  overflow: visible;
+}
+.custom-amount-input {
+  display: block;
+  width: 100%;
+  background: var(--color-bg-subtle);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-md);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  outline: none;
+  transition: border-color var(--transition-fast);
+  box-sizing: border-box;
+}
+.custom-amount-input:focus {
+  border-color: var(--color-border-focus);
+}
+.custom-amount-input::placeholder {
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-regular);
 }
 
 /* Placeholder de QR Code */
@@ -2589,6 +2659,71 @@ select.input option {
 .action-sheet__item:last-child { border-bottom: none; }
 .action-sheet__item:active { background: var(--color-bg-subtle); }
 
+/* ─── Vehicle selector sheet items ──────────────────────────── */
+
+.vehicle-sheet-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  width: 100%;
+  padding: var(--spacing-md);
+  background: none;
+  border: none;
+  border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-body);
+  transition: background var(--transition-fast);
+}
+.vehicle-sheet-item:last-child { border-bottom: none; }
+.vehicle-sheet-item:active { background: var(--color-bg-subtle); }
+
+.vehicle-sheet-item__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+.vehicle-sheet-item--selected .vehicle-sheet-item__icon {
+  background: var(--color-bg-brand);
+  color: var(--color-text-brand);
+}
+.vehicle-sheet-item__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+  flex: 1;
+  min-width: 0;
+}
+.vehicle-sheet-item__name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-snug);
+}
+.vehicle-sheet-item--add .vehicle-sheet-item__name {
+  color: var(--color-text-brand);
+  font-weight: var(--font-weight-regular);
+}
+.vehicle-sheet-item__detail {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+.vehicle-sheet-item__check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--color-action-primary);
+}
+
 /* ─── Fim das adições de agendamento ────────────────────────── */
 
 /* ─── Resumo de reserva — breakdown de preço ────────────────── */
@@ -3254,7 +3389,22 @@ body.avaliar-modal-body {
 /* ─── Recarga em andamento — barra de status no mapa ─── */
 
 /* Barra clicável que aparece acima da SearchBar quando há uma recarga ativa.
-   Mostra: ícone pulsando + posto + tempo restante + chevron.              */
+   Mostra: ícone pulsando + posto + tempo restante + chevron.
+   Anima entrada: aparece 900ms após o load, empurrando busca e chips para baixo. */
+
+@keyframes chargingBarIn {
+  from {
+    max-height: 0;
+    opacity: 0;
+    margin-bottom: calc(-1 * var(--spacing-md)); /* cancela o gap do flex pai */
+  }
+  to {
+    max-height: 80px;
+    opacity: 1;
+    margin-bottom: 0;
+  }
+}
+
 .charging-bar {
   display: flex;
   align-items: center;
@@ -3271,7 +3421,8 @@ body.avaliar-modal-body {
   width: 100%;
   font-family: var(--font-body);
   -webkit-tap-highlight-color: transparent;
-  transition: opacity var(--transition-fast);
+  overflow: hidden;
+  animation: chargingBarIn 450ms var(--easing-entrance) 300ms both;
 }
 
 .charging-bar:active { opacity: 0.75; }

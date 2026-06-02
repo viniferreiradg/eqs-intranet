@@ -10,7 +10,7 @@
  *   4. Adicionar <script src="shared/sidebar.js"></script> antes do </body>
  *
  * IDs de página válidos:
- *   dashboard | credenciados | veiculos | logs | extrato | usuarios
+ *   dashboard | credenciados | distribuidoras | veiculos | logs | extrato | usuarios
  */
 (function () {
   'use strict';
@@ -24,7 +24,8 @@
     { id: 'dashboard',    label: 'Dashboard',          icon: 'layout-dashboard', href: 'jornada-3-4-dashboard.html' },
     { id: 'usuarios',     label: 'Usuários',            icon: 'users',            href: 'jornada-2-6-1-lista-usuarios.html' },
     { id: 'veiculos',     label: 'Veículos',            icon: 'car-front',        href: 'jornada-3-3-veiculos.html' },
-    { id: 'credenciados', label: 'Credenciados',        icon: 'building-2',       href: 'jornada-3-6-1-credenciados.html' },
+    { id: 'credenciados',  label: 'Credenciados',        icon: 'building-2',       href: 'jornada-3-6-1-credenciados.html' },
+    { id: 'distribuidoras', label: 'Distribuidoras',   icon: 'network',          href: 'jornada-3-6-1b-distribuidores.html' },
     { id: 'logs',         label: 'Logs de Erros',       icon: 'triangle-alert',   href: 'jornada-3-5-logs.html' },
     { id: 'extrato',      label: 'Extrato Financeiro',  icon: 'file-text',        href: 'jornada-3-2-extrato.html' },
   ];

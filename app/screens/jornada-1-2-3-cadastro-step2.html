@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Criar conta — Verificar contato — Althus</title>
+  <title>Criar conta — Verificar e-mail — Althus</title>
   <link rel="stylesheet" href="../../storybook/src/tokens/tokens.css" />
   <link rel="stylesheet" href="../../shared/page-mobile.css" />
   <link rel="stylesheet" href="../../storybook/src/components/AppBar/AppBar.module.css" />
-  <link rel="stylesheet" href="../../storybook/src/components/Chip/Chip.module.css" />
   <link rel="stylesheet" href="../../storybook/src/components/OTPInput/OTPInput.module.css" />
   <link rel="stylesheet" href="../../storybook/src/components/Button/Button.module.css" />
   <link rel="stylesheet" href="../../storybook/src/components/StepIndicator/StepIndicator.module.css" />
@@ -29,45 +28,24 @@
   <!-- ── Step indicator + título ──────────────────────── -->
   <div class="cadastro-header">
     <div class="stepRoot" role="progressbar"
-         aria-valuenow="2" aria-valuemin="1" aria-valuemax="5"
-         aria-label="Passo 2 de 5">
+         aria-valuenow="2" aria-valuemin="1" aria-valuemax="6"
+         aria-label="Passo 2 de 6">
       <div class="stepBars">
         <div class="stepBar done"></div>
         <div class="stepBar done"></div>
         <div class="stepBar pending"></div>
         <div class="stepBar pending"></div>
         <div class="stepBar pending"></div>
+        <div class="stepBar pending"></div>
       </div>
-      <span class="stepLabel" aria-hidden="true">Passo 2 de 5</span>
+      <span class="stepLabel" aria-hidden="true">Passo 2 de 6</span>
     </div>
-    <p class="cadastro-title">Verificar contato</p>
-    <p class="cadastro-subtitle">Escolha como prefere receber o código de verificação.</p>
+    <p class="cadastro-title">Verificar e-mail</p>
+    <p class="cadastro-subtitle">Um código foi enviado para o seu e-mail. Insira-o abaixo para continuar.</p>
   </div>
 
   <!-- ── Conteúdo ──────────────────────────────────────── -->
   <div class="cadastro-body">
-
-    <!-- Seleção de canal -->
-    <fieldset style="border:none;padding:0;margin:0">
-      <legend class="screen-description">Canal de envio</legend>
-      <div class="chipGroup">
-        <label class="chip">
-          <input type="radio" name="canal" value="email" checked />
-          <span class="chipIcon"><i data-lucide="mail" width="14" height="14"></i></span>
-          E-mail
-        </label>
-        <label class="chip">
-          <input type="radio" name="canal" value="sms" />
-          <span class="chipIcon"><i data-lucide="message-square" width="14" height="14"></i></span>
-          SMS
-        </label>
-      </div>
-    </fieldset>
-
-    <!-- Instrução dinâmica -->
-    <p class="screen-description" id="otp-instruction">
-      Insira o código de 6 dígitos enviado para o seu e-mail.
-    </p>
 
     <!-- OTP -->
     <div class="otpRoot" id="otp-root" role="group" aria-label="Código de verificação">
@@ -96,7 +74,7 @@
   <!-- ── Rodapé fixo ───────────────────────────────────── -->
   <div class="cadastro-footer">
     <button class="btn primary full-width"
-            onclick="router.push('jornada-1-2-4-cadastro-step3')">
+            onclick="router.push('jornada-1-2-3b-cadastro-step2')">
       Verificar
     </button>
   </div>
@@ -108,20 +86,6 @@
   </script>
   <script>
     lucide.createIcons();
-
-    /* ── Canal — atualiza instrução ao trocar ──────────── */
-    (function () {
-      var radios      = document.querySelectorAll('input[name="canal"]');
-      var instruction = document.getElementById('otp-instruction');
-
-      radios.forEach(function (r) {
-        r.addEventListener('change', function () {
-          instruction.textContent = r.value === 'email'
-            ? 'Insira o código de 6 dígitos enviado para o seu e-mail.'
-            : 'Insira o código de 6 dígitos enviado por SMS para o seu celular.';
-        });
-      });
-    }());
 
     /* ── OTP navigation ────────────────────────────────── */
     (function () {

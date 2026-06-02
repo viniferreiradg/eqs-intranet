@@ -29,6 +29,10 @@
   background: var(--color-bg-elevated);
 }
 
+[data-theme="light"] .stepBar.pending {
+  background: var(--color-gray-100);
+}
+
 /* ── Label ──────────────────────────────────────────── */
 .stepLabel {
   font-family: var(--font-body);

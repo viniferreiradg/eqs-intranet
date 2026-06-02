@@ -116,6 +116,37 @@ Cores dos distribuidores (via `page-mobile.css`): `.pin-tupi` · `.pin-dcc` · `
 
 ---
 
+### TimeSlot _(Mobile)_
+```html
+<link rel="stylesheet" href="../../storybook/src/components/TimeSlot/TimeSlot.module.css" />
+```
+Classes: `.timeSlot` (base — disponível), `.timeSlot.selected` (selecionado — gradiente brand), `.timeSlot.unavailable` (indisponível — dimmed + strikethrough + `disabled`)
+
+```html
+<!-- Disponível -->
+<button class="timeSlot" type="button">09:00</button>
+
+<!-- Selecionado -->
+<button class="timeSlot selected" type="button" aria-pressed="true">09:30</button>
+
+<!-- Indisponível -->
+<button class="timeSlot unavailable" type="button" disabled aria-disabled="true">10:00</button>
+```
+
+Usar dentro de `.time-slot-grid` (2 colunas, definida em `page-mobile.css`):
+```html
+<div class="time-slot-grid">
+  <button class="timeSlot selected">09:00</button>
+  <button class="timeSlot">09:30</button>
+  <button class="timeSlot unavailable" disabled>10:00</button>
+  ...
+</div>
+```
+
+Layout do dia complementar via classes de `page-mobile.css`: `.day-picker`, `.day-picker__nav`, `.day-picker__scroll`, `.day-picker__day` (+ `.active`), `.day-picker__day-name`, `.day-picker__day-date`. Seções com `.schedule-section` e `.schedule-section__label`.
+
+---
+
 ### Tokens
 ```html
 <link rel="stylesheet" href="../storybook/src/tokens/tokens.css" />
@@ -381,6 +412,38 @@ Quando a página já usa Dropdown, implementar toggle com CSS page-level:
 .switchLabel:has(input:checked) .switchTrack { background: var(--gradient-brand); border-color: transparent; box-shadow: var(--shadow-highlight), var(--shadow-glow-sm); }
 .switchLabel:has(input:checked) .switchThumb { transform: translateX(20px); }
 ```
+
+### MultiSelect
+```html
+<link rel="stylesheet" href="../storybook/src/components/MultiSelect/MultiSelect.module.css" />
+```
+Classes: `.multiSelect` (container), `.msLabel`, `.msField` (trigger), `.msField.msOpen`, `.msField.msDisabled`, `.msField.msError`, `.msInner`, `.msPlaceholder`, `.msChip`, `.msChipLabel`, `.msChipRemove`, `.msChevron`, `.msMenu`, `.msOption`, `.msOption.msSelected`, `.msCheck`, `.msOptionLabel`, `.msHelperText`, `.msErrorText`
+
+Todas as classes prefixadas com `ms` — sem conflito com Dropdown, Input, Toggle ou outros.
+
+```html
+<div class="multiSelect" id="meu-ms" data-placeholder="Selecione...">
+  <span class="msLabel">Campo</span>
+  <div class="msField" role="combobox" tabindex="0" aria-expanded="false" aria-haspopup="listbox">
+    <div class="msInner"><!-- chips injetados por JS --></div>
+    <span class="msChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+  </div>
+  <div class="msMenu" hidden role="listbox" aria-multiselectable="true">
+    <div class="msOption" data-value="val1" role="option" aria-selected="false">
+      <span class="msCheck"></span>
+      <span class="msOptionLabel">Opção 1</span>
+    </div>
+    <div class="msOption" data-value="val2" role="option" aria-selected="false">
+      <span class="msCheck"></span>
+      <span class="msOptionLabel">Opção 2</span>
+    </div>
+  </div>
+</div>
+```
+
+JS padrão (vanilla): usar `makeMultiSelect(containerId, options[])` — função que gerencia seleção, chips e abertura/fechamento do menu. Sempre chamar `lucide.createIcons()` após inserir chips ou ícones de check. Fechar menu no `document.addEventListener('click', ...)`.
+
+---
 
 ### Chips multi-select (workaround para Checkbox)
 

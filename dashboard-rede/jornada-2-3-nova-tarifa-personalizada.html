@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="../storybook/src/components/Background/Background.module.css" />
   <link rel="stylesheet" href="../storybook/src/components/Button/Button.module.css" />
   <link rel="stylesheet" href="../storybook/src/components/Input/Input.module.css" />
-  <link rel="stylesheet" href="../storybook/src/components/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/MultiSelect/MultiSelect.module.css" />
   <link rel="stylesheet" href="../storybook/src/components/Divider/Divider.module.css" />
   <link rel="stylesheet" href="../storybook/src/components/Breadcrumb/Breadcrumb.module.css" />
   <link rel="stylesheet" href="../storybook/src/components/Toggle/Toggle.module.css" />
@@ -89,37 +89,69 @@
         <p class="sectionSubtitle" style="margin-bottom: var(--spacing-lg);">A qual carregador e localidade esta tarifa se aplica</p>
 
         <div class="formGrid grid2">
-          <!-- Carregador -->
-          <div class="wrapper" id="carregador-dropdown">
-            <label class="label" for="carregador-trigger">Carregador</label>
-            <div class="trigger" id="carregador-trigger" role="button" tabindex="0" aria-haspopup="listbox">
-              <span id="carregador-value" style="color: var(--color-text-tertiary);">Selecione um carregador</span>
-              <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+
+          <!-- Carregador — MultiSelect -->
+          <div class="multiSelect" id="carregador-ms" data-placeholder="Selecione os carregadores">
+            <span class="msLabel">Carregador</span>
+            <div class="msField" role="combobox" tabindex="0" aria-expanded="false" aria-haspopup="listbox">
+              <div class="msInner"></div>
+              <span class="msChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
             </div>
-            <div class="menu" role="listbox">
-              <div class="option" data-value="alt-001" role="option">ALT-001 — ABB Terra 54 · Shopping Iguatemi SP</div>
-              <div class="option" data-value="alt-002" role="option">ALT-002 — WEG EVCS-W22 · Posto Shell Anhanguera</div>
-              <div class="option" data-value="alt-003" role="option">ALT-003 — Schneider EVlink · Estac. Vila Olímpia</div>
-              <div class="option" data-value="alt-004" role="option">ALT-004 — ABB Terra 54 · Shopping Morumbi</div>
-              <div class="option" data-value="alt-005" role="option">ALT-005 — Siemens VersiCharge · Aeroporto de Congonhas</div>
+            <div class="msMenu" hidden role="listbox" aria-multiselectable="true">
+              <div class="msOption" data-value="alt-001" role="option" aria-selected="false">
+                <span class="msCheck"></span>
+                <span class="msOptionLabel">ALT-001 — ABB Terra 54 · Shopping Iguatemi SP</span>
+              </div>
+              <div class="msOption" data-value="alt-002" role="option" aria-selected="false">
+                <span class="msCheck"></span>
+                <span class="msOptionLabel">ALT-002 — WEG EVCS-W22 · Posto Shell Anhanguera</span>
+              </div>
+              <div class="msOption" data-value="alt-003" role="option" aria-selected="false">
+                <span class="msCheck"></span>
+                <span class="msOptionLabel">ALT-003 — Schneider EVlink · Estac. Vila Olímpia</span>
+              </div>
+              <div class="msOption" data-value="alt-004" role="option" aria-selected="false">
+                <span class="msCheck"></span>
+                <span class="msOptionLabel">ALT-004 — ABB Terra 54 · Shopping Morumbi</span>
+              </div>
+              <div class="msOption" data-value="alt-005" role="option" aria-selected="false">
+                <span class="msCheck"></span>
+                <span class="msOptionLabel">ALT-005 — Siemens VersiCharge · Aeroporto de Congonhas</span>
+              </div>
             </div>
           </div>
 
-          <!-- Localidade -->
-          <div class="wrapper" id="localidade-dropdown">
-            <label class="label" for="localidade-trigger">Localidade</label>
-            <div class="trigger" id="localidade-trigger" role="button" tabindex="0" aria-haspopup="listbox">
-              <span id="localidade-value" style="color: var(--color-text-tertiary);">Selecione uma localidade</span>
-              <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          <!-- Localidade — MultiSelect -->
+          <div class="multiSelect" id="localidade-ms" data-placeholder="Selecione as localidades">
+            <span class="msLabel">Localidade</span>
+            <div class="msField" role="combobox" tabindex="0" aria-expanded="false" aria-haspopup="listbox">
+              <div class="msInner"></div>
+              <span class="msChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
             </div>
-            <div class="menu" role="listbox">
-              <div class="option" data-value="iguatemi" role="option">Shopping Iguatemi SP</div>
-              <div class="option" data-value="shell" role="option">Posto Shell Anhanguera</div>
-              <div class="option" data-value="vila-olimpia" role="option">Estac. Vila Olímpia</div>
-              <div class="option" data-value="morumbi" role="option">Shopping Morumbi</div>
-              <div class="option" data-value="congonhas" role="option">Aeroporto de Congonhas</div>
+            <div class="msMenu" hidden role="listbox" aria-multiselectable="true">
+              <div class="msOption" data-value="iguatemi" role="option" aria-selected="false">
+                <span class="msCheck"></span>
+                <span class="msOptionLabel">Shopping Iguatemi SP</span>
+              </div>
+              <div class="msOption" data-value="shell" role="option" aria-selected="false">
+                <span class="msCheck"></span>
+                <span class="msOptionLabel">Posto Shell Anhanguera</span>
+              </div>
+              <div class="msOption" data-value="vila-olimpia" role="option" aria-selected="false">
+                <span class="msCheck"></span>
+                <span class="msOptionLabel">Estac. Vila Olímpia</span>
+              </div>
+              <div class="msOption" data-value="morumbi" role="option" aria-selected="false">
+                <span class="msCheck"></span>
+                <span class="msOptionLabel">Shopping Morumbi</span>
+              </div>
+              <div class="msOption" data-value="congonhas" role="option" aria-selected="false">
+                <span class="msCheck"></span>
+                <span class="msOptionLabel">Aeroporto de Congonhas</span>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
 
@@ -187,39 +219,112 @@
     document.getElementById('status-label').textContent = this.checked ? 'Ativa' : 'Inativa';
   });
 
-  /* ── Dropdown logic ── */
-  document.querySelectorAll('[id$="-dropdown"]').forEach(dropdown => {
-    const trigger = dropdown.querySelector('.trigger');
-    const options = dropdown.querySelectorAll('.option');
-    const valueEl = dropdown.querySelector('[id$="-value"]');
+  /* ── MultiSelect ── */
+  function makeMultiSelect(containerId, options) {
+    const container   = document.getElementById(containerId);
+    const field       = container.querySelector('.msField');
+    const inner       = container.querySelector('.msInner');
+    const menu        = container.querySelector('.msMenu');
+    const placeholder = container.dataset.placeholder || 'Selecione...';
+    let selected = [];
 
-    trigger.addEventListener('click', e => {
-      e.stopPropagation();
-      const isOpen = dropdown.classList.contains('open');
-      document.querySelectorAll('[id$="-dropdown"].open').forEach(d => d.classList.remove('open'));
-      dropdown.classList.toggle('open', !isOpen);
-    });
+    function renderTrigger() {
+      inner.innerHTML = '';
+      if (selected.length === 0) {
+        inner.innerHTML = `<span class="msPlaceholder">${placeholder}</span>`;
+      } else {
+        selected.forEach(val => {
+          const opt = options.find(o => o.value === val);
+          if (!opt) return;
+          const chip = document.createElement('span');
+          chip.className = 'msChip';
+          chip.innerHTML = `<span class="msChipLabel">${opt.label}</span><button class="msChipRemove" type="button" aria-label="Remover ${opt.label}"><i data-lucide="x" width="10" height="10"></i></button>`;
+          chip.querySelector('.msChipRemove').addEventListener('click', e => {
+            e.stopPropagation();
+            selected = selected.filter(v => v !== val);
+            renderTrigger();
+            syncOptions();
+          });
+          inner.appendChild(chip);
+        });
+        lucide.createIcons();
+      }
+    }
 
-    trigger.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trigger.click(); }
-    });
+    function syncOptions() {
+      container.querySelectorAll('.msOption').forEach(opt => {
+        const val        = opt.dataset.value;
+        const check      = opt.querySelector('.msCheck');
+        const isSelected = selected.includes(val);
+        opt.classList.toggle('msSelected', isSelected);
+        opt.setAttribute('aria-selected', String(isSelected));
+        check.innerHTML = isSelected ? '<i data-lucide="check" width="10" height="10"></i>' : '';
+      });
+      if (window.lucide) lucide.createIcons();
+    }
 
-    options.forEach(opt => {
-      opt.addEventListener('click', () => {
-        options.forEach(o => o.classList.remove('selected'));
-        opt.classList.add('selected');
-        if (valueEl) {
-          valueEl.textContent = opt.textContent.trim();
-          valueEl.style.color = '';
+    function openMenu() {
+      document.querySelectorAll('.msMenu').forEach(m => {
+        if (m !== menu) {
+          m.hidden = true;
+          m.closest('.multiSelect')?.querySelector('.msField')?.classList.remove('msOpen');
         }
-        dropdown.classList.remove('open');
+      });
+      menu.hidden = false;
+      field.classList.add('msOpen');
+      field.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeMenu() {
+      menu.hidden = true;
+      field.classList.remove('msOpen');
+      field.setAttribute('aria-expanded', 'false');
+    }
+
+    field.addEventListener('click', e => { e.stopPropagation(); menu.hidden ? openMenu() : closeMenu(); });
+    field.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); menu.hidden ? openMenu() : closeMenu(); }
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    container.querySelectorAll('.msOption').forEach(opt => {
+      opt.addEventListener('click', e => {
+        e.stopPropagation();
+        const val = opt.dataset.value;
+        selected = selected.includes(val) ? selected.filter(v => v !== val) : [...selected, val];
+        renderTrigger();
+        syncOptions();
       });
     });
+
+    renderTrigger();
+  }
+
+  /* ── Fechar menus ao clicar fora ── */
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.msMenu').forEach(m => {
+      if (!m.hidden) {
+        m.hidden = true;
+        m.closest('.multiSelect')?.querySelector('.msField')?.classList.remove('msOpen');
+      }
+    });
   });
 
-  document.addEventListener('click', () => {
-    document.querySelectorAll('[id$="-dropdown"].open').forEach(d => d.classList.remove('open'));
-  });
+  makeMultiSelect('carregador-ms', [
+    { value: 'alt-001', label: 'ALT-001 — ABB Terra 54 · Shopping Iguatemi SP' },
+    { value: 'alt-002', label: 'ALT-002 — WEG EVCS-W22 · Posto Shell Anhanguera' },
+    { value: 'alt-003', label: 'ALT-003 — Schneider EVlink · Estac. Vila Olímpia' },
+    { value: 'alt-004', label: 'ALT-004 — ABB Terra 54 · Shopping Morumbi' },
+    { value: 'alt-005', label: 'ALT-005 — Siemens VersiCharge · Aeroporto de Congonhas' },
+  ]);
+
+  makeMultiSelect('localidade-ms', [
+    { value: 'iguatemi',    label: 'Shopping Iguatemi SP' },
+    { value: 'shell',       label: 'Posto Shell Anhanguera' },
+    { value: 'vila-olimpia', label: 'Estac. Vila Olímpia' },
+    { value: 'morumbi',     label: 'Shopping Morumbi' },
+    { value: 'congonhas',   label: 'Aeroporto de Congonhas' },
+  ]);
 
   lucide.createIcons();
 </script>

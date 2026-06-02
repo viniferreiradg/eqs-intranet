@@ -504,6 +504,41 @@ Sem props. Header da área pública (beneficiário/profissional). Logo centraliz
 
 ---
 
+### MultiSelect
+**Import:** `import { MultiSelect } from '../components/MultiSelect/MultiSelect'`
+**Story:** `Components/MultiSelect`
+
+Dropdown com seleção múltipla. Os itens selecionados aparecem como chips removíveis dentro do trigger. Checkboxes visuais no menu indicam o estado de cada opção.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `options` | `MultiSelectOption[]` | — | Lista `{ label, value }` |
+| `value` | `string[]` | `[]` | Valores selecionados |
+| `onChange` | `(value: string[]) => void` | — | Callback ao alterar seleção |
+| `label` | `string` | — | Label acima do campo |
+| `placeholder` | `string` | `'Selecione...'` | Placeholder sem seleção |
+| `disabled` | `boolean` | `false` | Desabilita interação |
+| `helperText` | `string` | — | Texto auxiliar |
+| `error` | `string` | — | Mensagem de erro (borda vermelha) |
+
+```tsx
+const [value, setValue] = useState<string[]>([]);
+<MultiSelect
+  label="Carregadores"
+  options={[
+    { label: 'ALT-001 — ABB Terra 54', value: 'alt-001' },
+    { label: 'ALT-002 — WEG EVCS-W22', value: 'alt-002' },
+  ]}
+  value={value}
+  onChange={setValue}
+  placeholder="Selecione os carregadores"
+/>
+```
+
+**Conflitos:** Nenhum — todas as classes prefixadas com `ms`. Coexiste com qualquer componente.
+
+---
+
 ### Dropdown
 **Import:** `import { Dropdown } from '../components/Dropdown/Dropdown'`
 

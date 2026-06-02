@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
@@ -61,6 +61,15 @@
         <span class="settings-item-label">Meus veículos</span>
         <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
       </button>
+      <button class="settings-item" type="button"
+              onclick="router.push('jornada-1-7-reservas')"
+              aria-label="Minhas reservas">
+        <span class="settings-item-icon">
+          <i data-lucide="calendar" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Minhas reservas</span>
+        <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
+      </button>
     </div>
 
     <!-- Grupo destrutivo -->
@@ -90,8 +99,8 @@
     <button class="navItem" data-tab="mapa" onclick="router.tab('jornada-1-4-1-home-map')" aria-label="Mapa">
       <span class="navIcon"><i data-lucide="map" width="22" height="22"></i></span>
     </button>
-    <button class="navItem" data-tab="postos" onclick="router.tab('jornada-1-4-lista-postos')" aria-label="Postos">
-      <span class="navIcon"><i data-lucide="zap" width="22" height="22"></i></span>
+    <button class="navItem" data-tab="pontos" onclick="router.tab('jornada-1-4-lista-postos')" aria-label="Pontos de recarga">
+      <span class="navIcon"><i data-lucide="fuel" width="22" height="22"></i></span>
     </button>
     <button class="navItem" data-tab="notificacoes" onclick="router.tab('notificacoes')" aria-label="Notificações">
       <span class="navIcon">
@@ -114,7 +123,6 @@
       ? window.parent.router
       : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
 
-    if (window.parent !== window) document.getElementById('screen-bottom-nav').hidden = true;
   </script>
   <script>lucide.createIcons();</script>
 

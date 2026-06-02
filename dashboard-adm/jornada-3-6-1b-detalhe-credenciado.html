@@ -50,10 +50,16 @@
         <h1 class="pageTitle" style="margin:0;">Rede Flex Eletropostos</h1>
         <span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span>
       </div>
+      <div>
+      <button class="btn secondary hasLeft" type="button" id="btn-link-acesso" style="margin-right:16px;">
+        <span class="icon" id="btn-link-icon"><i data-lucide="link-2" width="16" height="16"></i></span>
+        <span id="btn-link-label">Gerar link de acesso</span>
+      </button>
       <button class="btn primary hasLeft" onclick="location.href='jornada-3-6-2-editar-credenciado.html'">
         <span class="icon"><i data-lucide="pencil" width="16" height="16"></i></span>
         Editar
       </button>
+      </div>
     </div>
   </div>
 
@@ -248,6 +254,20 @@
     if (btn) btn.setAttribute('aria-label', 'Notificações');
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') notifSheetClose(); });
+
+  /* ── Gerar link de acesso ── */
+  document.getElementById('btn-link-acesso').addEventListener('click', () => {
+    const icon  = document.getElementById('btn-link-icon');
+    const label = document.getElementById('btn-link-label');
+    icon.innerHTML    = '<i data-lucide="check" width="16" height="16"></i>';
+    label.textContent = 'Link copiado';
+    lucide.createIcons();
+    setTimeout(() => {
+      icon.innerHTML    = '<i data-lucide="link-2" width="16" height="16"></i>';
+      label.textContent = 'Gerar link de acesso';
+      lucide.createIcons();
+    }, 2000);
+  });
 
   lucide.createIcons();
 </script>

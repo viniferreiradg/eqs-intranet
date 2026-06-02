@@ -808,3 +808,154 @@ body {
   margin-top: 3px;
   white-space: nowrap;
 }
+
+/* ── Temas: grid de seletores de opção visual ────────────────────────────── */
+.themeOptionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+.themeOption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  border: var(--border-width-medium) solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-subtle);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-body);
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+.themeOption:hover { border-color: var(--color-border-muted); }
+.themeOption.selected {
+  border-color: var(--color-action-primary);
+  background: var(--color-bg-brand);
+}
+
+/* Preview strip */
+.themeOptionPreview {
+  width: 100%;
+  height: var(--spacing-4xl);
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+  display: flex;
+  flex-shrink: 0;
+}
+/* Background das 4 variantes — dark/light usam tokens de paleta fixos */
+.themeOptionPreview--dark    { background: var(--color-gray-950); }
+.themeOptionPreview--light   { background: var(--color-gray-100); }
+.themeOptionPreview--glass   { background: var(--color-bg-subtle); }
+.themeOptionPreview--minimal { background: var(--color-bg-subtle); }
+
+/* Mini sidebar dentro do preview */
+.themeOptionPreviewSidebar {
+  width: 28%;
+  padding: var(--spacing-xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  flex-shrink: 0;
+}
+.themeOptionPreview--dark    .themeOptionPreviewSidebar { background: var(--color-gray-black); }
+.themeOptionPreview--light   .themeOptionPreviewSidebar { background: var(--color-gray-200); }
+.themeOptionPreview--glass   .themeOptionPreviewSidebar { background: var(--color-glass-surface); }
+.themeOptionPreview--minimal .themeOptionPreviewSidebar { background: var(--color-bg-surface); }
+
+/* Pontos de navegação na mini sidebar */
+.themeOptionPreviewSidebarDot {
+  height: var(--spacing-xs);
+  border-radius: var(--radius-full);
+}
+.themeOptionPreview--dark    .themeOptionPreviewSidebarDot { background: var(--color-gray-700); }
+.themeOptionPreview--light   .themeOptionPreviewSidebarDot { background: var(--color-gray-400); }
+.themeOptionPreview--glass   .themeOptionPreviewSidebarDot { background: var(--color-border-muted); }
+.themeOptionPreview--minimal .themeOptionPreviewSidebarDot { background: var(--color-border-default); }
+/* Ponto ativo: sempre brand */
+.themeOptionPreviewSidebarDot.active { background: var(--color-action-primary); }
+
+/* Área de conteúdo principal no preview */
+.themeOptionPreviewMain {
+  flex: 1;
+  padding: var(--spacing-xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+.themeOptionPreviewBar {
+  height: var(--spacing-xs);
+  width: 45%;
+  border-radius: var(--radius-full);
+}
+.themeOptionPreview--dark    .themeOptionPreviewBar { background: var(--color-gray-700); }
+.themeOptionPreview--light   .themeOptionPreviewBar { background: var(--color-gray-300); }
+.themeOptionPreview--glass   .themeOptionPreviewBar { background: var(--color-border-muted); }
+.themeOptionPreview--minimal .themeOptionPreviewBar { background: var(--color-border-default); }
+
+.themeOptionPreviewArea {
+  flex: 1;
+  border-radius: var(--radius-xs);
+  border: var(--border-width-thin) solid transparent;
+}
+.themeOptionPreview--dark    .themeOptionPreviewArea { background: var(--color-gray-800); }
+.themeOptionPreview--light   .themeOptionPreviewArea { background: var(--color-gray-white); border-color: var(--color-gray-200); }
+.themeOptionPreview--glass   .themeOptionPreviewArea { background: var(--color-glass-surface); border-color: var(--color-glass-border); }
+.themeOptionPreview--minimal .themeOptionPreviewArea { background: var(--color-bg-surface); border-color: var(--color-border-subtle); }
+
+/* Rodapé do card de opção: label + checkmark */
+.themeOptionFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+}
+.themeOptionInfo { display: flex; flex-direction: column; gap: var(--spacing-2xs); }
+.themeOptionLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+.themeOptionDesc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+.themeOptionCheck {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-lg);
+  height: var(--spacing-lg);
+  border-radius: var(--radius-full);
+  background: var(--color-action-primary);
+  color: var(--color-gray-white);
+  flex-shrink: 0;
+  opacity: 0;
+  transform: scale(0.75);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+.themeOption.selected .themeOptionCheck {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── Tema Minimalista: overrides visuais (demo sem glass/blobs) ──────────── */
+/* Esconde blobs — fundo vira cor sólida */
+.minimal-theme .blob1,
+.minimal-theme .blob2 { display: none; }
+
+/* Fundo do conteúdo principal */
+.minimal-theme .bgWrapper                    { background: var(--color-gray-900); }
+[data-theme="light"] .minimal-theme .bgWrapper { background: var(--color-gray-50); }
+
+/* Sidebar: preto absoluto no dark, branco no light */
+.minimal-theme #sidebar                    { background: var(--color-gray-black); }
+[data-theme="light"] .minimal-theme #sidebar { background: var(--color-gray-white); border-right-color: var(--color-gray-200); }
+
+/* Cards e tabelas: sem sombra e sem backdrop-blur (sem blobs não há o que desfocar) */
+.minimal-theme .card {
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
