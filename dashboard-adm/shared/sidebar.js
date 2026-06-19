@@ -1,4 +1,4 @@
-/**
+﻿/**
  * shared/sidebar.js
  * Componente de sidebar compartilhado — Painel ADM Althus
  *
@@ -57,8 +57,8 @@
 
     <div class="logoRow">
       <div class="logoWrap">
-        <img class="logo-img logo-full"   src="../storybook/src/components/Logo/logo-default.svg" width="120" alt="Althus" />
-        <img class="logo-img logo-symbol" src="../storybook/src/components/Logo/logo-symbol.svg"  width="28"  alt="Althus" />
+        <img class="logo-img logo-full"   src="../storybook-desktop/src/components/Logo/logo-default.svg" width="120" alt="Althus" />
+        <img class="logo-img logo-symbol" src="../storybook-desktop/src/components/Logo/logo-symbol.svg"  width="28"  alt="Althus" />
       </div>
     </div>
 

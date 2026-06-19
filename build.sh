@@ -1,15 +1,22 @@
 #!/bin/bash
 set -e
 
-echo "→ Building Storybook..."
-cd storybook
+echo "→ Building Storybook Desktop..."
+cd storybook-desktop
+npm ci
+npm run build-storybook
+cd ..
+
+echo "→ Building Storybook App..."
+cd storybook-app
 npm ci
 npm run build-storybook
 cd ..
 
 echo "→ Setting up output directory..."
 rm -rf public
-mkdir -p public/storybook/src
+mkdir -p public/storybook-desktop/src
+mkdir -p public/storybook-app/src
 mkdir -p public/storybook-ui
 mkdir -p public/dashboard-rede
 mkdir -p public/dashboard-adm
@@ -19,10 +26,11 @@ mkdir -p public/src
 mkdir -p public/shared
 
 echo "→ Copying Storybook UI..."
-cp -r storybook/storybook-static/. public/storybook-ui/
+cp -r storybook-desktop/storybook-static/. public/storybook-ui/
 
 echo "→ Copying CSS source files..."
-cp -r storybook/src/. public/storybook/src/
+cp -r storybook-desktop/src/. public/storybook-desktop/src/
+cp -r storybook-app/src/. public/storybook-app/src/
 
 echo "→ Copying shared CSS..."
 cp -r shared/. public/shared/

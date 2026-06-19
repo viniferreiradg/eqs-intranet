@@ -1,0 +1,64 @@
+.toggleWrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  user-select: none;
+}
+.toggleWrapper.toggleDisabled { cursor: not-allowed; pointer-events: none; }
+.toggleDisabled .toggleTrack { background: var(--color-status-disabled-bg); }
+.toggleDisabled.toggleChecked .toggleTrack { background: var(--color-status-disabled-bg); }
+.toggleDisabled .toggleThumb { background: var(--color-status-disabled-fg); }
+.toggleDisabled .toggleLabel { color: var(--color-text-disabled); }
+
+.toggleInput { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+
+.toggleTrack {
+  position: relative;
+  width: 44px; height: 24px;
+  background: var(--color-glass-surface);
+  border: var(--border-width-thin) solid var(--color-glass-border);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  border-radius: var(--radius-full);
+  transition: background var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+  flex-shrink: 0;
+}
+/* React: classe .toggleChecked no wrapper | HTML: :has(input:checked) */
+.toggleChecked .toggleTrack,
+.toggleWrapper:has(input:checked) .toggleTrack {
+  background: var(--gradient-brand);
+  border-color: transparent;
+  box-shadow: var(--shadow-highlight), var(--shadow-glow-sm);
+}
+
+.toggleThumb {
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 16px; height: 16px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: var(--shadow-xs);
+  transition: transform var(--transition-fast);
+}
+.toggleChecked .toggleThumb,
+.toggleWrapper:has(input:checked) .toggleThumb { transform: translateX(20px); }
+
+/* sm */
+.toggleSm .toggleTrack { width: 32px; height: 18px; }
+.toggleSm .toggleThumb { top: 3px; left: 3px; width: 10px; height: 10px; }
+.toggleSm.toggleChecked .toggleThumb,
+.toggleSm:has(input:checked) .toggleThumb { transform: translateX(14px); }
+
+.toggleLabel {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+.toggleWrapper:has(input:focus-visible) .toggleTrack {
+  outline: var(--border-width-medium) solid var(--color-border-focus);
+  outline-offset: 2px;
+}

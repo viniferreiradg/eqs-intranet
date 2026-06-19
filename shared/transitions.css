@@ -17,15 +17,13 @@
 /* ─── Modal screen ──────────────────────────────────── */
 .modalScreen {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  height: 70%;
-  max-height: 90%;
-  overflow: hidden;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md);
   z-index: 10;
-  will-change: transform;
+  will-change: opacity, transform;
 }
 
 /* ─── Modal backdrop ────────────────────────────────── */
@@ -79,15 +77,15 @@
 
 /* ─── Modal ─────────────────────────────────────────── */
 @keyframes enterModal {
-  from { transform: translateY(100%); }
-  to   { transform: translateY(0); }
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
 }
 @keyframes exitModal {
-  from { transform: translateY(0); }
-  to   { transform: translateY(100%); }
+  from { opacity: 1; transform: scale(1)    translateY(0); }
+  to   { opacity: 0; transform: scale(0.95) translateY(8px); }
 }
-.modalScreen.enterModal { animation: enterModal 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-.modalScreen.exitModal  { animation: exitModal  300ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.modalScreen.enterModal { animation: enterModal 250ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.modalScreen.exitModal  { animation: exitModal  200ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 
 /* ─── Fade (crossfade puro — sem escala nem slide) ─── */
 @keyframes enterFade {

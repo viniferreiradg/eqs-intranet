@@ -97,16 +97,6 @@ body.splash-screen {
   overflow: hidden;
 }
 
-.splashBlob1 {
-  position: absolute;
-  top: -15%;
-  right: -25%;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, var(--color-blob-1) 0%, transparent 70%);
-  filter: blur(60px);
-  pointer-events: none;
-}
 
 @keyframes splashGrow {
   from { transform: scale(0.9); }
@@ -119,15 +109,106 @@ body.splash-screen {
   z-index: 1;
 }
 
-.splashBlob2 {
-  position: absolute;
-  bottom: -15%;
-  left: -25%;
-  width: 260px;
-  height: 260px;
-  background: radial-gradient(circle, var(--color-blob-2) 0%, transparent 70%);
-  filter: blur(50px);
-  pointer-events: none;
+
+/* ─── Modal ──────────────────────────────────────────
+   Telas abertas via router.modal() — rodam num iframe
+   dentro do .modalScreen (centralizado, com padding).  */
+body.modal-screen {
+  background: transparent;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md);
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 100%;
+  background: var(--color-glass-dark);
+  border: var(--border-width-thin) solid var(--color-glass-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg) var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+.modal-header-start,
+.modal-header-end {
+  width: 32px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  padding-top: 2px;
+}
+
+.modal-header-center {
+  flex: 1;
+  text-align: center;
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-xs);
+  line-height: var(--line-height-tight);
+}
+
+.modal-desc {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  line-height: var(--line-height-normal);
+}
+
+.modal-nav-btn {
+  background: var(--color-glass-surface);
+  border: var(--border-width-thin) solid var(--color-glass-border);
+  border-radius: var(--radius-full);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  transition: background var(--transition-fast);
+}
+
+.modal-nav-btn:hover {
+  background: var(--color-bg-elevated);
+}
+
+.modal-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: 0 var(--spacing-lg) var(--spacing-lg);
+}
+
+.modal-body::-webkit-scrollbar { display: none; }
+
+.modal-legal {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  line-height: var(--line-height-normal);
+  text-align: center;
 }
 
 /* ─── Login ──────────────────────────────────────────── */
@@ -135,6 +216,9 @@ body.login-screen {
   align-items: center;
   justify-content: center;
   padding: var(--spacing-md);
+  background-image: url('../src/bg-road-v2.png');
+  background-size: cover;
+  background-position: center;
 }
 
 .login-card {
@@ -143,7 +227,7 @@ body.login-screen {
 
 .login-forgot {
   text-align: right;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   color: var(--color-text-brand);
   text-decoration: none;
   margin-top: calc(var(--spacing-xs) * -1);
@@ -153,7 +237,7 @@ body.login-screen {
 .login-footer {
   margin-top: var(--spacing-lg);
   text-align: center;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   color: var(--color-text-tertiary);
 }
 
@@ -414,30 +498,6 @@ body.layout-screen:has(.screen-nav) .cadastro-footer {
   cursor: default;
 }
 
-/* ─── Reusable background blobs (any screen) ─────────── */
-.screenBlob1 {
-  position: absolute;
-  top: -10%;
-  right: -25%;
-  width: 280px;
-  height: 280px;
-  background: radial-gradient(circle, var(--color-blob-1) 0%, transparent 70%);
-  filter: blur(60px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.screenBlob2 {
-  position: absolute;
-  bottom: -10%;
-  left: -25%;
-  width: 240px;
-  height: 240px;
-  background: radial-gradient(circle, var(--color-blob-2) 0%, transparent 70%);
-  filter: blur(50px);
-  pointer-events: none;
-  z-index: 0;
-}
 
 /* ─── Map pin clickable button ───────────────────── */
 .map-pin-btn {

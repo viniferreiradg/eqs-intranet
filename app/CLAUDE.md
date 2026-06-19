@@ -1,4 +1,4 @@
-# Althus App — CLAUDE.md
+﻿# Althus App — CLAUDE.md
 _Last updated: 2026-05-27_
 
 ## Skill de referência
@@ -45,7 +45,7 @@ app/
 - Router: `app/router.js` — carrega `partials/{id}.html` via fetch()
 - Transitions: `shared/transitions.css` (raiz do projeto)
 - Layout CSS: `shared/page-mobile.css` (raiz do projeto)
-- Design system: `../../storybook/` (tokens + componentes)
+- Design system: `../../storybook-app/` (tokens + componentes)
 - Icons: Lucide CDN via `data-lucide`
 - Viewport: 393px (iPhone 14 frame), dark mode padrão (`data-theme="dark"`)
 
@@ -73,9 +73,9 @@ router.tab('screen-id')       // trocar aba (fade + shift)
 ## CSS loading order (em cada screens/*.html)
 
 ```html
-<link rel="stylesheet" href="../../storybook/src/tokens/tokens.css" />
+<link rel="stylesheet" href="../../storybook-app/src/tokens/tokens.css" />
 <link rel="stylesheet" href="../../shared/page-mobile.css" />
-<link rel="stylesheet" href="../../storybook/src/components/ComponentName/ComponentName.module.css" />
+<link rel="stylesheet" href="../../storybook-app/src/components/ComponentName/ComponentName.module.css" />
 <!-- um <link> por componente realmente usado na tela -->
 ```
 
