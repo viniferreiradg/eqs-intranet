@@ -21,7 +21,6 @@ mkdir -p public/storybook-ui
 mkdir -p public/dashboard-rede
 mkdir -p public/dashboard-adm
 mkdir -p public/app
-mkdir -p public/app-light
 mkdir -p public/src
 mkdir -p public/shared
 
@@ -41,7 +40,6 @@ cp -r dashboard-adm/. public/dashboard-adm/
 
 echo "→ Copying app files..."
 cp -r app/. public/app/
-cp -r app-light/. public/app-light/
 
 echo "→ Copying assets..."
 cp -r src/. public/src/
