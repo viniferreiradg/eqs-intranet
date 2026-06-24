@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,13 +21,25 @@
   <style>
     /* Login não usa sidebar — sobrescreve o layout flex do page.css */
     body { display: block; height: auto; overflow: auto; }
+
+    .bg-video {
+      position: fixed;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.2;
+      z-index: 0;
+    }
+    .page { position: relative; z-index: 1; background: transparent; }
   </style>
 </head>
 <body>
 
+<video class="bg-video" autoplay muted loop playsinline>
+  <source src="../src/3214448-uhd_2560_1440_25fps.mp4" type="video/mp4">
+</video>
+
 <div class="page">
-  <div class="blob1"></div>
-  <div class="blob2"></div>
 
   <div class="card">
 

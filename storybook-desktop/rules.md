@@ -240,7 +240,13 @@ Classes: `.card` (container), `.tableWrap`, `.table`, `.thead`, `.tbody`, `.tr`,
 ```html
 <link rel="stylesheet" href="../storybook/src/components/Card/Card.module.css" />
 ```
-Classes: `.card` — glass surface com `backdrop-filter`. Usar em formulários.  
+
+| Classe | Token de fundo | Uso |
+|--------|---------------|-----|
+| `.card` | `--color-glass-surface` — `rgba(255,255,255,0.08)` dark / `rgba(0,0,0,0.05)` light | Glass padrão (adapta ao tema). Usar em formulários. |
+| `.card2` | `--color-glass2-surface` — `rgba(255,255,255,0.40)` | Glass 2: mais opaco, tema-independente. |
+
+Ambas usam `backdrop-filter: blur(16px)` e `border: --color-glass-border`.  
 **Não coexiste com:** Table.module.css (mesma classe `.card`).
 
 ---

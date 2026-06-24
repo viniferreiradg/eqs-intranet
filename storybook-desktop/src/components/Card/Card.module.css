@@ -5,3 +5,11 @@
   border: var(--border-width-thin) solid var(--color-glass-border);
   border-radius: var(--radius-sm);
 }
+
+.card2 {
+  background: var(--color-glass2-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: var(--border-width-thin) solid var(--color-glass-border);
+  border-radius: var(--radius-sm);
+}

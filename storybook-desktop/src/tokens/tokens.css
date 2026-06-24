@@ -41,33 +41,33 @@
   --letter-spacing-wide:   0.5px;
   --letter-spacing-wider:  1px;
 
-  /* ─── Colors — Brand (Electric Teal) ──────────────── */
-  --color-brand-50:  #E6FAF7;
-  --color-brand-100: #C2F2EA;
-  --color-brand-200: #8DE4D4;
-  --color-brand-300: #4DD4BF;
-  --color-brand-400: #1ECBB5;
-  --color-brand-500: #00C2A8;
-  --color-brand-600: #00A890;
-  --color-brand-700: #008270;
-  --color-brand-800: #006152;
-  --color-brand-900: #004338;
-  --color-brand-950: #002922;
+  /* ─── Colors — Brand (Shuttle Gray) ───────────────── */
+  --color-brand-50:  var(--color-gray-50);
+  --color-brand-100: var(--color-gray-100);
+  --color-brand-200: var(--color-gray-200);
+  --color-brand-300: var(--color-gray-300);
+  --color-brand-400: var(--color-gray-400);
+  --color-brand-500: var(--color-gray-500);
+  --color-brand-600: var(--color-gray-600);
+  --color-brand-700: var(--color-gray-700);
+  --color-brand-800: var(--color-gray-800);
+  --color-brand-900: var(--color-gray-900);
+  --color-brand-950: var(--color-gray-950);
 
   /* ─── Colors — Gray (Neutral, cool undertone) ──────── */
   --color-gray-white: #ffffff;
-  --color-gray-50:    #F7F8F8;
-  --color-gray-100:   #EAECEC;
-  --color-gray-200:   #D4D8D8;
-  --color-gray-300:   #B5BCBC;
-  --color-gray-400:   #8F9898;
-  --color-gray-500:   #6B7575;
-  --color-gray-600:   #4F5A5A;
-  --color-gray-700:   #374040;
-  --color-gray-800:   #242B2B;
-  --color-gray-900:   #151A1A;
-  --color-gray-950:   #0C1010;
-  --color-gray-black: #060A0A;
+  --color-gray-50:    #F9FAFB;
+  --color-gray-100:   #F2F4F7;
+  --color-gray-200:   #E4E7EC;
+  --color-gray-300:   #CFD5DD;
+  --color-gray-400:   #98A4B3;
+  --color-gray-500:   #606B7C;
+  --color-gray-600:   #465668;
+  --color-gray-700:   #314257;
+  --color-gray-800:   #1A2A3C;
+  --color-gray-900:   #0C182C;
+  --color-gray-950:   #000715;
+  --color-gray-black: #00040D;
 
   /* ─── Colors — Red ─────────────────────────────────── */
   --color-red-50:   #FEF2F2;
@@ -83,17 +83,17 @@
   --color-red-950:  #4C0A0A;
 
   /* ─── Colors — Green ───────────────────────────────── */
-  --color-green-50:   #ECFDF5;
-  --color-green-100:  #D1FAE5;
-  --color-green-200:  #A7F3D0;
-  --color-green-300:  #6EE7B7;
-  --color-green-400:  #34D399;
-  --color-green-500:  #10B981;
-  --color-green-600:  #059669;
-  --color-green-700:  #047857;
-  --color-green-800:  #065F46;
-  --color-green-900:  #064E3B;
-  --color-green-950:  #022C22;
+  --color-green-50:   #FAFFE6;
+  --color-green-100:  #F2FFC3;
+  --color-green-200:  #E8FF8C;
+  --color-green-300:  #DDFF4A;
+  --color-green-400:  #D5FF16;
+  --color-green-500:  #C1E800;
+  --color-green-600:  #A8C300;
+  --color-green-700:  #899801;
+  --color-green-800:  #727A09;
+  --color-green-900:  #63680D;
+  --color-green-950:  #393C02;
 
   /* ─── Colors — Blue ────────────────────────────────── */
   --color-blue-50:   #EFF6FF;
@@ -280,8 +280,8 @@
   /* ─── Glass surfaces ───────────────────────────────── */
   --color-glass-surface:  rgba(255, 255, 255, 0.08);
   --color-glass-border:   rgba(255, 255, 255, 0.14);
-  --color-blob-1:         rgba(0, 194, 168, 0.32);
-  --color-blob-2:         rgba(0, 194, 168, 0.20);
+  --color-glass2-surface: rgba(255, 255, 255, 0.40);
+
   --blur-glass:           12px;
   --color-sidebar-bg:     rgba(0, 0, 0, 0.28);
   --color-nav-idle:       rgba(255, 255, 255, 0.36);
@@ -296,9 +296,19 @@
   /* ─── Brand effect ──────────────────────────────────── */
   --gradient-brand:    linear-gradient(135deg, var(--color-brand-400) 0%, var(--color-brand-600) 100%);
   --shadow-highlight:  inset 0 1px 0 rgba(255, 255, 255, 0.18);
-  --shadow-glow-sm:    0 2px 6px  rgba(0, 194, 168, 0.30);
-  --shadow-glow-md:    0 4px 14px rgba(0, 194, 168, 0.32);
-  --shadow-glow-lg:    0 6px 20px rgba(0, 194, 168, 0.42);
+
+  /* ─── Overlays & focus rings ────────────────────────── */
+  --color-overlay:           rgba(0, 0, 0, 0.50);
+  --shadow-focus-ring:       0 0 0 3px rgba(0, 0, 0, 0.12);
+  --shadow-focus-ring-error: 0 0 0 3px rgba(185, 28, 46, 0.15);
+
+  /* ─── On-brand (texto e controles sobre superfície colorida) */
+  --color-on-brand-muted:      rgba(255, 255, 255, 0.72);
+  --color-on-brand-sub:        rgba(255, 255, 255, 0.80);
+  --color-on-brand-btn:        rgba(255, 255, 255, 0.18);
+  --color-on-brand-btn-border: rgba(255, 255, 255, 0.28);
+  --color-on-brand-btn-hover:  rgba(255, 255, 255, 0.26);
+  --color-on-brand-btn-press:  rgba(255, 255, 255, 0.12);
 }
 
 /* ─── Light mode overrides ───────────────────────────── */
@@ -306,8 +316,6 @@
   /* Glass surfaces */
   --color-glass-surface:  rgba(0, 0, 0, 0.05);
   --color-glass-border:   rgba(0, 0, 0, 0.10);
-  --color-blob-1:         rgba(0, 194, 168, 0.15);
-  --color-blob-2:         rgba(0, 194, 168, 0.15);
   --color-sidebar-bg:     rgba(255, 255, 255, 0.72);
   --color-nav-idle:       rgba(15, 12, 20, 0.38);
   --color-nav-active-bg:  rgba(15, 12, 20, 0.06);
@@ -317,11 +325,6 @@
   --color-table-head-bg:   rgba(0, 0, 0, 0.05);
   --color-table-border:    rgba(0, 0, 0, 0.05);
   --color-table-row-hover: rgba(0, 0, 0, 0.015);
-
-  /* Brand effect (glow menos intenso no light) */
-  --shadow-glow-sm:    0 2px 6px  rgba(0, 194, 168, 0.20);
-  --shadow-glow-md:    0 4px 14px rgba(0, 194, 168, 0.22);
-  --shadow-glow-lg:    0 6px 20px rgba(0, 194, 168, 0.30);
 
   /* Shadows (light-optimized) */
   --shadow-xs:    0 1px 4px rgba(35, 35, 35, 0.05);

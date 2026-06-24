@@ -41,6 +41,37 @@ Botão de tema alterna `data-theme` e re-executa `lucide.createIcons()`.
 
 ## Componentes — CSS paths e classes HTML
 
+### CreditCard _(Mobile)_
+```html
+<link rel="stylesheet" href="../../storybook-app/src/components/CreditCard/CreditCard.module.css" />
+```
+Classes: `.creditCard` (card visual com gradiente gold), `.creditCard__wave` (decoração blob), `.creditCard__top` (número + botão delete), `.creditCard__number` (número mascarado mono), `.creditCard__delete` (botão trash), `.creditCard__footer` (titular + bandeira), `.creditCard__holder` (col nome), `.creditCard__holder-label` ("TITULAR"), `.creditCard__holder-name` (nome), `.creditCard__brand` (Elo / Visa / etc.)
+
+Tokens usados: `--color-cc-grad-from`, `--color-cc-grad-mid`, `--color-cc-grad-to`, `--color-cc-wave`, `--color-cc-text`, `--color-cc-text-dim` — todos definidos em `tokens.css`.
+
+```html
+<div class="creditCard">
+  <div class="creditCard__wave"></div>
+  <div class="creditCard__top">
+    <span class="creditCard__number">●●● ●●● ●●● 7032</span>
+    <button class="creditCard__delete" aria-label="Remover cartão">
+      <i data-lucide="trash-2" width="16" height="16"></i>
+    </button>
+  </div>
+  <div class="creditCard__footer">
+    <div class="creditCard__holder">
+      <span class="creditCard__holder-label">Titular</span>
+      <span class="creditCard__holder-name">Lucas Andrade</span>
+    </div>
+    <span class="creditCard__brand">Elo</span>
+  </div>
+</div>
+```
+
+Usar dentro de `.carteira-cards__carousel` (scroll horizontal snap, definido em `page-mobile.css`). Cada `.creditCard` tem `flex: 0 0 82%` e `scroll-snap-align: start`.
+
+---
+
 ### StepIndicator _(Mobile)_
 ```html
 <link rel="stylesheet" href="../../storybook/src/components/StepIndicator/StepIndicator.module.css" />

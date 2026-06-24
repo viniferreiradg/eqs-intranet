@@ -16,7 +16,7 @@
   'use strict';
 
   /* ── 1. Restaurar tema salvo ───────────────────────────────────────────── */
-  const savedTheme = localStorage.getItem('althus-theme') || 'dark';
+  const savedTheme = localStorage.getItem('althus-theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
 
   /* ── 2. Itens de navegação ─────────────────────────────────────────────── */

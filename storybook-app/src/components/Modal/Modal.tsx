@@ -12,26 +12,26 @@ export interface ModalProps {
 export function Modal({ title, onBack, onClose, children }: ModalProps) {
   return (
     <div className={styles.modal}>
-      <div className={styles.header}>
-        <div className={styles.headerStart}>
+      <div className={styles.modalHeader}>
+        <div className={styles.modalHeaderStart}>
           {onBack && (
-            <button className={styles.navBtn} onClick={onBack} aria-label="Voltar">
+            <button className={styles.modalNavBtn} onClick={onBack} aria-label="Voltar">
               <ChevronLeft size={20} />
             </button>
           )}
         </div>
-        <div className={styles.headerCenter}>
-          <h2 className={styles.title}>{title}</h2>
+        <div className={styles.modalHeaderCenter}>
+          <h2 className={styles.modalTitle}>{title}</h2>
         </div>
-        <div className={styles.headerEnd}>
+        <div className={styles.modalHeaderEnd}>
           {onClose && (
-            <button className={styles.navBtn} onClick={onClose} aria-label="Fechar">
+            <button className={styles.modalNavBtn} onClick={onClose} aria-label="Fechar">
               <X size={18} />
             </button>
           )}
         </div>
       </div>
-      <div className={styles.body}>{children}</div>
+      <div className={styles.modalBody}>{children}</div>
     </div>
   );
 }

@@ -10,15 +10,26 @@ export default meta;
 
 type Story = StoryObj<typeof Card>;
 
+const SampleContent = () => (
+  <div style={{ padding: '24px', minWidth: 320 }}>
+    <p style={{ margin: 0, fontFamily: 'var(--font-body)', fontSize: 14, color: 'var(--color-text-primary)' }}>
+      Conteúdo do card
+    </p>
+  </div>
+);
+
 export const Default: Story = {
   args: {
-    children: (
-      <div style={{ padding: '24px', minWidth: 320 }}>
-        <p style={{ margin: 0, fontFamily: 'var(--font-body)', fontSize: 14, color: 'var(--color-text-primary)' }}>
-          Conteúdo do card
-        </p>
-      </div>
-    ),
+    variant: 'default',
+    children: <SampleContent />,
+  },
+};
+
+export const Glass2: Story = {
+  name: 'Glass 2 — rgba(255,255,255,0.40)',
+  args: {
+    variant: 'glass2',
+    children: <SampleContent />,
   },
 };
 

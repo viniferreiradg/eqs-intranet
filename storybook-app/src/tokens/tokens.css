@@ -296,9 +296,17 @@
   /* ─── Brand effect ──────────────────────────────────── */
   --gradient-brand:    linear-gradient(135deg, var(--color-brand-400) 0%, var(--color-brand-600) 100%);
   --shadow-highlight:  inset 0 1px 0 rgba(255, 255, 255, 0.18);
-  --shadow-glow-sm:    0 2px 6px  rgba(0, 194, 168, 0.30);
-  --shadow-glow-md:    0 4px 14px rgba(0, 194, 168, 0.32);
-  --shadow-glow-lg:    0 6px 20px rgba(0, 194, 168, 0.42);
+  --shadow-glow-sm:    0 2px 6px  rgba(193, 232, 0, 0.30);
+  --shadow-glow-md:    0 4px 14px rgba(193, 232, 0, 0.32);
+  --shadow-glow-lg:    0 6px 20px rgba(193, 232, 0, 0.42);
+
+  /* ─── Credit card visual ───────────────────────────── */
+  --color-cc-grad-from:  #4a3008;
+  --color-cc-grad-mid:   #8a6010;
+  --color-cc-grad-to:    #6a4a0c;
+  --color-cc-wave:       rgba(180, 130, 10, 0.22);
+  --color-cc-text:       #f0d898;
+  --color-cc-text-dim:   rgba(240, 216, 152, 0.55);
 }
 
 /* ─── Light mode overrides ───────────────────────────── */
@@ -318,9 +326,9 @@
   --color-table-row-hover: rgba(0, 0, 0, 0.015);
 
   /* Brand effect (glow menos intenso no light) */
-  --shadow-glow-sm:    0 2px 6px  rgba(0, 194, 168, 0.20);
-  --shadow-glow-md:    0 4px 14px rgba(0, 194, 168, 0.22);
-  --shadow-glow-lg:    0 6px 20px rgba(0, 194, 168, 0.30);
+  --shadow-glow-sm:    0 2px 6px  rgba(193, 232, 0, 0.20);
+  --shadow-glow-md:    0 4px 14px rgba(193, 232, 0, 0.22);
+  --shadow-glow-lg:    0 6px 20px rgba(193, 232, 0, 0.30);
 
   /* Shadows (light-optimized) */
   --shadow-xs:    0 1px 4px rgba(35, 35, 35, 0.05);

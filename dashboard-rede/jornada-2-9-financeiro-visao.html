@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Financeiro — Visão geral — Althus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <link rel="stylesheet" href="../storybook-desktop/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Sheet/Sheet.module.css" />
+</head>
+<body data-page="financeiro-visao">
+
+<aside id="sidebar-root"></aside>
+
+<main class="main">
+  <div class="pageContent">
+
+    <!-- Cabeçalho com filtros -->
+    <header class="finPageHeader">
+      <div>
+        <h1 class="pageTitle">Visão geral</h1>
+        <p class="pageSubtitle">Monitore os dados financeiros da sua operação</p>
+      </div>
+      <div class="finFilterBar">
+        <!-- Dropdown: Carregador -->
+        <div class="wrapper" id="charger-dropdown">
+          <div class="trigger" id="charger-trigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+            <span id="charger-value">Carregador</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu" role="listbox">
+            <div class="option selected" role="option">Todos</div>
+            <div class="option" role="option">CHG-001</div>
+            <div class="option" role="option">CHG-002</div>
+            <div class="option" role="option">CHG-004</div>
+            <div class="option" role="option">CHG-006</div>
+            <div class="option" role="option">CHG-008</div>
+          </div>
+        </div>
+        <!-- Período -->
+        <div class="dpWrap">
+          <button class="dpTrigger" type="button" aria-label="Selecionar período">
+            <span class="dpTriggerIcon"><i data-lucide="calendar" width="14" height="14"></i></span>
+            <span class="dpTriggerPlaceholder">Período</span>
+          </button>
+        </div>
+        <!-- Ação principal -->
+        <button class="btn primary hasLeft" type="button">
+          <span class="icon"><i data-lucide="file-text" width="15" height="15"></i></span>
+          Gerar relatório com IA
+        </button>
+      </div>
+    </header>
+
+    <!-- 4 cards de métrica -->
+    <div class="metricsGrid4">
+      <div class="metricCard">
+        <span class="metricCardLabel">TPV — Total Payment Volume</span>
+        <p class="metricCardValue">R$ 128.430,00</p>
+        <p class="metricCardMeta">Após take-rate de 10%</p>
+      </div>
+      <div class="metricCard">
+        <span class="metricCardLabel">Faturamento líquido</span>
+        <p class="metricCardValue">R$ 104.890,00</p>
+        <p class="metricCardMeta"><span class="metricCardGrowth">+12%</span> vs. mês anterior</p>
+      </div>
+      <div class="metricCard">
+        <span class="metricCardLabel">Ticket médio por recarga</span>
+        <p class="metricCardValue">R$ 59,00</p>
+        <p class="metricCardMeta"><span class="metricCardGrowth">+12%</span> vs. mês anterior</p>
+      </div>
+      <!-- BTG Pactual — variante azul -->
+      <div class="metricCard metricCardBtg">
+        <div class="metricCardBtgRow">
+          <span class="metricCardLabel">Saldo BTG Pactual</span>
+          <button class="btgRevealBtn" id="btg-reveal-btn" type="button" aria-label="Revelar saldo">
+            <i data-lucide="eye" width="16" height="16"></i>
+          </button>
+        </div>
+        <p class="metricCardValue" id="btg-value">●●●●●</p>
+        <p class="metricCardMeta">Atualizado agora — conta 88546</p>
+      </div>
+    </div>
+
+    <!-- Cashback por faixa de TPV -->
+    <section class="cashbackSection">
+      <div class="cashbackSectionHeader">
+        <div>
+          <h2 class="cashbackSectionTitle">Cashback por faixa de TPV</h2>
+          <p class="cashbackSectionSub">Quanto você recebe de volta com base no volume processado no mês</p>
+        </div>
+        <p class="cashbackTpvTotal">TPV do mês atual: <strong>R$ 128.430,00</strong></p>
+      </div>
+
+      <div class="cashbackLayout">
+        <!-- Esquerda: narrativa + barra de progresso -->
+        <div class="cashbackNarrative">
+          <p class="cashbackNarrativeText">
+            Você acumulou <strong>R$ 1.926,45</strong> de cashback este mês.
+            Faltam <strong>R$ 11.680,00</strong> em TPV para subir para <strong>2,0%</strong>
+            e ganhar mais <strong>R$ 240,00/mês</strong>.
+          </p>
+          <div class="tpvProgressWrap">
+            <div class="tpvProgressBar">
+              <div class="tpvProgressFill" id="tpv-fill"></div>
+            </div>
+            <div class="tpvProgressLabels">
+              <span>R$ 10 mil</span>
+              <span>R$ 30 mil</span>
+              <span class="tpvProgressLabelActive">R$ 50 mil ✓</span>
+              <span>R$ 150 mil</span>
+              <span>R$ 300 mil</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Direita: tabela de faixas -->
+        <ul class="tpvRangeList">
+          <li class="tpvRangeItem">
+            <span class="tpvRangePct">0,5%</span>
+            <span class="tpvRangeDesc">TPV de R$ 10.001,00 a R$ 30.000,00</span>
+          </li>
+          <li class="tpvRangeItem">
+            <span class="tpvRangePct">1%</span>
+            <span class="tpvRangeDesc">TPV de R$ 30.001,00 a R$ 50.000,00</span>
+          </li>
+          <li class="tpvRangeItem tpvRangeItemActive">
+            <span class="tpvRangePct">1,5%</span>
+            <span class="tpvRangeDesc">TPV de R$ 50.001,00 a R$ 150.000,00</span>
+            <span class="inlineBadge warning">Faixa atual</span>
+          </li>
+          <li class="tpvRangeItem">
+            <span class="tpvRangePct">2%</span>
+            <span class="tpvRangeDesc">TPV acima de R$ 150.001,00</span>
+            <span class="inlineBadge muted">Próxima</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Saldo acumulado + Cashback do mês -->
+      <div class="cashbackSummaryGrid">
+        <div class="cashbackSummaryCard">
+          <p class="cashbackSummaryCardLabel">Saldo acumulado disponível</p>
+          <p class="cashbackSummaryCardValue">R$ 3.847,20</p>
+          <p class="cashbackSummaryCardMeta">Referente aos meses anteriores ainda não sacados</p>
+          <span class="inlineBadge success">Disponível para saque</span>
+        </div>
+        <div class="cashbackSummaryCard">
+          <p class="cashbackSummaryCardLabel">Cashback do mês atual</p>
+          <p class="cashbackSummaryCardValue">R$ 1.926,45</p>
+          <p class="cashbackSummaryCardMeta">Será creditado no saldo em 01/07/2026</p>
+          <span class="inlineBadge warning">Aguardando fechamento do mês</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ação: Solicitar saque -->
+    <div class="finActionBar">
+      <span class="finActionNote">Mínimo de R$ 200,00 · Processado em até 2 dias úteis</span>
+      <button class="btn primary" type="button">Solicitar saque via PIX</button>
+    </div>
+
+    <!-- Próximos recebimentos + Forma de pagamento (2 colunas) -->
+    <div class="widgetsGrid">
+
+      <!-- Próximos recebimentos -->
+      <section class="widgetCard">
+        <div class="widgetCardHeader">
+          <div>
+            <h2 class="widgetCardTitle">Próximos recebimentos</h2>
+            <p class="widgetCardSub">Valores a receber com base nos meios de pagamento</p>
+          </div>
+        </div>
+
+        <!-- Cartão de crédito -->
+        <div class="receivableSubCard">
+          <div class="receivableSubHeader">
+            <p class="receivableSubTitle">Pagamentos feitos com cartão de crédito</p>
+            <span class="inlineBadge muted">D+30 por transação</span>
+          </div>
+          <div class="receivableSubColumns">
+            <div class="receivableCol">
+              <span class="receivableColLabel">A receber nos próximos 7 dias</span>
+              <span class="receivableColAmount">R$ 8.420,00</span>
+            </div>
+            <div class="receivableCol">
+              <span class="receivableColLabelWarn">Pendente (fora da janela)</span>
+              <span class="receivableColAmount">R$ 20.668,00</span>
+            </div>
+          </div>
+          <p class="receivableTotal">Total a receber: <strong>R$ 29.088,00</strong></p>
+        </div>
+
+        <!-- Saldo em carteira / PIX -->
+        <div class="receivableSubCard">
+          <div class="receivableSubHeader">
+            <p class="receivableSubTitle">Pagamentos feitos com saldo em carteira (via Pix)</p>
+            <span class="inlineBadge warning">1º dia útil do mês</span>
+          </div>
+          <div>
+            <p class="receivableSubAmount">R$ 14.400,00</p>
+            <span class="receivableSubMeta">acumulado em jun/26</span>
+          </div>
+          <p class="receivableSubMeta">Próximo repasse: 01/07/2026</p>
+        </div>
+      </section>
+
+      <!-- Forma de pagamento -->
+      <section class="widgetCard">
+        <div class="widgetCardHeader">
+          <div>
+            <h2 class="widgetCardTitle">Forma de pagamento</h2>
+            <p class="widgetCardSub">% das recargas por meio de pagamento</p>
+          </div>
+        </div>
+
+        <!-- Donut chart CSS -->
+        <div class="donutWrap">
+          <div class="donutChartWrap">
+            <div class="donutChartCircle"></div>
+            <div class="donutChartInner">
+              <span class="donutChartInnerLabel">total</span>
+              <span class="donutChartInnerValue">1.284</span>
+              <span class="donutChartInnerLabel">sessões</span>
+            </div>
+          </div>
+          <ul class="donutLegend">
+            <li class="donutLegendItem">
+              <span class="donutDot blue"></span>
+              <span class="donutLegendLabel">Cartão de crédito</span>
+              <span class="donutLegendValue">770 (60%)</span>
+            </li>
+            <li class="donutLegendItem">
+              <span class="donutDot gold"></span>
+              <span class="donutLegendLabel">Saldo em carteira (via Pix)</span>
+              <span class="donutLegendValue">514 (40%)</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Prazo de repasse -->
+        <div class="donutRepasse">
+          <p class="donutRepasseTitle">Prazo de repasse</p>
+          <div class="donutRepasseRow">
+            <span class="donutRepasseRowLabel">
+              <span class="donutDot blue"></span>
+              Cartão de crédito
+            </span>
+            <span class="donutRepasseRowValue">D+30</span>
+          </div>
+          <div class="donutRepasseRow">
+            <span class="donutRepasseRowLabel">
+              <span class="donutDot gold"></span>
+              Saldo em carteira (via Pix)
+            </span>
+            <span class="donutRepasseRowValue">1º dia útil do mês</span>
+          </div>
+          <p class="donutStripeNote">
+            A Stripe, empresa parceira referência em meios de pagamento, não está permitindo
+            antecipações no momento — <span class="donutStripeLink">recurso em análise pela plataforma</span>.
+            Ativaremos assim que for liberado.
+          </p>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Receita por carregador (full width) -->
+    <section class="widgetCard">
+      <div class="barChartHeader">
+        <div>
+          <h2 class="widgetCardTitle">Receita por carregador</h2>
+          <p class="widgetCardSub">Faturamento líquido por carregador no período (após take-rate de 10%) · Últimos 7 dias</p>
+        </div>
+        <div class="barChartPeriodTabs">
+          <button class="periodTabBtn active" type="button">7 dias</button>
+          <button class="periodTabBtn" type="button">15 dias</button>
+          <button class="periodTabBtn" type="button">30 dias</button>
+          <button class="periodTabBtn" type="button" aria-label="Selecionar período">
+            <i data-lucide="calendar" width="13" height="13"></i>
+            Período
+          </button>
+        </div>
+      </div>
+
+      <div class="barChartList" id="bar-chart-list">
+        <div class="barChartRow">
+          <span class="barChartId">CHG-001</span>
+          <div class="barChartTrack"><div class="barChartFill b800" data-pct="100"></div></div>
+          <span class="barChartAmt">R$ 7.578,00</span>
+        </div>
+        <div class="barChartRow">
+          <span class="barChartId">CHG-002</span>
+          <div class="barChartTrack"><div class="barChartFill b700" data-pct="81"></div></div>
+          <span class="barChartAmt">R$ 6.156,00</span>
+        </div>
+        <div class="barChartRow">
+          <span class="barChartId">CHG-004</span>
+          <div class="barChartTrack"><div class="barChartFill b600" data-pct="70"></div></div>
+          <span class="barChartAmt">R$ 5.328,00</span>
+        </div>
+        <div class="barChartRow">
+          <span class="barChartId">CHG-006</span>
+          <div class="barChartTrack"><div class="barChartFill b500" data-pct="52"></div></div>
+          <span class="barChartAmt">R$ 3.942,00</span>
+        </div>
+        <div class="barChartRow">
+          <span class="barChartId">CHG-008</span>
+          <div class="barChartTrack"><div class="barChartFill b400" data-pct="45"></div></div>
+          <span class="barChartAmt">R$ 3.384,00</span>
+        </div>
+        <div class="barChartRow">
+          <span class="barChartId">CHG-010</span>
+          <div class="barChartTrack"><div class="barChartFill b300" data-pct="38"></div></div>
+          <span class="barChartAmt">R$ 2.889,00</span>
+        </div>
+        <div class="barChartRow">
+          <span class="barChartId">CHG-011</span>
+          <div class="barChartTrack"><div class="barChartFill b200" data-pct="26"></div></div>
+          <span class="barChartAmt">R$ 1.971,00</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- Sheet de notificações -->
+<div class="sheetOverlay" id="notif-sheet" onclick="notifSheetClose()">
+  <aside class="sheetPanel sheetNotif" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="Notificações">
+    <div class="sheetHeader">
+      <span class="sheetTitle">Notificações</span>
+      <button class="sheetClose" onclick="notifSheetClose()" aria-label="Fechar" type="button">
+        <i data-lucide="x" width="16" height="16"></i>
+      </button>
+    </div>
+    <div class="sheetBody">
+      <div class="notifList">
+        <div class="notifListItem unread">
+          <div class="notifListIcon error"><i data-lucide="wifi-off" width="16" height="16"></i></div>
+          <div class="notifListBody">
+            <div class="notifListTitle"><span class="notifListDot"></span>Carregador ALT-003 offline</div>
+            <div class="notifListDesc">Posto Shell Anhanguera perdeu conexão.</div>
+          </div>
+          <span class="notifListTime">Agora</span>
+        </div>
+        <div class="notifListItem unread">
+          <div class="notifListIcon warning"><i data-lucide="clock" width="16" height="16"></i></div>
+          <div class="notifListBody">
+            <div class="notifListTitle"><span class="notifListDot"></span>Tarifa vence em 2 dias</div>
+            <div class="notifListDesc">Tarifa "Noturna Shell" expira em 27/05.</div>
+          </div>
+          <span class="notifListTime">14 min</span>
+        </div>
+        <div class="notifListItem">
+          <div class="notifListIcon info"><i data-lucide="file-text" width="16" height="16"></i></div>
+          <div class="notifListBody">
+            <div class="notifListTitle">Relatório mensal disponível</div>
+            <div class="notifListDesc">Abril/2026 pronto para download.</div>
+          </div>
+          <span class="notifListTime">Ontem</span>
+        </div>
+      </div>
+    </div>
+    <div class="sheetFooter">
+      <button class="btn ghost hasLeft" type="button" onclick="notifMarkAllRead()">
+        <span class="icon"><i data-lucide="check-check" width="15" height="15"></i></span>
+        Marcar todas como lidas
+      </button>
+    </div>
+  </aside>
+</div>
+
+<script src="shared/sidebar.js"></script>
+<script>
+  lucide.createIcons();
+
+  /* Bar chart: preencher larguras via data-pct */
+  document.querySelectorAll('.barChartFill').forEach(el => {
+    el.style.width = (el.dataset.pct || 0) + '%';
+  });
+
+  /* TPV progress fill */
+  document.getElementById('tpv-fill').style.width = '41%';
+
+  /* Notificações */
+  function notifSheetOpen()  { document.getElementById('notif-sheet').classList.add('sheetOpen'); document.body.style.overflow = 'hidden'; }
+  function notifSheetClose() { document.getElementById('notif-sheet').classList.remove('sheetOpen'); document.body.style.overflow = ''; }
+  function notifMarkAllRead() {
+    document.querySelectorAll('.notifListItem.unread').forEach(el => el.classList.remove('unread'));
+    const badge = document.getElementById('notif-badge');
+    if (badge) { badge.textContent = '0'; badge.style.display = 'none'; }
+    const btn = document.getElementById('notif-btn');
+    if (btn) btn.setAttribute('aria-label', 'Notificações');
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') notifSheetClose(); });
+
+  /* Dropdown Carregador */
+  const dd       = document.getElementById('charger-dropdown');
+  const ddTrigger = document.getElementById('charger-trigger');
+  ddTrigger.addEventListener('click', () => {
+    const open = dd.classList.toggle('open');
+    ddTrigger.setAttribute('aria-expanded', open);
+  });
+  document.addEventListener('click', e => { if (!dd.contains(e.target)) { dd.classList.remove('open'); ddTrigger.setAttribute('aria-expanded', 'false'); } });
+  dd.querySelectorAll('.option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      dd.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      document.getElementById('charger-value').textContent = opt.textContent.trim();
+      dd.classList.remove('open');
+      ddTrigger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* BTG: revelar/ocultar saldo */
+  let btgRevealed = false;
+  document.getElementById('btg-reveal-btn').addEventListener('click', () => {
+    btgRevealed = !btgRevealed;
+    document.getElementById('btg-value').textContent = btgRevealed ? 'R$ 12.470,80' : '●●●●●';
+    document.getElementById('btg-reveal-btn').innerHTML =
+      btgRevealed
+        ? '<i data-lucide="eye-off" width="16" height="16"></i>'
+        : '<i data-lucide="eye" width="16" height="16"></i>';
+    lucide.createIcons();
+  });
+
+  /* Period tabs */
+  document.querySelectorAll('.periodTabBtn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.periodTabBtn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

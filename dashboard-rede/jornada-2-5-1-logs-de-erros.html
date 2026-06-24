@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Logs de Erros — Althus</title>
+  <title>Logs de falhas — Althus</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -16,12 +16,11 @@
   <link rel="stylesheet" href="../storybook-desktop/src/components/Avatar/Avatar.module.css" />
   <link rel="stylesheet" href="../storybook-desktop/src/components/Background/Background.module.css" />
   <link rel="stylesheet" href="../storybook-desktop/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Input/Input.module.css" />
   <link rel="stylesheet" href="../storybook-desktop/src/components/Dropdown/Dropdown.module.css" />
   <link rel="stylesheet" href="../storybook-desktop/src/components/Table/Table.module.css" />
   <link rel="stylesheet" href="../storybook-desktop/src/components/Pagination/Pagination.module.css" />
   <link rel="stylesheet" href="../storybook-desktop/src/components/MetricCard/MetricCard.module.css" />
-
-
 </head>
 <body data-page="logs">
 
@@ -34,61 +33,30 @@
   <div class="blob2"></div>
 
   <!-- Page header -->
-  <div class="pageHeader" style="display:flex;align-items:center;justify-content:space-between;">
-    <div>
-      <h1 class="pageTitle">Logs de Erros</h1>
-      <p class="pageSubtitle">Alertas e falhas dos carregadores da sua rede</p>
+  <div class="pageHeader">
+    <div class="pageHeaderRow">
+      <div>
+        <h1 class="pageTitle">Logs de falhas</h1>
+        <p class="pageSubtitle">Monitore falhas dos carregadores da sua rede</p>
+      </div>
+      <button class="btn primary hasLeft" type="button">
+        <span class="icon"><i data-lucide="download" width="16" height="16"></i></span>
+        Baixar CSV
+      </button>
     </div>
-    <button class="btn secondary hasLeft">
-      <span class="icon"><i data-lucide="download" width="16" height="16"></i></span>
-      Exportar CSV
-    </button>
   </div>
 
   <!-- Toolbar -->
   <div class="toolbar">
-    <!-- DatePicker -->
-    <div class="dpWrap" id="dp-wrap">
-      <div class="dpTrigger" id="dp-trigger" role="button" tabindex="0">
-        <span class="dpTriggerIcon"><i data-lucide="calendar" width="14" height="14"></i></span>
-        <span id="dp-text" class="dpTriggerText">01/05 – 22/05/2026</span>
-        <button class="dpTriggerClear" id="dp-clear" aria-label="Limpar período">
-          <i data-lucide="x" width="12" height="12"></i>
-        </button>
-      </div>
-
-      <div class="dpPopover" id="dp-popover" hidden>
-        <div class="dpCalPanel">
-          <div class="dpCalHeader">
-            <button class="dpNavBtn" id="dp-prev"><i data-lucide="chevron-left" width="14" height="14"></i></button>
-            <span class="dpMonthLabel" id="dp-month-label"></span>
-            <button class="dpNavBtn" id="dp-next"><i data-lucide="chevron-right" width="14" height="14"></i></button>
-          </div>
-          <div class="dpGrid" id="dp-grid"></div>
-        </div>
-        <div class="dpPanelDivider"></div>
-        <div class="dpCtrlPanel">
-          <div>
-            <div class="dpFieldLabel">Início</div>
-            <input class="dpDateInput" id="dp-start-input" placeholder="dd/mm/aaaa" readonly />
-          </div>
-          <div>
-            <div class="dpFieldLabel">Fim</div>
-            <input class="dpDateInput" id="dp-end-input" placeholder="dd/mm/aaaa" readonly />
-          </div>
-          <div class="dpSpacer"></div>
-          <button class="dpApply" id="dp-apply">
-            Aplicar <i data-lucide="corner-down-left" width="12" height="12"></i>
-          </button>
-          <select class="dpTzSelect">
-            <option value="America/Sao_Paulo">Local (America/Sao_Paulo)</option>
-            <option value="UTC">UTC</option>
-          </select>
+    <!-- Busca -->
+    <div class="searchWrap">
+      <div class="wrapper hasLeft">
+        <div class="inputWrap">
+          <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+          <input class="input" type="text" placeholder="Buscar (por nome do carregador)" />
         </div>
       </div>
     </div>
-
-    <div class="toolbarSep"></div>
 
     <!-- Severidade -->
     <div class="filterWrap">
@@ -100,204 +68,231 @@
         <div class="menu">
           <div class="option selected" data-value="">Todas</div>
           <div class="option" data-value="critico">Crítico</div>
-          <div class="option" data-value="aviso">Aviso</div>
-          <div class="option" data-value="info">Info</div>
+          <div class="option" data-value="falha">Falha</div>
         </div>
       </div>
     </div>
 
-    <!-- Localidade -->
+    <!-- Status -->
     <div class="filterWrap">
-      <div class="wrapper" id="localidade-dropdown">
-        <div class="trigger" id="localidade-trigger">
-          <span id="localidade-value" class="placeholder">Localidade</span>
-          <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
-        </div>
-        <div class="menu">
-          <div class="option selected" data-value="">Todas</div>
-          <div class="option" data-value="iguatemi">Shopping Iguatemi SP</div>
-          <div class="option" data-value="shell">Posto Shell Anhanguera</div>
-          <div class="option" data-value="vila-olimpia">Estac. Vila Olímpia</div>
-          <div class="option" data-value="morumbi">Shopping Morumbi</div>
-          <div class="option" data-value="congonhas">Aeroporto de Congonhas</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Carregador -->
-    <div class="filterWrap">
-      <div class="wrapper" id="carregador-dropdown">
-        <div class="trigger" id="carregador-trigger">
-          <span id="carregador-value" class="placeholder">Carregador</span>
+      <div class="wrapper" id="status-dropdown">
+        <div class="trigger" id="status-trigger">
+          <span id="status-value" class="placeholder">Status</span>
           <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
         </div>
         <div class="menu">
           <div class="option selected" data-value="">Todos</div>
-          <div class="option" data-value="alt-001">ALT-001</div>
-          <div class="option" data-value="alt-002">ALT-002</div>
-          <div class="option" data-value="alt-003">ALT-003</div>
-          <div class="option" data-value="alt-004">ALT-004</div>
-          <div class="option" data-value="alt-005">ALT-005</div>
-          <div class="option" data-value="alt-006">ALT-006</div>
-          <div class="option" data-value="alt-007">ALT-007</div>
+          <div class="option" data-value="aberto">Em aberto</div>
+          <div class="option" data-value="resolvido">Resolvido</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Código -->
+    <div class="filterWrap">
+      <div class="wrapper" id="codigo-dropdown">
+        <div class="trigger" id="codigo-trigger">
+          <span id="codigo-value" class="placeholder">Código</span>
+          <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+        </div>
+        <div class="menu">
+          <div class="option selected" data-value="">Todos</div>
+          <div class="option" data-value="err-1042">ERR-1042</div>
+          <div class="option" data-value="err-2018">ERR-2018</div>
+          <div class="option" data-value="err-3301">ERR-3301</div>
+          <div class="option" data-value="err-1108">ERR-1108</div>
+          <div class="option" data-value="err-4502">ERR-4502</div>
+          <div class="option" data-value="err-2210">ERR-2210</div>
+          <div class="option" data-value="err-5001">ERR-5001</div>
+          <div class="option" data-value="err-3120">ERR-3120</div>
+          <div class="option" data-value="err-1077">ERR-1077</div>
+          <div class="option" data-value="err-4810">ERR-4810</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Período -->
+    <div class="filterWrapSm">
+      <div class="wrapper" id="periodo-wrap">
+        <div class="trigger" id="periodo-trigger">
+          <span class="logsCalTrigger">
+            <i data-lucide="calendar" width="14" height="14"></i>
+            Período
+          </span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- MetricCards -->
-  <div class="metricsGrid5">
-    <div class="root">
-      <div class="label">Total de erros</div>
-      <div class="value" style="color: var(--color-text-secondary);">47</div>
-    </div>
-    <div class="root">
-      <div class="label">Críticos</div>
-      <div class="value" style="color: var(--color-text-error);">12</div>
-    </div>
-    <div class="root">
-      <div class="label">Avisos</div>
-      <div class="value" style="color: var(--color-status-warning-fg);">23</div>
-    </div>
-    <div class="root">
-      <div class="label">Em aberto</div>
-      <div class="value" style="color: var(--color-text-brand);">8</div>
-    </div>
-    <div class="root">
-      <div class="label">Resolvidos</div>
-      <div class="value" style="color: var(--color-text-success);">39</div>
-    </div>
-  </div>
-
-  <!-- Content -->
+  <!-- Conteúdo principal -->
   <div class="pageContent">
-    <div class="card">
 
-      <!-- Table -->
+    <!-- Metric Cards -->
+    <div class="metricsGrid4">
+      <div class="root">
+        <div class="label">Total de ocorrências</div>
+        <div class="value">11</div>
+      </div>
+      <div class="root">
+        <div class="label">Críticos</div>
+        <div class="value">4</div>
+      </div>
+      <div class="root">
+        <div class="label">Em aberto</div>
+        <div class="value">4</div>
+      </div>
+      <div class="root">
+        <div class="label">Carregador com a falha mais recente</div>
+        <div class="value" style="font-size: var(--font-size-lg);">10/06/2026 às 14:32</div>
+        <p class="metricCardNote">ERR-1042 — CHG-001 — Matriz</p>
+      </div>
+    </div>
+
+    <!-- Tabela -->
+    <div class="card">
       <div class="tableWrap">
         <table class="table">
           <thead>
             <tr class="headerRow">
-              <th class="th thFirst sortable" style="width:13%;">
-                <span class="thInner">Data/hora <span class="sortIcon"><i data-lucide="chevrons-up-down" width="12" height="12"></i></span></span>
-              </th>
-              <th class="th" style="width:9%;">Carregador</th>
-              <th class="th" style="width:18%;">Localidade</th>
-              <th class="th" style="width:20%;">Código</th>
-              <th class="th" style="width:26%;">Descrição</th>
-              <th class="th" style="width:8%;">Severidade</th>
-              <th class="th" style="width:8%;">Status</th>
+              <th class="th thFirst" style="width:22%;">Nome do carregador</th>
+              <th class="th" style="width:13%;">Código da ocorrência</th>
+              <th class="th" style="width:32%;">Descrição</th>
+              <th class="th" style="width:15%;">Data</th>
+              <th class="th" style="width:9%;">Severidade</th>
+              <th class="th" style="width:9%;">Status</th>
             </tr>
           </thead>
           <tbody>
 
             <tr class="tr">
-              <td class="td tdFirst" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">22/05/2026 15:42</td>
-              <td class="td tdMono">ALT-003</td>
-              <td class="td" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">Shopping Iguatemi SP</td>
-              <td class="td tdMono" style="color:var(--color-text-tertiary);">ConnectorLockFailure</td>
-              <td class="td tdDesc">Conector não travou após início de sessão</td>
-              <td class="td"><span class="badge" data-status="error">Crítico</span></td>
-              <td class="td"><span class="badge" data-status="error">Em aberto</span></td>
+              <td class="td tdFirst">CHG-001 — Matriz</td>
+              <td class="td tdMono">ERR-1042</td>
+              <td class="td tdDesc">Falha de comunicação com o módulo CCS</td>
+              <td class="td tdMono">10/06/2026 14:32</td>
+              <td class="td"><span class="badge" data-status="error"><span class="badgeDot"></span>Crítico</span></td>
+              <td class="td"><span class="badge" data-status="info"><span class="badgeDot"></span>Em aberto</span></td>
             </tr>
 
             <tr class="tr">
-              <td class="td tdFirst" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">22/05/2026 14:15</td>
-              <td class="td tdMono">ALT-001</td>
-              <td class="td" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">Shopping Iguatemi SP</td>
-              <td class="td tdMono" style="color:var(--color-text-tertiary);">EVCommunicationError</td>
-              <td class="td tdDesc">Falha na comunicação com o veículo</td>
-              <td class="td"><span class="badge" data-status="warning">Aviso</span></td>
-              <td class="td"><span class="badge" data-status="success">Resolvido</span></td>
+              <td class="td tdFirst">CHG-002 — Filial Sul</td>
+              <td class="td tdMono">ERR-2018</td>
+              <td class="td tdDesc">Temperatura acima do limite operacional</td>
+              <td class="td tdMono">10/06/2026 11:05</td>
+              <td class="td"><span class="badge" data-status="error"><span class="badgeDot"></span>Crítico</span></td>
+              <td class="td"><span class="badge" data-status="info"><span class="badgeDot"></span>Em aberto</span></td>
             </tr>
 
             <tr class="tr">
-              <td class="td tdFirst" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">22/05/2026 11:33</td>
-              <td class="td tdMono">ALT-007</td>
-              <td class="td" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">Posto Shell Anhanguera</td>
-              <td class="td tdMono" style="color:var(--color-text-tertiary);">HighTemperature</td>
-              <td class="td tdDesc">Temperatura interna acima de 65°C</td>
-              <td class="td"><span class="badge" data-status="error">Crítico</span></td>
-              <td class="td"><span class="badge" data-status="error">Em aberto</span></td>
+              <td class="td tdFirst">CHG-003 — Filial Norte</td>
+              <td class="td tdMono">ERR-3301</td>
+              <td class="td tdDesc">Tensão de entrada fora do padrão</td>
+              <td class="td tdMono">09/06/2026 22:47</td>
+              <td class="td"><span class="badge" data-status="warning"><span class="badgeDot"></span>Falha</span></td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Resolvido</span></td>
             </tr>
 
             <tr class="tr">
-              <td class="td tdFirst" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">21/05/2026 22:10</td>
-              <td class="td tdMono">ALT-002</td>
-              <td class="td" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">Shopping Iguatemi SP</td>
-              <td class="td tdMono" style="color:var(--color-text-tertiary);">WeakSignal</td>
-              <td class="td tdDesc">Sinal de rede instável (RSSI −89 dBm)</td>
-              <td class="td"><span class="badge" data-status="warning">Aviso</span></td>
-              <td class="td"><span class="badge" data-status="success">Resolvido</span></td>
+              <td class="td tdFirst">CHG-001 — Matriz</td>
+              <td class="td tdMono">ERR-1108</td>
+              <td class="td tdDesc">Conector travado durante desacoplamento</td>
+              <td class="td tdMono">09/06/2026 18:21</td>
+              <td class="td"><span class="badge" data-status="warning"><span class="badgeDot"></span>Falha</span></td>
+              <td class="td"><span class="badge" data-status="info"><span class="badgeDot"></span>Em aberto</span></td>
             </tr>
 
             <tr class="tr">
-              <td class="td tdFirst" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">21/05/2026 18:55</td>
-              <td class="td tdMono">ALT-004</td>
-              <td class="td" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">Estac. Vila Olímpia</td>
-              <td class="td tdMono" style="color:var(--color-text-tertiary);">PowerMeterFailure</td>
-              <td class="td tdDesc">Falha na leitura do medidor de energia</td>
-              <td class="td"><span class="badge" data-status="error">Crítico</span></td>
-              <td class="td"><span class="badge" data-status="success">Resolvido</span></td>
+              <td class="td tdFirst">CHG-004 — Shopping</td>
+              <td class="td tdMono">ERR-4502</td>
+              <td class="td tdDesc">Perda de conexão com servidor de telemetria</td>
+              <td class="td tdMono">08/06/2026 09:14</td>
+              <td class="td"><span class="badge" data-status="warning"><span class="badgeDot"></span>Falha</span></td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Resolvido</span></td>
             </tr>
 
             <tr class="tr">
-              <td class="td tdFirst" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">21/05/2026 16:22</td>
-              <td class="td tdMono">ALT-005</td>
-              <td class="td" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">Shopping Morumbi</td>
-              <td class="td tdMono" style="color:var(--color-text-tertiary);">UnderVoltage</td>
-              <td class="td tdDesc">Tensão abaixo de 195V detectada</td>
-              <td class="td"><span class="badge" data-status="warning">Aviso</span></td>
-              <td class="td"><span class="badge" data-status="error">Em aberto</span></td>
+              <td class="td tdFirst">CHG-002 — Filial Sul</td>
+              <td class="td tdMono">ERR-2210</td>
+              <td class="td tdDesc">Falha na autenticação RFID</td>
+              <td class="td tdMono">07/06/2026 16:58</td>
+              <td class="td"><span class="badge" data-status="warning"><span class="badgeDot"></span>Falha</span></td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Resolvido</span></td>
             </tr>
 
             <tr class="tr">
-              <td class="td tdFirst" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">20/05/2026 09:47</td>
-              <td class="td tdMono">ALT-006</td>
-              <td class="td" style="font-size:var(--font-size-xs); color:var(--color-text-secondary);">Aeroporto de Congonhas</td>
-              <td class="td tdMono" style="color:var(--color-text-tertiary);">ReaderFailure</td>
-              <td class="td tdDesc">Leitor RFID não respondeu ao handshake</td>
-              <td class="td"><span class="badge" data-status="info">Info</span></td>
-              <td class="td"><span class="badge" data-status="success">Resolvido</span></td>
+              <td class="td tdFirst">CHG-005 — Posto Centro</td>
+              <td class="td tdMono">ERR-5001</td>
+              <td class="td tdDesc">Curto-circuito detectado no cabo de saída</td>
+              <td class="td tdMono">06/06/2026 13:42</td>
+              <td class="td"><span class="badge" data-status="error"><span class="badgeDot"></span>Crítico</span></td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Resolvido</span></td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">CHG-003 — Filial Norte</td>
+              <td class="td tdMono">ERR-3120</td>
+              <td class="td tdDesc">Sessão de carga interrompida pelo usuário</td>
+              <td class="td tdMono">05/06/2026 20:30</td>
+              <td class="td"><span class="badge" data-status="warning"><span class="badgeDot"></span>Falha</span></td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Resolvido</span></td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">CHG-001 — Matriz</td>
+              <td class="td tdMono">ERR-1077</td>
+              <td class="td tdDesc">Falha no display frontal</td>
+              <td class="td tdMono">04/06/2026 10:11</td>
+              <td class="td"><span class="badge" data-status="warning"><span class="badgeDot"></span>Falha</span></td>
+              <td class="td"><span class="badge" data-status="info"><span class="badgeDot"></span>Em aberto</span></td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">CHG-004 — Shopping</td>
+              <td class="td tdMono">ERR-4810</td>
+              <td class="td tdDesc">Sobrecorrente na fase B</td>
+              <td class="td tdMono">03/06/2026 08:55</td>
+              <td class="td"><span class="badge" data-status="error"><span class="badgeDot"></span>Crítico</span></td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Resolvido</span></td>
             </tr>
 
           </tbody>
         </table>
       </div>
 
-      <!-- Pagination -->
+      <!-- Paginação -->
       <div class="pagination">
-        <span class="info">Exibindo 1–7 de 47 resultados</span>
+        <div class="info">
+          Mostrando 1–10 de 11 resultados &emsp; Itens por página:
+          <button class="logsPageSize" type="button">
+            10 <i data-lucide="chevron-down" width="12" height="12"></i>
+          </button>
+        </div>
         <div class="controls">
           <button class="paginBtn" disabled aria-label="Página anterior">
             <i data-lucide="chevron-left" width="14" height="14"></i>
           </button>
           <button class="paginBtn paginBtnActive" aria-current="page">1</button>
           <button class="paginBtn">2</button>
-          <button class="paginBtn">3</button>
-          <span class="ellipsis">…</span>
-          <button class="paginBtn">7</button>
           <button class="paginBtn" aria-label="Próxima página">
             <i data-lucide="chevron-right" width="14" height="14"></i>
           </button>
         </div>
       </div>
     </div>
+
   </div>
 </main>
 
 <script src="shared/sidebar.js"></script>
 <script>
-  /* ── Dropdown factory ── */
   function initDropdown(wrapperId, triggerId, valueId, placeholder) {
     const wrapper = document.getElementById(wrapperId);
     const trigger = document.getElementById(triggerId);
     const valueEl = document.getElementById(valueId);
-    const allDropdowns = ['severidade-dropdown', 'localidade-dropdown', 'carregador-dropdown'];
+    const all = ['severidade-dropdown', 'status-dropdown', 'codigo-dropdown'];
 
     trigger.addEventListener('click', e => {
       e.stopPropagation();
-      allDropdowns.forEach(id => { if (id !== wrapperId) document.getElementById(id).classList.remove('open'); });
+      all.forEach(id => { if (id !== wrapperId) document.getElementById(id).classList.remove('open'); });
       wrapper.classList.toggle('open');
     });
     wrapper.querySelectorAll('.option').forEach(opt => {
@@ -313,143 +308,14 @@
   }
 
   initDropdown('severidade-dropdown', 'severidade-trigger', 'severidade-value', 'Severidade');
-  initDropdown('localidade-dropdown', 'localidade-trigger', 'localidade-value', 'Localidade');
-  initDropdown('carregador-dropdown', 'carregador-trigger', 'carregador-value', 'Carregador');
+  initDropdown('status-dropdown',     'status-trigger',     'status-value',     'Status');
+  initDropdown('codigo-dropdown',     'codigo-trigger',     'codigo-value',     'Código');
 
   document.addEventListener('click', () => {
-    ['severidade-dropdown', 'localidade-dropdown', 'carregador-dropdown'].forEach(id => {
+    ['severidade-dropdown', 'status-dropdown', 'codigo-dropdown'].forEach(id => {
       document.getElementById(id).classList.remove('open');
     });
   });
-
-  /* ── DatePicker ── */
-  (function () {
-    const MESES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-    const DIAS  = ['D','S','T','Q','Q','S','S'];
-
-    let viewYear = 2026, viewMonth = 4;
-    let startDate = new Date(2026, 4, 1);
-    let endDate   = new Date(2026, 4, 22);
-    let step = 'start';
-
-    const wrap       = document.getElementById('dp-wrap');
-    const triggerEl  = document.getElementById('dp-trigger');
-    const popover    = document.getElementById('dp-popover');
-    const clearBtn   = document.getElementById('dp-clear');
-    const prevBtn    = document.getElementById('dp-prev');
-    const nextBtn    = document.getElementById('dp-next');
-    const monthLabel = document.getElementById('dp-month-label');
-    const grid       = document.getElementById('dp-grid');
-    const startInput = document.getElementById('dp-start-input');
-    const endInput   = document.getElementById('dp-end-input');
-    const applyBtn   = document.getElementById('dp-apply');
-    const dpText     = document.getElementById('dp-text');
-
-    function pad(n) { return String(n).padStart(2, '0'); }
-    function fmt(d) { return d ? `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}` : ''; }
-    function fmtShort(d) { return d ? `${pad(d.getDate())}/${pad(d.getMonth()+1)}` : ''; }
-    function sameDay(a, b) { return a && b && a.toDateString() === b.toDateString(); }
-    function inRange(d) { return startDate && endDate && d > startDate && d < endDate; }
-
-    function updateTrigger() {
-      if (startDate && endDate) {
-        dpText.textContent = `${fmtShort(startDate)} – ${fmt(endDate)}`;
-        dpText.className = 'dpTriggerText';
-      } else if (startDate) {
-        dpText.textContent = fmt(startDate);
-        dpText.className = 'dpTriggerText';
-      } else {
-        dpText.textContent = 'Selecionar período';
-        dpText.className = 'dpTriggerPlaceholder';
-      }
-    }
-
-    function updateInputs() {
-      startInput.value = fmt(startDate);
-      endInput.value   = fmt(endDate);
-    }
-
-    function renderGrid() {
-      monthLabel.textContent = `${MESES[viewMonth]} ${viewYear}`;
-      grid.innerHTML = '';
-      DIAS.forEach(d => {
-        const cell = document.createElement('div');
-        cell.className = 'dpDayName';
-        cell.textContent = d;
-        grid.appendChild(cell);
-      });
-      const firstDow = new Date(viewYear, viewMonth, 1).getDay();
-      const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
-      const total = firstDow + daysInMonth;
-      const rows  = total <= 35 ? 35 : 42;
-      for (let i = 0; i < rows; i++) {
-        const dayNum = i - firstDow + 1;
-        const d = new Date(viewYear, viewMonth, dayNum);
-        const outside = i < firstDow || dayNum > daysInMonth;
-        const btn = document.createElement('button');
-        let cls = 'dpDay';
-        if (outside)                        cls += ' dpDayOutside';
-        if (!outside && sameDay(d, new Date())) cls += ' dpDayToday';
-        if (sameDay(d, startDate))          cls += ' dpDayStart';
-        else if (sameDay(d, endDate))       cls += ' dpDayEnd';
-        else if (!outside && inRange(d))    cls += ' dpDayInRange';
-        btn.className = cls;
-        btn.textContent = d.getDate();
-        if (!outside) {
-          btn.addEventListener('click', () => {
-            const clicked = new Date(viewYear, viewMonth, d.getDate());
-            if (step === 'start') { startDate = clicked; endDate = null; step = 'end'; }
-            else {
-              if (clicked < startDate) { endDate = startDate; startDate = clicked; }
-              else { endDate = clicked; }
-              step = 'start';
-            }
-            updateInputs(); renderGrid(); lucide.createIcons();
-          });
-        }
-        grid.appendChild(btn);
-      }
-    }
-
-    function openPicker() {
-      popover.removeAttribute('hidden');
-      triggerEl.classList.add('open');
-      renderGrid(); updateInputs(); lucide.createIcons();
-    }
-    function closePicker() {
-      popover.setAttribute('hidden', '');
-      triggerEl.classList.remove('open');
-      step = 'start';
-    }
-
-    triggerEl.addEventListener('click', e => {
-      e.stopPropagation();
-      popover.hasAttribute('hidden') ? openPicker() : closePicker();
-    });
-    clearBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      startDate = null; endDate = null;
-      updateTrigger(); closePicker();
-    });
-    prevBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      if (--viewMonth < 0) { viewMonth = 11; viewYear--; }
-      renderGrid(); lucide.createIcons();
-    });
-    nextBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      if (++viewMonth > 11) { viewMonth = 0; viewYear++; }
-      renderGrid(); lucide.createIcons();
-    });
-    applyBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      updateTrigger(); closePicker(); lucide.createIcons();
-    });
-    wrap.addEventListener('click', e => e.stopPropagation());
-    document.addEventListener('click', closePicker);
-
-    updateTrigger();
-  })();
 
   lucide.createIcons();
 </script>

@@ -10,7 +10,7 @@
   line-height: 1.5;
   letter-spacing: 0px;
   padding: 10px 20px;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
   border: var(--border-width-thin) solid transparent;
   cursor: pointer;
   text-decoration: none;
@@ -39,17 +39,15 @@
 
 /* ── Variants ─────────────────────────────────────── */
 .primary {
-  background: var(--gradient-brand);
+  background: var(--color-brand-800);
   color: var(--color-gray-white);
   border-color: transparent;
-  box-shadow: var(--shadow-highlight), var(--shadow-glow-md);
 }
 .primary:hover:not(:disabled) {
-  filter: brightness(1.08);
-  box-shadow: var(--shadow-highlight), var(--shadow-glow-lg);
+  opacity: 0.85;
 }
 .primary:active:not(:disabled) {
-  filter: brightness(0.94);
+  opacity: 0.70;
 }
 
 .secondary {

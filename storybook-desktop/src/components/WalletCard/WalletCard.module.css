@@ -4,7 +4,7 @@
   width: 100%;
   border-radius: var(--radius-lg);
   background: var(--gradient-brand);
-  box-shadow: var(--shadow-glow-md), var(--shadow-lg);
+  box-shadow: var(--shadow-lg);
   padding: var(--spacing-lg);
   display: flex;
   flex-direction: column;
@@ -51,7 +51,7 @@
 .walletCard__label {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--color-on-brand-muted);
   letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
 }
@@ -60,7 +60,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--color-on-brand-muted);
   display: flex;
   align-items: center;
   padding: var(--spacing-xs);
@@ -69,8 +69,8 @@
 }
 
 .walletCard__menuBtn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 1);
+  background: var(--color-on-brand-btn-press);
+  color: var(--color-gray-white);
 }
 
 /* ── Balance ──────────────────────────────────────────── */
@@ -85,7 +85,7 @@
 .walletCard__currency {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
-  color: rgba(255, 255, 255, 0.80);
+  color: var(--color-on-brand-sub);
   line-height: 1;
 }
 
@@ -103,8 +103,8 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-xs);
-  background: rgba(255, 255, 255, 0.18);
-  border: var(--border-width-thin) solid rgba(255, 255, 255, 0.28);
+  background: var(--color-on-brand-btn);
+  border: var(--border-width-thin) solid var(--color-on-brand-btn-border);
   border-radius: var(--radius-full);
   padding: var(--spacing-sm) var(--spacing-md);
   color: var(--color-gray-white);
@@ -119,5 +119,5 @@
 }
 
 .walletCard__cta:hover {
-  background: rgba(255, 255, 255, 0.26);
+  background: var(--color-on-brand-btn-hover);
 }

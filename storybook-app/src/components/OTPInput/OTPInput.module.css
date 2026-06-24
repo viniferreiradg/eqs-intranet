@@ -1,7 +1,7 @@
 /* ── Row of cells ──────────────────────────────────── */
 .otpRoot {
   display: flex;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
   width: 100%;
   justify-content: center;
 }
@@ -10,27 +10,26 @@
 .otpCell {
   width: var(--spacing-2xl);
   height: var(--spacing-2xl);
-  flex: 1;
-  max-width: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
 
   font-family: var(--font-body);
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
   text-align: center;
 
-  background: var(--color-glass-surface);
-  border: var(--border-width-thin) solid var(--color-border-muted);
-  border-radius: var(--radius-sm);
+  background: transparent;
+  border: var(--border-width-thin) solid transparent;
+  border-bottom-color: var(--color-brand-400);
+  border-radius: var(--radius-none);
   outline: none;
-  caret-color: var(--color-border-focus);
+  caret-color: var(--color-brand-400);
 
   transition:
     border-color var(--transition-fast),
-    box-shadow var(--transition-fast);
+    border-bottom-color var(--transition-fast);
 
   /* Remove number spinners */
   -moz-appearance: textfield;
@@ -45,36 +44,48 @@
   color: var(--color-text-disabled);
 }
 
+/* Mascaramento via CSS — evita estilo nativo do browser em type="password" */
+.otpCellMasked {
+  -webkit-text-security: disc;
+}
+
 .otpCell:hover:not(:disabled) {
-  border-color: var(--color-border-default);
+  border-bottom-color: var(--color-brand-300);
 }
 
 .otpCell:focus {
-  border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 3px rgba(142, 68, 70, 0.18);
+  border-bottom: var(--border-width-medium) solid var(--color-brand-400);
 }
 
 /* ── States ────────────────────────────────────────── */
 .otpCell.error {
-  border-color: var(--color-action-error);
+  border-bottom-color: var(--color-action-error);
 }
 .otpCell.error:focus {
-  box-shadow: 0 0 0 3px rgba(185, 28, 46, 0.15);
+  border-bottom-color: var(--color-action-error);
 }
 
 .otpCell.success {
-  border-color: var(--color-action-success);
+  border-bottom-color: var(--color-action-success);
 }
 
 .otpCell:disabled {
-  background: var(--color-status-disabled-bg);
-  border-color: var(--color-border-disabled);
+  border-bottom-color: var(--color-border-disabled);
   color: var(--color-text-disabled);
   cursor: not-allowed;
 }
 
 /* ── Filled indicator (has content) ───────────────── */
 .otpCell.filled {
-  border-color: var(--color-border-default);
-  background: var(--color-bg-surface);
+  border-bottom-color: var(--color-brand-400);
+  background: transparent;
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+}
+
+.otpCell:-webkit-autofill,
+.otpCell:-webkit-autofill:hover,
+.otpCell:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  -webkit-text-fill-color: var(--color-text-primary) !important;
+  caret-color: var(--color-brand-400);
 }

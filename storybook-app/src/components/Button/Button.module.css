@@ -9,7 +9,7 @@
   font-weight: var(--font-weight-medium);
   line-height: 1.5;
   letter-spacing: 0px;
-  padding: 10px 20px;
+  padding: var(--spacing-md);
   border-radius: var(--radius-full);
   border: var(--border-width-thin) solid transparent;
   cursor: pointer;
@@ -22,8 +22,8 @@
     opacity var(--transition-fast);
 }
 
-.btn.hasLeft  { padding-left: 16px; }
-.btn.hasRight { padding-right: 16px; }
+.btn.hasLeft  { padding-left: var(--spacing-md); }
+.btn.hasRight { padding-right: var(--spacing-md); }
 
 .btn:focus-visible {
   outline: var(--border-width-medium) solid var(--color-border-focus);

@@ -270,3 +270,69 @@
   outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
 }
+
+/* ── Nav group (itens com submenu dropdown) ─────────── */
+.navGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.navGroupChevron {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+  color: var(--color-text-tertiary);
+}
+
+.navGroup.open .navGroupChevron {
+  transform: rotate(180deg);
+}
+
+.navSubList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 250ms ease;
+  padding-left: var(--spacing-lg);
+}
+
+.navGroup.open .navSubList {
+  max-height: 400px;
+}
+
+.navSubItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 7px 12px;
+  border: none;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--color-text-tertiary);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: var(--font-weight-regular);
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.navSubItem:hover {
+  background: var(--color-nav-hover-bg);
+  color: var(--color-text-secondary);
+}
+
+.navSubItemActive {
+  color: var(--color-nav-active-text);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Quando sidebar está recolhida: esconde submenus e chevron */
+.sidebar.closed .navSubList    { max-height: 0 !important; }
+.sidebar.closed .navGroupChevron { display: none; }

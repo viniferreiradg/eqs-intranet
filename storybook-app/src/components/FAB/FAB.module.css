@@ -7,7 +7,7 @@
   height: var(--spacing-2xl);
   border-radius: var(--radius-full);
   border: var(--border-width-thin) solid var(--color-glass-border);
-  background: var(--color-glass-surface);
+  background: var(--color-glass-dark);
   backdrop-filter: blur(var(--blur-glass));
   -webkit-backdrop-filter: blur(var(--blur-glass));
   box-shadow: var(--shadow-lg), var(--shadow-highlight);
@@ -40,6 +40,11 @@
   height: var(--spacing-xl);
 }
 
+.md {
+  width: var(--spacing-2xl);
+  height: var(--spacing-2xl);
+}
+
 .lg {
   width: calc(var(--spacing-2xl) + var(--spacing-md));
   height: calc(var(--spacing-2xl) + var(--spacing-md));
@@ -49,9 +54,5 @@
 .brand {
   background: var(--gradient-brand);
   border-color: transparent;
-  box-shadow: var(--shadow-glow-md), var(--shadow-lg), var(--shadow-highlight);
-}
-.brand:hover:not(:disabled) {
-  //box-shadow: var(--shadow-glow-lg), var(--shadow-xl), var(--shadow-highlight);
-  //filter: brightness(1.08);
+  color: var(--color-gray-black);
 }

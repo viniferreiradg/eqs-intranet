@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,10 @@
   <link rel="stylesheet" href="../storybook-desktop/src/components/Dropdown/Dropdown.module.css" />
   <link rel="stylesheet" href="../storybook-desktop/src/components/Table/Table.module.css" />
   <link rel="stylesheet" href="../storybook-desktop/src/components/Pagination/Pagination.module.css" />
-
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dialog/Dialog.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Toggle/Toggle.module.css" />
 </head>
-<body data-page="cupons">
+<body data-page="cupons-visao">
 
 <aside id="sidebar-root"></aside>
 
@@ -32,15 +33,17 @@
   <div class="blob2"></div>
 
   <!-- Page header -->
-  <div class="pageHeader" style="display:flex;align-items:center;justify-content:space-between;">
-    <div>
-      <h1 class="pageTitle">Cupons</h1>
-      <p class="pageSubtitle">Gerencie os cupons de desconto da sua rede</p>
+  <div class="pageHeader">
+    <div class="pageHeaderRow">
+      <div>
+        <h1 class="pageTitle">Visão geral</h1>
+        <p class="pageSubtitle">Crie e gerencie cupons de desconto para sua rede</p>
+      </div>
+      <button type="button" class="btn primary hasLeft" onclick="novoCupomOpen()">
+        <span class="icon"><i data-lucide="plus" width="16" height="16"></i></span>
+        Criar cupom
+      </button>
     </div>
-    <a href="jornada-2-4-2-cadastrar-cupom.html" class="btn primary hasLeft">
-      <span class="icon"><i data-lucide="plus" width="16" height="16"></i></span>
-      Novo cupom
-    </a>
   </div>
 
   <!-- Toolbar -->
@@ -49,14 +52,14 @@
       <div class="wrapper hasLeft">
         <div class="inputWrap">
           <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
-          <input class="input" type="text" placeholder="Buscar por código…" />
+          <input class="input" type="text" placeholder="Buscar (por código)" />
         </div>
       </div>
     </div>
     <div class="filterWrap">
       <div class="wrapper" id="status-dropdown">
         <div class="trigger" id="status-trigger">
-          <span id="status-value" class="placeholder">Status</span>
+          <span id="status-value">Todos</span>
           <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
         </div>
         <div class="menu">
@@ -65,19 +68,6 @@
           <div class="option" data-value="esgotado">Esgotado</div>
           <div class="option" data-value="expirado">Expirado</div>
           <div class="option" data-value="inativo">Inativo</div>
-        </div>
-      </div>
-    </div>
-    <div class="filterWrap">
-      <div class="wrapper" id="tipo-dropdown">
-        <div class="trigger" id="tipo-trigger">
-          <span id="tipo-value" class="placeholder">Tipo</span>
-          <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
-        </div>
-        <div class="menu">
-          <div class="option selected" data-value="">Todos</div>
-          <div class="option" data-value="percentual">Percentual</div>
-          <div class="option" data-value="fixo">Valor fixo</div>
         </div>
       </div>
     </div>
@@ -90,29 +80,25 @@
         <table class="table">
           <thead>
             <tr class="headerRow">
-              <th class="th thFirst sortable" style="width: 16%;">
-                <span class="thInner">Código <span class="sortIcon"><i data-lucide="chevrons-up-down" width="12" height="12"></i></span></span>
-              </th>
-              <th class="th" style="width: 13%;">Tipo</th>
-              <th class="th sortable" style="width: 11%;">
-                <span class="thInner">Desconto <span class="sortIcon"><i data-lucide="chevrons-up-down" width="12" height="12"></i></span></span>
-              </th>
-              <th class="th sortable" style="width: 13%;">
-                <span class="thInner">Validade <span class="sortIcon"><i data-lucide="chevrons-up-down" width="12" height="12"></i></span></span>
-              </th>
-              <th class="th" style="width: 13%;">Usos</th>
-              <th class="th" style="width: 13%;">Status</th>
-              <th class="th" style="width: 8%;">Ações</th>
+              <th class="th thFirst" style="width:14%;">Código</th>
+              <th class="th" style="width:11%;">Tipo</th>
+              <th class="th" style="width:10%;">Desconto</th>
+              <th class="th" style="width:12%;">Validade</th>
+              <th class="th" style="width:8%;">Usos</th>
+              <th class="th" style="width:13%;">Qtd. máx. de usos</th>
+              <th class="th" style="width:10%;">Status</th>
+              <th class="th" style="width:7%;">Ações</th>
             </tr>
           </thead>
           <tbody>
 
             <tr class="tr">
-              <td class="td tdFirst" style="font-family: var(--font-mono); font-size: var(--font-size-xs); color: var(--color-text-secondary);">PLT-BEMVINDO</td>
-              <td class="td"><span class="badge" data-status="violet"><span class="badgeDot"></span>Percentual</span></td>
-              <td class="td">15%</td>
-              <td class="td" style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">31/12/2026</td>
-              <td class="td" style="font-family: var(--font-mono); font-size: var(--font-size-xs); color: var(--color-text-secondary);">500 / 1.000</td>
+              <td class="td tdFirst tdMono">ALT-0001</td>
+              <td class="td"><span class="cuponsTipoPercentual">Percentual</span></td>
+              <td class="td">10%</td>
+              <td class="td tdMono">31/12/2026</td>
+              <td class="td">24</td>
+              <td class="td">100</td>
               <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
               <td class="td">
                 <div class="cellActions">
@@ -123,26 +109,12 @@
             </tr>
 
             <tr class="tr">
-              <td class="td tdFirst" style="font-family: var(--font-mono); font-size: var(--font-size-xs); color: var(--color-text-secondary);">PLT-VOLTA10</td>
-              <td class="td"><span class="badge" data-status="indigo"><span class="badgeDot"></span>Valor fixo</span></td>
-              <td class="td">R$ 10,00</td>
-              <td class="td" style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">30/06/2026</td>
-              <td class="td" style="font-family: var(--font-mono); font-size: var(--font-size-xs); color: var(--color-text-secondary);">230 / 500</td>
-              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
-              <td class="td">
-                <div class="cellActions">
-                  <button class="actionBtn" aria-label="Visualizar cupom"><i data-lucide="eye" width="15" height="15"></i></button>
-                  <button class="actionBtn" aria-label="Editar cupom"><i data-lucide="pencil" width="15" height="15"></i></button>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="tr">
-              <td class="td tdFirst" style="font-family: var(--font-mono); font-size: var(--font-size-xs); color: var(--color-text-secondary);">PLT-PRIMEIRO</td>
-              <td class="td"><span class="badge" data-status="indigo"><span class="badgeDot"></span>Valor fixo</span></td>
+              <td class="td tdFirst tdMono">ALT-0002</td>
+              <td class="td">Valor</td>
               <td class="td">R$ 15,00</td>
-              <td class="td" style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">30/09/2026</td>
-              <td class="td" style="font-family: var(--font-mono); font-size: var(--font-size-xs); color: var(--color-text-secondary);">89 / 300</td>
+              <td class="td tdMono">30/09/2026</td>
+              <td class="td">8</td>
+              <td class="td">50</td>
               <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
               <td class="td">
                 <div class="cellActions">
@@ -153,26 +125,12 @@
             </tr>
 
             <tr class="tr">
-              <td class="td tdFirst" style="font-family: var(--font-mono); font-size: var(--font-size-xs); color: var(--color-text-secondary);">PLT-FIDELIDADE</td>
-              <td class="td"><span class="badge" data-status="indigo"><span class="badgeDot"></span>Valor fixo</span></td>
-              <td class="td">R$ 5,00</td>
-              <td class="td" style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">31/03/2027</td>
-              <td class="td" style="font-family: var(--font-mono); font-size: var(--font-size-xs); color: var(--color-text-secondary);">120 / 2.000</td>
-              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
-              <td class="td">
-                <div class="cellActions">
-                  <button class="actionBtn" aria-label="Visualizar cupom"><i data-lucide="eye" width="15" height="15"></i></button>
-                  <button class="actionBtn" aria-label="Editar cupom"><i data-lucide="pencil" width="15" height="15"></i></button>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="tr">
-              <td class="td tdFirst" style="font-family: var(--font-mono); font-size: var(--font-size-xs); color: var(--color-text-secondary);">PLT-NATAL25</td>
-              <td class="td"><span class="badge" data-status="violet"><span class="badgeDot"></span>Percentual</span></td>
-              <td class="td">25%</td>
-              <td class="td" style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">26/12/2025</td>
-              <td class="td" style="font-family: var(--font-mono); font-size: var(--font-size-xs); color: var(--color-text-secondary);">1.000 / 1.000</td>
+              <td class="td tdFirst tdMono">ALT-0003</td>
+              <td class="td"><span class="cuponsTipoPercentual">Percentual</span></td>
+              <td class="td">5%</td>
+              <td class="td tdMono">15/08/2026</td>
+              <td class="td">50</td>
+              <td class="td">50</td>
               <td class="td"><span class="badge" data-status="warning"><span class="badgeDot"></span>Esgotado</span></td>
               <td class="td">
                 <div class="cellActions">
@@ -183,12 +141,13 @@
             </tr>
 
             <tr class="tr">
-              <td class="td tdFirst" style="font-family: var(--font-mono); font-size: var(--font-size-xs); color: var(--color-text-secondary);">PLT-VERAO20</td>
-              <td class="td"><span class="badge" data-status="violet"><span class="badgeDot"></span>Percentual</span></td>
-              <td class="td">20%</td>
-              <td class="td" style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">28/02/2026</td>
-              <td class="td" style="font-family: var(--font-mono); font-size: var(--font-size-xs); color: var(--color-text-secondary);">750 / 800</td>
-              <td class="td"><span class="badge" data-status="orange"><span class="badgeDot"></span>Expirado</span></td>
+              <td class="td tdFirst tdMono">ALT-0004</td>
+              <td class="td">Valor</td>
+              <td class="td">R$ 25,00</td>
+              <td class="td tdMono">01/07/2026</td>
+              <td class="td">12</td>
+              <td class="td">200</td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
               <td class="td">
                 <div class="cellActions">
                   <button class="actionBtn" aria-label="Visualizar cupom"><i data-lucide="eye" width="15" height="15"></i></button>
@@ -198,12 +157,93 @@
             </tr>
 
             <tr class="tr">
-              <td class="td tdFirst" style="font-family: var(--font-mono); font-size: var(--font-size-xs); color: var(--color-text-secondary);">PLT-INATIVO01</td>
-              <td class="td"><span class="badge" data-status="violet"><span class="badgeDot"></span>Percentual</span></td>
-              <td class="td">10%</td>
-              <td class="td" style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">31/12/2026</td>
-              <td class="td" style="font-family: var(--font-mono); font-size: var(--font-size-xs); color: var(--color-text-secondary);">0 / 200</td>
-              <td class="td"><span class="badge" data-status="info"><span class="badgeDot"></span>Inativo</span></td>
+              <td class="td tdFirst tdMono">ALT-0005</td>
+              <td class="td"><span class="cuponsTipoPercentual">Percentual</span></td>
+              <td class="td">20%</td>
+              <td class="td tdMono">10/05/2026</td>
+              <td class="td">47</td>
+              <td class="td">80</td>
+              <td class="td"><span class="badge" data-status="error"><span class="badgeDot"></span>Expirado</span></td>
+              <td class="td">
+                <div class="cellActions">
+                  <button class="actionBtn" aria-label="Visualizar cupom"><i data-lucide="eye" width="15" height="15"></i></button>
+                  <button class="actionBtn" aria-label="Editar cupom"><i data-lucide="pencil" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst tdMono">ALT-0006</td>
+              <td class="td">Valor</td>
+              <td class="td">R$ 50,00</td>
+              <td class="td tdMono">31/10/2026</td>
+              <td class="td">3</td>
+              <td class="td">30</td>
+              <td class="td"><span class="badge" data-status="neutral"><span class="badgeDot"></span>Inativo</span></td>
+              <td class="td">
+                <div class="cellActions">
+                  <button class="actionBtn" aria-label="Visualizar cupom"><i data-lucide="eye" width="15" height="15"></i></button>
+                  <button class="actionBtn" aria-label="Editar cupom"><i data-lucide="pencil" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst tdMono">ALT-0007</td>
+              <td class="td"><span class="cuponsTipoPercentual">Percentual</span></td>
+              <td class="td">15%</td>
+              <td class="td tdMono">20/11/2026</td>
+              <td class="td">18</td>
+              <td class="td">150</td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+              <td class="td">
+                <div class="cellActions">
+                  <button class="actionBtn" aria-label="Visualizar cupom"><i data-lucide="eye" width="15" height="15"></i></button>
+                  <button class="actionBtn" aria-label="Editar cupom"><i data-lucide="pencil" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst tdMono">ALT-0008</td>
+              <td class="td">Valor</td>
+              <td class="td">R$ 10,00</td>
+              <td class="td tdMono">05/04/2026</td>
+              <td class="td">5</td>
+              <td class="td">100</td>
+              <td class="td"><span class="badge" data-status="error"><span class="badgeDot"></span>Expirado</span></td>
+              <td class="td">
+                <div class="cellActions">
+                  <button class="actionBtn" aria-label="Visualizar cupom"><i data-lucide="eye" width="15" height="15"></i></button>
+                  <button class="actionBtn" aria-label="Editar cupom"><i data-lucide="pencil" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst tdMono">ALT-0009</td>
+              <td class="td"><span class="cuponsTipoPercentual">Percentual</span></td>
+              <td class="td">25%</td>
+              <td class="td tdMono">31/12/2026</td>
+              <td class="td">60</td>
+              <td class="td">60</td>
+              <td class="td"><span class="badge" data-status="warning"><span class="badgeDot"></span>Esgotado</span></td>
+              <td class="td">
+                <div class="cellActions">
+                  <button class="actionBtn" aria-label="Visualizar cupom"><i data-lucide="eye" width="15" height="15"></i></button>
+                  <button class="actionBtn" aria-label="Editar cupom"><i data-lucide="pencil" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst tdMono">ALT-0010</td>
+              <td class="td">Valor</td>
+              <td class="td">R$ 30,00</td>
+              <td class="td tdMono">15/09/2026</td>
+              <td class="td">9</td>
+              <td class="td">75</td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
               <td class="td">
                 <div class="cellActions">
                   <button class="actionBtn" aria-label="Visualizar cupom"><i data-lucide="eye" width="15" height="15"></i></button>
@@ -216,16 +256,19 @@
         </table>
       </div>
 
-      <!-- Pagination -->
+      <!-- Paginação -->
       <div class="pagination">
-        <span class="info">Exibindo 1–7 de 18 resultados</span>
+        <div class="info">
+          Mostrando 1–10 de 10 resultados &emsp; Itens por página:
+          <button class="logsPageSize" type="button">
+            10 <i data-lucide="chevron-down" width="12" height="12"></i>
+          </button>
+        </div>
         <div class="controls">
           <button class="paginBtn" disabled aria-label="Página anterior">
             <i data-lucide="chevron-left" width="14" height="14"></i>
           </button>
           <button class="paginBtn paginBtnActive" aria-current="page">1</button>
-          <button class="paginBtn">2</button>
-          <button class="paginBtn">3</button>
           <button class="paginBtn" aria-label="Próxima página">
             <i data-lucide="chevron-right" width="14" height="14"></i>
           </button>
@@ -235,15 +278,129 @@
   </div>
 </main>
 
+<!-- ── Dialog: Novo cupom ─────────────────────────────────────────────── -->
+<div class="dialogOverlay" id="novoCupomOverlay" style="display:none">
+  <div class="dialog md">
+    <div class="dialogHeader">
+      <div>
+        <h2 class="dialogTitle">Novo cupom</h2>
+        <p class="dialogSubtitle">Defina as regras para o novo cupom de desconto</p>
+      </div>
+      <button class="dialogCloseBtn" type="button" aria-label="Fechar" onclick="novoCupomClose()">
+        <i data-lucide="x" width="18" height="18"></i>
+      </button>
+    </div>
+    <div class="dialogBody">
+      <div class="dialogFormStack">
+
+        <!-- Código -->
+        <div class="wrapper">
+          <label class="label" for="cupom-codigo">Código</label>
+          <div class="inputWrap">
+            <input class="input" id="cupom-codigo" type="text" placeholder="Ex.: ALT-PROMO10" />
+          </div>
+        </div>
+
+        <!-- Tipo de benefício -->
+        <div class="wrapper" id="tipo-dd">
+          <span class="label">Tipo de benefício</span>
+          <div class="trigger" id="tipo-trigger">
+            <span id="tipo-value" class="placeholder">Selecione</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu">
+            <div class="option" data-value="percentual">Percentual (%)</div>
+            <div class="option" data-value="valor">Valor fixo</div>
+          </div>
+        </div>
+
+        <!-- Percentual de desconto -->
+        <div class="wrapper formLabelBrand">
+          <label class="label" for="cupom-percentual">Percentual de desconto</label>
+          <div class="inputWrap">
+            <input class="input" id="cupom-percentual" type="number" min="0" max="100" placeholder="0" />
+          </div>
+        </div>
+
+        <!-- Limite máximo de desconto -->
+        <div class="wrapper formLabelBrand">
+          <label class="label" for="cupom-limite">Limite máximo de desconto (em R$)</label>
+          <div class="inputWrap">
+            <input class="input" id="cupom-limite" type="number" min="0" placeholder="0,00" />
+          </div>
+        </div>
+
+        <!-- Vigência -->
+        <div class="dialogFormRow">
+          <div class="wrapper">
+            <label class="label" for="cupom-inicio">Data de início</label>
+            <div class="inputWrap hasLeft">
+              <span class="iconLeft"><i data-lucide="calendar" width="14" height="14"></i></span>
+              <input class="input" id="cupom-inicio" type="date" />
+            </div>
+          </div>
+          <div class="wrapper">
+            <label class="label" for="cupom-fim">Data de término</label>
+            <div class="inputWrap hasLeft">
+              <span class="iconLeft"><i data-lucide="calendar" width="14" height="14"></i></span>
+              <input class="input" id="cupom-fim" type="date" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Qtd. máx. de usos -->
+        <div class="wrapper">
+          <label class="label" for="cupom-usos">Quantidade máxima de usos</label>
+          <div class="inputWrap">
+            <input class="input" id="cupom-usos" type="number" min="0" placeholder="Ex.: 100" />
+          </div>
+        </div>
+
+        <!-- Limite de usos por CPF -->
+        <div class="wrapper">
+          <label class="label" for="cupom-cpf">Limite de usos por CPF</label>
+          <div class="inputWrap">
+            <input class="input" id="cupom-cpf" type="number" min="0" placeholder="Ex.: 1" />
+          </div>
+        </div>
+
+        <!-- Forma de aplicação -->
+        <div class="wrapper" id="aplicacao-dd">
+          <span class="label">Forma de aplicação</span>
+          <div class="trigger" id="aplicacao-trigger">
+            <span id="aplicacao-value" class="placeholder">Selecione</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu">
+            <div class="option" data-value="automatico">Automático</div>
+            <div class="option" data-value="manual">Manual</div>
+          </div>
+        </div>
+
+        <!-- Toggle: Restringir por local e público -->
+        <label class="toggleWrapper">
+          <input class="toggleInput" type="checkbox" id="cupom-restringir" />
+          <span class="toggleTrack"><span class="toggleThumb"></span></span>
+          <span class="toggleLabel">Restringir por local e público</span>
+        </label>
+
+      </div>
+    </div>
+    <div class="dialogFooter">
+      <button class="btn primary" type="button" onclick="novoCupomClose()">Próximo</button>
+    </div>
+  </div>
+</div>
+
 <script src="shared/sidebar.js"></script>
 <script>
-  /* ── Dropdown: Status ── */
+  /* ── Toolbar: Status dropdown ── */
   const statusDropdown = document.getElementById('status-dropdown');
   const statusTrigger  = document.getElementById('status-trigger');
   const statusValue    = document.getElementById('status-value');
+
   statusTrigger.addEventListener('click', e => {
     e.stopPropagation();
-    tipoDropdown.classList.remove('open');
     statusDropdown.classList.toggle('open');
   });
   statusDropdown.querySelectorAll('.option').forEach(opt => {
@@ -251,35 +408,54 @@
       statusDropdown.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
       opt.classList.add('selected');
       const val = opt.dataset.value;
-      statusValue.textContent = val ? opt.textContent : 'Status';
-      statusValue.classList.toggle('placeholder', !val);
+      statusValue.textContent = val ? opt.textContent : 'Todos';
       statusDropdown.classList.remove('open');
     });
   });
 
-  /* ── Dropdown: Tipo ── */
-  const tipoDropdown = document.getElementById('tipo-dropdown');
-  const tipoTrigger  = document.getElementById('tipo-trigger');
-  const tipoValue    = document.getElementById('tipo-value');
-  tipoTrigger.addEventListener('click', e => {
-    e.stopPropagation();
-    statusDropdown.classList.remove('open');
-    tipoDropdown.classList.toggle('open');
+  /* ── Dialog: abrir / fechar ── */
+  function novoCupomOpen() {
+    document.getElementById('novoCupomOverlay').style.display = 'flex';
+    history.replaceState(null, '', '#dialog');
+  }
+  function novoCupomClose() {
+    document.getElementById('novoCupomOverlay').style.display = 'none';
+    history.replaceState(null, '', location.pathname);
+  }
+  document.getElementById('novoCupomOverlay').addEventListener('click', function(e) {
+    if (e.target === this) novoCupomClose();
   });
-  tipoDropdown.querySelectorAll('.option').forEach(opt => {
-    opt.addEventListener('click', () => {
-      tipoDropdown.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-      opt.classList.add('selected');
-      const val = opt.dataset.value;
-      tipoValue.textContent = val ? opt.textContent : 'Tipo';
-      tipoValue.classList.toggle('placeholder', !val);
-      tipoDropdown.classList.remove('open');
-    });
-  });
+  if (location.hash === '#dialog') novoCupomOpen();
 
+  /* ── Dialog: dropdowns internos ── */
+  function initDialogDropdown(wrapperId, triggerId, valueId) {
+    const wrapper  = document.getElementById(wrapperId);
+    const trigger  = document.getElementById(triggerId);
+    const valueEl  = document.getElementById(valueId);
+    const ddIds    = ['tipo-dd', 'aplicacao-dd'];
+
+    trigger.addEventListener('click', e => {
+      e.stopPropagation();
+      ddIds.forEach(id => { if (id !== wrapperId) document.getElementById(id).classList.remove('open'); });
+      wrapper.classList.toggle('open');
+    });
+    wrapper.querySelectorAll('.option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        wrapper.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        valueEl.textContent = opt.textContent;
+        valueEl.classList.remove('placeholder');
+        wrapper.classList.remove('open');
+      });
+    });
+  }
+  initDialogDropdown('tipo-dd',      'tipo-trigger',      'tipo-value');
+  initDialogDropdown('aplicacao-dd', 'aplicacao-trigger', 'aplicacao-value');
+
+  /* ── Fechar todos ao clicar fora ── */
   document.addEventListener('click', () => {
     statusDropdown.classList.remove('open');
-    tipoDropdown.classList.remove('open');
+    ['tipo-dd', 'aplicacao-dd'].forEach(id => document.getElementById(id).classList.remove('open'));
   });
 
   lucide.createIcons();

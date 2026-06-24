@@ -20,7 +20,7 @@
   transition: border-color var(--transition-fast);
 }
 .trigger:hover:not(:disabled) { border-color: var(--color-border-default); }
-.open .trigger { border-color: var(--color-border-focus); box-shadow: 0 0 0 3px rgba(142, 68, 70, 0.18); }
+.open .trigger { border-color: var(--color-border-focus); box-shadow: var(--shadow-focus-ring); }
 .trigger:disabled {
   background: var(--color-status-disabled-bg);
   border-color: var(--color-border-disabled);
@@ -37,7 +37,7 @@
   border-color: var(--color-action-error);
 }
 .hasError.open .trigger {
-  box-shadow: 0 0 0 3px rgba(185, 28, 46, 0.15);
+  box-shadow: var(--shadow-focus-ring-error);
 }
 
 .errorText {

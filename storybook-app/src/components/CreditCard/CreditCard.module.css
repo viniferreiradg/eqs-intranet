@@ -1,0 +1,119 @@
+/* ─── CreditCard — cartão de crédito/débito visual ─── */
+
+.creditCard {
+  position: relative;
+  width: 100%;
+  flex: 0 0 82%;
+  scroll-snap-align: start;
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    145deg,
+    var(--color-cc-grad-from) 0%,
+    var(--color-cc-grad-mid)  55%,
+    var(--color-cc-grad-to)   100%
+  );
+  padding: var(--spacing-md) var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 172px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  cursor: default;
+  user-select: none;
+}
+
+/* Wave blob decoration at bottom */
+.creditCard__wave {
+  position: absolute;
+  bottom: -48px;
+  left: -32px;
+  width: 160%;
+  height: 110px;
+  border-radius: 50% 60% 40% 55%;
+  background: var(--color-cc-wave);
+  pointer-events: none;
+}
+
+/* Second smaller blob for depth */
+.creditCard__wave::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  right: -40px;
+  width: 200px;
+  height: 140px;
+  border-radius: 40% 60% 55% 45%;
+  background: var(--color-cc-wave);
+}
+
+/* Top row: number + delete button */
+.creditCard__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.creditCard__number {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-cc-text);
+  letter-spacing: 0.12em;
+}
+
+.creditCard__delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-cc-text-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.creditCard__delete:hover  { color: var(--color-cc-text); }
+.creditCard__delete:active { opacity: 0.7; }
+
+/* Bottom row: holder info + brand */
+.creditCard__footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.creditCard__holder {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+
+.creditCard__holder-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-cc-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.creditCard__holder-name {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-cc-text);
+}
+
+.creditCard__brand {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-cc-text);
+  font-style: italic;
+  line-height: 1;
+}
