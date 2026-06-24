@@ -1,57 +1,144 @@
-﻿/**
+/**
  * shared/sidebar.js
  * Componente de sidebar compartilhado — Dashboard da Rede Althus
  *
  * Uso em cada página:
- *   1. Substituir <aside class="sidebar open" id="sidebar">…</aside>
- *      por <aside id="sidebar-root"></aside>
+ *   1. Adicionar <aside id="sidebar-root"></aside>
  *   2. Adicionar data-page="<id>" no <body> (veja IDs abaixo)
- *   3. Remover o bloco de JS de toggle/tema da página
- *   4. Adicionar <script src="shared/sidebar.js"></script> antes do </body>
+ *   3. Adicionar <script src="shared/sidebar.js"></script> antes do </body>
  *
  * IDs de página válidos:
- *   dashboard | locais | carregadores | tarifas | cupons |
- *   extrato | reservas | logs | usuarios | configuracoes
+ *   dashboard | financeiro-visao | extrato | btg |
+ *   minha-rede | historico | analise | logs |
+ *   cupons-visao | cupons-analise |
+ *   fiscal-fiscal | fiscal-mensalidades |
+ *   usuarios | suporte
  */
 (function () {
   'use strict';
 
   /* ── 1. Restaurar tema salvo ───────────────────────────────────────────── */
-  const savedTheme = localStorage.getItem('althus-theme') || 'dark';
+  const savedTheme = localStorage.getItem('althus-theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
 
-  /* ── 2. Itens de navegação ─────────────────────────────────────────────── */
+  /* ── 2. Estrutura de navegação ─────────────────────────────────────────── */
   const NAV_ITEMS = [
-    { id: 'dashboard',    label: 'Dashboard',     icon: 'layout-dashboard', href: 'jornada-2-8-dashboard.html' },
-    { id: 'usuarios',     label: 'Usuários',      icon: 'users',            href: 'jornada-2-6-1-lista-usuarios.html' },
-    { id: 'locais',       label: 'Locais',        icon: 'map-pin',          href: 'jornada-2-1-1-listar-localidades.html' },
-    { id: 'carregadores', label: 'Carregadores',  icon: 'zap',              href: 'jornada-2-7-1-listar-carregadores.html' },
-    { id: 'tarifas',      label: 'Tarifas',       icon: 'receipt',          href: 'jornada-2-2-1-opcoes-de-tarifas.html' },
-    { id: 'cupons',       label: 'Cupons',        icon: 'tag',              href: 'jornada-2-4-1-listar-cupons.html' },
-    { id: 'reservas',     label: 'Reservas',      icon: 'calendar-clock',   href: 'jornada-2-9-1-lista-reservas.html' },
-    { id: 'extrato',      label: 'Extrato',       icon: 'file-text',        href: 'jornada-2-3-1-extrato.html' },
-    { id: 'logs',         label: 'Logs de Erros', icon: 'triangle-alert',   href: 'jornada-2-5-1-logs-de-erros.html' },
+    {
+      id: 'dashboard',
+      label: 'Início',
+      icon: 'home',
+      href: 'jornada-2-8-dashboard.html',
+    },
+    {
+      id: 'financeiro',
+      label: 'Financeiro',
+      icon: 'dollar-sign',
+      children: [
+        { id: 'financeiro-visao', label: 'Visão geral', href: 'jornada-2-9-financeiro-visao.html' },
+        { id: 'extrato',          label: 'Extrato',     href: 'jornada-2-3-1-extrato.html' },
+      ],
+    },
+    {
+      id: 'btg',
+      label: 'BTG Pactual',
+      icon: 'landmark',
+      href: '#',
+    },
+    {
+      id: 'operacional',
+      label: 'Operacional',
+      icon: 'activity',
+      children: [
+        { id: 'minha-rede', label: 'Minha rede',    href: 'jornada-2-1-1-listar-localidades.html' },
+        { id: 'historico',  label: 'Histórico',      href: 'jornada-2-historico.html' },
+        { id: 'analise',    label: 'Análise',         href: 'jornada-2-analise.html' },
+        { id: 'logs',       label: 'Logs de falhas', href: 'jornada-2-5-1-logs-de-erros.html' },
+      ],
+    },
+    {
+      id: 'cupons',
+      label: 'Cupons',
+      icon: 'tag',
+      children: [
+        { id: 'cupons-visao',   label: 'Visão geral', href: 'jornada-2-4-1-listar-cupons.html' },
+        { id: 'cupons-analise', label: 'Análise',      href: 'jornada-2-4-5-analise-cupons.html' },
+      ],
+    },
+    {
+      id: 'fiscal',
+      label: 'Fiscal',
+      icon: 'file-text',
+      children: [
+        { id: 'fiscal-fiscal',       label: 'Fiscal',       href: 'jornada-2-fiscal-recargas.html' },
+        { id: 'fiscal-mensalidades', label: 'Mensalidades', href: 'jornada-2-fiscal-mensalidades.html' },
+      ],
+    },
+    {
+      id: 'usuarios',
+      label: 'Gestão de usuários',
+      icon: 'users',
+      href: 'jornada-2-6-1-lista-usuarios.html',
+    },
+    {
+      id: 'suporte',
+      label: 'Suporte',
+      icon: 'message-square',
+      href: '#',
+    },
   ];
 
   /* ── 3. Página ativa ───────────────────────────────────────────────────── */
   const activePage = document.body.dataset.page || '';
 
-  /* ── 4. Montar HTML dos itens de nav ───────────────────────────────────── */
-  const navHTML = NAV_ITEMS.map(item => {
-    const active = item.id === activePage ? ' navItemActive' : '';
-    return `
-      <button class="navItem${active}" onclick="location.href='${item.href}'" type="button">
-        <span class="navIcon"><i data-lucide="${item.icon}" width="18" height="18"></i></span>
-        <span class="navLabel">${item.label}</span>
-      </button>`.trim();
-  }).join('\n      ');
+  /* ── 4. Grupos que devem iniciar abertos (contêm a página ativa) ───────── */
+  const openGroups = new Set();
+  NAV_ITEMS.forEach(item => {
+    if (item.children && item.children.some(c => c.id === activePage)) {
+      openGroups.add(item.id);
+    }
+  });
 
-  /* ── 5. Ícone e rótulo do tema ─────────────────────────────────────────── */
-  const isDarkOnLoad = savedTheme !== 'light';
-  const themeIconName = isDarkOnLoad ? 'sun' : 'moon';
+  /* ── 5. Gerar HTML dos itens ───────────────────────────────────────────── */
+  function buildNavHTML() {
+    return NAV_ITEMS.map(item => {
+      /* Item simples (sem submenu) */
+      if (!item.children) {
+        const active = item.id === activePage ? ' navItemActive' : '';
+        return `
+          <button class="navItem${active}" onclick="location.href='${item.href}'" type="button">
+            <span class="navIcon"><i data-lucide="${item.icon}" width="18" height="18"></i></span>
+            <span class="navLabel">${item.label}</span>
+          </button>`.trim();
+      }
+
+      /* Grupo com submenu */
+      const isOpen = openGroups.has(item.id);
+
+      const subItems = item.children.map(child => {
+        const subActive = child.id === activePage ? ' navSubItemActive' : '';
+        return `<button class="navSubItem${subActive}" onclick="location.href='${child.href}'" type="button">${child.label}</button>`;
+      }).join('\n          ');
+
+      return `
+        <div class="navGroup${isOpen ? ' open' : ''}" id="navg-${item.id}">
+          <button class="navItem" type="button" onclick="toggleNavGroup('${item.id}')">
+            <span class="navIcon"><i data-lucide="${item.icon}" width="18" height="18"></i></span>
+            <span class="navLabel">${item.label}</span>
+            <span class="navChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </button>
+          <div class="navSubList" id="navsl-${item.id}">
+            ${subItems}
+          </div>
+        </div>`.trim();
+    }).join('\n      ');
+  }
+
+  /* ── 6. Ícone e rótulo do tema ─────────────────────────────────────────── */
+  const isDarkOnLoad  = savedTheme !== 'light';
+  const themeIconName = isDarkOnLoad ? 'sun'         : 'moon';
   const themeLabelText = isDarkOnLoad ? 'Modo claro' : 'Modo escuro';
 
-  /* ── 6. HTML completo do sidebar ───────────────────────────────────────── */
+  /* ── 7. HTML completo do sidebar ───────────────────────────────────────── */
   const sidebarHTML = `
     <button class="toggleBtn" id="toggle-btn" aria-label="Recolher menu" type="button">
       <i data-lucide="chevron-left"  class="toggleIcon-left"  width="14" height="14"></i>
@@ -67,7 +154,7 @@
 
     <div class="body">
       <nav class="navList">
-        ${navHTML}
+        ${buildNavHTML()}
       </nav>
 
       <div class="spacer"></div>
@@ -77,7 +164,7 @@
           <button class="iconBtn" id="theme-btn" type="button" aria-label="${themeLabelText}" title="${themeLabelText}">
             <span id="theme-icon"><i data-lucide="${themeIconName}" width="16" height="16"></i></span>
           </button>
-          <button class="iconBtn" type="button" aria-label="Configurações" title="Configurações" onclick="location.href='jornada-2-10-1-minha-conta.html'">
+          <button class="iconBtn" type="button" aria-label="Configurações" title="Configurações" onclick="location.href='jornada-2-10-configuracoes.html'">
             <i data-lucide="settings" width="16" height="16"></i>
           </button>
           <button class="iconBtn" type="button" id="notif-btn" aria-label="3 notificações" title="Notificações">
@@ -103,16 +190,24 @@
     </div>
   `;
 
-  /* ── 7. Injetar no DOM ─────────────────────────────────────────────────── */
+  /* ── 8. Injetar no DOM ─────────────────────────────────────────────────── */
   const root = document.getElementById('sidebar-root');
   if (!root) return;
   root.className = 'sidebar open';
   root.id = 'sidebar';
   root.innerHTML = sidebarHTML;
 
-  /* ── 8. Sidebar toggle ─────────────────────────────────────────────────── */
+  /* ── 9. Toggle de grupo de nav ─────────────────────────────────────────── */
+  window.toggleNavGroup = function (id) {
+    const group = document.getElementById('navg-' + id);
+    if (!group) return;
+    group.classList.toggle('open');
+    if (window.lucide) lucide.createIcons();
+  };
+
+  /* ── 10. Sidebar toggle ─────────────────────────────────────────────────── */
   document.getElementById('toggle-btn').addEventListener('click', () => {
-    const sb = document.getElementById('sidebar');
+    const sb     = document.getElementById('sidebar');
     const isOpen = sb.classList.contains('open');
     sb.classList.toggle('open',   !isOpen);
     sb.classList.toggle('closed',  isOpen);
@@ -120,7 +215,7 @@
       .setAttribute('aria-label', isOpen ? 'Expandir menu' : 'Recolher menu');
   });
 
-  /* ── 9. Tema toggle (persiste via localStorage) ────────────────────────── */
+  /* ── 11. Tema toggle ────────────────────────────────────────────────────── */
   document.getElementById('theme-btn').addEventListener('click', () => {
     const isDark   = document.documentElement.getAttribute('data-theme') !== 'light';
     const next     = isDark ? 'light' : 'dark';
@@ -135,16 +230,14 @@
     if (window.lucide) lucide.createIcons();
   });
 
-  /* ── 10. Renderizar ícones Lucide do sidebar ───────────────────────────── */
+  /* ── 12. Renderizar ícones Lucide ──────────────────────────────────────── */
   if (window.lucide) lucide.createIcons();
 
-  /* ── 11. Notificações — abre Sheet se existir na página ───────────────── */
+  /* ── 13. Notificações ──────────────────────────────────────────────────── */
   const notifBtn = document.getElementById('notif-btn');
   if (notifBtn) {
     notifBtn.addEventListener('click', () => {
-      if (typeof notifSheetOpen === 'function') {
-        notifSheetOpen();
-      }
+      if (typeof notifSheetOpen === 'function') notifSheetOpen();
     });
   }
 
