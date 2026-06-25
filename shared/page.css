@@ -66,10 +66,14 @@ body {
 .pageContent::-webkit-scrollbar-thumb:hover { background: var(--color-text-secondary); }
 
 /* ── Page header ─────────────────────────────────────────────────────────────── */
-/* Base: block. Páginas de lista adicionam display:flex via style="" no elemento */
 .pageHeader {
   padding: calc(var(--spacing-lg) + var(--spacing-xs)) var(--spacing-xl) 0;
   flex-shrink: 0;
+}
+/* Quando dentro de .pageContent o padding horizontal já vem do pai — sem duplicar */
+.pageContent > .pageHeader {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* ── Títulos ─────────────────────────────────────────────────────────────────── */
@@ -324,7 +328,8 @@ body {
   gap: var(--spacing-sm);
   margin-bottom: var(--spacing-md);
 }
-.extratoSearch { flex: 1; }
+.extratoSearch { flex: 1; min-width: 0; }
+.extratoFilterBar > .wrapper:not(.extratoSearch) { width: auto; flex-shrink: 0; }
 .extratoTableFooter {
   display: flex;
   align-items: center;
@@ -400,7 +405,7 @@ body {
   padding: var(--spacing-xs) var(--spacing-md); height: 36px;
   background: var(--color-bg-surface);
   border: var(--border-width-thin) solid var(--color-border-default);
-  border-radius: var(--radius-full); cursor: pointer;
+  border-radius: var(--radius-sm); cursor: pointer;
   color: var(--color-text-primary); font-family: var(--font-body);
   font-size: var(--font-size-sm); font-weight: var(--font-weight-medium);
   transition: border-color var(--transition-fast), background var(--transition-fast);
@@ -479,7 +484,7 @@ body {
 .dpApply {
   width: 100%; display: flex; align-items: center; justify-content: center; gap: var(--spacing-xs);
   padding: var(--spacing-xs) var(--spacing-sm); background: var(--color-bg-brand-strong);
-  color: var(--color-gray-white); border: none; border-radius: var(--radius-xs);
+  color: var(--color-gray-white); border: none; border-radius: var(--radius-sm);
   font-family: var(--font-body); font-size: var(--font-size-sm); font-weight: var(--font-weight-medium);
   cursor: pointer; transition: opacity var(--transition-fast); white-space: nowrap;
 }
@@ -491,6 +496,9 @@ body {
   font-family: var(--font-body); font-size: var(--font-size-xs); color: var(--color-text-tertiary);
   cursor: pointer; outline: none; appearance: none; -webkit-appearance: none; box-sizing: border-box;
 }
+.dpNavHidden  { width: 28px; height: 28px; flex-shrink: 0; }
+.dpHidden     { display: none; }
+.dpPopoverRight { left: auto; right: 0; background: var(--color-glass-secondary); }
 
 
 /* ── Grid de MetricCards — 5 colunas (logs de erros) ────────────────────────── */
@@ -623,6 +631,9 @@ body {
 
 /* ── Page header variante row (lista + botão à direita) ──────────────────────── */
 .pageHeaderRow { display: flex; align-items: center; justify-content: space-between; }
+/* Detalhe com breadcrumb: flex-start para alinhar topo, botão com margin-top para descer ao nível do título */
+.pageHeaderDetail { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--spacing-md); }
+.pageHeaderDetailBtn { flex-shrink: 0; margin-top: var(--spacing-xl); }
 
 /* ── Tab wrapper (ex: catálogo de veículos — 3 abas) ─────────────────────────── */
 .tabWrapper { padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-md); margin-bottom: calc(var(--spacing-md) * -1); }

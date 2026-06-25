@@ -11,6 +11,7 @@
 
 .trigger {
   width: 100%; display: flex; align-items: center; justify-content: space-between;
+  gap: var(--spacing-sm);
   padding: var(--spacing-sm) var(--spacing-md);
   background: var(--color-bg-surface);
   border: var(--border-width-thin) solid var(--color-border-muted);
@@ -29,7 +30,7 @@
 }
 
 .placeholder { color: var(--color-text-disabled); }
-.chevron { transition: transform var(--transition-fast); font-size: 11px; color: var(--color-text-tertiary); }
+.chevron { display: inline-flex; align-items: center; flex-shrink: 0; transition: transform var(--transition-fast); color: var(--color-text-tertiary); }
 .open .chevron { transform: rotate(180deg); }
 
 /* ── Error state ──────────────────────────────────── */

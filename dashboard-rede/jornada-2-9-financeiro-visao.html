@@ -48,10 +48,53 @@
         </div>
         <!-- Período -->
         <div class="dpWrap">
-          <button class="dpTrigger" type="button" aria-label="Selecionar período">
+          <button class="dpTrigger" id="dp-trigger" type="button" aria-label="Selecionar período" aria-expanded="false" aria-haspopup="dialog">
             <span class="dpTriggerIcon"><i data-lucide="calendar" width="14" height="14"></i></span>
-            <span class="dpTriggerPlaceholder">Período</span>
+            <span class="dpTriggerPlaceholder" id="dp-placeholder">Período</span>
+            <span class="dpTriggerText dpHidden" id="dp-text"></span>
+            <span class="dpTriggerClear dpHidden" id="dp-clear" role="button" tabindex="0" aria-label="Limpar período">
+              <i data-lucide="x" width="12" height="12"></i>
+            </span>
           </button>
+          <div class="dpPopover dpPopoverRight" id="dp-popover" hidden>
+            <!-- Mês esquerdo -->
+            <div class="dpCalPanel">
+              <div class="dpCalHeader">
+                <button class="dpNavBtn" id="dp-prev" type="button" aria-label="Mês anterior">
+                  <i data-lucide="chevron-left" width="16" height="16"></i>
+                </button>
+                <span class="dpMonthLabel" id="dp-month-left"></span>
+                <span class="dpNavHidden"></span>
+              </div>
+              <div class="dpGrid" id="dp-grid-left"></div>
+            </div>
+            <div class="dpPanelDivider"></div>
+            <!-- Mês direito -->
+            <div class="dpCalPanel">
+              <div class="dpCalHeader">
+                <span class="dpNavHidden"></span>
+                <span class="dpMonthLabel" id="dp-month-right"></span>
+                <button class="dpNavBtn" id="dp-next" type="button" aria-label="Próximo mês">
+                  <i data-lucide="chevron-right" width="16" height="16"></i>
+                </button>
+              </div>
+              <div class="dpGrid" id="dp-grid-right"></div>
+            </div>
+            <div class="dpPanelDivider"></div>
+            <!-- Controles -->
+            <div class="dpCtrlPanel">
+              <div>
+                <div class="dpFieldLabel">Início</div>
+                <input class="dpDateInput" id="dp-start-input" type="text" placeholder="dd/mm/aaaa" readonly />
+              </div>
+              <div>
+                <div class="dpFieldLabel">Fim</div>
+                <input class="dpDateInput" id="dp-end-input" type="text" placeholder="dd/mm/aaaa" readonly />
+              </div>
+              <div class="dpSpacer"></div>
+              <button class="dpApply" id="dp-apply" type="button">Aplicar</button>
+            </div>
+          </div>
         </div>
         <!-- Ação principal -->
         <button class="btn primary hasLeft" type="button">
@@ -441,6 +484,162 @@
       btn.classList.add('active');
     });
   });
+
+  /* ── DatePicker de intervalo (2 meses) ──────────────────────────────────── */
+  (function () {
+    const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+    const DAYS   = ['D','S','T','Q','Q','S','S'];
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    let view  = { year: today.getFullYear(), month: today.getMonth() };
+    let range = { start: null, end: null };
+
+    function rightView() {
+      let m = view.month + 1, y = view.year;
+      if (m > 11) { m = 0; y++; }
+      return { year: y, month: m };
+    }
+
+    function fmt(d) {
+      if (!d) return '';
+      return [String(d.getDate()).padStart(2,'0'), String(d.getMonth()+1).padStart(2,'0'), d.getFullYear()].join('/');
+    }
+
+    function buildGrid(el, year, month) {
+      el.innerHTML = '';
+      DAYS.forEach(d => {
+        const dn = document.createElement('div');
+        dn.className = 'dpDayName';
+        dn.textContent = d;
+        el.appendChild(dn);
+      });
+
+      const firstDow     = new Date(year, month, 1).getDay();
+      const daysInMonth  = new Date(year, month + 1, 0).getDate();
+      const prevLastDay  = new Date(year, month, 0).getDate();
+      const totalCells   = Math.ceil((firstDow + daysInMonth) / 7) * 7;
+
+      for (let i = 0; i < totalCells; i++) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        let cls = 'dpDay', cellDate;
+
+        if (i < firstDow) {
+          const d = prevLastDay - firstDow + i + 1;
+          cellDate = new Date(year, month - 1, d);
+          btn.textContent = d;
+          cls += ' dpDayOutside';
+          btn.disabled = true;
+        } else if (i >= firstDow + daysInMonth) {
+          const d = i - firstDow - daysInMonth + 1;
+          cellDate = new Date(year, month + 1, d);
+          btn.textContent = d;
+          cls += ' dpDayOutside';
+          btn.disabled = true;
+        } else {
+          const d = i - firstDow + 1;
+          cellDate = new Date(year, month, d);
+          btn.textContent = d;
+          const t = cellDate.getTime();
+          const s = range.start, e = range.end;
+
+          if (t === today.getTime()) cls += ' dpDayToday';
+          if      (s && t === s.getTime())                 cls += ' dpDayStart';
+          else if (e && t === e.getTime())                 cls += ' dpDayEnd';
+          else if (s && e && cellDate > s && cellDate < e) cls += ' dpDayInRange';
+
+          btn.addEventListener('click', (function(dt) {
+            return function(e) { e.stopPropagation(); dayClick(dt); };
+          })(cellDate));
+        }
+        btn.className = cls;
+        el.appendChild(btn);
+      }
+    }
+
+    function dayClick(date) {
+      if (!range.start || (range.start && range.end)) {
+        range = { start: date, end: null };
+      } else if (date < range.start) {
+        range = { start: date, end: range.start };
+      } else {
+        range.end = date;
+      }
+      render();
+    }
+
+    function render() {
+      const rv = rightView();
+      document.getElementById('dp-month-left').textContent  = MONTHS[view.month]  + ' ' + view.year;
+      document.getElementById('dp-month-right').textContent = MONTHS[rv.month]    + ' ' + rv.year;
+      buildGrid(document.getElementById('dp-grid-left'),  view.year, view.month);
+      buildGrid(document.getElementById('dp-grid-right'), rv.year,   rv.month);
+      document.getElementById('dp-start-input').value = fmt(range.start);
+      document.getElementById('dp-end-input').value   = fmt(range.end);
+    }
+
+    const dpWrap    = document.querySelector('.dpWrap');
+    const dpTrigger = document.getElementById('dp-trigger');
+    const dpPopover = document.getElementById('dp-popover');
+
+    function dpOpen()  {
+      dpPopover.hidden = false;
+      dpTrigger.classList.add('open');
+      dpTrigger.setAttribute('aria-expanded', 'true');
+      render();
+    }
+    function dpClose() {
+      dpPopover.hidden = true;
+      dpTrigger.classList.remove('open');
+      dpTrigger.setAttribute('aria-expanded', 'false');
+    }
+
+    dpTrigger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      dpPopover.hidden ? dpOpen() : dpClose();
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!dpWrap.contains(e.target)) dpClose();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && !dpPopover.hidden) dpClose();
+    });
+
+    document.getElementById('dp-prev').addEventListener('click', function() {
+      if (--view.month < 0) { view.month = 11; view.year--; }
+      render();
+    });
+    document.getElementById('dp-next').addEventListener('click', function() {
+      if (++view.month > 11) { view.month = 0; view.year++; }
+      render();
+    });
+
+    document.getElementById('dp-apply').addEventListener('click', function() {
+      if (range.start && range.end) {
+        document.getElementById('dp-placeholder').classList.add('dpHidden');
+        const txtEl = document.getElementById('dp-text');
+        txtEl.textContent = fmt(range.start) + ' – ' + fmt(range.end);
+        txtEl.classList.remove('dpHidden');
+        document.getElementById('dp-clear').classList.remove('dpHidden');
+      }
+      dpClose();
+    });
+
+    document.getElementById('dp-clear').addEventListener('click', function(e) {
+      e.stopPropagation();
+      range = { start: null, end: null };
+      document.getElementById('dp-placeholder').classList.remove('dpHidden');
+      document.getElementById('dp-text').classList.add('dpHidden');
+      document.getElementById('dp-clear').classList.add('dpHidden');
+      render();
+    });
+
+    render();
+  })();
 </script>
 
 </body>

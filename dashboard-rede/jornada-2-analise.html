@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="../storybook-desktop/src/components/Background/Background.module.css" />
   <link rel="stylesheet" href="../storybook-desktop/src/components/Button/Button.module.css" />
   <link rel="stylesheet" href="../storybook-desktop/src/components/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/FilterChips/FilterChips.module.css" />
 </head>
 <body data-page="analise">
 
@@ -92,13 +93,10 @@
             <h3 class="widgetCardTitle">Recargas por dia</h3>
             <p class="widgetCardSub">Últimos 7 dias</p>
           </div>
-          <div class="barChartPeriodTabs">
-            <button class="periodTabBtn active" type="button">7 dias</button>
-            <button class="periodTabBtn" type="button">15 dias</button>
-            <button class="periodTabBtn" type="button">30 dias</button>
-            <button class="periodTabBtn hasLeft" type="button" style="display:flex;align-items:center;gap:4px;">
-              <i data-lucide="calendar" width="13" height="13"></i> Período
-            </button>
+          <div class="filterChips">
+            <button class="filterChip active" type="button">7 dias</button>
+            <button class="filterChip" type="button">15 dias</button>
+            <button class="filterChip" type="button">30 dias</button>
           </div>
         </div>
         <div id="chart-recargas"></div>
@@ -112,13 +110,10 @@
             <h3 class="widgetCardTitle">kWh carregados por dia</h3>
             <p class="widgetCardSub">Últimos 7 dias</p>
           </div>
-          <div class="barChartPeriodTabs">
-            <button class="periodTabBtn active" type="button">7 dias</button>
-            <button class="periodTabBtn" type="button">15 dias</button>
-            <button class="periodTabBtn" type="button">30 dias</button>
-            <button class="periodTabBtn hasLeft" type="button" style="display:flex;align-items:center;gap:4px;">
-              <i data-lucide="calendar" width="13" height="13"></i> Período
-            </button>
+          <div class="filterChips">
+            <button class="filterChip active" type="button">7 dias</button>
+            <button class="filterChip" type="button">15 dias</button>
+            <button class="filterChip" type="button">30 dias</button>
           </div>
         </div>
         <div id="chart-kwh"></div>
@@ -136,13 +131,10 @@
             <h3 class="widgetCardTitle">Taxa de ocupação</h3>
             <p class="widgetCardSub">Últimos 7 dias</p>
           </div>
-          <div class="barChartPeriodTabs">
-            <button class="periodTabBtn active" type="button">7 dias</button>
-            <button class="periodTabBtn" type="button">15 dias</button>
-            <button class="periodTabBtn" type="button">30 dias</button>
-            <button class="periodTabBtn hasLeft" type="button" style="display:flex;align-items:center;gap:4px;">
-              <i data-lucide="calendar" width="13" height="13"></i> Período
-            </button>
+          <div class="filterChips">
+            <button class="filterChip active" type="button">7 dias</button>
+            <button class="filterChip" type="button">15 dias</button>
+            <button class="filterChip" type="button">30 dias</button>
           </div>
         </div>
         <div class="barChartList">
@@ -192,13 +184,10 @@
             <h3 class="widgetCardTitle">Perfil geral de usuários da rede</h3>
             <p class="widgetCardSub">Proporção de novos e recorrentes em toda a rede</p>
           </div>
-          <div class="barChartPeriodTabs">
-            <button class="periodTabBtn active" type="button">7 dias</button>
-            <button class="periodTabBtn" type="button">15 dias</button>
-            <button class="periodTabBtn" type="button">30 dias</button>
-            <button class="periodTabBtn hasLeft" type="button" style="display:flex;align-items:center;gap:4px;">
-              <i data-lucide="calendar" width="13" height="13"></i> Período
-            </button>
+          <div class="filterChips">
+            <button class="filterChip active" type="button">7 dias</button>
+            <button class="filterChip" type="button">15 dias</button>
+            <button class="filterChip" type="button">30 dias</button>
           </div>
         </div>
         <div class="analiseUserGrid">
@@ -395,6 +384,16 @@
     });
     document.addEventListener('click', () => dd.classList.remove('open'));
   })();
+
+  /* ── FilterChips — toggle ativo por grupo ────────────────────────────────── */
+  document.querySelectorAll('.filterChips').forEach(group => {
+    group.querySelectorAll('.filterChip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        group.querySelectorAll('.filterChip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+      });
+    });
+  });
 
   /* ── Gráfico: Recargas por dia ───────────────────────────────────────────── */
   const chartBase = {

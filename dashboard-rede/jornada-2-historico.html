@@ -71,10 +71,52 @@
           <div class="option" data-value="chg008">CHG-008</div>
         </div>
       </div>
-      <button class="btn ghost hasLeft" type="button">
-        <span class="icon"><i data-lucide="calendar" width="16" height="16"></i></span>
-        Período
-      </button>
+      <!-- Período — DatePicker de 2 meses -->
+      <div class="dpWrap" id="dp-wrap">
+        <button class="dpTrigger" id="dp-trigger" type="button" aria-expanded="false" aria-haspopup="dialog">
+          <span class="dpTriggerIcon"><i data-lucide="calendar" width="14" height="14"></i></span>
+          <span class="dpTriggerPlaceholder" id="dp-placeholder">Período</span>
+          <span class="dpTriggerText dpHidden" id="dp-text"></span>
+          <span class="dpTriggerClear dpHidden" id="dp-clear" role="button" tabindex="0" aria-label="Limpar período">
+            <i data-lucide="x" width="12" height="12"></i>
+          </span>
+        </button>
+        <div class="dpPopover dpPopoverRight" id="dp-popover" hidden>
+          <!-- Mês esquerdo -->
+          <div class="dpCalPanel">
+            <div class="dpCalHeader">
+              <button class="dpNavBtn" id="dp-prev" type="button" aria-label="Mês anterior"><i data-lucide="chevron-left" width="14" height="14"></i></button>
+              <span class="dpMonthLabel" id="dp-month-left"></span>
+              <span class="dpNavHidden"></span>
+            </div>
+            <div class="dpGrid" id="dp-grid-left"></div>
+          </div>
+          <div class="dpPanelDivider"></div>
+          <!-- Mês direito -->
+          <div class="dpCalPanel">
+            <div class="dpCalHeader">
+              <span class="dpNavHidden"></span>
+              <span class="dpMonthLabel" id="dp-month-right"></span>
+              <button class="dpNavBtn" id="dp-next" type="button" aria-label="Próximo mês"><i data-lucide="chevron-right" width="14" height="14"></i></button>
+            </div>
+            <div class="dpGrid" id="dp-grid-right"></div>
+          </div>
+          <div class="dpPanelDivider"></div>
+          <!-- Controles -->
+          <div class="dpCtrlPanel">
+            <div>
+              <div class="dpFieldLabel">Início</div>
+              <input class="dpDateInput" id="dp-start-input" type="text" placeholder="dd/mm/aaaa" readonly />
+            </div>
+            <div>
+              <div class="dpFieldLabel">Fim</div>
+              <input class="dpDateInput" id="dp-end-input" type="text" placeholder="dd/mm/aaaa" readonly />
+            </div>
+            <div class="dpSpacer"></div>
+            <button class="dpApply" id="dp-apply" type="button">Aplicar</button>
+          </div>
+        </div>
+      </div>
       <button class="btn primary hasLeft" type="button">
         <span class="icon"><i data-lucide="file-down" width="16" height="16"></i></span>
         Baixar CSV
@@ -409,6 +451,150 @@
     document.getElementById('local-dd').classList.remove('open');
     document.getElementById('charger-dd').classList.remove('open');
   });
+
+  /* ── DatePicker ── */
+  (function () {
+    const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+    const DAYS   = ['D','S','T','Q','Q','S','S'];
+    const today  = new Date(); today.setHours(0,0,0,0);
+    let view  = { year: today.getFullYear(), month: today.getMonth() - 1 < 0 ? 11 : today.getMonth() - 1,
+                  yearR: today.getFullYear() + (today.getMonth() === 0 ? -1 : 0) };
+    if (today.getMonth() === 0) view.year = today.getFullYear() - 1;
+    let range = { start: null, end: null };
+
+    const trigger   = document.getElementById('dp-trigger');
+    const popover   = document.getElementById('dp-popover');
+    const placeholder = document.getElementById('dp-placeholder');
+    const dpText    = document.getElementById('dp-text');
+    const clearBtn  = document.getElementById('dp-clear');
+    const startInp  = document.getElementById('dp-start-input');
+    const endInp    = document.getElementById('dp-end-input');
+    const applyBtn  = document.getElementById('dp-apply');
+    const gridL     = document.getElementById('dp-grid-left');
+    const gridR     = document.getElementById('dp-grid-right');
+    const monthL    = document.getElementById('dp-month-left');
+    const monthR    = document.getElementById('dp-month-right');
+
+    function rightView() {
+      let m = view.month + 1, y = view.year;
+      if (m > 11) { m = 0; y++; }
+      return { year: y, month: m };
+    }
+
+    function fmt(d) {
+      if (!d) return '';
+      return [String(d.getDate()).padStart(2,'0'), String(d.getMonth()+1).padStart(2,'0'), d.getFullYear()].join('/');
+    }
+
+    function sameDay(a, b) {
+      return a && b && a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
+    }
+
+    function buildGrid(el, year, month) {
+      el.innerHTML = '';
+      DAYS.forEach(d => {
+        const h = document.createElement('div');
+        h.className = 'dpDayName'; h.textContent = d; el.appendChild(h);
+      });
+      const first = new Date(year, month, 1).getDay();
+      const days  = new Date(year, month + 1, 0).getDate();
+      for (let i = 0; i < first; i++) {
+        const blank = document.createElement('div'); el.appendChild(blank);
+      }
+      for (let d = 1; d <= days; d++) {
+        const cellDate = new Date(year, month, d);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = d;
+        let cls = 'dpDay';
+        if (sameDay(cellDate, today)) cls += ' dpToday';
+        if (range.start && range.end) {
+          if (sameDay(cellDate, range.start)) cls += ' dpStart';
+          else if (sameDay(cellDate, range.end)) cls += ' dpEnd';
+          else if (cellDate > range.start && cellDate < range.end) cls += ' dpInRange';
+        } else if (range.start && sameDay(cellDate, range.start)) {
+          cls += ' dpStart';
+        }
+        btn.className = cls;
+        btn.addEventListener('click', (function(dt) {
+          return function(e) { e.stopPropagation(); dayClick(dt); };
+        })(cellDate));
+        el.appendChild(btn);
+      }
+    }
+
+    function render() {
+      const rv = rightView();
+      monthL.textContent = MONTHS[view.month] + ' ' + view.year;
+      monthR.textContent = MONTHS[rv.month]   + ' ' + rv.year;
+      buildGrid(gridL, view.year, view.month);
+      buildGrid(gridR, rv.year,   rv.month);
+      startInp.value = fmt(range.start);
+      endInp.value   = fmt(range.end);
+    }
+
+    function dayClick(date) {
+      if (!range.start || (range.start && range.end)) {
+        range = { start: date, end: null };
+      } else if (date < range.start) {
+        range = { start: date, end: range.start };
+      } else {
+        range.end = date;
+      }
+      render();
+    }
+
+    function openPopover() {
+      popover.hidden = false;
+      trigger.setAttribute('aria-expanded', 'true');
+      render();
+      lucide.createIcons();
+    }
+
+    function closePopover() {
+      popover.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    trigger.addEventListener('click', e => {
+      e.stopPropagation();
+      popover.hidden ? openPopover() : closePopover();
+    });
+
+    document.getElementById('dp-prev').addEventListener('click', e => {
+      e.stopPropagation();
+      view.month--; if (view.month < 0) { view.month = 11; view.year--; }
+      render(); lucide.createIcons();
+    });
+
+    document.getElementById('dp-next').addEventListener('click', e => {
+      e.stopPropagation();
+      view.month++; if (view.month > 11) { view.month = 0; view.year++; }
+      render(); lucide.createIcons();
+    });
+
+    applyBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      if (range.start && range.end) {
+        dpText.textContent = fmt(range.start) + ' – ' + fmt(range.end);
+        placeholder.classList.add('dpHidden');
+        dpText.classList.remove('dpHidden');
+        clearBtn.classList.remove('dpHidden');
+      }
+      closePopover();
+    });
+
+    clearBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      range = { start: null, end: null };
+      placeholder.classList.remove('dpHidden');
+      dpText.classList.add('dpHidden');
+      clearBtn.classList.add('dpHidden');
+    });
+
+    document.addEventListener('click', closePopover);
+    document.getElementById('dp-popover').addEventListener('click', e => e.stopPropagation());
+  })();
 </script>
 
 </body>

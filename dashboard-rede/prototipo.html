@@ -422,85 +422,6 @@
       },
     ];
 
-    const JOURNEYS = [
-      { label: '2.1 — Logar no sistema', screens: [
-        { label: 'Criar senha',       file: 'jornada-3-2-criar-senha.html' },
-        { label: 'Login',             file: 'jornada-3-1-login.html' },
-        { label: 'Dashboard Loading', file: 'jornada-2-8-dashboard-loading.html' },
-        { label: 'Dashboard',         file: 'jornada-2-8-dashboard.html' },
-      ]},
-      { label: '2.1.1 — Listar localidades', screens: [
-        { label: 'Dashboard',          file: 'jornada-2-8-dashboard.html' },
-        { label: 'Listar localidades', file: 'jornada-2-1-1-listar-localidades.html' },
-      ]},
-      { label: '2.1.2 — Editar localidade', screens: [
-        { label: 'Dashboard',          file: 'jornada-2-8-dashboard.html' },
-        { label: 'Listar localidades', file: 'jornada-2-1-1-listar-localidades.html' },
-        { label: 'Editar localidade',  file: 'jornada-2-1-3-editar-localidade.html' },
-      ]},
-      { label: '2.1.3 — Criar localidade', screens: [
-        { label: 'Dashboard',             file: 'jornada-2-8-dashboard.html' },
-        { label: 'Listar localidades',    file: 'jornada-2-1-1-listar-localidades.html' },
-        { label: 'Criar localidade',      file: 'jornada-2-1-2-cadastrar-localidade.html' },
-      ]},
-      { label: '2.2 — Gerir taxas e tarifas', screens: [
-        { label: 'Dashboard',                 file: 'jornada-2-8-dashboard.html' },
-        { label: 'Opções de tarifas',         file: 'jornada-2-2-1-opcoes-de-tarifas.html' },
-        { label: 'Tarifas personalizadas',    file: 'jornada-2-2-2-tarifas-personalizadas.html' },
-        { label: 'Nova tarifa personalizada', file: 'jornada-2-3-nova-tarifa-personalizada.html' },
-      ]},
-      { label: '2.3.1 — Listar abastecimentos', screens: [
-        { label: 'Dashboard', file: 'jornada-2-8-dashboard.html' },
-        { label: 'Extrato',   file: 'jornada-2-3-1-extrato.html' },
-      ]},
-      { label: '2.3.2 — Ver detalhe abastecimento', screens: [
-        { label: 'Dashboard',             file: 'jornada-2-8-dashboard.html' },
-        { label: 'Extrato',               file: 'jornada-2-3-1-extrato.html' },
-        { label: 'Detalhe abastecimento', file: 'jornada-2-3-2-detalhe-abastecimento.html' },
-      ]},
-      { label: '2.4.1 — Listar cupons', screens: [
-        { label: 'Dashboard',     file: 'jornada-2-8-dashboard.html' },
-        { label: 'Listar cupons', file: 'jornada-2-4-1-listar-cupons.html' },
-      ]},
-      { label: '2.4.2 — Ver detalhe cupom', screens: [
-        { label: 'Dashboard',     file: 'jornada-2-8-dashboard.html' },
-        { label: 'Listar cupons', file: 'jornada-2-4-1-listar-cupons.html' },
-        { label: 'Detalhe cupom', file: 'jornada-2-4-3-visualizar-cupom.html' },
-      ]},
-      { label: '2.4.3 — Cadastrar cupom', screens: [
-        { label: 'Dashboard',       file: 'jornada-2-8-dashboard.html' },
-        { label: 'Listar cupons',   file: 'jornada-2-4-1-listar-cupons.html' },
-        { label: 'Cadastrar cupom', file: 'jornada-2-4-2-cadastrar-cupom.html' },
-      ]},
-      { label: '2.4.4 — Editar/inativar cupom', screens: [
-        { label: 'Dashboard',     file: 'jornada-2-8-dashboard.html' },
-        { label: 'Listar cupons', file: 'jornada-2-4-1-listar-cupons.html' },
-        { label: 'Editar cupom',  file: 'jornada-2-4-4-editar-cupom.html' },
-      ]},
-      { label: '2.5 — Logs de erro', screens: [
-        { label: 'Dashboard',    file: 'jornada-2-8-dashboard.html' },
-        { label: 'Logs de erro', file: 'jornada-2-5-1-logs-de-erros.html' },
-      ]},
-      { label: '2.6 — Gestão de usuários', screens: [
-        { label: 'Dashboard',          file: 'jornada-2-8-dashboard.html' },
-        { label: 'Gestão de usuários', file: 'jornada-2-6-1-lista-usuarios.html' },
-      ]},
-      { label: '2.7.1 — Listar carregadores', screens: [
-        { label: 'Dashboard',          file: 'jornada-2-8-dashboard.html' },
-        { label: 'Listar carregadores', file: 'jornada-2-7-1-listar-carregadores.html' },
-      ]},
-      { label: '2.7.2 — Visualizar/editar carregador', screens: [
-        { label: 'Dashboard',           file: 'jornada-2-8-dashboard.html' },
-        { label: 'Listar carregadores', file: 'jornada-2-7-1-listar-carregadores.html' },
-        { label: 'Ver carregador',      file: 'jornada-2-7-2-visualizar-dispositivo.html' },
-        { label: 'Editar carregador',   file: 'jornada-2-7-3-editar-dispositivo.html' },
-      ]},
-      { label: '2.7.3 — Cadastrar carregador', screens: [
-        { label: 'Dashboard',           file: 'jornada-2-8-dashboard.html' },
-        { label: 'Listar carregadores', file: 'jornada-2-7-1-listar-carregadores.html' },
-        { label: 'Cadastrar carregador', file: 'jornada-2-7-4-cadastrar-dispositivo.html' },
-      ]},
-    ]; // será preenchido na próxima etapa
 
     const sidebar       = document.getElementById('sidebar');
     const collapseBtn   = document.getElementById('collapse-btn');
@@ -584,7 +505,6 @@
     }
 
     buildList(FLOWS, list);
-    buildList(JOURNEYS, journeyList);
 
     /* Load first screen */
     list.querySelector('.screen-btn').click();

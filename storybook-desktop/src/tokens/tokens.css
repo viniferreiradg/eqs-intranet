@@ -279,6 +279,7 @@
 
   /* ─── Glass surfaces ───────────────────────────────── */
   --color-glass-surface:  rgba(255, 255, 255, 0.08);
+  --color-glass-whtite:  rgba(255, 255, 255, 0.4);
   --color-glass-border:   rgba(255, 255, 255, 0.14);
   --color-glass2-surface: rgba(255, 255, 255, 0.40);
 
@@ -315,6 +316,7 @@
 [data-theme="light"] {
   /* Glass surfaces */
   --color-glass-surface:  rgba(0, 0, 0, 0.05);
+  --color-glass-secondary:  rgba(255, 255, 255, 0.4);
   --color-glass-border:   rgba(0, 0, 0, 0.10);
   --color-sidebar-bg:     rgba(255, 255, 255, 0.72);
   --color-nav-idle:       rgba(15, 12, 20, 0.38);
