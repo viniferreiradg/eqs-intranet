@@ -35,17 +35,17 @@
 }
 
 /* ── Sizes ─────────────────────────────────────────── */
-.sm {
+.fab.sm {
   width: var(--spacing-xl);
   height: var(--spacing-xl);
 }
 
-.md {
+.fab.md {
   width: var(--spacing-2xl);
   height: var(--spacing-2xl);
 }
 
-.lg {
+.fab.lg {
   width: calc(var(--spacing-2xl) + var(--spacing-md));
   height: calc(var(--spacing-2xl) + var(--spacing-md));
 }

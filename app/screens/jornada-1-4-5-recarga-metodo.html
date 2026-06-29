@@ -6,6 +6,7 @@
   <title>Escanear QR Code — Althus</title>
   <link rel="stylesheet" href="../../storybook-app/src/tokens/tokens.css" />
   <link rel="stylesheet" href="../../shared/page-mobile.css" />
+  <link rel="stylesheet" href="../../storybook-app/src/components/Button/Button.module.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body class="layout-fullbleed">
@@ -37,6 +38,12 @@
       <span class="qr-corner qr-corner--tr"></span>
       <span class="qr-corner qr-corner--bl"></span>
       <span class="qr-corner qr-corner--br"></span>
+    </div>
+
+    <div class="qr-actions">
+      <button class="btn secondary" type="button" onclick="router.modal('jornada-1-4-5-recarga-codigo')">
+        Usar código
+      </button>
     </div>
   </div>
 

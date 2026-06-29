@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="../../storybook-app/src/components/SearchBar/SearchBar.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/VehicleChip/VehicleChip.module.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="../shared/charger-pin.js"></script>
 </head>
 <body class="layout-fullbleed map-bg-dark">
 
@@ -28,39 +29,18 @@
     </div>
 
     <!-- Distributor pins -->
-    <div class="map-pin-pos-1 pin-tupi">
-      <svg class="mapPin md distributor" viewBox="0 0 24 24" fill="none" aria-label="TUPI">
-        <path class="pinBody" d="M12.601 21.799C14.461 20.193 20 14.993 20 10C20 7.87827 19.1571 5.84344 17.6569 4.34315C16.1566 2.84285 14.1217 2 12 2C9.87827 2 7.84344 2.84285 6.34315 4.34315C4.84285 5.84344 4 7.87827 4 10C4 14.993 9.539 20.193 11.399 21.799C11.5723 21.9293 11.7832 21.9998 12 21.9998C12.2168 21.9998 12.4277 21.9293 12.601 21.799Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path class="pinDot"  d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <div class="map-pin-pos-2 pin-tupi">
-      <svg class="mapPin md distributor" viewBox="0 0 24 24" fill="none" aria-label="TUPI">
-        <path class="pinBody" d="M12.601 21.799C14.461 20.193 20 14.993 20 10C20 7.87827 19.1571 5.84344 17.6569 4.34315C16.1566 2.84285 14.1217 2 12 2C9.87827 2 7.84344 2.84285 6.34315 4.34315C4.84285 5.84344 4 7.87827 4 10C4 14.993 9.539 20.193 11.399 21.799C11.5723 21.9293 11.7832 21.9998 12 21.9998C12.2168 21.9998 12.4277 21.9293 12.601 21.799Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path class="pinDot"  d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <div class="map-pin-pos-3 pin-dcc">
-      <svg class="mapPin md distributor" viewBox="0 0 24 24" fill="none" aria-label="DCC">
-        <path class="pinBody" d="M12.601 21.799C14.461 20.193 20 14.993 20 10C20 7.87827 19.1571 5.84344 17.6569 4.34315C16.1566 2.84285 14.1217 2 12 2C9.87827 2 7.84344 2.84285 6.34315 4.34315C4.84285 5.84344 4 7.87827 4 10C4 14.993 9.539 20.193 11.399 21.799C11.5723 21.9293 11.7832 21.9998 12 21.9998C12.2168 21.9998 12.4277 21.9293 12.601 21.799Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path class="pinDot"  d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
+    <div class="map-pin-pos-1" id="pin-pos-1"><!-- ChargerPin injetado por charger-pin.js --></div>
+    <div class="map-pin-pos-2" id="pin-pos-2"><!-- ChargerPin injetado por charger-pin.js --></div>
+    <div class="map-pin-pos-3" id="pin-pos-3"><!-- ChargerPin injetado por charger-pin.js --></div>
 
     <!-- Althus pins -->
     <div class="map-pin-center" id="pin-eixo">
-      <button class="map-pin-btn" onclick="openSheet()" aria-label="Auto Shopping Eixo — Ver detalhes">
-        <svg class="mapPin md brand" id="pin-eixo-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path class="pinBody" d="M12.601 21.799C14.461 20.193 20 14.993 20 10C20 7.87827 19.1571 5.84344 17.6569 4.34315C16.1566 2.84285 14.1217 2 12 2C9.87827 2 7.84344 2.84285 6.34315 4.34315C4.84285 5.84344 4 7.87827 4 10C4 14.993 9.539 20.193 11.399 21.799C11.5723 21.9293 11.7832 21.9998 12 21.9998C12.2168 21.9998 12.4277 21.9293 12.601 21.799Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path class="pinDot"  d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+      <button class="map-pin-btn" id="pin-eixo-btn" onclick="openSheet()" aria-label="Auto Shopping Eixo — Ver detalhes">
+        <!-- ChargerPin injetado por charger-pin.js -->
       </button>
     </div>
-    <div class="map-pin-center map-pin-center-2 pin-brand">
-      <svg class="mapPin md brand" viewBox="0 0 24 24" fill="none" aria-label="Carregador">
-        <path class="pinBody" d="M12.601 21.799C14.461 20.193 20 14.993 20 10C20 7.87827 19.1571 5.84344 17.6569 4.34315C16.1566 2.84285 14.1217 2 12 2C9.87827 2 7.84344 2.84285 6.34315 4.34315C4.84285 5.84344 4 7.87827 4 10C4 14.993 9.539 20.193 11.399 21.799C11.5723 21.9293 11.7832 21.9998 12 21.9998C12.2168 21.9998 12.4277 21.9293 12.601 21.799Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path class="pinDot"  d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+    <div class="map-pin-center map-pin-center-2" id="pin-iguatemi">
+      <!-- ChargerPin injetado por charger-pin.js -->
     </div>
 
   </div>
@@ -282,19 +262,44 @@
       ? window.parent.router
       : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
 
+    /* ── ChargerPin init ────────────────────────────── */
+    (function initPins() {
+      var SZ = 40;
+
+      // Auto Shopping Eixo — 4 carregadores: 2 livres, 2 ocupados
+      var pin1 = createChargerPin(['available', 'occupied', 'available', 'occupied'], SZ);
+      pin1.id = 'pin-eixo-svg';
+      document.getElementById('pin-eixo-btn').appendChild(pin1);
+
+      // Shopping Iguatemi — 2 carregadores livres
+      var pin2 = createChargerPin(['available', 'available'], SZ);
+      document.getElementById('pin-iguatemi').appendChild(pin2);
+
+      // Posto pos-1 — 1 carregador ocupado
+      document.getElementById('pin-pos-1').appendChild(createChargerPin(['occupied'], SZ));
+
+      // Posto pos-2 — 2 carregadores: 1 ocupado, 1 livre
+      document.getElementById('pin-pos-2').appendChild(createChargerPin(['occupied', 'available'], SZ));
+
+      // Posto pos-3 — 3 carregadores livres
+      document.getElementById('pin-pos-3').appendChild(createChargerPin(['available', 'available', 'available'], SZ));
+    })();
+
     /* ── Sheet: abrir / fechar ──────────────────────── */
     function openSheet() {
       document.body.classList.add('map-focused');
       document.getElementById('map-pins-layer').classList.add('map-focused');
       document.getElementById('map-sheet-panel').classList.remove('map-sheet-panel--hidden');
-      document.getElementById('pin-eixo-svg').classList.add('selected');
+      var svg = document.getElementById('pin-eixo-svg');
+      if (svg) svg.classList.add('charger-pin-selected');
     }
 
     function closeSheet() {
       document.getElementById('map-sheet-panel').classList.add('map-sheet-panel--hidden');
       document.body.classList.remove('map-focused');
       document.getElementById('map-pins-layer').classList.remove('map-focused');
-      document.getElementById('pin-eixo-svg').classList.remove('selected');
+      var svg = document.getElementById('pin-eixo-svg');
+      if (svg) svg.classList.remove('charger-pin-selected');
     }
 
     /* ── Maps action sheet ──────────────────────────── */

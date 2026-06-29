@@ -104,8 +104,11 @@
       <div class="modalBody" style="padding:0;">
 
         <div class="station-header" style="padding:20px;">
-          <span class="station-network">Althus Eletropostos</span>
           <p class="station-address">Av. das Nações Unidas, 14261 — Chácara Sto. Antônio, São Paulo</p>
+          <div class="station-type">
+            <i data-lucide="globe" width="12" height="12"></i>
+            <span>Local público</span>
+          </div>
           <div class="station-meta">
             <div class="station-rating">
               <div class="station-stars">
@@ -216,6 +219,24 @@
           </div>
         </div>
 
+        <div style="padding: 0 20px 20px;">
+          <p class="sheet-section-label">Pagamento</p>
+          <div class="wallet-balance-row">
+            <div class="wallet-balance-row__left">
+              <div class="wallet-balance-row__icon">
+                <i data-lucide="wallet" width="18" height="18"></i>
+              </div>
+              <div>
+                <div class="wallet-balance-row__label-group">
+                  <p class="wallet-balance-row__label">Saldo da carteira</p>
+                  <span class="wallet-status-badge wallet-status-badge--amount">R$ 45,20</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn secondary sm" type="button" onclick="router.push('jornada-1-4-6c-forma-pagamento')">Trocar</button>
+          </div>
+        </div>
+
       </div><!-- /modalBody -->
 
       <div class="botoes-sheet">
@@ -224,15 +245,11 @@
             <i data-lucide="navigation" width="16" height="16"></i>
             Traçar Rota
           </button>
-          <button class="btn ghost" id="btn-reservar" onclick="router.push('jornada-1-4-9-reserva-confirmar')" type="button">
-            <i data-lucide="calendar" width="16" height="16"></i>
-            Reservar
+          <button class="btn primary" id="btn-recarga" onclick="router.push('jornada-1-4-5-recarga-metodo')" type="button">
+            <i data-lucide="zap" width="16" height="16"></i>
+            Iniciar Recarga
           </button>
         </div>
-        <button class="btn primary full-width" id="btn-recarga" onclick="router.push('jornada-1-4-5-recarga-metodo')" type="button">
-          <i data-lucide="zap" width="16" height="16"></i>
-          Iniciar Recarga
-        </button>
       </div>
 
     </div><!-- /modal -->
@@ -284,7 +301,6 @@
       document.getElementById('detail-idle').textContent = c.idle;
       document.getElementById('detail-hours').textContent = c.hours;
       document.getElementById('btn-recarga').disabled = !c.canCharge;
-      document.getElementById('btn-reservar').hidden = !c.canReserve;
     }
 
     (function() {

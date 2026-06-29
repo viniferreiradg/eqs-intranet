@@ -80,9 +80,6 @@
 
         <!-- Carregador ativo -->
         <div class="card recarga-charger-card">
-          <div class="charging-bar__icon" aria-hidden="true">
-            <i data-lucide="zap" width="20" height="20"></i>
-          </div>
           <div class="recarga-charger-body">
             <span class="recarga-charger-name">Auto Shopping Eixo</span>
             <span class="recarga-charger-meta">Ponto #3 · CCS2 · 50 kW</span>
@@ -90,42 +87,27 @@
           <span class="reserva-badge reserva-badge--recarga">Em recarga</span>
         </div>
 
-        <!-- Hero: tempo restante + progresso -->
+        <!-- Hero: kWh carregados -->
         <div class="card">
           <div class="charging-time-hero">
-            <span class="charging-time-value" id="detail-timer">37:00</span>
-            <span class="charging-time-label">restantes</span>
-          </div>
-          <div class="charging-progress">
-            <div class="charging-progress-track" role="progressbar"
-                 aria-label="Progresso da recarga"
-                 aria-valuemin="0" aria-valuemax="100">
-              <div class="charging-progress-fill" id="charging-fill"></div>
-            </div>
-            <div class="charging-progress-labels" aria-hidden="true">
-              <span>Iniciado</span>
-              <span>1 hora</span>
-            </div>
+            <span class="charging-time-value charging-time-value--brand" id="detail-kwh">7,2 kWh</span>
+            <span class="charging-time-label">kWh carregados</span>
           </div>
         </div>
 
-        <!-- Stats 2×2 -->
-        <div class="charging-stats">
+        <!-- Stats -->
+        <div class="charging-stats charging-stats--stacked">
           <div class="charging-stat-card">
-            <span class="charging-stat-label">kWh carregados</span>
-            <span class="charging-stat-value charging-stat-value--brand" id="detail-kwh">7,2 kWh</span>
+            <span class="charging-stat-label">Tempo decorrido</span>
+            <span class="charging-stat-value" id="detail-elapsed">23:00</span>
           </div>
           <div class="charging-stat-card">
-            <span class="charging-stat-label">Velocidade</span>
+            <span class="charging-stat-label">Potência</span>
             <span class="charging-stat-value">50 kW</span>
           </div>
           <div class="charging-stat-card">
             <span class="charging-stat-label">Custo atual</span>
             <span class="charging-stat-value" id="detail-cost">R$ 7,28</span>
-          </div>
-          <div class="charging-stat-card">
-            <span class="charging-stat-label">Tempo total</span>
-            <span class="charging-stat-value">1 hora</span>
           </div>
         </div>
 
@@ -133,10 +115,10 @@
 
       <div class="botoes-sheet">
         <button class="btn destructive full-width" type="button"
-                onclick="router.replace('jornada-1-4-1-home-map')"
-                aria-label="Parar recarga">
+                onclick="router.replace('jornada-1-4-8-recarga-avaliacao')"
+                aria-label="Finalizar recarga">
           <i data-lucide="square" width="16" height="16"></i>
-          Parar recarga
+          Finalizar recarga
         </button>
       </div>
 
@@ -149,8 +131,7 @@
       : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
 
     var TOTAL_SECS = 60 * 60;
-    var remaining  = 37 * 60;
-    var elapsed    = TOTAL_SECS - remaining;
+    var elapsed    = 23 * 60;
 
     var KWH_RATE  = 18.9  / TOTAL_SECS;
     var COST_RATE = 19.00 / TOTAL_SECS;
@@ -158,28 +139,19 @@
     var kwh  = elapsed * KWH_RATE;
     var cost = elapsed * COST_RATE;
 
-    var timerEl = document.getElementById('detail-timer');
-    var fillEl  = document.getElementById('charging-fill');
-    var kwhEl   = document.getElementById('detail-kwh');
-    var costEl  = document.getElementById('detail-cost');
+    var kwhEl     = document.getElementById('detail-kwh');
+    var elapsedEl = document.getElementById('detail-elapsed');
+    var costEl    = document.getElementById('detail-cost');
 
     function pad(n) { return (n < 10 ? '0' : '') + n; }
     function fmtCost(v) { return 'R$ ' + v.toFixed(2).replace('.', ','); }
 
     function tick() {
-      timerEl.textContent = pad(Math.floor(remaining / 60)) + ':' + pad(remaining % 60);
-      var pct = ((TOTAL_SECS - remaining) / TOTAL_SECS * 100).toFixed(1);
-      fillEl.style.width = pct + '%';
-      fillEl.parentElement.setAttribute('aria-valuenow', Math.round(pct));
-      kwhEl.textContent  = kwh.toFixed(1)  + ' kWh';
-      costEl.textContent = fmtCost(cost);
-      if (remaining <= 0) {
-        clearInterval(iv);
-        timerEl.textContent = '00:00';
-        fillEl.style.width  = '100%';
-        return;
-      }
-      remaining--;
+      kwhEl.textContent     = kwh.toFixed(1) + ' kWh';
+      elapsedEl.textContent = pad(Math.floor(elapsed / 60)) + ':' + pad(elapsed % 60);
+      costEl.textContent    = fmtCost(cost);
+      if (elapsed >= TOTAL_SECS) { clearInterval(iv); return; }
+      elapsed++;
       kwh  += KWH_RATE;
       cost += COST_RATE;
     }

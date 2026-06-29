@@ -11,9 +11,9 @@
 }
 
 /* ── Sizes ────────────────────────────────────────────── */
-.sm { width: var(--spacing-xl);                              height: var(--spacing-xl);                              }
-.md { width: var(--spacing-2xl);                             height: var(--spacing-2xl);                             }
-.lg { width: calc(var(--spacing-2xl) + var(--spacing-md));  height: calc(var(--spacing-2xl) + var(--spacing-md));   }
+.mapPin.sm { width: var(--spacing-xl);                              height: var(--spacing-xl);                              }
+.mapPin.md { width: var(--spacing-2xl);                             height: var(--spacing-2xl);                             }
+.mapPin.lg { width: calc(var(--spacing-2xl) + var(--spacing-md));  height: calc(var(--spacing-2xl) + var(--spacing-md));   }
 
 /* ── Brand variant (carregador Althus — outline na cor brand) ─────────── */
 /* Seletor composto para não conflitar com FAB.module.css que também define .brand */

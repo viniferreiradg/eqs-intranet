@@ -33,14 +33,14 @@
 
     <div class="modalBody">
 
-      <p class="modalDesc">Informe o e-mail cadastrado na sua conta. Vamos enviar um código para redefinir a sua senha.</p>
+      <p class="modalDesc">Informe o telefone cadastrado na sua conta. Vamos enviar um código para redefinir a sua senha.</p>
 
       <div class="wrapper hasLeft">
-        <label class="label" for="canal-email">E-mail</label>
+        <label class="label" for="canal-telefone">Telefone</label>
         <div class="inputWrap">
-          <span class="iconLeft"><i data-lucide="mail" width="16" height="16"></i></span>
-          <input class="input" id="canal-email" type="email"
-                 placeholder="seu@email.com" autocomplete="email" />
+          <span class="iconLeft"><i data-lucide="smartphone" width="16" height="16"></i></span>
+          <input class="input" id="canal-telefone" type="tel"
+                 placeholder="(00) 00000-0000" autocomplete="tel" inputmode="numeric" />
         </div>
       </div>
 
@@ -55,6 +55,14 @@
     var router = (window.parent && window.parent.router)
       ? window.parent.router
       : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
+
+    document.getElementById('canal-telefone').addEventListener('input', function (e) {
+      var v = e.target.value.replace(/\D/g, '').slice(0, 11);
+      if (v.length > 6) v = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+      else if (v.length > 2) v = '(' + v.slice(0,2) + ') ' + v.slice(2);
+      else if (v.length > 0) v = '(' + v;
+      e.target.value = v;
+    });
   </script>
   <script>lucide.createIcons();</script>
 

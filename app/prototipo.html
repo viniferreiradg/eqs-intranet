@@ -106,29 +106,6 @@
       gap: 6px;
     }
 
-    /* ── Telas / Jornadas tabs ───────────────────────── */
-    .sidebar-view-tabs {
-      display: flex;
-      gap: 4px;
-    }
-    .sidebar-tab {
-      flex: 1;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      color: #444;
-      background: none;
-      border: 1px solid #1e1e1e;
-      border-radius: 4px;
-      padding: 5px 8px;
-      cursor: pointer;
-      font-family: inherit;
-      text-align: center;
-      transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
-    }
-    .sidebar-tab:hover { color: #aaa; border-color: #333; background: #161616; }
-    .sidebar-tab.active { color: #e5e5e5; border-color: #3a3a3a; background: #1e1e1e; }
-
     .expand-all-btn {
       width: 100%;
       font-size: 10px;
@@ -585,17 +562,12 @@
     </div>
 
     <div class="sidebar-toolbar">
-      <div class="sidebar-view-tabs">
-        <button class="sidebar-tab active" id="tab-telas">Telas</button>
-        <button class="sidebar-tab" id="tab-jornadas">Jornadas</button>
-      </div>
       <div id="toolbar-expand">
         <button class="expand-all-btn" id="expand-all-btn">Expandir todos</button>
       </div>
     </div>
 
     <nav class="sidebar-list" id="screen-list"></nav>
-    <nav class="sidebar-list" id="journey-list" hidden></nav>
 
     <div class="sidebar-footer">
       <span>Navegação de protótipo</span>
@@ -647,7 +619,7 @@
               <span class="navIcon"><i data-lucide="map" width="22" height="22"></i></span>
             </button>
             <button class="navItem" data-tab="pontos" onclick="router.tab('jornada-1-4-lista-postos')" aria-label="Postos">
-              <span class="navIcon"><i data-lucide="zap" width="22" height="22"></i></span>
+              <span class="navIcon"><i data-lucide="ev-charger" width="22" height="22"></i></span>
             </button>
             <button class="navItem" data-tab="carteira" onclick="router.tab('jornada-1-6-1-carteira')" aria-label="Carteira">
               <span class="navIcon"><i data-lucide="wallet" width="22" height="22"></i></span>
@@ -698,7 +670,7 @@
         screens: [
           { label: 'Canal de recuperação', id: 'jornada-1-3-1-recuperar-canal', built: true },
           { label: 'Código OTP',           id: 'jornada-1-3-2-recuperar-otp',   built: true },
-          { label: 'Nova senha',           id: 'jornada-1-3-3-recuperar-senha', built: true },
+          { label: 'Criar PIN',             id: 'jornada-1-3-3-recuperar-pin',   built: true },
         ],
       },
       {
@@ -706,21 +678,13 @@
         screens: [
           { label: 'Home — Mapa',           id: 'jornada-1-4-1-home-map',             built: true },
           { label: 'Detalhe da localidade', id: 'jornada-1-4-2-map-sheet',    built: true },
+          { label: 'Forma de pagamento',        id: 'jornada-1-4-6c-forma-pagamento',  built: true },
           { label: 'Filtros do mapa',       id: 'jornada-1-4-3-filtros-mapa', built: true },
           { label: 'Iniciar Recarga — QR',  id: 'jornada-1-4-5-recarga-metodo',      built: true },
-          { label: 'Confirmar recarga',         id: 'jornada-1-4-6-recarga-pagamento', built: true },
-          { label: 'Forma de pagamento',        id: 'jornada-1-4-6c-forma-pagamento',  built: true },
+          { label: 'Inserir código',            id: 'jornada-1-4-5-recarga-codigo',    built: true },
           { label: 'Recarga em andamento', id: 'jornada-1-4-7-recarga-andamento',  built: true },
           { label: 'Detalhes da recarga', id: 'jornada-1-4-7-recarga-detalhes',   built: true },
           { label: 'Recarga concluída',  id: 'jornada-1-4-8-recarga-avaliacao', built: true },
-        ],
-      },
-      {
-        label: 'RF009 — Reserva de Horário',
-        screens: [
-          { label: 'Agendar recarga',    id: 'jornada-1-4-9-reserva-agendar',    built: true },
-          { label: 'Resumo e pagamento', id: 'jornada-1-4-10-reserva-pagamento', built: true },
-          { label: 'Confirmação',        id: 'jornada-1-4-11-reserva-confirmada', built: true },
         ],
       },
       {
@@ -735,7 +699,6 @@
           { label: 'Carteira',        id: 'jornada-1-6-1-carteira',        built: true },
           { label: 'Adicionar — PIX', id: 'jornada-1-6-2-carteira-pix',    built: true },
           { label: 'PIX — QR Code',   id: 'jornada-1-6-3-carteira-pix-qr', built: true },
-          { label: 'Extrato',         id: 'jornada-1-6-4-extrato',         built: true },
           { label: 'Meus cupons',     id: 'jornada-1-6-5-cupons',          built: true },
           { label: 'Cupom — Código',  id: 'jornada-1-6-5-1-cupom-codigo',  built: true },
         ],
@@ -845,20 +808,10 @@
           { label: 'Home — Mapa',           id: 'jornada-1-4-1-home-map',          built: true },
           { label: 'Detalhe da localidade', id: 'jornada-1-4-2-map-sheet',         built: true },
           { label: 'Iniciar Recarga — QR',  id: 'jornada-1-4-5-recarga-metodo',    built: true },
-          { label: 'Confirmar recarga',         id: 'jornada-1-4-6-recarga-pagamento', built: true },
+          { label: 'Inserir código',            id: 'jornada-1-4-5-recarga-codigo',   built: true },
           { label: 'Forma de pagamento',        id: 'jornada-1-4-6c-forma-pagamento',  built: true },
           { label: 'Recarga em andamento',      id: 'jornada-1-4-7-recarga-andamento', built: true },
           { label: 'Recarga concluída',     id: 'jornada-1-4-8-recarga-avaliacao', built: true },
-        ],
-      },
-      {
-        label: '1.7 — Fazer uma reserva',
-        screens: [
-          { label: 'Home — Mapa',           id: 'jornada-1-4-1-home-map',            built: true },
-          { label: 'Detalhe da localidade', id: 'jornada-1-4-2-map-sheet',           built: true },
-          { label: 'Agendar recarga',       id: 'jornada-1-4-9-reserva-agendar',     built: true },
-          { label: 'Resumo e pagamento',    id: 'jornada-1-4-10-reserva-pagamento',  built: true },
-          { label: 'Confirmação',           id: 'jornada-1-4-11-reserva-confirmada', built: true },
         ],
       },
       {
@@ -893,7 +846,7 @@
         screens: [
           { label: 'Home — Mapa', id: 'jornada-1-4-1-home-map',  built: true },
           { label: 'Carteira',    id: 'jornada-1-6-1-carteira',  built: true },
-          { label: 'Extrato',     id: 'jornada-1-6-4-extrato',   built: true },
+
         ],
       },
       {
@@ -948,7 +901,6 @@
 
     /* ── Build sidebar ──────────────────────────────── */
     const list            = document.getElementById('screen-list');
-    const journeyList     = document.getElementById('journey-list');
     const urlBar          = document.getElementById('preview-url');
     const sidebar         = document.getElementById('sidebar');
     const collapseBtn     = document.getElementById('collapse-btn');
@@ -959,26 +911,6 @@
     const footerCount     = document.getElementById('footer-count');
     const sidebarBackdrop = document.getElementById('sidebar-backdrop');
     const mobileMenuBtn   = document.getElementById('mobile-menu-btn');
-    const tabTelas        = document.getElementById('tab-telas');
-    const tabJornadas     = document.getElementById('tab-jornadas');
-
-    /* ── Tab switching ──────────────────────────────── */
-    tabTelas.addEventListener('click', () => {
-      tabTelas.classList.add('active');
-      tabJornadas.classList.remove('active');
-      list.hidden = false;
-      journeyList.hidden = true;
-      toolbarExpand.classList.remove('hidden');
-    });
-
-    tabJornadas.addEventListener('click', () => {
-      tabJornadas.classList.add('active');
-      tabTelas.classList.remove('active');
-      list.hidden = true;
-      journeyList.hidden = false;
-      toolbarExpand.classList.add('hidden');
-    });
-
     let activeBtn = null;
     let hideTimer = null;
 
@@ -1077,7 +1009,6 @@
     }
 
     buildList(FLOWS, list);
-    buildList(JOURNEYS, journeyList);
 
     /* ── Sidebar collapse ───────────────────────────── */
     function showFloat() {

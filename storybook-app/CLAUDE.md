@@ -38,6 +38,36 @@ Os tokens semânticos (ex: `--color-text-primary`, `--color-bg-default`) se adap
 
 ## Componentes disponíveis
 
+### ChargerPin _(Mobile)_
+**Import:** `import { ChargerPin } from '../components/ChargerPin/ChargerPin'`  
+**Story:** `Mobile/ChargerPin`
+
+Pin circular de posto de recarga. Círculo preto com arcos coloridos ao redor, divididos por carregador. Verde = livre, vermelho = ocupado. Número central indica total de carregadores.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `chargers` | `ChargerStatus[]` | — | Array de `'available' \| 'occupied'`, um por carregador |
+| `size` | `number` | `56` | Tamanho do SVG em px |
+| `aria-label` | `string` | auto-gerado | Descrição acessível (gerada automaticamente se omitida) |
+
+```tsx
+<ChargerPin chargers={['available']} />
+<ChargerPin chargers={['occupied', 'available']} />
+<ChargerPin chargers={['available', 'occupied', 'occupied']} />
+<ChargerPin chargers={['available', 'available', 'available', 'available']} size={48} />
+```
+
+**Em telas HTML:** carregar `app/shared/charger-pin.js` e chamar `createChargerPin(chargers, size?)`:
+```html
+<script src="../../shared/charger-pin.js"></script>
+<script>
+  var pin = createChargerPin(['available', 'occupied', 'available']);
+  document.getElementById('marker-1').appendChild(pin);
+</script>
+```
+
+---
+
 ### MapPin _(Mobile)_
 **Import:** `import { MapPin } from '../components/MapPin/MapPin'`  
 **Story:** `Mobile/MapPin`

@@ -436,6 +436,20 @@ body.layout-screen.has-bottom-nav .cadastro-footer {
 }
 
 
+/* Separador "Ou" entre ações alternativas de reenvio */
+.otp-or {
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-disabled);
+}
+
+/* ─── ChargerPin selected state ─────────────────── */
+.charger-pin-selected {
+  transform: scale(1.18);
+  filter: drop-shadow(0 2px 14px var(--color-action-success));
+  transition: transform var(--transition-normal), filter var(--transition-normal);
+}
+
 /* ─── Map pin clickable button ───────────────────── */
 .map-pin-btn {
   background: none;
@@ -584,6 +598,14 @@ body.layout-screen.has-bottom-nav .cadastro-footer {
   font-size: var(--font-size-sm);
   color: var(--color-text-tertiary);
   line-height: var(--line-height-normal);
+}
+
+.station-type {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
 }
 
 .station-meta { display: flex; align-items: center; margin-top: var(--spacing-2xs); }
@@ -746,6 +768,7 @@ body.layout-screen.has-bottom-nav .cadastro-footer {
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
+  margin-left: var(--spacing-xs);
 }
 
 /* Texto de disponibilidade */
@@ -1453,6 +1476,38 @@ body.layout-screen.has-bottom-nav .cadastro-footer {
   height: var(--border-width-thin);
   background: var(--color-border-subtle);
   flex-shrink: 0;
+}
+
+/* ─── Carteira: linha de ação rápida (ex: cupons) ──────── */
+
+.carteira-quick-action {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.carteira-quick-action__label {
+  flex: 1;
+  text-align: left;
+}
+
+.carteira-quick-action:active { opacity: 0.7; }
+
+.carteira-quick-actions {
+  padding: var(--spacing-md) var(--spacing-md) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
 }
 
 /* ─── Carteira: seção de impacto ambiental ───────────── */
@@ -3235,6 +3290,15 @@ select.input option {
   border-radius: 0 0 var(--radius-sm) 0;
 }
 
+/* Área de ações abaixo do scan box (ex: "Usar código") */
+.qr-actions {
+  margin-top: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
 /* ─── Action sheet — overlay embutido na tela ───────────────── */
 
 /* Cobre toda a tela por cima do conteúdo existente */
@@ -3545,6 +3609,11 @@ select.input option {
   align-items: center;
   gap: var(--spacing-sm);
   flex: 1;
+  min-width: 0;
+}
+
+.wallet-balance-row .btn {
+  flex-shrink: 0;
 }
 
 .wallet-balance-row__icon {
@@ -3818,6 +3887,25 @@ select.input option {
   font-size: var(--font-size-md);
 }
 
+/* Mensagem inspiracional abaixo do hero de conclusão */
+.sheet-complete-message {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  text-align: center;
+  line-height: var(--line-height-relaxed);
+  padding: 0 var(--spacing-lg);
+}
+
+/* Textarea de avaliação livre */
+.review-textarea {
+  resize: none;
+  min-height: 88px;
+}
+
+.input.review-textarea {
+  border-radius: var(--radius-lg);
+}
+
 /* Estimativa dentro do sheet: menos padding vertical */
 .map-sheet-panel .recarga-estimate-card {
   padding: var(--spacing-sm) var(--spacing-md);
@@ -4050,6 +4138,24 @@ body.avaliar-modal-body {
 
 .charging-stat-value--brand {
   color: var(--color-text-brand);
+}
+
+.charging-time-value--brand {
+  color: var(--color-text-brand);
+}
+
+.charging-stat-card--full {
+  grid-column: 1 / -1;
+}
+
+.charging-stats--stacked {
+  grid-template-columns: 1fr;
+}
+
+.charging-stats--stacked .charging-stat-card {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Badge "Em recarga" — brand teal */

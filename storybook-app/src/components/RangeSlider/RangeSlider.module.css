@@ -43,7 +43,7 @@
   right: 0;
   height: var(--spacing-xs);
   border-radius: var(--radius-full);
-  background: var(--color-border-default);
+  background: var(--color-bg-default);
 }
 
 /* Filled segment between min and max thumbs */

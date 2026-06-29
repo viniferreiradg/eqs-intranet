@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="../../storybook-app/src/components/BottomNav/BottomNav.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/NotificationBadge/NotificationBadge.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/Modal/Modal.module.css" />
+  <link rel="stylesheet" href="../../storybook-app/src/components/Input/Input.module.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body class="layout-fullbleed map-bg-dark">
@@ -92,6 +93,8 @@
           <p class="success-hero__desc">Auto Shopping Eixo · Ponto #3</p>
         </div>
 
+        <p class="sheet-complete-message">Cada recarga ajuda a reduzir emissões de CO² no mundo. Obrigado por fazer parte disso.</p>
+
         <!-- Resumo: kWh + débito -->
         <div class="recarga-estimate-card">
           <div class="recarga-estimate-item">
@@ -124,6 +127,14 @@
           <button class="avaliar-star" type="button" aria-label="5 estrelas" onclick="setRating(5)">
             <i data-lucide="star" width="32" height="32"></i>
           </button>
+        </div>
+
+        <!-- Descrição livre da avaliação -->
+        <div class="wrapper">
+          <label class="label" for="avaliacao-desc">Descreva sua experiência (opcional)</label>
+          <div class="inputWrap">
+            <textarea class="input review-textarea" id="avaliacao-desc" placeholder="Conte como foi..." rows="3"></textarea>
+          </div>
         </div>
 
       </div><!-- /modalBody -->
