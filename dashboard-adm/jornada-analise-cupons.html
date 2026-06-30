@@ -27,31 +27,33 @@
   <div class="pageContent">
 
     <!-- ── Header ── -->
-    <div class="analiseHeaderRow">
-      <div>
-        <h1 class="pageTitle">Análise de cupons</h1>
-        <p class="pageSubtitle">Acompanhe o desempenho e uso dos cupons da sua rede</p>
-      </div>
-      <div class="analiseControls">
-        <div class="wrapper" id="cupom-dd">
-          <div class="trigger" id="cupom-trigger">
-            <span id="cupom-value">Todos</span>
-            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
-          </div>
-          <div class="menu">
-            <div class="option selected" data-value="">Todos</div>
-            <div class="option" data-value="cupom1">Cupom 1</div>
-            <div class="option" data-value="cupom2">Cupom 2</div>
-            <div class="option" data-value="cupom3">Cupom 3</div>
-            <div class="option" data-value="cupom4">Cupom 4</div>
-          </div>
+    <header class="pageHeader">
+      <div class="pageHeaderRow">
+        <div>
+          <h1 class="pageTitle">Análise de cupons</h1>
+          <p class="pageSubtitle">Acompanhe o desempenho e uso dos cupons da sua rede</p>
         </div>
-        <button class="btn primary hasLeft" type="button">
-          <span class="icon"><i data-lucide="file-text" width="16" height="16"></i></span>
-          Gerar relatório com IA
-        </button>
+        <div class="analiseControls">
+          <div class="wrapper" id="cupom-dd">
+            <div class="trigger" id="cupom-trigger">
+              <span id="cupom-value">Todos</span>
+              <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+            </div>
+            <div class="menu">
+              <div class="option selected" data-value="">Todos</div>
+              <div class="option" data-value="cupom1">Cupom 1</div>
+              <div class="option" data-value="cupom2">Cupom 2</div>
+              <div class="option" data-value="cupom3">Cupom 3</div>
+              <div class="option" data-value="cupom4">Cupom 4</div>
+            </div>
+          </div>
+          <button class="btn primary hasLeft" type="button">
+            <span class="icon"><i data-lucide="file-text" width="16" height="16"></i></span>
+            Gerar relatório com IA
+          </button>
+        </div>
       </div>
-    </div>
+    </header>
 
     <!-- ── Metric Cards ── -->
     <div class="metricsCarousel" id="metricsCarousel">

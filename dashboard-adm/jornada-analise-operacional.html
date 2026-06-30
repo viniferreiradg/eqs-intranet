@@ -26,30 +26,32 @@
   <div class="pageContent">
 
     <!-- ── Header ── -->
-    <div class="analiseHeaderRow">
-      <div>
-        <h1 class="pageTitle">Análise operacional</h1>
-        <p class="pageSubtitle">Acompanhe o desempenho e uso dos carregadores da sua rede</p>
-      </div>
-      <div class="analiseControls">
-        <div class="wrapper" id="scope-dd">
-          <div class="trigger">
-            <span id="scope-val">Rede</span>
-            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
-          </div>
-          <div class="menu">
-            <div class="option selected" data-value="rede">Rede</div>
-            <div class="option" data-value="filial-norte">Filial Norte</div>
-            <div class="option" data-value="filial-sul">Filial Sul</div>
-            <div class="option" data-value="matriz">Matriz</div>
-          </div>
+    <header class="pageHeader">
+      <div class="pageHeaderRow">
+        <div>
+          <h1 class="pageTitle">Análise operacional</h1>
+          <p class="pageSubtitle">Acompanhe o desempenho e uso dos carregadores da sua rede</p>
         </div>
-        <button class="btn primary hasLeft" type="button" onclick="relatorioOpen()">
-          <span class="icon"><i data-lucide="file-text" width="16" height="16"></i></span>
-          Gerar relatório com IA
-        </button>
+        <div class="analiseControls">
+          <div class="wrapper" id="scope-dd">
+            <div class="trigger">
+              <span id="scope-val">Rede</span>
+              <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+            </div>
+            <div class="menu">
+              <div class="option selected" data-value="rede">Rede</div>
+              <div class="option" data-value="filial-norte">Filial Norte</div>
+              <div class="option" data-value="filial-sul">Filial Sul</div>
+              <div class="option" data-value="matriz">Matriz</div>
+            </div>
+          </div>
+          <button class="btn primary hasLeft" type="button" onclick="relatorioOpen()">
+            <span class="icon"><i data-lucide="file-text" width="16" height="16"></i></span>
+            Gerar relatório com IA
+          </button>
+        </div>
       </div>
-    </div>
+    </header>
 
     <!-- ── 7 Metric cards ── -->
     <div class="analiseMetricGrid7">

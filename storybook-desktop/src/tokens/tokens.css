@@ -449,11 +449,11 @@
   --color-action-success-pressed: var(--color-green-800);
 
   /* Status */
-  --color-status-success-bg:  var(--color-green-50);
+  --color-status-success-bg:  var(--color-green-100);
   --color-status-success-fg:  var(--color-green-700);
   --color-status-error-bg:    var(--color-red-50);
   --color-status-error-fg:    var(--color-red-700);
-  --color-status-warning-bg:  var(--color-yellow-50);
+  --color-status-warning-bg:  var(--color-yellow-100);
   --color-status-warning-fg:  var(--color-yellow-700);
   --color-status-info-bg:     var(--color-blue-50);
   --color-status-info-fg:     var(--color-blue-700);
