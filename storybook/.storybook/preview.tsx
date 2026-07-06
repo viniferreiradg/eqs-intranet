@@ -2,7 +2,7 @@ import type { Preview } from '@storybook/react';
 import { themes } from '@storybook/theming';
 import { DocsContainer } from '@storybook/blocks';
 import React from 'react';
-import '../src/tokens/tokens.css';
+import '../../componentes/tokens/tokens.css';
 
 // Reads initial theme from URL (?globals=theme:light) as fallback
 function getThemeFromUrl(): string {

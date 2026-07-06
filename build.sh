@@ -2,14 +2,12 @@
 set -e
 
 echo "→ Building Storybook..."
-cd storybook
 npm ci
 npm run build-storybook
-cd ..
 
 echo "→ Setting up output directory..."
 rm -rf public
-mkdir -p public/storybook/src
+mkdir -p public/componentes
 mkdir -p public/storybook-ui
 mkdir -p public/painel-adm
 mkdir -p public/painel-usuario-desktop
@@ -18,10 +16,10 @@ mkdir -p public/src
 mkdir -p public/shared
 
 echo "→ Copying Storybook UI..."
-cp -r storybook/storybook-static/. public/storybook-ui/
+cp -r storybook-static/. public/storybook-ui/
 
-echo "→ Copying CSS source files..."
-cp -r storybook/src/. public/storybook/src/
+echo "→ Copying componentes (fonte da verdade)..."
+cp -r componentes/. public/componentes/
 
 echo "→ Copying shared CSS..."
 cp -r shared/. public/shared/

@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { UserPlus, Pencil, Trash2, Search } from 'lucide-react';
-import { Sidebar } from '../components/Sidebar/Sidebar';
-import { Button } from '../components/Button/Button';
-import { Input } from '../components/Input/Input';
-import { Table, type TableColumn } from '../components/Table/Table';
+import { Sidebar } from '../../../componentes/Sidebar/Sidebar';
+import { Button } from '../../../componentes/Button/Button';
+import { Input } from '../../../componentes/Input/Input';
+import { Table, type TableColumn } from '../../../componentes/Table/Table';
 
 /* ── Mock data ──────────────────────────────────────────────────────────── */
 

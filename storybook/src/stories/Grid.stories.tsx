@@ -61,7 +61,7 @@ const GridStory = () => (
               </div>
             ))}
           </div>
-          <div style={{ padding: `0 ${margin}`, background: 'var(--color-bg-surface)', borderRadius: 8, border: '1px solid var(--color-border-subtle)', padding: '16px' }}>
+          <div style={{ background: 'var(--color-bg-surface)', borderRadius: 8, border: '1px solid var(--color-border-subtle)', padding: '16px' }}>
             <GridPreview cols={cols} gutter={gutter} />
           </div>
         </div>

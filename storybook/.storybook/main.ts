@@ -4,6 +4,8 @@ const config: StorybookConfig = {
   stories: [
     '../src/**/*.mdx',
     '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '../../componentes/**/*.mdx',
+    '../../componentes/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   addons: [
     '@storybook/addon-essentials',
@@ -15,6 +17,11 @@ const config: StorybookConfig = {
   framework: '@storybook/react-vite',
   viteFinal: async (config) => {
     config.base = '/storybook-ui/';
+    // Componentes vivem fora do root do vite (../componentes) — liberar no dev server
+    config.server = {
+      ...config.server,
+      fs: { ...config.server?.fs, allow: ['..'] },
+    };
     return config;
   },
 };
