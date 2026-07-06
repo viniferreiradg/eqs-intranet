@@ -376,7 +376,7 @@ body.layout-screen.has-bottom-nav .cadastro-footer {
   top: 80px;
 }
 
-/* Pin Althus próximo ao centro (deslocado para liberar espaço ao marcador do usuário) */
+/* Pin da marca próximo ao centro (deslocado para liberar espaço ao marcador do usuário) */
 .map-pin-center {
   position: absolute;
   top: 50%;
@@ -394,23 +394,6 @@ body.layout-screen.has-bottom-nav .cadastro-footer {
   pointer-events: none;
   z-index: 2;
 }
-
-/* ─── Distributor pin positions (demo) ──────────────── */
-.map-pin-pos-1,
-.map-pin-pos-2,
-.map-pin-pos-3 {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-.map-pin-pos-1 { top: 30%; left: 22%; }
-.map-pin-pos-2 { top: 68%; left: 64%; }
-.map-pin-pos-3 { top: 44%; left: 66%; }
-
-/* ─── Distributor pin colors (prototype demo) ────────── */
-/* Em produção, --pin-color será injetado dinamicamente pelo admin. */
-.pin-tupi { --pin-color: #E63946; }
-.pin-dcc  { --pin-color: #2196F3; }
 
 /* ─── OTP resend row ─────────────────────────────────── */
 .otp-resend {
@@ -463,7 +446,7 @@ body.layout-screen.has-bottom-nav .cadastro-footer {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Second Althus pin — overrides top/left of .map-pin-center */
+/* Segundo pin da marca — overrides top/left of .map-pin-center */
 .map-pin-center-2 {
   top: 13%;
   left: 80%;

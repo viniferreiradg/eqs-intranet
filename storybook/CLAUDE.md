@@ -1,4 +1,4 @@
-# Althus Design System — CLAUDE.md
+# Design System — CLAUDE.md
 
 Source of truth do projeto. Nenhuma decisão visual ou estrutural é tomada fora deste arquivo.
 
@@ -37,37 +37,6 @@ Os tokens semânticos (ex: `--color-text-primary`, `--color-bg-default`) se adap
 ---
 
 ## Componentes disponíveis
-
-### MapPin _(Mobile)_
-**Import:** `import { MapPin } from '../components/MapPin/MapPin'`  
-**Story:** `Mobile/MapPin`
-
-| Prop | Tipo | Padrão | Descrição |
-|------|------|--------|-----------|
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | sm=32px · md=48px · lg=64px |
-| `variant` | `'brand' \| 'muted' \| 'distributor'` | `'brand'` | brand=Althus (teal preenchido) · muted=indisponível (cinza) · distributor=rede terceira (outline) |
-| `pinColor` | `string` | — | Hex do distribuidor — só usado com `variant="distributor"` |
-| `aria-label` | `string` | — | Descrição para acessibilidade |
-
-```tsx
-<MapPin size="lg" variant="brand" aria-label="Carregador Althus disponível" />
-<MapPin size="lg" variant="muted" aria-label="Carregador indisponível" />
-<MapPin size="sm" variant="distributor" pinColor="#E63946" aria-label="TUPI" />
-<MapPin size="sm" variant="distributor" pinColor="#2196F3" aria-label="DCC" />
-```
-
-**Em telas HTML:** usar as classes `.mapPin`, `.sm`, `.distributor` no `<svg>`. A cor do distribuidor é definida via classe no container (`.pin-tupi`, `.pin-dcc`) declarada em `page-mobile.css`, que injeta `--pin-color`.
-
-```html
-<div class="map-pin-pos-1 pin-tupi">
-  <svg class="mapPin sm distributor" viewBox="0 0 24 24" fill="none" aria-label="TUPI">
-    <path class="pinBody" d="M12.601 21.799...Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    <path class="pinDot"  d="M12 13C13.6569...Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
-</div>
-```
-
----
 
 ### AppBar _(Mobile)_
 **Import:** `import { AppBar } from '../components/AppBar/AppBar'`  
@@ -218,7 +187,7 @@ com o comportamento de foco escrito em vanilla JS (ver `screens/recuperar-otp.ht
 | `onToggle` | `() => void` | — | Callback do botão toggle |
 | `activeItem` | `string` | `'dashboard'` | ID do item ativo |
 | `onNavClick` | `(id: string) => void` | — | Callback ao clicar em item |
-| `user` | `SidebarUser` | `{ name: 'Admin Althus', email: 'admin@althus.com', initials: 'AA' }` | Dados do usuário no rodapé |
+| `user` | `SidebarUser` | `{ name: 'Admin', email: 'admin@empresa.com', initials: 'AD' }` | Dados do usuário no rodapé |
 | `onLogout` | `() => void` | — | Callback do botão Sair |
 | `role` | `'adm' \| 'empresa'` | `'adm'` | Filtra itens do menu |
 | `theme` | `'dark' \| 'light'` | `'dark'` | Tema atual — controla ícone Sun/Moon |
@@ -908,7 +877,7 @@ const [page, setPage] = useState(1);
 ### DatePicker
 **CSS:** `../storybook/src/components/DatePicker/DatePicker.module.css`
 
-Seletor de intervalo de datas com layout horizontal (calendário à esquerda, controles à direita). Inspirado no Geist Calendar `horizontalLayout`, adaptado com os tokens do Althus.
+Seletor de intervalo de datas com layout horizontal (calendário à esquerda, controles à direita). Inspirado no Geist Calendar `horizontalLayout`, adaptado com os tokens do design system.
 
 | Classe | Descrição |
 |--------|-----------|

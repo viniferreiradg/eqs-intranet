@@ -68,9 +68,9 @@ export const defaultNavItems: NavItemDef[] = [
 ];
 
 const defaultUser: SidebarUser = {
-  name: 'Admin Althus',
-  email: 'admin@althus.com',
-  initials: 'AA',
+  name: 'Admin',
+  email: 'admin@empresa.com',
+  initials: 'AD',
 };
 
 /* ── Sidebar ────────────────────────────────────────────────────────────── */

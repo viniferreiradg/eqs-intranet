@@ -38,7 +38,7 @@ export const Default: Story = {
 export const WithEmailReadOnly: Story = {
   args: {
     title: 'Crie sua senha',
-    description: 'Você foi convidado para acessar o painel Althus. Defina sua senha para continuar.',
+    description: 'Você foi convidado para acessar o painel. Defina sua senha para continuar.',
   },
   render: (args) => (
     <AuthCard {...args}>

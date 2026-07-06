@@ -825,7 +825,7 @@ body {
   margin-top: var(--spacing-md);
 }
 
-/* ── Sobre a Althus: hero centrado (logo + tagline) ────────────────────────── */
+/* ── Sobre a empresa: hero centrado (logo + tagline) ────────────────────────── */
 .aboutHero {
   display: flex;
   flex-direction: column;

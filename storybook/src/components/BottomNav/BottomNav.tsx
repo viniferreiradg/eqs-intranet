@@ -11,7 +11,7 @@ export interface BottomNavProps {
   items: NavItemDef[];
   activeId?: string;
   onSelect?: (id: string) => void;
-  /** When true, hides text labels — icons only (default: true for Althus) */
+  /** When true, hides text labels — icons only (default: true) */
   iconOnly?: boolean;
   className?: string;
 }

@@ -1,6 +1,6 @@
 /**
  * shared/sidebar.js
- * Componente de sidebar compartilhado — Painel ADM Althus
+ * Componente de sidebar compartilhado — Painel ADM
  *
  * Uso em cada página:
  *   1. Adicionar <aside id="sidebar-root"></aside>
@@ -21,7 +21,7 @@
   'use strict';
 
   /* ── 1. Restaurar tema salvo ───────────────────────────────────────────── */
-  const savedTheme = localStorage.getItem('althus-theme') || 'light';
+  const savedTheme = localStorage.getItem('app-theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
 
   /* ── 2. Estrutura de navegação ─────────────────────────────────────────── */
@@ -182,8 +182,8 @@
             <div class="avatar md"><span class="avatarInitials">AA</span></div>
           </div>
           <div class="userInfo">
-            <div class="userName">Admin Althus</div>
-            <div class="userEmail">admin@althus.com.br</div>
+            <div class="userName">Admin</div>
+            <div class="userEmail">admin@empresa.com</div>
           </div>
         </div>
         <button class="navItem" type="button" onclick="location.href='jornada-3-1-login.html'">
@@ -226,7 +226,7 @@
     const newLabel = isDark ? 'Modo escuro' : 'Modo claro';
     const newIcon  = isDark ? 'moon' : 'sun';
     document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('althus-theme', next);
+    localStorage.setItem('app-theme', next);
     document.getElementById('theme-icon').innerHTML =
       `<i data-lucide="${newIcon}" width="16" height="16"></i>`;
     document.getElementById('theme-btn').setAttribute('aria-label', newLabel);

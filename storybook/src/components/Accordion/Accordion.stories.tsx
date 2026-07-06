@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Accordion } from './Accordion';
 
 const items = [
-  { title: 'O que é o Althus Design System?', content: 'O Althus Design System é uma biblioteca de componentes e tokens de design criada para padronizar a experiência visual dos produtos Althus.' },
-  { title: 'Como instalar os componentes?', content: 'Importe diretamente do pacote: `import { Button } from "@althus/design-system"`. Certifique-se de importar também o arquivo de tokens CSS.' },
+  { title: 'O que é o Design System?', content: 'O Design System é uma biblioteca de componentes e tokens de design criada para padronizar a experiência visual dos produtos da empresa.' },
+  { title: 'Como instalar os componentes?', content: 'Importe diretamente do pacote: `import { Button } from "@empresa/design-system"`. Certifique-se de importar também o arquivo de tokens CSS.' },
   { title: 'Suporte a dark mode?', content: 'Sim. Todos os tokens semânticos possuem versões Light e Dark configuradas no Figma, prontas para serem usadas com `prefers-color-scheme` ou um seletor de tema.' },
 ];
 

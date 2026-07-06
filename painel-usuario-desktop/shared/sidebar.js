@@ -1,6 +1,6 @@
 /**
  * shared/sidebar.js
- * Componente de sidebar compartilhado — Dashboard da Rede Althus
+ * Componente de sidebar compartilhado — Painel Usuário Desktop
  *
  * Uso em cada página:
  *   1. Adicionar <aside id="sidebar-root"></aside>
@@ -18,7 +18,7 @@
   'use strict';
 
   /* ── 1. Restaurar tema salvo ───────────────────────────────────────────── */
-  const savedTheme = localStorage.getItem('althus-theme') || 'light';
+  const savedTheme = localStorage.getItem('app-theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
 
   /* ── 2. Estrutura de navegação ─────────────────────────────────────────── */
@@ -216,7 +216,7 @@
     const newLabel = isDark ? 'Modo escuro' : 'Modo claro';
     const newIcon  = isDark ? 'moon' : 'sun';
     document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('althus-theme', next);
+    localStorage.setItem('app-theme', next);
     document.getElementById('theme-icon').innerHTML =
       `<i data-lucide="${newIcon}" width="16" height="16"></i>`;
     document.getElementById('theme-btn').setAttribute('aria-label', newLabel);

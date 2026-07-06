@@ -17,12 +17,12 @@ type User = {
 };
 
 const USERS: User[] = [
-  { name: 'Ana Souza',      email: 'ana@althus.com',      role: 'Administrador', status: 'active',   active: true  },
-  { name: 'Bruno Lima',     email: 'bruno@althus.com',    role: 'Editor',        status: 'active',   active: true  },
-  { name: 'Carla Mendes',   email: 'carla@althus.com',    role: 'Visualizador',  status: 'inactive', active: false },
-  { name: 'Diego Torres',   email: 'diego@althus.com',    role: 'Editor',        status: 'active',   active: true  },
-  { name: 'Elena Rocha',    email: 'elena@althus.com',    role: 'Administrador', status: 'inactive', active: false },
-  { name: 'Felipe Castro',  email: 'felipe@althus.com',   role: 'Visualizador',  status: 'active',   active: true  },
+  { name: 'Ana Souza',      email: 'ana@empresa.com',      role: 'Administrador', status: 'active',   active: true  },
+  { name: 'Bruno Lima',     email: 'bruno@empresa.com',    role: 'Editor',        status: 'active',   active: true  },
+  { name: 'Carla Mendes',   email: 'carla@empresa.com',    role: 'Visualizador',  status: 'inactive', active: false },
+  { name: 'Diego Torres',   email: 'diego@empresa.com',    role: 'Editor',        status: 'active',   active: true  },
+  { name: 'Elena Rocha',    email: 'elena@empresa.com',    role: 'Administrador', status: 'inactive', active: false },
+  { name: 'Felipe Castro',  email: 'felipe@empresa.com',   role: 'Visualizador',  status: 'active',   active: true  },
 ];
 
 const STATUS_MAP = {
