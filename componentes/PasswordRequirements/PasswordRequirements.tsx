@@ -20,23 +20,23 @@ export function PasswordRequirements({ value }: PasswordRequirementsProps) {
   const anyFailed = hasTyped && results.some(r => !r.met);
 
   return (
-    <div className={styles.root}>
+    <div className={styles.prRoot}>
       <p className={[
-        styles.title,
-        allMet    ? styles.titleSuccess : '',
-        anyFailed ? styles.titleError   : '',
+        styles.prTitle,
+        allMet    ? styles.prTitleSuccess : '',
+        anyFailed ? styles.prTitleError   : '',
       ].filter(Boolean).join(' ')}>
         A senha deve conter:
       </p>
-      <ul className={styles.list}>
+      <ul className={styles.prList}>
         {results.map(({ key, label, met }) => (
           <li key={key} className={[
-            styles.item,
-            met === true  ? styles.itemSuccess : '',
-            met === false ? styles.itemError   : '',
+            styles.prItem,
+            met === true  ? styles.prItemSuccess : '',
+            met === false ? styles.prItemError   : '',
           ].filter(Boolean).join(' ')}>
-            <span className={styles.iconWrap}>
-              {met === null  && <span className={styles.bullet} />}
+            <span className={styles.prIconWrap}>
+              {met === null  && <span className={styles.prBullet} />}
               {met === true  && <CircleCheck size={14} />}
               {met === false && <CircleX size={14} />}
             </span>

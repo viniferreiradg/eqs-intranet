@@ -19,13 +19,13 @@ export interface FeedbackProps {
 export function Feedback({ type, message, title, dismissible, onDismiss }: FeedbackProps) {
   return (
     <div className={[styles.alert, styles[type]].join(' ')} role="alert">
-      <span className={styles.icon}>{ICONS[type]}</span>
-      <div className={styles.body}>
-        {title && <div className={styles.title}>{title}</div>}
-        <div className={styles.message}>{message}</div>
+      <span className={styles.fbIcon}>{ICONS[type]}</span>
+      <div className={styles.fbBody}>
+        {title && <div className={styles.fbTitle}>{title}</div>}
+        <div className={styles.fbMessage}>{message}</div>
       </div>
       {dismissible && (
-        <button className={styles.dismiss} onClick={onDismiss} aria-label="Fechar"><X size={16} /></button>
+        <button className={styles.fbDismiss} onClick={onDismiss} aria-label="Fechar"><X size={16} /></button>
       )}
     </div>
   );

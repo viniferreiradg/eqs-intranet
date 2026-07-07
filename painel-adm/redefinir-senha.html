@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redefinir senha — EQS Intranet</title>
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/AuthCard/AuthCard.module.css" />
+  <link rel="stylesheet" href="../componentes/Background/Background.module.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Feedback/Feedback.module.css" />
+</head>
+<body class="layout-auth">
+
+  <main class="page bgWrapper">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <section class="card" aria-labelledby="redefinir-title">
+      <div class="logoWrap">
+        <span class="logoDefault logoMd" role="img" aria-label="Logo"></span>
+      </div>
+
+      <!-- Estado 1: pedir e-mail -->
+      <div id="estado-form">
+        <header class="header">
+          <h1 class="title" id="redefinir-title">Redefinir senha</h1>
+          <p class="description">Informe seu e-mail e enviaremos um link para você criar uma nova senha.</p>
+        </header>
+
+        <form class="body" id="redefinir-form" novalidate>
+          <div class="wrapper" id="email-wrapper">
+            <label class="label" for="email">E-mail</label>
+            <div class="inputWrap hasLeft">
+              <span class="iconLeft"><i data-lucide="mail" width="16" height="16"></i></span>
+              <input class="input" id="email" name="email" type="email"
+                     placeholder="nome@empresa.com" autocomplete="username" />
+            </div>
+            <span class="errorText" id="email-error" hidden>
+              <span class="msgIcon"><i data-lucide="circle-x" width="14" height="14"></i></span>
+              Informe um e-mail válido.
+            </span>
+          </div>
+
+          <button class="btn primary btnFullWidth" type="submit">Enviar link</button>
+
+          <p class="authFooter">
+            <a class="authLink" href="login.html">Voltar ao login</a>
+          </p>
+        </form>
+      </div>
+
+      <!-- Estado 2: link enviado -->
+      <div id="estado-enviado" hidden>
+        <header class="header">
+          <h1 class="title">Verifique seu e-mail</h1>
+          <p class="description" id="enviado-desc">Enviamos um link de redefinição de senha.</p>
+        </header>
+
+        <div class="body">
+          <div class="alert success" role="status">
+            <span class="fbIcon"><i data-lucide="circle-check" width="18" height="18"></i></span>
+            <div class="fbBody">
+              <div class="fbMessage">O link expira em 30 minutos. Se não encontrar, confira a caixa de spam.</div>
+            </div>
+          </div>
+
+          <!-- No protótipo, este botão simula o clique no link recebido -->
+          <a class="btn primary btnFullWidth" href="criar-nova-senha.html">Abrir link recebido (protótipo)</a>
+
+          <p class="authFooter">
+            Não recebeu? <a class="authLink" href="#" id="reenviar">Reenviar link</a>
+          </p>
+
+          <p class="authFooter">
+            <a class="authLink" href="login.html">Voltar ao login</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>
+    lucide.createIcons();
+
+    const form = document.getElementById('redefinir-form');
+    const emailInput = document.getElementById('email');
+    const emailWrapper = document.getElementById('email-wrapper');
+    const emailError = document.getElementById('email-error');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      const valido = /.+@.+\..+/.test(email);
+      if (!valido) {
+        emailWrapper.classList.add('error');
+        emailError.hidden = false;
+        return;
+      }
+      document.getElementById('enviado-desc').textContent =
+        `Enviamos um link de redefinição de senha para ${email}.`;
+      document.getElementById('estado-form').hidden = true;
+      document.getElementById('estado-enviado').hidden = false;
+      lucide.createIcons();
+    });
+
+    emailInput.addEventListener('input', () => {
+      emailWrapper.classList.remove('error');
+      emailError.hidden = true;
+    });
+
+    document.getElementById('reenviar').addEventListener('click', (e) => e.preventDefault());
+  </script>
+</body>
+</html>

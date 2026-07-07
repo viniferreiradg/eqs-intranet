@@ -21,16 +21,16 @@ export function PasswordStrength({ value }: PasswordStrengthProps) {
   const score = getScore(value);
 
   return (
-    <div className={styles.root}>
-      <div className={styles.bars}>
+    <div className={styles.psRoot}>
+      <div className={styles.psBars}>
         {[0, 1, 2, 3].map(i => (
           <div
             key={i}
-            className={[styles.bar, i < score ? styles[LEVELS[score]] : ''].filter(Boolean).join(' ')}
+            className={[styles.psBar, i < score ? styles[LEVELS[score]] : ''].filter(Boolean).join(' ')}
           />
         ))}
       </div>
-      {value && <span className={styles.strengthLabel}>{LABELS[score]}</span>}
+      {value && <span className={styles.psLabel}>{LABELS[score]}</span>}
     </div>
   );
 }

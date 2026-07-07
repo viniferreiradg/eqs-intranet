@@ -339,7 +339,16 @@
   </div>
 
   <script>
-    const FLOWS = [];
+    const FLOWS = [
+      {
+        label: 'Autenticação',
+        screens: [
+          { label: 'Login',            file: 'login.html' },
+          { label: 'Redefinir senha',  file: 'redefinir-senha.html' },
+          { label: 'Criar nova senha', file: 'criar-nova-senha.html' },
+        ],
+      },
+    ];
 
     const sidebar      = document.getElementById('sidebar');
     const collapseBtn  = document.getElementById('collapse-btn');

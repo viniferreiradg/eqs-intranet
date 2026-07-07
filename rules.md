@@ -289,16 +289,16 @@ Modificadores de estado (no `.tlItem`): `.tlDone` · `.tlActive` · `.tlPending`
 ```html
 <link rel="stylesheet" href="../componentes/Feedback/Feedback.module.css" />
 ```
-Classes: `.alert`, `.success`, `.error`, `.warning`, `.info`, `.body`, `.title`, `.message`, `.dismiss`
+Classes: `.alert`, `.success`, `.error`, `.warning`, `.info`, `.fbIcon`, `.fbBody`, `.fbTitle`, `.fbMessage`, `.fbDismiss`
 
 ```html
 <div class="alert success" role="alert">
   <span><i data-lucide="circle-check" width="18" height="18"></i></span>
-  <div class="body">
-    <div class="title">Título</div>
-    <div class="message">Mensagem.</div>
+  <div class="fbBody">
+    <div class="fbTitle">Título</div>
+    <div class="fbMessage">Mensagem.</div>
   </div>
-  <button class="dismiss" aria-label="Fechar"><i data-lucide="x" width="14" height="14"></i></button>
+  <button class="fbDismiss" aria-label="Fechar"><i data-lucide="x" width="14" height="14"></i></button>
 </div>
 ```
 

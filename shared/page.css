@@ -27,17 +27,30 @@
 
 /* ── Reset ─────────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 /* ── Body ───────────────────────────────────────────────────────────────────── */
+/* Base neutra; o layout vem da classe no <body>: .layout-dashboard ou .layout-auth */
 body {
   margin: 0;
   font-family: var(--font-body);
   background: var(--color-bg-default);
   color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Dashboard: sidebar + coluna de conteúdo, sem scroll no body */
+body.layout-dashboard {
   display: flex;
   height: 100vh;
   overflow: hidden;
-  -webkit-font-smoothing: antialiased;
+}
+
+/* Auth: página inteira entregue ao .page do AuthCard (centraliza o card) */
+body.layout-auth {
+  display: block;
+  min-height: 100vh;
+  overflow: auto;
 }
 
 /* ── Coluna principal ────────────────────────────────────────────────────────── */
@@ -3007,3 +3020,62 @@ body {
 }
 .pageSizeSelect:focus { border-color: var(--color-border-focus); }
 
+
+/* ── Auth pages — helpers das telas de autenticação (login, redefinir, criar senha) ── */
+/* Linha "Lembrar de mim" + link Esqueci minha senha */
+.authRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+}
+
+/* Link de texto em páginas de auth (esqueci senha, voltar ao login) */
+.authLink {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-brand);
+  text-decoration: none;
+}
+.authLink:hover { text-decoration: underline; }
+
+/* Rodapé centrado abaixo do formulário (texto auxiliar + link) */
+.authFooter {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+/* Checkbox de página (workaround — Checkbox.module.css não coexiste com Input) */
+.ckWrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  user-select: none;
+}
+.ckInput { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.ckBox {
+  width: 18px;
+  height: 18px;
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-xs);
+  background: var(--color-bg-surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-white);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+  flex-shrink: 0;
+}
+.ckBox svg { opacity: 0; transition: opacity var(--transition-fast); }
+.ckWrapper:has(input:checked) .ckBox {
+  background: var(--color-action-primary);
+  border-color: var(--color-action-primary);
+}
+.ckWrapper:has(input:checked) .ckBox svg { opacity: 1; }
+.ckWrapper:has(input:focus-visible) .ckBox {
+  outline: var(--border-width-medium) solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+.ckLabel { font-size: var(--font-size-sm); color: var(--color-text-secondary); }
