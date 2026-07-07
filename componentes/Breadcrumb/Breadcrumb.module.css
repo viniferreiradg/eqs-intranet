@@ -52,7 +52,7 @@
   color: var(--color-text-secondary);
 }
 
-.icon {
+.crumbIcon {
   display: inline-flex;
   align-items: center;
   color: var(--color-text-secondary);

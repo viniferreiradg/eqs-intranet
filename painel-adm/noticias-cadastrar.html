@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nova Notícia — EQS Intranet</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/Background/Background.module.css" />
+  <link rel="stylesheet" href="../componentes/Breadcrumb/Breadcrumb.module.css" />
+  <link rel="stylesheet" href="../componentes/Card/Card.module.css" />
+  <link rel="stylesheet" href="../componentes/Divider/Divider.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/Textarea/Textarea.module.css" />
+  <link rel="stylesheet" href="../componentes/ImageUpload/ImageUpload.module.css" />
+  <link rel="stylesheet" href="../componentes/Toggle/Toggle.module.css" />
+  <link rel="stylesheet" href="../componentes/Feedback/Feedback.module.css" />
+</head>
+<body class="layout-dashboard" data-page="noticias">
+
+  <aside id="sidebar-root"></aside>
+
+  <main class="main bgWrapper">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <div class="pageHeader">
+      <nav aria-label="Breadcrumb" class="nav">
+        <ol class="list">
+          <li class="item">
+            <a href="noticias-lista.html" class="link">
+              Notícias
+              <span class="sep" aria-hidden="true"><i data-lucide="chevron-right" width="12" height="12"></i></span>
+            </a>
+          </li>
+          <li class="item"><span class="current">Nova Notícia</span></li>
+        </ol>
+      </nav>
+      <h1 class="pageTitle">Nova Notícia</h1>
+      <p class="pageSubtitle">Preencha as informações abaixo para publicar uma notícia no portal.</p>
+    </div>
+
+    <div class="pageContent">
+      <form class="card" id="noticia-form" novalidate>
+        <div class="formSection">
+          <div class="alert error" id="form-feedback" role="alert" hidden>
+            <span class="fbIcon"><i data-lucide="circle-x" width="18" height="18"></i></span>
+            <div class="fbBody">
+              <div class="fbTitle">Não foi possível salvar</div>
+              <div class="fbMessage" id="form-feedback-msg">Revise os campos destacados.</div>
+            </div>
+          </div>
+
+          <div class="formGrid">
+            <div class="wrapper" id="titulo-wrapper">
+              <label class="label" for="titulo">Título</label>
+              <div class="inputWrap">
+                <input class="input" id="titulo" name="titulo" type="text" placeholder="Ex: Expansão do Terminal Norte atinge 85% de conclusão" />
+              </div>
+              <span class="errorText" id="titulo-error" hidden>
+                <span class="msgIcon"><i data-lucide="circle-x" width="14" height="14"></i></span>
+                O título é obrigatório.
+              </span>
+            </div>
+
+            <div class="wrapper">
+              <label class="label" for="resumo">Resumo</label>
+              <div class="inputWrap">
+                <input class="input" id="resumo" name="resumo" type="text" placeholder="Resumo curto — aparece na listagem e nos cards de notícia" />
+              </div>
+              <span class="helperText">Recomendado: até 140 caracteres.</span>
+            </div>
+
+            <div class="wrapper" id="capa-wrapper">
+              <span class="label">Imagem de capa</span>
+              <label class="dropzone" id="capa-dropzone">
+                <input type="file" accept="image/*" class="hiddenInput" id="capa-input" />
+                <div class="empty" id="capa-empty">
+                  <span class="emptyIcon"><i data-lucide="image-plus" width="24" height="24"></i></span>
+                  <span class="emptyText">Clique ou arraste uma imagem</span>
+                  <span class="emptyHint">PNG ou JPG, até 5MB</span>
+                </div>
+                <div class="preview" id="capa-preview" hidden>
+                  <img class="previewImg" id="capa-preview-img" alt="Pré-visualização da imagem de capa" />
+                  <button type="button" class="previewRemove" id="capa-remove" aria-label="Remover imagem">
+                    <i data-lucide="x" width="14" height="14"></i>
+                  </button>
+                </div>
+              </label>
+            </div>
+
+            <div class="wrapper" id="conteudo-wrapper">
+              <label class="label" for="conteudo">Conteúdo</label>
+              <textarea class="textarea" id="conteudo" name="conteudo" rows="8" placeholder="Escreva o conteúdo da notícia..."></textarea>
+              <span class="errorText" id="conteudo-error" hidden>
+                <span class="msgIcon"><i data-lucide="circle-x" width="14" height="14"></i></span>
+                O conteúdo é obrigatório.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="formSection toggleField">
+          <label class="toggleWrapper" for="publicar-agora">
+            <input type="checkbox" class="toggleInput" id="publicar-agora" name="publicar-agora" checked />
+            <span class="toggleTrack"><span class="toggleThumb"></span></span>
+            <span class="toggleLabel">Publicar agora</span>
+          </label>
+          <span class="helperText" id="publicar-hint">A notícia ficará visível no portal imediatamente após salvar.</span>
+        </div>
+
+        <div class="formFooter">
+          <button class="btn secondary" type="button" onclick="location.href='noticias-lista.html'">Cancelar</button>
+          <button class="btn primary hasLeft" type="submit">
+            <span class="icon"><i data-lucide="save" width="16" height="16"></i></span>
+            Salvar
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="shared/sidebar.js"></script>
+  <script>
+    lucide.createIcons();
+
+    /* ── Upload de imagem (padrão documentado em rules.md) ───────────────── */
+    function setupImageUpload(id) {
+      const dropzone  = document.getElementById(id + '-dropzone');
+      const input     = document.getElementById(id + '-input');
+      const empty     = document.getElementById(id + '-empty');
+      const preview   = document.getElementById(id + '-preview');
+      const img       = document.getElementById(id + '-preview-img');
+      const removeBtn = document.getElementById(id + '-remove');
+
+      function showFile(file) {
+        if (!file) { empty.hidden = false; preview.hidden = true; img.src = ''; return; }
+        img.src = URL.createObjectURL(file);
+        empty.hidden = true;
+        preview.hidden = false;
+      }
+
+      input.addEventListener('change', () => showFile(input.files?.[0] ?? null));
+      removeBtn.addEventListener('click', (e) => {
+        e.preventDefault(); e.stopPropagation();
+        input.value = '';
+        showFile(null);
+      });
+      dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragOver'); });
+      dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragOver'));
+      dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('dragOver');
+        const file = e.dataTransfer.files?.[0];
+        if (file) { input.files = e.dataTransfer.files; showFile(file); }
+      });
+    }
+    setupImageUpload('capa');
+
+    /* ── Toggle "Publicar agora" — atualiza o texto de apoio ─────────────── */
+    const publicarInput = document.getElementById('publicar-agora');
+    const publicarHint = document.getElementById('publicar-hint');
+    publicarInput.addEventListener('change', () => {
+      publicarHint.textContent = publicarInput.checked
+        ? 'A notícia ficará visível no portal imediatamente após salvar.'
+        : 'A notícia será salva como rascunho, sem aparecer no portal.';
+    });
+
+    /* ── Validação simples + submit (protótipo) ──────────────────────────── */
+    const form = document.getElementById('noticia-form');
+    const feedback = document.getElementById('form-feedback');
+    const feedbackMsg = document.getElementById('form-feedback-msg');
+    const titulo = document.getElementById('titulo');
+    const conteudo = document.getElementById('conteudo');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let temErro = false;
+
+      const tituloVazio = !titulo.value.trim();
+      document.getElementById('titulo-wrapper').classList.toggle('error', tituloVazio);
+      document.getElementById('titulo-error').hidden = !tituloVazio;
+      if (tituloVazio) temErro = true;
+
+      const conteudoVazio = !conteudo.value.trim();
+      document.getElementById('conteudo-wrapper').classList.toggle('error', conteudoVazio);
+      document.getElementById('conteudo-error').hidden = !conteudoVazio;
+      if (conteudoVazio) temErro = true;
+
+      if (temErro) {
+        feedbackMsg.textContent = 'Revise os campos destacados.';
+        feedback.hidden = false;
+        return;
+      }
+
+      feedback.hidden = true;
+      location.href = 'noticias-lista.html';
+    });
+  </script>
+</body>
+</html>

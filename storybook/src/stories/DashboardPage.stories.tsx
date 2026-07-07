@@ -52,7 +52,7 @@ const COLUMNS: TableColumn<Record<string, unknown>>[] = [
 
 function DashboardUsersPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [activeItem, setActiveItem]   = useState('usuarios');
+  const [activeItem, setActiveItem]   = useState('dashboard');
   const [search, setSearch]           = useState('');
 
   const rows = USERS

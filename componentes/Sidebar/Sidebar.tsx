@@ -1,17 +1,17 @@
 import { ReactNode } from 'react';
 import {
   LayoutDashboard,
+  Newspaper,
   CalendarCheck,
-  User,
-  ContactRound,
+  Megaphone,
+  Link2,
   Building2,
-  FileText,
+  Settings,
   LogOut,
   ChevronLeft,
   ChevronRight,
   Sun,
   Moon,
-  Settings,
   Bell,
 } from 'lucide-react';
 import { NotificationBadge } from '../NotificationBadge/NotificationBadge';
@@ -53,18 +53,18 @@ export type SidebarProps = {
   notificationCount?: number;
 };
 
-/** Itens visíveis apenas para administradores */
-const ADM_ONLY_IDS = new Set(['usuarios', 'profissionais', 'clientes']);
-
-/* ── Default nav items — mapeados do Figma ──────────────────────────────── */
+/* ── Default nav items — menu do painel-adm ──────────────────────────────── */
+/* `role` fica reservado para o dia em que outro painel reaproveitar este
+   componente com um subconjunto de itens — hoje nenhum item é filtrado. */
 
 export const defaultNavItems: NavItemDef[] = [
-  { id: 'dashboard',     label: 'Dashboard',     icon: <LayoutDashboard size={20} /> },
-  { id: 'eventos',       label: 'Eventos',        icon: <CalendarCheck   size={20} />, dot: true },
-  { id: 'usuarios',      label: 'Usuários',       icon: <User            size={20} /> },
-  { id: 'profissionais', label: 'Profissionais',  icon: <ContactRound    size={20} /> },
-  { id: 'clientes',      label: 'Clientes',       icon: <Building2       size={20} /> },
-  { id: 'pesquisa',      label: 'Pesquisa',       icon: <FileText        size={20} /> },
+  { id: 'dashboard',             label: 'Dashboard',              icon: <LayoutDashboard size={20} /> },
+  { id: 'noticias',              label: 'Notícias',                icon: <Newspaper       size={20} /> },
+  { id: 'eventos',               label: 'Eventos',                 icon: <CalendarCheck   size={20} /> },
+  { id: 'comunicados',           label: 'Comunicados',             icon: <Megaphone       size={20} /> },
+  { id: 'links-uteis',           label: 'Links Úteis',             icon: <Link2           size={20} /> },
+  { id: 'areas-departamentos',   label: 'Áreas e Departamentos',   icon: <Building2       size={20} /> },
+  { id: 'configuracoes',         label: 'Configurações',           icon: <Settings        size={20} /> },
 ];
 
 const defaultUser: SidebarUser = {
@@ -82,14 +82,11 @@ export function Sidebar({
   onNavClick,
   user = defaultUser,
   onLogout,
-  role = 'adm',
   theme = 'dark',
   onThemeToggle,
   notificationCount = 0,
 }: SidebarProps) {
-  const navItems = role === 'empresa'
-    ? defaultNavItems.filter(item => !ADM_ONLY_IDS.has(item.id))
-    : defaultNavItems;
+  const navItems = defaultNavItems;
 
   return (
     <aside className={[styles.sidebar, open ? styles.open : styles.closed].join(' ')}>
@@ -146,7 +143,7 @@ export function Sidebar({
 
         {/* Bottom — separador + usuário + sair */}
         <div className={styles.bottomList}>
-          {/* Icon row: tema + configurações + notificações */}
+          {/* Icon row: tema + notificações (Configurações vive no menu principal) */}
           <div className={styles.iconRow}>
             <button
               className={styles.iconBtn}
@@ -156,16 +153,6 @@ export function Sidebar({
               type="button"
             >
               {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-            </button>
-
-            <button
-              className={styles.iconBtn}
-              onClick={() => onNavClick?.('configuracoes')}
-              aria-label="Configurações"
-              title="Configurações"
-              type="button"
-            >
-              <Settings size={16} />
             </button>
 
             <NotificationBadge count={notificationCount}>

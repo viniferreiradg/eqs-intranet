@@ -39,15 +39,15 @@
 
 /* ── Variants ─────────────────────────────────────── */
 .primary {
-  background: var(--color-brand-800);
+  background: var(--color-action-primary);
   color: var(--color-gray-white);
   border-color: transparent;
 }
 .primary:hover:not(:disabled) {
-  opacity: 0.85;
+  background: var(--color-action-primary-hover);
 }
 .primary:active:not(:disabled) {
-  opacity: 0.70;
+  background: var(--color-action-primary-pressed);
 }
 
 .secondary {

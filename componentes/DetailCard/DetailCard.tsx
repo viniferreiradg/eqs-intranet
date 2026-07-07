@@ -40,7 +40,7 @@ export function TitleRow({ title, badge }: TitleRowProps) {
         margin: 0,
         fontFamily: 'var(--font-display)',
         fontSize: 'var(--font-size-xl)',
-        fontWeight: 'var(--font-weight-semibold)',
+        fontWeight: 'var(--font-weight-bold)',
         color: 'var(--color-text-primary)',
         lineHeight: 'var(--line-height-tight)',
       }}>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notícias — EQS Intranet</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/Background/Background.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../componentes/Table/Table.module.css" />
+  <link rel="stylesheet" href="../componentes/Pagination/Pagination.module.css" />
+</head>
+<body class="layout-dashboard" data-page="noticias">
+
+  <aside id="sidebar-root"></aside>
+
+  <main class="main bgWrapper">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <div class="pageHeader pageHeaderRow">
+      <div>
+        <h1 class="pageTitle">Notícias</h1>
+        <p class="pageSubtitle" id="noticias-count">4 notícias publicadas</p>
+      </div>
+      <button class="btn primary hasLeft" type="button" onclick="location.href='noticias-cadastrar.html'">
+        <span class="icon"><i data-lucide="plus" width="16" height="16"></i></span>
+        Nova Notícia
+      </button>
+    </div>
+
+    <div class="pageContent">
+      <div class="toolbar">
+        <div class="wrapper searchWrap">
+          <div class="inputWrap hasLeft">
+            <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+            <input class="input" type="text" id="search-input" placeholder="Buscar notícia..." />
+          </div>
+        </div>
+
+        <div class="wrapper filterWrap" id="status-dropdown">
+          <div class="trigger" id="status-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+            <span id="status-value">Todos os status</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu" role="listbox">
+            <div class="option selected" data-value="" role="option">Todos os status</div>
+            <div class="option" data-value="publicada" role="option">Publicada</div>
+            <div class="option" data-value="rascunho" role="option">Rascunho</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="tableWrap">
+          <table class="table">
+            <thead>
+              <tr class="headerRow">
+                <th class="th thFirst">Título</th>
+                <th class="th">Status</th>
+                <th class="th">Data</th>
+                <th class="th">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="noticias-tbody">
+              <tr class="tr" data-status="publicada">
+                <td class="td tdFirst">Expansão do Terminal Norte atinge 85% de conclusão</td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Publicada</span></td>
+                <td class="td tdMono">12/12/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='noticias-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="publicada">
+                <td class="td tdFirst">Workshop BIM 4.0 reúne equipe técnica no auditório principal</td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Publicada</span></td>
+                <td class="td tdMono">08/12/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='noticias-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="rascunho">
+                <td class="td tdFirst">Confraternização EQS 2026 — detalhes do evento</td>
+                <td class="td"><span class="badge" data-status="disabled"><span class="badgeDot"></span>Rascunho</span></td>
+                <td class="td tdMono">05/12/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='noticias-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="publicada">
+                <td class="td tdFirst">Reunião de metas 2026 será transmitida on-line</td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Publicada</span></td>
+                <td class="td tdMono">01/12/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='noticias-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="pagination">
+        <span class="info">Exibindo 1–4 de 4 resultados</span>
+        <div class="controls">
+          <button class="paginBtn" aria-label="Página anterior" disabled><i data-lucide="chevron-left" width="14" height="14"></i></button>
+          <button class="paginBtn paginBtnActive" aria-current="page">1</button>
+          <button class="paginBtn" aria-label="Próxima página" disabled><i data-lucide="chevron-right" width="14" height="14"></i></button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="shared/sidebar.js"></script>
+  <script>
+    lucide.createIcons();
+
+    /* ── Dropdown de status (padrão documentado em rules.md) ─────────────── */
+    document.querySelectorAll('[id$="-dropdown"]').forEach((dropdown) => {
+      const trigger = dropdown.querySelector('.trigger');
+      const menu = dropdown.querySelector('.menu');
+      trigger.addEventListener('click', () => menu.classList.toggle('open'));
+      dropdown.querySelectorAll('.option').forEach((option) => {
+        option.addEventListener('click', () => {
+          dropdown.querySelectorAll('.option').forEach((o) => o.classList.remove('selected'));
+          option.classList.add('selected');
+          dropdown.querySelector('[id$="-value"]').textContent = option.textContent;
+          menu.classList.remove('open');
+          filtrarNoticias();
+        });
+      });
+      document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) menu.classList.remove('open');
+      });
+    });
+
+    /* ── Busca + filtro de status ─────────────────────────────────────────── */
+    const searchInput = document.getElementById('search-input');
+    const rows = [...document.querySelectorAll('#noticias-tbody .tr')];
+    const countLabel = document.getElementById('noticias-count');
+
+    function filtrarNoticias() {
+      const termo = searchInput.value.trim().toLowerCase();
+      const status = document.querySelector('#status-dropdown .option.selected').dataset.value;
+      let visiveis = 0;
+      rows.forEach((row) => {
+        const titulo = row.querySelector('.tdFirst').textContent.toLowerCase();
+        const bateBusca = titulo.includes(termo);
+        const bateStatus = !status || row.dataset.status === status;
+        const show = bateBusca && bateStatus;
+        row.hidden = !show;
+        if (show) visiveis++;
+      });
+      countLabel.textContent = `${visiveis} notícia${visiveis !== 1 ? 's' : ''} encontrada${visiveis !== 1 ? 's' : ''}`;
+    }
+
+    searchInput.addEventListener('input', filtrarNoticias);
+  </script>
+</body>
+</html>

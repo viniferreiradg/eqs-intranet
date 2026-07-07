@@ -141,8 +141,8 @@
 
     <div class="logoRow">
       <div class="logoWrap">
-        <img class="logo-img logo-full"   src="../componentes/Logo/logo-default.svg" width="120" alt="Althus" />
-        <img class="logo-img logo-symbol" src="../componentes/Logo/logo-symbol.svg"  width="28"  alt="Althus" />
+        <span class="logoDefault logoMd logo-full"   role="img" aria-label="EQS Engenharia"></span>
+        <span class="logoSymbol logoSm logo-symbol"  role="img" aria-label="EQS Engenharia"></span>
       </div>
     </div>
 

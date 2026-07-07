@@ -22,7 +22,8 @@ Source of truth do projeto. Nenhuma decisão visual ou estrutural é tomada fora
 4. **Componente filho primeiro.** Ao criar qualquer componente que usa sub-componentes, resolver os filhos antes do pai.
 5. **Componente novo** → pedir autorização → criar → criar story no Storybook → registrar neste CLAUDE.md → apresentar para aprovação.
 6. **Sempre ler este CLAUDE.md** antes de criar qualquer tela ou componente.
-7. **Peso de fonte para texto corrido e tabelas: `--font-weight-regular` (400).** Nunca usar medium (500) em células de tabela ou parágrafos de texto. Medium e semibold são reservados para títulos, labels de campo e destaques pontuais.
+7. **Peso de fonte: títulos em `--font-weight-bold` (700); todo o restante — texto corrido, labels de campo, células de tabela — em `--font-weight-regular` (400).** Medium/semibold ficam reservados para estados pontuais (dia de hoje no calendário, item ativo), nunca para títulos ou texto comum.
+7b. **Sempre carregar a fonte Inter via Google Fonts** no `<head>` das telas HTML — sem o `<link>`, `var(--font-body)`/`var(--font-display)` caem no sans-serif do sistema em vez de Inter.
 8. **Respostas curtas.** Ao executar tarefas, responder apenas "Feito." — sem descrever o que foi feito. Explicar somente se houver dúvida, algo saiu do planejado, ou o usuário pedir explicitamente.
 9. **Valores de layout sem token → `../shared/page.css`.** Quando um valor pixel-específico não tem token equivalente (ex: `min-width: 720px`, `margin-top: 1px`, `width: 140px`), criar uma classe nomeada em `../shared/page.css` — nunca usar `style=""` inline nem `<style>` na página. O `<style>` de página é reservado apenas para classes de layout exclusivas daquela tela que usem 100% tokens.
 10. **Sempre atualizar `prototipo.html`** ao criar qualquer tela nova. Adicionar a tela no fluxo correspondente dentro do array `FLOWS`. Se o fluxo ainda não existir, criar um novo objeto `{ label, screens }` com o RF correto.
@@ -174,6 +175,46 @@ com o comportamento de foco escrito em vanilla JS (ver `screens/recuperar-otp.ht
 <Input label="Buscar" iconLeft={<Search size={16} />} placeholder="Pesquisar..." />
 <Input label="Senha" toggleable placeholder="••••••••" />
 <Input label="E-mail" iconLeft={<Mail size={16} />} value="admin@rede.com.br" disabled readOnly />
+```
+
+---
+
+### Textarea
+**Import:** `import { Textarea } from '../Textarea/Textarea'`
+
+Mesma família visual do Input — compartilha `.wrapper`/`.label`/`.helperText`/`.errorText`/`.successText` (coexistem na mesma página).
+
+| Prop | Tipo | Descrição |
+|------|------|-----------|
+| `label` | `string` | Label acima do campo |
+| `helperText` | `string` | Texto auxiliar abaixo |
+| `error` | `string` | Mensagem de erro |
+| `success` | `string` | Mensagem de sucesso |
+| + todos `TextareaHTMLAttributes` | — | `placeholder`, `rows`, `value`, `onChange`, etc. |
+
+```tsx
+<Textarea label="Conteúdo" rows={6} placeholder="Escreva o conteúdo da notícia..." />
+```
+
+---
+
+### ImageUpload
+**Import:** `import { ImageUpload } from '../ImageUpload/ImageUpload'`
+
+Dropzone de imagem com preview funcional (clique ou arraste um arquivo). Usa `URL.createObjectURL` — sem backend.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `label` | `string` | — | Label acima do campo |
+| `value` | `string \| null` | — | URL de preview inicial (edição) |
+| `onChange` | `(file: File \| null, previewUrl: string \| null) => void` | — | Disparado ao selecionar/remover |
+| `hint` | `string` | `'PNG ou JPG, até 5MB'` | Texto auxiliar dentro da dropzone |
+| `helperText` | `string` | — | Texto auxiliar abaixo da dropzone |
+| `error` | `string` | — | Mensagem de erro |
+
+```tsx
+const [file, setFile] = useState<File | null>(null);
+<ImageUpload label="Imagem de capa" onChange={(f) => setFile(f)} />
 ```
 
 ---
@@ -821,13 +862,28 @@ O último item é sempre o ativo (sem link).
 ### Logo / LogoSymbol
 **Import:** `import { Logo, LogoSymbol } from '../Logo/Logo'`
 
+Marca EQS Engenharia. Arte colorida fixa (PNG, não usa `currentColor`) — a imagem correta para
+cada tema (`logo-light.png` / `logo-dark.png`) é trocada automaticamente via `[data-theme]`,
+sem nenhuma prop ou lógica adicional.
+
 | Prop | Tipo | Padrão | Descrição |
 |------|------|--------|-----------|
 | `size` | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Tamanho predefinido |
 | `width` | `number \| string` | — | Largura customizada (sobrepõe `size`) |
 
-- `Logo` — logotipo completo (texto + símbolo). Widths padrão: sm=80, md=160, lg=240, xl=360
-- `LogoSymbol` — só o símbolo "A". Widths padrão: sm=24, md=32, lg=48, xl=64
+- `Logo` — logotipo completo (ícone + wordmark). Widths padrão: sm=80, md=160, lg=240, xl=360
+- `LogoSymbol` — **ainda não existe um ícone isolado da marca.** Reaproveita temporariamente a
+  arte completa em tamanho reduzido (sm=64, md=88, lg=120, xl=160) até chegar um símbolo dedicado.
+
+**Em telas HTML (sem React):**
+```html
+<link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+<span class="logoDefault logoMd" role="img" aria-label="EQS Engenharia"></span>
+```
+
+**Arquivos de origem:** `componentes/Logo/logo-light.png` (fundo claro) e
+`componentes/Logo/logo-dark.png` (fundo escuro) — nunca usar filtro CSS (`invert`/`brightness`)
+para simular o tema oposto; a arte é colorida e o filtro distorce as cores da marca.
 
 ---
 

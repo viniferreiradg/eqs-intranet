@@ -23,8 +23,9 @@ _Last updated: 2026-05-22_
 3. **`<style>` somente para layout de página** — body, .main, .pageHeader, grids de página, padrões page-only como .chip, .switchLabel.
 4. **Nunca linkar dois componentes com a mesma classe CSS** — ver seção de Conflitos abaixo.
 5. **Ícones via `data-lucide`** — nunca SVG inline.
-6. **Logos via `<img src="...svg">`** — nunca SVG inline.
-7. **Fonte: `--font-weight-regular` para texto corrido e células de tabela** — medium/semibold só para títulos e labels.
+6. **Logos via classes de `Logo.module.css`** (`<span class="logoDefault logoMd">`) — nunca `<img>`/`<svg>` direto; a troca de tema é automática via `[data-theme]`.
+7. **Peso de fonte: títulos em `--font-weight-bold`, todo o restante (texto corrido, labels, células de tabela) em `--font-weight-regular`.** Medium/semibold ficam reservados para estados pontuais (ex: dia de hoje no calendário, botão de página ativo) — nunca para títulos ou texto comum.
+8. **Sempre carregar a fonte Inter via Google Fonts** no `<head>` — sem o `<link>`, `var(--font-body)`/`var(--font-display)` caem no sans-serif padrão do sistema. Ver skeleton abaixo.
 
 ---
 
@@ -129,7 +130,9 @@ Sempre o primeiro link. Expõe todas as variáveis `--color-*`, `--spacing-*`, e
 ```
 Classes: `.sidebar`, `.open`, `.closed`, `.toggleBtn`, `.logoRow`, `.logoWrap`, `.body`, `.navList`, `.navItem`, `.navItemActive`, `.navIcon`, `.navLabel`, `.navLabelLogout`, `.spacer`, `.bottomList`, `.separator`, `.userRow`, `.userName`, `.userEmail`, `.toggleIcon-left`, `.toggleIcon-right`
 
-Sempre linkar junto com Avatar.
+**Sempre linkar junto com `Avatar.module.css` e `Logo.module.css`** — o sidebar.js injeta
+`<span class="logoDefault">`/`<span class="avatar">` diretamente; sem os dois CSS linkados
+esses elementos ficam sem tamanho/imagem (invisíveis, sem erro no console).
 
 ---
 
@@ -163,8 +166,88 @@ Classes: `.btn`, `.primary`, `.secondary`, `.destructive`, `.ghost`, `.sm`, `.lg
 <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
 ```
 Classes: `.wrapper`, `.label`, `.inputWrap`, `.input`, `.helperText`, `.errorText`, `.successText`  
-**Atenção:** `.wrapper` também existe em Dropdown — os dois podem coexistir (mesma estrutura visual).  
+**Atenção:** `.wrapper` também existe em Dropdown e Textarea — os três podem coexistir (mesma estrutura visual).  
 **Não coexiste com:** Checkbox (`.wrapper` conflita destrutivamente) e Toggle (`.wrapper` conflita destrutivamente).
+
+---
+
+### Textarea
+```html
+<link rel="stylesheet" href="../componentes/Textarea/Textarea.module.css" />
+```
+Classes: `.wrapper`, `.label`, `.textarea`, `.helperText`, `.errorText`, `.successText` — mesma família do Input (coexistem).
+
+```html
+<div class="wrapper">
+  <label class="label" for="conteudo">Conteúdo</label>
+  <textarea class="textarea" id="conteudo" rows="6" placeholder="Escreva o conteúdo..."></textarea>
+</div>
+```
+
+---
+
+### ImageUpload
+```html
+<link rel="stylesheet" href="../componentes/ImageUpload/ImageUpload.module.css" />
+```
+Dropzone de imagem com preview funcional — clique (via `<label for>`) ou arraste um arquivo.
+
+Classes: `.wrapper`, `.label`, `.dropzone`, `.dropzone.dragOver`, `.hiddenInput`, `.empty`, `.emptyIcon`, `.emptyText`, `.emptyHint`, `.preview`, `.previewImg`, `.previewRemove`, `.errorText`, `.helperText`
+
+```html
+<div class="wrapper">
+  <span class="label">Imagem de capa</span>
+  <label class="dropzone" id="capa-dropzone">
+    <input type="file" accept="image/*" class="hiddenInput" id="capa-input" />
+    <div class="empty" id="capa-empty">
+      <span class="emptyIcon"><i data-lucide="image-plus" width="24" height="24"></i></span>
+      <span class="emptyText">Clique ou arraste uma imagem</span>
+      <span class="emptyHint">PNG ou JPG, até 5MB</span>
+    </div>
+    <div class="preview" id="capa-preview" hidden>
+      <img class="previewImg" id="capa-preview-img" alt="Pré-visualização da imagem de capa" />
+      <button type="button" class="previewRemove" id="capa-remove" aria-label="Remover imagem">
+        <i data-lucide="x" width="14" height="14"></i>
+      </button>
+    </div>
+  </label>
+</div>
+```
+
+**JS padrão (preview funcional + drag & drop):**
+```js
+function setupImageUpload(id) {
+  const dropzone = document.getElementById(id + '-dropzone');
+  const input    = document.getElementById(id + '-input');
+  const empty    = document.getElementById(id + '-empty');
+  const preview  = document.getElementById(id + '-preview');
+  const img      = document.getElementById(id + '-preview-img');
+  const removeBtn = document.getElementById(id + '-remove');
+
+  function showFile(file) {
+    if (!file) { empty.hidden = false; preview.hidden = true; img.src = ''; return; }
+    img.src = URL.createObjectURL(file);
+    empty.hidden = true;
+    preview.hidden = false;
+  }
+
+  input.addEventListener('change', () => showFile(input.files?.[0] ?? null));
+  removeBtn.addEventListener('click', (e) => {
+    e.preventDefault(); e.stopPropagation();
+    input.value = '';
+    showFile(null);
+  });
+  dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragOver'); });
+  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragOver'));
+  dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropzone.classList.remove('dragOver');
+    const file = e.dataTransfer.files?.[0];
+    if (file) { input.files = e.dataTransfer.files; showFile(file); }
+  });
+}
+setupImageUpload('capa');
+```
 
 ---
 
@@ -308,7 +391,20 @@ Classes: `.alert`, `.success`, `.error`, `.warning`, `.info`, `.fbIcon`, `.fbBod
 ```html
 <link rel="stylesheet" href="../componentes/Pagination/Pagination.module.css" />
 ```
-Classes: `.paginWrap`, `.paginInfo`, `.paginControls`, `.paginBtn`, `.paginBtnActive`
+Classes: `.pagination` (container), `.info` (texto "Exibindo X–Y de Z"), `.controls`, `.paginBtn`, `.paginBtnActive`, `.ellipsis`
+
+```html
+<div class="pagination">
+  <span class="info">Exibindo 1–10 de 24 resultados</span>
+  <div class="controls">
+    <button class="paginBtn" aria-label="Página anterior"><i data-lucide="chevron-left" width="14" height="14"></i></button>
+    <button class="paginBtn paginBtnActive" aria-current="page">1</button>
+    <button class="paginBtn">2</button>
+    <button class="paginBtn">3</button>
+    <button class="paginBtn" aria-label="Próxima página"><i data-lucide="chevron-right" width="14" height="14"></i></button>
+  </div>
+</div>
+```
 
 ---
 
@@ -373,6 +469,8 @@ Adaptado do Geist Calendar `horizontalLayout` com tokens do design system.
 |--------|--------------------------|---------|
 | `.card` | Table.module.css + Card.module.css | Nunca linkar juntos. Table para listas; Card para formulários. |
 | `.wrapper` | Input + Dropdown + Checkbox + Toggle | Input e Dropdown coexistem (mesmo visual). Checkbox e Toggle **não** coexistem com nenhum dos outros. |
+| `.badge` | Table.module.css (selo de status, inline) + NotificationBadge.module.css (bolha de contador, `position:absolute`) | **Nunca linkar NotificationBadge.module.css numa página que usa Table.** O badge do sininho na sidebar já vem de `.notifBadge` em `Sidebar.module.css` — `NotificationBadge.module.css` só é necessário em telas React/Storybook, nunca em páginas HTML com sidebar. |
+| `.icon` | Button.module.css (slot de ícone dentro do botão, herda `color` via `currentColor`) + Breadcrumb.module.css (ícone opcional no item atual) | Breadcrumb usa `.crumbIcon` (renomeado) para nunca colidir. Se aparecer um ícone com a cor errada dentro de um botão, suspeitar de outro componente definindo `.icon` com `color` fixo. |
 
 ### Toggle sem Toggle.module.css (workaround)
 
@@ -559,6 +657,7 @@ Adicionar `navItemActive` no item ativo da página.
 
 ## HTML page skeleton
 
+**Dashboard (com sidebar):**
 ```html
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="dark">
@@ -566,40 +665,28 @@ Adicionar `navItemActive` no item ativo da página.
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Título — {Projeto}</title>
+
+  <!-- Fonte real — sem isso o navegador cai no sans-serif do sistema, não Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
   <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
   <!-- demais links de componentes -->
-  <style>
-    /* somente layout de página */
-    *, *::before, *::after { box-sizing: border-box; }
-    body { margin: 0; font-family: var(--font-body); background: var(--color-bg-default); color: var(--color-text-primary); display: flex; height: 100vh; overflow: hidden; -webkit-font-smoothing: antialiased; }
-    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
-    /* sidebar collapsed */
-    .closed .navLabel, .closed .navLabelLogout, .closed .userInfo { display: none; }
-    .closed .toggleIcon-left { display: none; }
-    .closed .toggleIcon-right { display: inline-flex; }
-    .toggleIcon-right { display: none; }
-    /* logo */
-    .logo-img { display: block; filter: brightness(0) invert(1); }
-    [data-theme="light"] .logo-img { filter: none; }
-    .logo-symbol { display: none; }
-    .closed .logo-full { display: none; }
-    .closed .logo-symbol { display: block; }
-  </style>
 </head>
-<body>
-  <!-- Sidebar -->
+<body class="layout-dashboard">
+  <!-- Sidebar (shared/sidebar.js) -->
   <!-- Main (class="main bgWrapper") -->
   <!--   blob1 + blob2 -->
   <!--   pageHeader -->
   <!--   pageContent (overflow-y: auto) -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script>
-    /* sidebar toggle, theme toggle */
     lucide.createIcons();
   </script>
 </body>
 </html>
 ```
+
+**Auth (login, redefinir senha, criar senha):** mesmo `<head>`, `<body class="layout-auth">`.

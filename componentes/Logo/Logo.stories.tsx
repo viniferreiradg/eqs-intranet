@@ -13,8 +13,8 @@ const meta: Meta<typeof Logo> = {
     docs: {
       description: {
         component:
-          'A marca Althus em SVG. A cor herda automaticamente `--color-text-primary`, ' +
-          'adaptando-se ao tema light e dark sem nenhuma prop adicional.',
+          'A marca EQS Engenharia. Arte colorida fixa (não usa `currentColor`) — a imagem correta ' +
+          'para cada tema é trocada automaticamente via `[data-theme]`, sem nenhuma prop adicional.',
       },
     },
   },
@@ -41,67 +41,43 @@ export const Sizes: Story = {
   ),
 };
 
-export const OnColoredBackground: Story = {
+export const OnBothThemes: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-md)' }}>
       <div
+        data-theme="light"
         style={{
-          background: 'var(--color-bg-default)',
+          background: '#ffffff',
           padding: 'var(--spacing-lg)',
           borderRadius: 'var(--radius-md)',
           border: '1px solid var(--color-border-subtle)',
         }}
       >
         <Logo size="lg" />
-        <p style={{ color: 'var(--color-text-secondary)', fontSize: 12, marginTop: 8, fontFamily: 'var(--font-mono)' }}>
-          bg-default → text-primary
+        <p style={{ color: '#666', fontSize: 12, marginTop: 8, fontFamily: 'var(--font-mono)' }}>
+          data-theme=&quot;light&quot; → logo-light.png
         </p>
       </div>
 
       <div
+        data-theme="dark"
         style={{
-          background: 'var(--color-bg-subtle)',
+          background: '#0a0a0a',
           padding: 'var(--spacing-lg)',
           borderRadius: 'var(--radius-md)',
-          border: '1px solid var(--color-border-subtle)',
         }}
       >
         <Logo size="lg" />
-        <p style={{ color: 'var(--color-text-secondary)', fontSize: 12, marginTop: 8, fontFamily: 'var(--font-mono)' }}>
-          bg-subtle → text-primary
+        <p style={{ color: '#999', fontSize: 12, marginTop: 8, fontFamily: 'var(--font-mono)' }}>
+          data-theme=&quot;dark&quot; → logo-dark.png
         </p>
       </div>
-
-      <div
-        style={{
-          background: 'var(--color-brand-500)',
-          padding: 'var(--spacing-lg)',
-          borderRadius: 'var(--radius-md)',
-        }}
-      >
-        <Logo size="lg" style={{ color: '#fff' }} />
-        <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 12, marginTop: 8, fontFamily: 'var(--font-mono)' }}>
-          brand-500 → color #fff (override manual)
-        </p>
-      </div>
-    </div>
-  ),
-};
-
-export const CustomColor: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-md)', alignItems: 'flex-start' }}>
-      <Logo size="md" style={{ color: 'var(--color-text-primary)' }} />
-      <Logo size="md" style={{ color: 'var(--color-brand-500)' }} />
-      <Logo size="md" style={{ color: 'var(--color-text-secondary)' }} />
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story:
-          'A cor pode ser sobrescrita via `style={{ color: "..." }}`. ' +
-          'Por padrão usa `--color-text-primary`.',
+        story: 'A troca de imagem acontece via CSS (`[data-theme="dark"] .logoDefault`), sem JS.',
       },
     },
   },
@@ -111,82 +87,20 @@ export const Symbol: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-lg)', alignItems: 'flex-start' }}>
       <p style={{ color: 'var(--color-text-secondary)', fontSize: 13, fontFamily: 'var(--font-body)' }}>
-        Versão símbolo — usada quando o espaço horizontal é reduzido (ex: sidebar minimizada).
+        Versão usada quando o espaço horizontal é reduzido (ex: sidebar minimizada).{' '}
+        <strong>Ainda não existe um ícone isolado da marca</strong> — por ora reaproveita a logo completa
+        em tamanho reduzido; trocar assim que houver uma arte de símbolo dedicada.
       </p>
       <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-xl)', flexWrap: 'wrap' }}>
         {(['sm', 'md', 'lg', 'xl'] as const).map((size) => (
           <div key={size} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
             <LogoSymbol size={size} />
             <span style={{ color: 'var(--color-text-tertiary)', fontSize: 11, fontFamily: 'var(--font-mono)' }}>
-              {size} — {size === 'sm' ? 24 : size === 'md' ? 32 : size === 'lg' ? 48 : 64}px
+              {size}
             </span>
           </div>
         ))}
       </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-md)', marginTop: 8 }}>
-        <div style={{ background: 'var(--color-bg-default)', padding: 16, borderRadius: 8, border: '1px solid var(--color-border-subtle)' }}>
-          <LogoSymbol size="md" />
-        </div>
-        <div style={{ background: 'var(--color-brand-500)', padding: 16, borderRadius: 8 }}>
-          <LogoSymbol size="md" style={{ color: '#fff' }} />
-        </div>
-      </div>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Símbolo quadrado da marca — usado na sidebar minimizada e contextos de espaço reduzido.',
-      },
-    },
-  },
-};
-
-export const DoNotUse: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-lg)' }}>
-      <p style={{ color: 'var(--color-text-secondary)', fontSize: 13, marginBottom: 4 }}>
-        Evite usar a logo com baixo contraste ou sobre fundos saturados sem ajuste de cor.
-      </p>
-      <div style={{ display: 'flex', gap: 'var(--space-6)', flexWrap: 'wrap' }}>
-        <div style={{ textAlign: 'center' }}>
-          <div
-            style={{
-              background: '#444',
-              padding: 'var(--spacing-md)',
-              borderRadius: 'var(--radius-sm)',
-              opacity: 0.4,
-            }}
-          >
-            <Logo size="sm" style={{ color: '#666' }} />
-          </div>
-          <p style={{ color: 'var(--color-text-error)', fontSize: 11, marginTop: 4, fontFamily: 'var(--font-mono)' }}>
-            baixo contraste
-          </p>
-        </div>
-
-        <div style={{ textAlign: 'center' }}>
-          <div
-            style={{
-              background: 'var(--color-bg-default)',
-              padding: 'var(--spacing-md)',
-              borderRadius: 'var(--radius-sm)',
-            }}
-          >
-            <Logo size="sm" style={{ color: 'var(--color-text-primary)', transform: 'scaleX(-1)' }} />
-          </div>
-          <p style={{ color: 'var(--color-text-error)', fontSize: 11, marginTop: 4, fontFamily: 'var(--font-mono)' }}>
-            espelhada
-          </p>
-        </div>
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Exemplos do que NÃO fazer com a logo.',
-      },
-    },
-  },
 };

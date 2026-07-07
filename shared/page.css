@@ -2,7 +2,7 @@
  * shared/page.css — Estilos base compartilhados por todas as páginas internas
  *
  * Uso em cada página (logo após tokens.css, antes dos CSS de componentes):
- *   <link rel="stylesheet" href="shared/page.css" />
+ *   <link rel="stylesheet" href="../shared/page.css" />
  *
  * O que está aqui:
  *   - Reset box-sizing
@@ -20,7 +20,7 @@
  *
  * O que NÃO está aqui (fica no <style> de cada página):
  *   - .toolbar, .searchWrap, .filterWrap, .tdFirst, .thFirst
- *   - Campos específicos (textarea, chip, metaGrid, etc.)
+ *   - Campos específicos (chip, metaGrid, etc.) — texto multilinha usa o componente Textarea
  *   - Overrides de .pageHeader para páginas de formulário (block em vez de flex)
  *   - Qualquer CSS exclusivo de uma única tela
  */
@@ -94,7 +94,7 @@ body.layout-auth {
   margin: 0;
   font-family: var(--font-display);
   font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
   line-height: var(--line-height-tight);
 }
@@ -194,7 +194,7 @@ body.layout-auth {
 .sectionTitle {
   margin: 0 0 var(--spacing-xs);
   font-size: var(--font-size-md);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
 }
 /* Título de seção direto abaixo do pageContent (logo após a tab) — mais respiro */
@@ -254,30 +254,6 @@ body.layout-auth {
 .grid3a-localidade { grid-template-columns: 3fr 1fr; }      /* logradouro + número */
 .grid3b-localidade { grid-template-columns: 2fr 1fr 1fr; }  /* cidade + estado + CEP */
 
-/* ── Textarea ────────────────────────────────────────────────────────────────── */
-.textareaWrap { display: flex; flex-direction: column; gap: var(--spacing-xs); }
-.fieldLabel {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-secondary);
-}
-.textarea {
-  width: 100%;
-  min-height: 96px;
-  padding: var(--spacing-sm) var(--spacing-md);
-  background: var(--color-bg-surface);
-  border: var(--border-width-thin) solid var(--color-border-default);
-  border-radius: var(--radius-sm);
-  color: var(--color-text-primary);
-  font-family: var(--font-body);
-  font-size: var(--font-size-sm);
-  resize: vertical;
-  outline: none;
-  transition: border-color var(--transition-fast);
-}
-.textarea::placeholder { color: var(--color-text-disabled); }
-.textarea:focus { border-color: var(--color-border-focus); }
-
 /* ── Campos de metadados somente leitura (criado em, último acesso…) ────────── */
 .metaGrid {
   display: grid;
@@ -300,6 +276,16 @@ body.layout-auth {
   font-size: var(--font-size-sm);
   font-family: var(--font-mono, monospace);
   color: var(--color-text-tertiary);
+}
+
+/* ── Campo com toggle + texto de apoio empilhado abaixo ──────────────────────── */
+/* Toggle.module.css usa .toggleWrapper { display: inline-flex }, então texto
+   irmão sem este wrapper fica colado ao lado, na mesma linha. */
+.toggleField {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
 }
 
 /* ── Rodapé de formulário ────────────────────────────────────────────────────── */
@@ -766,12 +752,13 @@ body.layout-auth {
 .closed .iconRow    { padding: 0; }
 .closed .iconBtn    { margin-bottom: var(--spacing-xs); }
 
-/* ── Logo — visibilidade por tema e estado ───────────────────────────────────── */
-.logo-img { display: block; filter: brightness(0) invert(1); }
-[data-theme="light"] .logo-img { filter: none; }
-.logo-symbol { display: none; }
-.closed .logo-full   { display: none; }
-.closed .logo-symbol { display: block; }
+/* ── Logo — visibilidade por estado (cor/tema resolvidos em Logo.module.css) ──
+   !important necessário: Logo.module.css é linkado depois de page.css e define
+   `.logoSymbol { display: inline-block }` — sem isso, os dois logos (completo
+   e símbolo) aparecem juntos independente da ordem dos <link>. */
+.logo-symbol { display: none !important; }
+.closed .logo-full   { display: none !important; }
+.closed .logo-symbol { display: block !important; }
 
 /* ── Perfil: seção de avatar grande + nome + papel ───────────────────────────── */
 .avatarSection {
@@ -1112,7 +1099,7 @@ body.layout-auth {
   margin: 0;
   font-family: var(--font-display);
   font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
   line-height: var(--line-height-tight);
 }
@@ -1177,7 +1164,7 @@ body.layout-auth {
 .widgetCardTitle {
   margin: 0;
   font-size: var(--font-size-md);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
   line-height: var(--line-height-tight);
 }
@@ -1494,7 +1481,7 @@ body.layout-auth {
 .cashbackSectionTitle {
   margin: 0 0 var(--spacing-2xs);
   font-size: var(--font-size-md);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
 }
 .cashbackSectionSub {
@@ -1742,7 +1729,7 @@ body.layout-auth {
 }
 .donutRepasseTitle {
   font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
   margin: 0 0 var(--spacing-xs);
 }
@@ -2209,7 +2196,7 @@ body.layout-auth {
 }
 .analyseCardTitle {
   font-size: var(--font-size-base);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
 }
 .analyseCardSubtitle {
@@ -2511,7 +2498,7 @@ body.layout-auth {
 }
 .nfseDocBannerTitle {
   font-size: var(--font-size-md);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   color: var(--color-gray-white);
   margin: 0;
 }
@@ -2627,7 +2614,7 @@ body.layout-auth {
 }
 .settingsCardTitle {
   font-size: var(--font-size-md);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
 }
 .settingsCardFooter {
@@ -2747,7 +2734,7 @@ body.layout-auth {
 .widgetPickerItem.selected { border-color: var(--color-border-focus); background: var(--color-bg-brand); }
 .widgetPickerTitle {
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
 }
 .widgetPickerDesc {
@@ -2831,7 +2818,7 @@ body.layout-auth {
 .reportSectionTitle {
   margin: 0;
   font-size: var(--font-size-md);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
 }
 .reportText {
@@ -2863,7 +2850,7 @@ body.layout-auth {
 }
 .reportAlert[data-variant="error"]   { border-left-color: var(--color-action-error); }
 .reportAlert[data-variant="warning"] { border-left-color: var(--color-action-warning); }
-.reportAlertTitle { font-weight: var(--font-weight-semibold); color: var(--color-text-primary); }
+.reportAlertTitle { font-weight: var(--font-weight-bold); color: var(--color-text-primary); }
 .reportRecoList {
   list-style: none;
   margin: 0;
@@ -2929,7 +2916,7 @@ body.layout-auth {
 }
 .dialogSectionTitle {
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
   margin: 0;
 }

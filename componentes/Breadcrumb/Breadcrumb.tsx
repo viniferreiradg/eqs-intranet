@@ -24,7 +24,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
                 /* Selected — texto bold + ícone opcional */
                 <span className={styles.current} aria-current="page">
                   {item.label}
-                  {item.icon && <span className={styles.icon} aria-hidden="true">{item.icon}</span>}
+                  {item.icon && <span className={styles.crumbIcon} aria-hidden="true">{item.icon}</span>}
                 </span>
               ) : (
                 /* Default — link + separador chevron embutido */

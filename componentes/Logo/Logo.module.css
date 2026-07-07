@@ -1,35 +1,33 @@
-.logo {
-  color: var(--color-text-primary);
-  display: block;
-  flex-shrink: 0;
-}
+/*
+ * Logo — marca EQS Engenharia (arte colorida, sem currentColor).
+ * Duas imagens fixas por tema, trocadas via [data-theme] no ancestral:
+ *   logo-light.png → data-theme="light" (fundo claro)
+ *   logo-dark.png  → data-theme="dark"  (fundo escuro)
+ */
 
-/* ── HTML standalone — mask-image ─────────────── */
 .logoDefault,
 .logoSymbol {
   display: inline-block;
-  background-color: currentColor;
-  color: var(--color-text-primary);
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center left;
-  mask-position: center left;
-  -webkit-mask-mode: alpha;
-  mask-mode: alpha;
+  flex-shrink: 0;
+  background-repeat: no-repeat;
+  background-position: center left;
+  background-size: contain;
+  background-image: url('./logo-light.png');
+}
+
+[data-theme="dark"] .logoDefault,
+[data-theme="dark"] .logoSymbol {
+  background-image: url('./logo-dark.png');
 }
 
 .logoDefault {
-  -webkit-mask-image: url('./logo-default.svg');
-  mask-image: url('./logo-default.svg');
-  aspect-ratio: 1075.75 / 257.83;
+  aspect-ratio: 236 / 65;
 }
 
+/* Símbolo isolado ainda não existe como arte própria — usa a logo completa
+   como fallback temporário até a marca fornecer um ícone dedicado. */
 .logoSymbol {
-  -webkit-mask-image: url('./logo-symbol.svg');
-  mask-image: url('./logo-symbol.svg');
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 236 / 65;
 }
 
 /* Tamanhos — logoDefault */
@@ -38,8 +36,8 @@
 .logoDefault.logoLg { width: 240px; }
 .logoDefault.logoXl { width: 360px; }
 
-/* Tamanhos — logoSymbol */
-.logoSymbol.logoSm { width: 24px; height: 24px; }
-.logoSymbol.logoMd { width: 32px; height: 32px; }
-.logoSymbol.logoLg { width: 48px; height: 48px; }
-.logoSymbol.logoXl { width: 64px; height: 64px; }
+/* Tamanhos — logoSymbol (fallback com a arte completa, ver nota acima) */
+.logoSymbol.logoSm { width: 64px; }
+.logoSymbol.logoMd { width: 88px; }
+.logoSymbol.logoLg { width: 120px; }
+.logoSymbol.logoXl { width: 160px; }
