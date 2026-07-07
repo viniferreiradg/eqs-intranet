@@ -5,7 +5,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 const palettes = [
   { name: 'Brand',  prefix: '--color-brand',  steps: ['50','100','200','300','400','500','600','700','800','900','950'] },
   { name: 'Gray',      prefix: '--color-gray',      steps: ['white','50','100','200','300','400','500','600','700','800','900','950'] },
-  { name: 'Gray Dark', prefix: '--color-gray-dark', steps: ['50','100','200','300','400','500','600','700','800','900','950'] },
   { name: 'Red',    prefix: '--color-red',    steps: ['50','100','200','300','400','500','600','700','800','900','950'] },
   { name: 'Green',  prefix: '--color-green',  steps: ['50','100','200','300','400','500','600','700','800','900','950'] },
   { name: 'Blue',   prefix: '--color-blue',   steps: ['50','100','200','300','400','500','600','700','800','900','950'] },
