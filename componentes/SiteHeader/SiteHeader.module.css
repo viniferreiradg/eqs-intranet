@@ -1,0 +1,66 @@
+.siteHeader {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 72px;
+  background: var(--color-bg-surface);
+  border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+/* Conteúdo do header respeita o mesmo grid (1200px) das seções da página —
+   só o fundo do .siteHeader é full-bleed. */
+.siteHeaderInner {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xl);
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
+}
+
+.siteHeaderNav {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  flex: 1;
+}
+
+.siteHeaderNavItem {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  padding: var(--spacing-xs) 0;
+  border-bottom: var(--border-width-medium) solid transparent;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.siteHeaderNavItem:hover {
+  color: var(--color-text-primary);
+}
+
+.siteHeaderNavItemActive {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+  border-bottom-color: var(--color-action-primary);
+}
+
+.siteHeaderActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-shrink: 0;
+}
+
+.siteHeaderSearch {
+  width: 220px;
+}
+
+.siteHeaderAvatarBtn {
+  display: inline-flex;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}

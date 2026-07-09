@@ -51,7 +51,7 @@
   padding: 0;
 }
 
-.appBarIconBtn:hover  { background: var(--color-glass-surface); }
+.appBarIconBtn:hover  { background: var(--color-bg-subtle); }
 .appBarIconBtn:active { background: var(--color-bg-subtle); }
 
 .appBarIconBtn:focus-visible {

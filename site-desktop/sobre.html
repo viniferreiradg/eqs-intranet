@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre — EQS Intranet</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/DropdownMenu/DropdownMenu.module.css" />
+  <link rel="stylesheet" href="../componentes/SiteHeader/SiteHeader.module.css" />
+  <link rel="stylesheet" href="../componentes/SiteHeaderMobile/SiteHeaderMobile.module.css" />
+  <link rel="stylesheet" href="../componentes/Sheet/Sheet.module.css" />
+  <link rel="stylesheet" href="../componentes/Breadcrumb/Breadcrumb.module.css" />
+  <link rel="stylesheet" href="../componentes/AboutHero/AboutHero.module.css" />
+  <link rel="stylesheet" href="../componentes/ContentSplit/ContentSplit.module.css" />
+  <link rel="stylesheet" href="../componentes/ValueCard/ValueCard.module.css" />
+  <link rel="stylesheet" href="../componentes/Card/Card.module.css" />
+  <link rel="stylesheet" href="../componentes/LinkCard/LinkCard.module.css" />
+  <link rel="stylesheet" href="../componentes/LeadershipCard/LeadershipCard.module.css" />
+  <link rel="stylesheet" href="../componentes/StatsBanner/StatsBanner.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Footer/Footer.module.css" />
+</head>
+<body class="layout-site">
+
+  <header class="siteHeader hideMobile">
+    <div class="siteHeaderInner">
+      <span class="logoDefault logoSm" role="img" aria-label="EQS Engenharia"></span>
+
+      <nav class="siteHeaderNav">
+        <a href="index.html" class="siteHeaderNavItem">Home</a>
+        <a href="noticias.html" class="siteHeaderNavItem">Notícias</a>
+        <a href="eventos.html" class="siteHeaderNavItem">Eventos</a>
+        <a href="comunicados.html" class="siteHeaderNavItem">Comunicados</a>
+        <a href="areas-departamentos.html" class="siteHeaderNavItem">Áreas e Departamentos</a>
+        <a href="sobre.html" class="siteHeaderNavItem siteHeaderNavItemActive" aria-current="page">Sobre</a>
+        <a href="links-uteis.html" class="siteHeaderNavItem">Links Úteis</a>
+      </nav>
+
+      <div class="siteHeaderActions">
+        <div class="siteHeaderSearch wrapper">
+          <div class="inputWrap hasLeft">
+            <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+            <input class="input" type="text" placeholder="Buscar..." />
+          </div>
+        </div>
+
+        <div class="dropdownMenu" id="user-menu">
+          <button class="siteHeaderAvatarBtn" id="user-menu-trigger" aria-label="Menu do usuário" type="button">
+            <div class="avatar sm"><img class="avatarImg" src="../src/avatar/team-01.jpg" alt="Usuário" /></div>
+          </button>
+          <div class="dropdownMenu__panel end" id="user-menu-panel">
+            <button class="dropdownMenu__item" type="button" onclick="location.href='perfil.html'">
+              <span class="dropdownMenu__item__icon"><i data-lucide="user" width="16" height="16"></i></span>
+              Meu Perfil
+            </button>
+            <button class="dropdownMenu__item dropdownMenu__item--destructive" type="button" onclick="location.href='../painel-adm/login.html'">
+              <span class="dropdownMenu__item__icon"><i data-lucide="log-out" width="16" height="16"></i></span>
+              Sair
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Header mobile: busca | logo | hambúrguer ─────────────── -->
+  <header class="siteHeaderMobile hideDesktop">
+    <div class="siteHeaderMobileRow" id="mobile-header-default">
+      <button class="siteHeaderMobileIconBtn" type="button" aria-label="Buscar" onclick="openSearch()">
+        <i data-lucide="search" width="20" height="20"></i>
+      </button>
+      <span class="logoDefault logoSm" role="img" aria-label="EQS Engenharia"></span>
+      <button class="siteHeaderMobileIconBtn" type="button" aria-label="Abrir menu" onclick="openMobileMenu()">
+        <i data-lucide="menu" width="20" height="20"></i>
+      </button>
+    </div>
+    <div class="siteHeaderMobileSearchRow" id="mobile-header-search" hidden>
+      <input class="siteHeaderMobileSearchInput" type="text" placeholder="Buscar..." id="mobile-search-input" />
+      <button class="siteHeaderMobileIconBtn" type="button" aria-label="Fechar busca" onclick="closeSearch()">
+        <i data-lucide="x" width="20" height="20"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── Menu mobile (drawer) — reaproveita o Sheet ───────────── -->
+  <div class="sheetOverlay hideDesktop" id="mobile-menu-overlay" onclick="closeMobileMenu()">
+    <aside class="sheetPanel siteHeaderMobileMenuPanel" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="Menu">
+      <div class="sheetHeader">
+        <span class="sheetTitle">Menu</span>
+        <button class="sheetClose" type="button" aria-label="Fechar" onclick="closeMobileMenu()">
+          <i data-lucide="x" width="16" height="16"></i>
+        </button>
+      </div>
+      <div class="sheetBody">
+        <nav class="siteHeaderMobileNavList">
+          <a href="index.html" class="siteHeaderMobileNavItem">Home</a>
+          <a href="noticias.html" class="siteHeaderMobileNavItem">Notícias</a>
+          <a href="eventos.html" class="siteHeaderMobileNavItem">Eventos</a>
+          <a href="comunicados.html" class="siteHeaderMobileNavItem">Comunicados</a>
+          <a href="areas-departamentos.html" class="siteHeaderMobileNavItem">Áreas e Departamentos</a>
+          <a href="sobre.html" class="siteHeaderMobileNavItem siteHeaderMobileNavItemActive" aria-current="page">Sobre</a>
+          <a href="links-uteis.html" class="siteHeaderMobileNavItem">Links Úteis</a>
+        </nav>
+      </div>
+      <div class="sheetFooter">
+        <div class="siteHeaderMobileFooterList">
+          <a class="siteHeaderMobileFooterItem" href="perfil.html">
+            <i data-lucide="user" width="16" height="16"></i> Meu Perfil
+          </a>
+          <a class="siteHeaderMobileFooterItem siteHeaderMobileFooterItemDestructive" href="../painel-adm/login.html">
+            <i data-lucide="log-out" width="16" height="16"></i> Sair
+          </a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ── Breadcrumb ────────────────────────────────────────────── -->
+  <div class="siteBreadcrumbBar">
+    <div class="siteContainer">
+      <nav aria-label="Breadcrumb" class="nav">
+        <ol class="list">
+          <li class="item">
+            <a href="index.html" class="link">
+              Home
+              <span class="sep" aria-hidden="true"><i data-lucide="chevron-right" width="12" height="12"></i></span>
+            </a>
+          </li>
+          <li class="item"><span class="current" aria-current="page">Sobre</span></li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <main class="siteMain">
+
+    <!-- ── AboutHero ─────────────────────────────────────────────── -->
+    <section class="siteSection">
+      <div class="siteContainer">
+        <div class="aboutHero">
+          <div class="aboutHeroContent">
+            <span class="aboutHeroKicker">Sobre a EQS</span>
+            <h1 class="aboutHeroTitle">Construindo o futuro com engenharia, inovação e compromisso</h1>
+            <p class="aboutHeroDescription">Há mais de 20 anos, a EQS Engenharia entrega soluções inteligentes e seguras para os desafios mais complexos de infraestrutura e construções industriais em todo o Brasil.</p>
+            <a class="aboutHeroCta" href="#historia">
+              Conheça nossa história <i data-lucide="arrow-right" width="16" height="16"></i>
+            </a>
+          </div>
+          <div class="aboutHeroMedia">
+            <img class="aboutHeroImage" src="../src/beautiful-shot-oresund-bridge-malmo-sweden.jpg" alt="" />
+            <div class="aboutHeroStats">
+              <div class="aboutHeroStat">
+                <span class="aboutHeroStatIcon"><i data-lucide="clock" width="22" height="22"></i></span>
+                <span class="aboutHeroStatValue">20+</span>
+                <span class="aboutHeroStatLabel">Anos de história</span>
+              </div>
+              <div class="aboutHeroStat">
+                <span class="aboutHeroStatIcon"><i data-lucide="users" width="22" height="22"></i></span>
+                <span class="aboutHeroStatValue">350+</span>
+                <span class="aboutHeroStatLabel">Colaboradores</span>
+              </div>
+              <div class="aboutHeroStat">
+                <span class="aboutHeroStatIcon"><i data-lucide="map" width="22" height="22"></i></span>
+                <span class="aboutHeroStatValue">18</span>
+                <span class="aboutHeroStatLabel">Estados atendidos</span>
+              </div>
+              <div class="aboutHeroStat">
+                <span class="aboutHeroStatIcon"><i data-lucide="shield-check" width="22" height="22"></i></span>
+                <span class="aboutHeroStatValue">7</span>
+                <span class="aboutHeroStatLabel">Escritórios</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Nossa história ────────────────────────────────────────── -->
+    <section class="siteSection" id="historia">
+      <div class="siteContainer">
+        <div class="contentSplit">
+          <img class="contentSplitImage" src="../src/ChatGPT-Image-9-de-jul.jpg" alt="" />
+          <div class="contentSplitText">
+            <span class="contentSplitKicker">Nossa história</span>
+            <h2 class="contentSplitTitle">De um propósito sólido para grandes conquistas</h2>
+            <p class="contentSplitParagraph">A EQS nasceu com o propósito de transformar desafios em oportunidades, combinando conhecimento técnico, gestão eficiente e relacionamento de confiança.</p>
+            <p class="contentSplitParagraph">Ao longo dessas duas décadas, evoluímos constantemente, ampliamos nossa atuação e construímos parcerias duradouras que geram valor para nossos clientes e para a sociedade.</p>
+            <p class="contentSplitParagraph">Seguimos comprometidos com a excelência, a segurança e a inovação para continuar construindo um futuro cada vez melhor.</p>
+            <a class="contentSplitCta" href="#">
+              Linha do tempo <i data-lucide="arrow-right" width="16" height="16"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Nossos valores ────────────────────────────────────────── -->
+    <section class="siteSection" style="background: linear-gradient(0deg, #ffffff, #f5f5f5);">
+      <div class="siteContainer">
+        <div class="siteSectionHeaderCentered">
+          <span class="siteSectionKicker">Nossos valores</span>
+          <h2 class="siteSectionTitle">Princípios que guiam tudo o que fazemos</h2>
+        </div>
+        <div class="siteGrid5">
+          <div class="valueCard">
+            <span class="valueIcon"><i data-lucide="shield-check" width="24" height="24"></i></span>
+            <h3 class="valueTitle">Segurança</h3>
+            <p class="valueDescription">Cuidamos das pessoas acima de tudo, sempre.</p>
+          </div>
+          <div class="valueCard">
+            <span class="valueIcon"><i data-lucide="user" width="24" height="24"></i></span>
+            <h3 class="valueTitle">Ética</h3>
+            <p class="valueDescription">Agimos com integridade, transparência e respeito.</p>
+          </div>
+          <div class="valueCard">
+            <span class="valueIcon"><i data-lucide="lightbulb" width="24" height="24"></i></span>
+            <h3 class="valueTitle">Inovação</h3>
+            <p class="valueDescription">Buscamos soluções criativas e eficientes.</p>
+          </div>
+          <div class="valueCard">
+            <span class="valueIcon"><i data-lucide="handshake" width="24" height="24"></i></span>
+            <h3 class="valueTitle">Compromisso</h3>
+            <p class="valueDescription">Entregamos resultados com responsabilidade.</p>
+          </div>
+          <div class="valueCard">
+            <span class="valueIcon"><i data-lucide="users" width="24" height="24"></i></span>
+            <h3 class="valueTitle">Valorização de pessoas</h3>
+            <p class="valueDescription">Acreditamos no talento e no trabalho em equipe.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Atuação ───────────────────────────────────────────────── -->
+    <section class="siteSection">
+      <div class="siteContainer">
+        <div class="siteSectionHeaderCentered">
+          <span class="siteSectionKicker">Atuação</span>
+          <h2 class="siteSectionTitle">Soluções completas em engenharia e infraestrutura</h2>
+          <p class="siteBodyText">Atuamos em diferentes segmentos com excelência técnica, foco em segurança e compromisso com prazos e qualidade.</p>
+        </div>
+        <div class="siteGrid5">
+          <a class="card linkCard" href="#">
+            <span class="linkIcon"><i data-lucide="landmark" width="20" height="20"></i></span>
+            <h3 class="linkTitle">Infraestrutura</h3>
+            <p class="linkDescription">Obras de infraestrutura urbana, rodoviária e de saneamento.</p>
+          </a>
+          <a class="card linkCard" href="#">
+            <span class="linkIcon"><i data-lucide="building-2" width="20" height="20"></i></span>
+            <h3 class="linkTitle">Industrial</h3>
+            <p class="linkDescription">Construções e montagens industriais com alta complexidade técnica.</p>
+          </a>
+          <a class="card linkCard" href="#">
+            <span class="linkIcon"><i data-lucide="zap" width="20" height="20"></i></span>
+            <h3 class="linkTitle">Energia</h3>
+            <p class="linkDescription">Soluções para geração, transmissão e distribuição de energia.</p>
+          </a>
+          <a class="card linkCard" href="#">
+            <span class="linkIcon"><i data-lucide="droplet" width="20" height="20"></i></span>
+            <h3 class="linkTitle">Óleo & Gás</h3>
+            <p class="linkDescription">Projetos e execução para o setor de óleo & gás e petroquímico.</p>
+          </a>
+          <a class="card linkCard" href="#">
+            <span class="linkIcon"><i data-lucide="briefcase" width="20" height="20"></i></span>
+            <h3 class="linkTitle">Construções Corporativas</h3>
+            <p class="linkDescription">Edificações comerciais e corporativas com alto padrão.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Liderança ─────────────────────────────────────────────── -->
+    <section class="siteSection" style="background: linear-gradient(0deg, #ffffff, #f5f5f5);">
+      <div class="siteContainer">
+        <div class="aboutLeadershipSection">
+          <div class="aboutLeadershipContent">
+            <span class="siteSectionKicker">Liderança</span>
+            <h2 class="siteSectionTitle">Experiência que inspira confiança</h2>
+            <p class="siteBodyText">Nossa liderança combina visão estratégica, sólida experiência e paixão por engenharia.</p>
+            <a class="contentSplitCta" href="#">
+              Conheça nossa liderança <i data-lucide="arrow-right" width="16" height="16"></i>
+            </a>
+          </div>
+          <div class="aboutLeadershipGrid">
+            <div class="card leadershipCard">
+              <img class="leadershipPhoto" src="../src/Gemini_Generated_Image_2hjt7r2hjt7r2hjt_03.jpg" alt="Marcos Aurélio" />
+              <div class="leadershipBody">
+                <div class="leadershipText">
+                  <span class="leadershipName">Marcos Aurélio</span>
+                  <span class="leadershipRole">Diretor Presidente</span>
+                </div>
+                <a class="leadershipLinkedin" href="#" aria-label="LinkedIn de Marcos Aurélio">in</a>
+              </div>
+            </div>
+            <div class="card leadershipCard">
+              <img class="leadershipPhoto" src="../src/Gemini_Generated_Image_2hjt7r2hjt7r2hjt_05.jpg" alt="Juliana Prado" />
+              <div class="leadershipBody">
+                <div class="leadershipText">
+                  <span class="leadershipName">Juliana Prado</span>
+                  <span class="leadershipRole">Diretora Operacional</span>
+                </div>
+                <a class="leadershipLinkedin" href="#" aria-label="LinkedIn de Juliana Prado">in</a>
+              </div>
+            </div>
+            <div class="card leadershipCard">
+              <img class="leadershipPhoto" src="../src/Gemini_Generated_Image_2hjt7r2hjt7r2hjt_07.jpg" alt="Ricardo Almeida" />
+              <div class="leadershipBody">
+                <div class="leadershipText">
+                  <span class="leadershipName">Ricardo Almeida</span>
+                  <span class="leadershipRole">Diretor Administrativo</span>
+                </div>
+                <a class="leadershipLinkedin" href="#" aria-label="LinkedIn de Ricardo Almeida">in</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Banner final (CTA, sem stats) ─────────────────────────── -->
+    <div class="statsBanner">
+      <img class="statsBannerImage" src="../src/xasunset-hercilio-luz-bridge-florianopolis.jpg" alt="" />
+      <div class="statsBannerScrim"></div>
+      <div class="statsBannerInner">
+        <div class="statsBannerTop">
+          <div class="statsBannerContent">
+            <span class="statsBannerKicker">Juntos, vamos mais longe</span>
+            <h2 class="statsBannerTitle">Prontos para construir o próximo capítulo?</h2>
+            <p class="statsBannerDescription">Estamos sempre abertos a novas parcerias e desafios que impulsionam o desenvolvimento do país.</p>
+          </div>
+          <a class="statsBannerCta" href="links-uteis.html">
+            Fale com a EQS <i data-lucide="arrow-right" width="16" height="16"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <section class="siteSection siteSectionMobile">
+      <div class="siteContainer">
+        <div class="siteSectionHeader">
+          <div>
+            <span class="siteSectionKicker">Recursos</span>
+            <h2 class="siteSectionTitle">Links Úteis</h2>
+          </div>
+          <button class="btn secondary hideMobile" type="button" onclick="location.href='links-uteis.html'">Veja mais</button>
+        </div>
+        <div class="siteGrid3">
+          <a class="card linkCard" href="links-uteis.html">
+            <span class="linkIcon"><i data-lucide="book-open" width="20" height="20"></i></span>
+            <h3 class="linkTitle">Manual da Marca EQS</h3>
+            <p class="linkDescription">Diretrizes de identidade visual e uso da marca.</p>
+          </a>
+          <a class="card linkCard" href="links-uteis.html">
+            <span class="linkIcon"><i data-lucide="shield-check" width="20" height="20"></i></span>
+            <h3 class="linkTitle">Código de Conduta</h3>
+            <p class="linkDescription">Políticas internas e diretrizes de ética.</p>
+          </a>
+          <a class="card linkCard" href="links-uteis.html">
+            <span class="linkIcon"><i data-lucide="life-buoy" width="20" height="20"></i></span>
+            <h3 class="linkTitle">Central de Suporte</h3>
+            <p class="linkDescription">Abra um chamado com o time de TI ou Facilities.</p>
+          </a>
+        </div>
+        <div class="siteSectionFooter hideDesktop">
+          <button class="btn secondary" type="button" onclick="location.href='links-uteis.html'">Veja mais</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footerInner">
+      <div class="footerBrand">
+        <span class="logoDefault logoSm" role="img" aria-label="EQS Engenharia"></span>
+        <p class="footerTagline">Intranet corporativa da EQS Engenharia.</p>
+      </div>
+      <div class="footerColumns">
+        <div class="footerColumn">
+          <span class="footerColumnTitle">Portal</span>
+          <a class="footerLink" href="noticias.html">Notícias</a>
+          <a class="footerLink" href="eventos.html">Eventos</a>
+          <a class="footerLink" href="comunicados.html">Comunicados</a>
+          <a class="footerLink" href="areas-departamentos.html">Áreas e Departamentos</a>
+        </div>
+        <div class="footerColumn">
+          <span class="footerColumnTitle">Institucional</span>
+          <a class="footerLink" href="sobre.html">Sobre</a>
+          <a class="footerLink" href="links-uteis.html">Links Úteis</a>
+        </div>
+      </div>
+    </div>
+    <div class="footerBottom">© 2026 EQS Engenharia. Todos os direitos reservados.</div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- ── Scroll por arrasto (emula touch abaixo de 640px) ─────────────── -->
+  <script src="../shared/touch-scroll.js"></script>
+
+  <script>
+    lucide.createIcons();
+
+    /* Menu do avatar (padrão DropdownMenu) — header desktop */
+    const menu = document.getElementById('user-menu');
+    const trigger = document.getElementById('user-menu-trigger');
+    const panel = document.getElementById('user-menu-panel');
+    trigger.addEventListener('click', () => panel.classList.toggle('open'));
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target)) panel.classList.remove('open');
+    });
+
+    /* Busca (header mobile) */
+    function openSearch() {
+      document.getElementById('mobile-header-default').hidden = true;
+      document.getElementById('mobile-header-search').hidden = false;
+      document.getElementById('mobile-search-input').focus();
+    }
+    function closeSearch() {
+      document.getElementById('mobile-header-search').hidden = true;
+      document.getElementById('mobile-header-default').hidden = false;
+    }
+
+    /* Menu (drawer, header mobile) */
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    function openMobileMenu() {
+      mobileMenuOverlay.classList.add('sheetOpen');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+      mobileMenuOverlay.classList.remove('sheetOpen');
+      document.body.style.overflow = '';
+    }
+  </script>
+
+</body>
+</html>

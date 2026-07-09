@@ -1,0 +1,62 @@
+.eventListItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  text-decoration: none;
+  color: inherit;
+  transition: opacity var(--transition-fast);
+}
+
+.eventListItem:hover {
+  opacity: 0.75;
+}
+
+.eventListItemDate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--spacing-3xl);
+  height: var(--spacing-3xl);
+  border: var(--border-width-thin) solid var(--color-action-primary);
+  border-radius: var(--radius-sm);
+  line-height: var(--line-height-tight);
+}
+
+.eventListItemDay {
+  font-family: var(--font-display);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-action-primary);
+}
+
+.eventListItemMonth {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-action-primary);
+}
+
+.eventListItemText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+  min-width: 0;
+}
+
+.eventListItemTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-snug);
+}
+
+.eventListItemLocation {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}

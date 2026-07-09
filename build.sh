@@ -10,8 +10,8 @@ rm -rf public
 mkdir -p public/componentes
 mkdir -p public/storybook-ui
 mkdir -p public/painel-adm
-mkdir -p public/painel-usuario-desktop
-mkdir -p public/painel-usuario-mobile
+mkdir -p public/site-desktop
+mkdir -p public/site-mobile
 mkdir -p public/src
 mkdir -p public/shared
 
@@ -26,8 +26,8 @@ cp -r shared/. public/shared/
 
 echo "→ Copying panel files..."
 cp -r painel-adm/. public/painel-adm/
-cp -r painel-usuario-desktop/. public/painel-usuario-desktop/
-cp -r painel-usuario-mobile/. public/painel-usuario-mobile/
+cp -r site-desktop/. public/site-desktop/
+cp -r site-mobile/. public/site-mobile/
 
 echo "→ Copying assets..."
 cp -r src/. public/src/

@@ -7,6 +7,9 @@ export interface TabProps {
   tabs: TabItem[];
   defaultIndex?: number;
   onChange?: (index: number) => void;
+  /** 'segmented' (default) — abas em caixa, usado no painel-adm.
+   *  'underline' — abas simples com sublinhado, usado no site institucional. */
+  variant?: 'segmented' | 'underline';
 }
 
 function getPositionClass(i: number, total: number, s: typeof styles): string {
@@ -15,25 +18,25 @@ function getPositionClass(i: number, total: number, s: typeof styles): string {
   return s.tabMiddle;
 }
 
-export function Tab({ tabs, defaultIndex = 0, onChange }: TabProps) {
+export function Tab({ tabs, defaultIndex = 0, onChange, variant = 'segmented' }: TabProps) {
   const [active, setActive] = useState(defaultIndex);
 
   const select = (i: number) => { setActive(i); onChange?.(i); };
 
   return (
     <div className={styles.tabWrapper}>
-      <div className={styles.tabList} role="tablist">
+      <div className={[styles.tabList, variant === 'underline' ? styles.tabListUnderline : ''].filter(Boolean).join(' ')} role="tablist">
         {tabs.map((tab, i) => (
           <button
             key={i}
             role="tab"
             aria-selected={active === i}
             aria-controls={`tabpanel-${i}`}
-            className={[
-              styles.tabBtn,
-              active === i ? styles.tabBtnActive : '',
-              getPositionClass(i, tabs.length, styles),
-            ].filter(Boolean).join(' ')}
+            className={
+              variant === 'underline'
+                ? [styles.tabBtnUnderline, active === i ? styles.tabBtnUnderlineActive : ''].filter(Boolean).join(' ')
+                : [styles.tabBtn, active === i ? styles.tabBtnActive : '', getPositionClass(i, tabs.length, styles)].filter(Boolean).join(' ')
+            }
             onClick={() => select(i)}
           >
             {tab.label}

@@ -3,10 +3,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-bg-default);
+  background-color: var(--color-gray-white);
   position: relative;
   overflow: hidden;
   padding: var(--spacing-lg);
+}
+
+.page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../../src/beautiful-shot-oresund-bridge-malmo-sweden.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: var(--opacity-50);
+  z-index: 0;
 }
 
 .card {
@@ -14,11 +26,10 @@
   z-index: 1;
   width: 100%;
   max-width: 440px;
-  background: var(--color-glass-surface);
-  border: 1px solid var(--color-glass-border);
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
   border-radius: var(--radius-lg);
   padding: var(--spacing-lg) var(--spacing-2xl);
-  backdrop-filter: blur(var(--blur-glass));
   box-shadow: var(--shadow-lg), var(--shadow-highlight);
 }
 

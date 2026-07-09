@@ -22,7 +22,7 @@
   color: var(--color-text-primary);
   text-align: center;
 
-  background: var(--color-glass-surface);
+  background: var(--color-bg-surface);
   border: var(--border-width-thin) solid var(--color-border-muted);
   border-radius: var(--radius-sm);
   outline: none;

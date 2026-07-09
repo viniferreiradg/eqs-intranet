@@ -74,3 +74,16 @@
   font-size: var(--font-size-sm);
   user-select: none;
 }
+
+/* ── Responsivo (Home única) — empilha e centraliza ───────────────────── */
+@media (max-width: 640px) {
+  .pagination {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .controls {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

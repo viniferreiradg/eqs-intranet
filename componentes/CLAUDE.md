@@ -80,7 +80,7 @@ Os tokens semânticos (ex: `--color-text-primary`, `--color-bg-default`) se adap
 | Prop | Tipo | Padrão | Descrição |
 |------|------|--------|-----------|
 | `icon` | `ReactNode` | — | Ícone Lucide React |
-| `variant` | `'glass' \| 'brand'` | `'glass'` | Glass (padrão) ou gradiente brand |
+| `variant` | `'default' \| 'brand'` | `'default'` | Superfície sólida (padrão) ou gradiente brand |
 | `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | `md` = 48×48px |
 | `aria-label` | `string` | — | **Obrigatório** — acessibilidade |
 | `disabled` | `boolean` | — | Herdado do `<button>` |
@@ -323,7 +323,7 @@ const columns: TableColumn<MyType>[] = [
 ### AuthCard
 **Import:** `import { AuthCard } from '../AuthCard/AuthCard'`
 
-Container de tela inteira para fluxos de autenticação. Fundo escuro com blobs decorativos da brand, logo centralizada e card com glass effect. Usado em todas as telas de auth.
+Container de tela inteira para fluxos de autenticação. Fundo escuro, logo centralizada e card com superfície sólida (`--color-bg-surface`). Usado em todas as telas de auth.
 
 | Prop | Tipo | Descrição |
 |------|------|-----------|
@@ -386,7 +386,7 @@ const [senha, setSenha] = useState('');
 ### Divider
 **Import:** `import { Divider } from '../Divider/Divider'`
 
-Separador horizontal. Sem props. Usa `--color-border-glass` (rgba translúcido — ≈ `#ffffff21` dark / `#00000015` light) com `margin: 0 var(--spacing-xl)` para inset dentro de cards.
+Separador horizontal. Sem props. Usa `--color-border-subtle` (sólido) com `margin: 0 var(--spacing-xl)` para inset dentro de cards.
 
 ```tsx
 <Divider />
@@ -993,11 +993,12 @@ Seletor de intervalo de datas com layout horizontal (calendário à esquerda, co
 ### Card
 **CSS:** `../componentes/Card/Card.module.css`
 
-Container com efeito glass — semi-transparente nos dois temas, deixa os blobs de fundo aparecerem.
+Container de superfície sólida — mesmo fundo/borda em qualquer contexto (`--color-bg-surface` + `--color-border-subtle`).
 
 | Classe | Descrição |
 |--------|-----------|
-| `.card` | Glass surface + backdrop-filter blur(16px) + borda glass |
+| `.card` | Fundo sólido `--color-bg-surface` + borda `--color-border-subtle` |
+| `.card2` | Fundo sólido `--color-bg-elevated` (um degrau mais claro) + borda `--color-border-subtle` |
 
 ```html
 <div class="card">
@@ -1173,13 +1174,13 @@ Seletor multi-opção em formato de pílulas. Usa `<input type="checkbox">` ocul
 **Import:** `import { DetailGrid, DetailCard, TitleRow } from '../DetailCard/DetailCard'`
 **CSS:** `../componentes/DetailCard/DetailCard.module.css`
 
-Layout padrão de telas de detalhe (visualizar entidade). Grid de 2 colunas com cards glass que contêm pares chave–valor. Sempre usar em conjunto com `Card.module.css` (glass surface).
+Layout padrão de telas de detalhe (visualizar entidade). Grid de 2 colunas com cards de superfície sólida que contêm pares chave–valor. Sempre usar em conjunto com `Card.module.css` (superfície sólida).
 
 | Classe | Descrição |
 |--------|-----------|
 | `.titleRow` | Linha de cabeçalho: `h1` + badge de status lado a lado |
 | `.detailGrid` | Grid externo 2 colunas (`1fr 1fr`) |
-| `.detailCard` | Card que ocupa 1 coluna (só padding — glass vem do `.card`) |
+| `.detailCard` | Card que ocupa 1 coluna (só padding — fundo vem do `.card`) |
 | `.detailCardFull` | Card que ocupa as 2 colunas |
 | `.cardTitle` | Título interno do card (display, sm, semibold) |
 | `.infoGrid` | Grid `auto 1fr` para os pares chave–valor |
@@ -1433,7 +1434,6 @@ Gráfico de rosca com ApexCharts. Total centralizado automático, legenda na bas
 | `--color-border-subtle` | gray-800 | gray-100 |
 | `--color-border-muted` | gray-600 | gray-200 |
 | `--color-border-focus` | brand-400 | brand-500 |
-| `--color-border-glass` | rgba(255,255,255,0.13) | rgba(0,0,0,0.08) |
 
 #### Ação
 | Token | Uso |
@@ -1455,17 +1455,7 @@ Gráfico de rosca com ApexCharts. Total centralizado automático, legenda na bas
 --color-status-purple-bg / -fg
 ```
 
-#### Glass / Sidebar
-```css
---color-glass-surface     /* fundo translúcido */
---color-glass-border      /* borda translúcida */
---color-sidebar-bg        /* fundo da sidebar */
---color-nav-idle          /* cor dos ícones inativos */
---color-nav-active-bg     /* bg do item ativo */
---color-nav-active-text   /* texto do item ativo */
---color-nav-hover-bg      /* bg hover */
---color-table-bg / -head-bg / -border / -row-hover
-```
+> **Sidebar/Table/Card não têm tokens próprios de fundo.** O sistema é flat/sólido (sem blobs decorativos por trás), então Sidebar, Table e Card usam diretamente os tokens semânticos acima: fundo `--color-bg-surface`, hover `--color-bg-subtle`, item ativo `--color-bg-brand`/`--color-text-brand`, borda `--color-border-subtle`. Não recriar tokens dedicados tipo `--color-sidebar-bg`/`--color-nav-*`/`--color-table-*` — isso foi removido de propósito (era um resquício "glass" do produto anterior, renderizando sobre um fundo de blobs que não existe mais no sistema).
 
 #### Gradiente e glow brand
 ```css
@@ -1582,8 +1572,585 @@ Gráfico de rosca com ApexCharts. Total centralizado automático, legenda na bas
 
 ---
 
+### SiteHeader
+**Import:** `import { SiteHeader } from '../SiteHeader/SiteHeader'`
 
-## Telas HTML standalone (painel-adm, painel-usuario-desktop, painel-usuario-mobile)
+Cabeçalho do site institucional (`site-desktop`). Usa `Logo`, `Input`, `Avatar` e `DropdownMenu` internamente — sempre linkar os quatro CSS junto do `SiteHeader.module.css` em telas HTML.
+
+| Prop | Tipo | Descrição |
+|------|------|-----------|
+| `navItems` | `{ label: string; href: string; active?: boolean }[]` | Itens do menu horizontal |
+| `user` | `{ name: string; initials: string }` | Usuário exibido no avatar |
+| `onSearchChange` | `(value: string) => void` | Callback da busca |
+| `onProfileClick` | `() => void` | Callback de "Meu Perfil" |
+| `onLogout` | `() => void` | Callback de "Sair" |
+
+```tsx
+<SiteHeader
+  navItems={[
+    { label: 'Home', href: '/', active: true },
+    { label: 'Notícias', href: '/noticias' },
+    { label: 'Comunicados', href: '/comunicados' },
+    { label: 'Sobre', href: '/sobre' },
+    { label: 'Links Úteis', href: '/links-uteis' },
+  ]}
+  user={{ name: 'Admin', initials: 'AD' }}
+/>
+```
+
+---
+
+### Hero
+**Import:** `import { Hero } from '../Hero/Hero'`
+
+Banner de destaque no topo da Home do site institucional.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `image` | `string` | — | URL da imagem de fundo |
+| `tag` | `string` | — | Selo (ex: "Destaque") |
+| `title` | `string` | — | Título principal |
+| `description` | `string` | — | Texto de apoio |
+| `href` | `string` | `'#'` | Link do CTA |
+| `linkLabel` | `string` | `'Ler notícia completa'` | Texto do CTA |
+| `rightSlot` | `ReactNode` | — | Painel opcional do lado direito do Hero, ex: `QuickLinksCard` |
+
+```tsx
+<Hero image="/img/destaque.jpg" tag="Destaque" title="Expansão do Terminal Norte" description="..." href="/noticias/1" />
+```
+
+Com painel lateral:
+```tsx
+<Hero
+  image="/img/destaque.jpg"
+  tag="Destaque"
+  title="Expansão do Terminal Norte"
+  description="..."
+  rightSlot={<QuickLinksCard links={[...]} />}
+/>
+```
+
+**Responsivo:** abaixo de 640px o `.hero` reduz sozinho via `@media` no `Hero.module.css` (título, descrição, min-height, remove `heroPanel`) — não precisa de prop nem de classe extra. A Home vive num arquivo único (`site-desktop/index.html`) que serve desktop e mobile; ver "Home única — desktop + mobile responsiva" em `rules.md`.
+
+---
+
+### QuickLinksCard
+**Import:** `import { QuickLinksCard } from '../QuickLinksCard/QuickLinksCard'`
+
+Painel flutuante de atalhos — usado no `rightSlot` do Hero da Home.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `links` | `{ icon: LucideIcon; title: string; subtitle?: string; href?: string }[]` | — | Lista de atalhos (obrigatório) |
+| `footerLabel` | `string` | `'Acessar todos os links'` | Texto do CTA de rodapé |
+| `footerHref` | `string` | `'#'` | Link do CTA de rodapé |
+
+```tsx
+<QuickLinksCard
+  links={[
+    { icon: LifeBuoy, title: 'Central de Suporte', subtitle: 'Abra um chamado', href: '/suporte' },
+    { icon: BookOpen, title: 'Manual da Marca EQS', subtitle: 'Diretrizes da identidade', href: '/manual' },
+    { icon: ShieldCheck, title: 'Código de Conduta', subtitle: 'Políticas internas', href: '/conduta' },
+  ]}
+  footerHref="/links-uteis"
+/>
+```
+
+---
+
+### NewsCard
+**Import:** `import { NewsCard } from '../NewsCard/NewsCard'`
+
+Card de conteúdo reaproveitado nas prévias de Notícias e Comunicados.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `image` | `string` | — | Thumbnail (16:9). Sem imagem, mantém o placeholder de fundo |
+| `tag` | `string` | — | Categoria/rótulo |
+| `tagStatus` | `'success' \| 'info' \| 'warning' \| 'error' \| 'disabled'` | `'info'` | Cor do selo |
+| `title` | `string` | — | Título (obrigatório) |
+| `excerpt` | `string` | — | Resumo — corta em 2 linhas |
+| `date` | `string` | — | Data formatada |
+| `href` | `string` | `'#'` | Link do card |
+
+```tsx
+<NewsCard image="/img/1.jpg" tag="Institucional" title="..." excerpt="..." date="12 dez 2026" href="/noticias/1" />
+```
+
+---
+
+### EventCard
+**Import:** `import { EventCard } from '../EventCard/EventCard'`
+
+Card de evento — seção "Próximos Eventos" da Home e página completa de Eventos. Data em destaque como chip sobre a imagem, local com ícone `MapPin`.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `image` | `string` | — | Thumbnail (16:9). Sem imagem, mantém o placeholder de fundo |
+| `day` | `string` | — | Dia do evento (obrigatório), ex: `'18'` |
+| `month` | `string` | — | Mês abreviado (obrigatório), ex: `'Dez'` |
+| `title` | `string` | — | Título (obrigatório) |
+| `location` | `string` | — | Local do evento (obrigatório) |
+| `href` | `string` | `'#'` | Link do card |
+
+```tsx
+<EventCard image="/img/evento.jpg" day="18" month="Dez" title="Confraternização EQS 2026" location="Auditório — Sede SP" href="/eventos/1" />
+```
+
+---
+
+### EventHighlightCard
+**Import:** `import { EventHighlightCard } from '../EventHighlightCard/EventHighlightCard'`
+
+Card do evento em destaque — topo do painel "Próximos Eventos" da Home.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `image` | `string` | — | Foto de fundo |
+| `kicker` | `string` | `'Agenda'` | Selo pequeno sobre a foto |
+| `heading` | `string` | `'Próximo Evento'` | Título grande sobre a foto |
+| `day` | `string` | — | Dia do evento (obrigatório) |
+| `month` | `string` | — | Mês abreviado (obrigatório) |
+| `title` | `string` | — | Nome do evento (obrigatório) |
+| `meta` | `{ icon: LucideIcon; label: string }[]` | — | Linha de informações (local, horário etc.) |
+| `description` | `string` | — | Texto de apoio — corta em 2 linhas |
+| `ctaLabel` | `string` | `'Confirmar presença'` | Texto do CTA |
+| `href` | `string` | `'#'` | Link do CTA |
+
+```tsx
+<EventHighlightCard
+  image="/img/evento.jpg"
+  day="18"
+  month="Dez"
+  title="Confraternização EQS 2026"
+  meta={[{ icon: MapPin, label: 'Auditório — Sede SP' }, { icon: Clock, label: 'Início às 19h' }]}
+  description="Um momento especial para celebrar nossas conquistas..."
+  href="/eventos/1"
+/>
+```
+
+---
+
+### EventListItem
+**Import:** `import { EventListItem } from '../EventListItem/EventListItem'`
+
+Linha compacta de evento — lista "Outros eventos" ao lado do `EventHighlightCard`.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `day` | `string` | — | Dia do evento (obrigatório) |
+| `month` | `string` | — | Mês abreviado (obrigatório) |
+| `title` | `string` | — | Título (obrigatório) |
+| `location` | `string` | — | Local do evento (obrigatório) |
+| `href` | `string` | `'#'` | Link do item |
+
+```tsx
+<EventListItem day="22" month="Dez" title="Workshop de Segurança do Trabalho" location="Sala de Treinamento — Sede RJ" href="/eventos/2" />
+```
+
+---
+
+### EventCalendar
+**Import:** `import { EventCalendar } from '../EventCalendar/EventCalendar'`
+
+Calendário compacto — coluna lateral do painel "Próximos Eventos" da Home. Estático (protótipo): sem lógica real de troca de mês.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `monthLabel` | `string` | — | Ex: `'Dezembro 2026'` (obrigatório) |
+| `weekdays` | `string[]` | `['Dom','Seg','Ter','Qua','Qui','Sex','Sáb']` | Cabeçalho dos dias da semana |
+| `days` | `(number \| null)[]` | — | Grade de 7 colunas — `null` para células em branco (obrigatório) |
+| `highlightDays` | `number[]` | `[]` | Dias a destacar (com evento) |
+| `footerLabel` | `string` | `'Ver todos os eventos'` | Texto do link de rodapé |
+| `footerHref` | `string` | `'#'` | Link do rodapé |
+
+```tsx
+<EventCalendar
+  monthLabel="Dezembro 2026"
+  days={[null, null, 1, 2, 3, 4, 5, /* ... */ 31, null, null]}
+  highlightDays={[18]}
+  footerHref="/eventos"
+/>
+```
+
+---
+
+### EventInfoCard
+**Import:** `import { EventInfoCard } from '../EventInfoCard/EventInfoCard'`
+
+Card lateral com dados essenciais do evento (data, local, público-alvo, inscrições) + CTAs — usado na página de detalhe do evento (`detalhes-evento.html`).
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `rows` | `EventInfoRow[]` | — | Linhas ícone + label + valor(es) (obrigatório) |
+| `ctaLabel` | `string` | `'Confirmar presença'` | Texto do CTA primário |
+| `href` | `string` | `'#'` | Link do CTA primário |
+| `calendarLabel` | `string` | `'Adicionar ao calendário'` | Texto do link secundário |
+| `calendarHref` | `string` | `'#'` | Link do link secundário |
+
+**`EventInfoRow`:** `{ icon: LucideIcon; label: string; lines: string[]; strongFirstLine?: boolean }` — `strongFirstLine` destaca a primeira linha (ex: nome do local).
+
+```tsx
+<EventInfoCard
+  rows={[
+    { icon: Calendar, label: 'Data', lines: ['08 de dezembro de 2026', 'Das 09h às 17h'] },
+    { icon: MapPin, label: 'Local', lines: ['Auditório — Sede SP', 'Av. das Nações Unidas, 12.901'], strongFirstLine: true },
+    { icon: Users, label: 'Público-alvo', lines: ['Equipes de Engenharia, Projetos e Planejamento'] },
+    { icon: CheckCircle, label: 'Inscrições', lines: ['Até 03 de dezembro de 2026'] },
+  ]}
+  href="/eventos/1"
+/>
+```
+
+**HTML standalone — classes:** `.eventInfoCard`, `.eventInfoRow`, `.eventInfoIcon`, `.eventInfoText`, `.eventInfoLabel`, `.eventInfoValue`, `.eventInfoValueStrong`, `.eventInfoActions`, `.eventInfoCta`, `.eventInfoCalendarLink` (ver exemplo completo em `rules.md`).
+
+---
+
+### EventScheduleItem
+**Import:** `import { EventScheduleItem } from '../EventScheduleItem/EventScheduleItem'`
+
+Item da lista "Programação" na página de detalhe do evento — ponto + conector vertical, horário e título na mesma linha, descrição abaixo. Mesma família visual do `Timeline`, mas sem estados done/active/pending (sempre cor da marca).
+
+| Prop | Tipo | Descrição |
+|------|------|-----------|
+| `time` | `string` | Horário (obrigatório) |
+| `title` | `string` | Título do item da programação (obrigatório) |
+| `description` | `string` | Texto de apoio (opcional) |
+
+```tsx
+<EventScheduleItem time="09h00" title="Abertura" description="Boas-vindas e apresentação dos objetivos do workshop." />
+```
+
+**Container:** envolver vários num elemento com classe `.eventScheduleList` (`shared/page.css`) — esconde automaticamente o conector e o padding-bottom do último item.
+
+---
+
+### DocumentListItem
+**Import:** `import { DocumentListItem } from '../DocumentListItem/DocumentListItem'`
+
+Item de lista de arquivo para download — usado na seção "Materiais e documentos" da página de detalhe do evento.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `name` | `string` | — | Nome do arquivo (obrigatório) |
+| `meta` | `string` | — | Ex: `'PDF · 8.4 MB'` (obrigatório) |
+| `href` | `string` | `'#'` | Link de download |
+
+```tsx
+<DocumentListItem name="Apresentação BIM 4.0" meta="PDF · 8.4 MB" href="/docs/apresentacao.pdf" />
+```
+
+**Container:** envolver vários num elemento com classe `.docList` (`shared/page.css`).
+
+---
+
+### CommunicationListItem
+**Import:** `import { CommunicationListItem } from '../CommunicationListItem/CommunicationListItem'`
+
+Linha de lista vertical — usada na seção Comunicados da Home.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `icon` | `LucideIcon` | — | Ícone do comunicado (obrigatório) |
+| `title` | `string` | — | Título (obrigatório) |
+| `description` | `string` | — | Resumo — corta em 1 linha |
+| `date` | `string` | — | Data formatada |
+| `href` | `string` | `'#'` | Link do item |
+
+```tsx
+<CommunicationListItem icon={HeartPulse} title="..." description="..." date="10 de dezembro de 2026" href="/comunicados/1" />
+```
+
+Combine vários dentro de um container com a classe `.commsPanel` (`shared/page.css`) para o efeito de card com divisórias entre os itens.
+
+---
+
+### StatsBanner
+**Import:** `import { StatsBanner } from '../StatsBanner/StatsBanner'`
+
+Banner escuro full-bleed com números de destaque — seção Sobre da Home. Igual ao `Hero`, renderiza direto em `<main>`, fora de `.siteSection`. Altura via `padding: var(--spacing-3xl) 0`, não `min-height`. Título/descrição/CTA ficam numa linha (`.statsBannerTop`); os números (`stats`) ficam numa linha separada abaixo, ocupando 100% da largura.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `image` | `string` | — | Foto de fundo (opcional — sem ela, cai no fundo escuro sólido) |
+| `kicker` | `string` | `'Institucional'` | Selo pequeno |
+| `title` | `string` | — | Título (obrigatório) |
+| `description` | `string` | — | Texto de apoio |
+| `stats` | `{ icon: LucideIcon; value: string; label: string }[]` | — | Números de destaque. **Opcional** — sem `stats`, renderiza só kicker/título/descrição/CTA (usado no banner final da página Sobre, que não tem números) |
+| `ctaLabel` | `string` | `'Saiba mais'` | Texto do CTA |
+| `href` | `string` | `'#'` | Link do CTA |
+
+```tsx
+<StatsBanner
+  title="Sobre a EQS"
+  description="A EQS Engenharia atua há mais de 20 anos..."
+  stats={[
+    { icon: Clock, value: '20+', label: 'Anos de história' },
+    { icon: Users, value: '350+', label: 'Colaboradores' },
+    { icon: Map, value: '18', label: 'Estados atendidos' },
+    { icon: ShieldCheck, value: '7', label: 'Escritórios' },
+  ]}
+  ctaLabel="Saiba mais sobre a EQS"
+  href="/sobre"
+/>
+```
+
+---
+
+### AboutHero
+**Import:** `import { AboutHero } from '../AboutHero/AboutHero'`
+
+Bloco de topo da página Sobre. Texto+CTA à esquerda, foto à direita com um card de estatísticas flutuando sobre a borda inferior da imagem. Diferente do `Hero` (full-bleed, texto sobre a foto).
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `kicker` | `string` | — | Selo pequeno (obrigatório) |
+| `title` | `string` | — | Título grande (obrigatório) |
+| `description` | `string` | — | Texto de apoio (obrigatório) |
+| `ctaLabel` | `string` | — | Texto do CTA (opcional — sem ele, não renderiza o botão) |
+| `href` | `string` | `'#'` | Link do CTA |
+| `image` | `string` | — | Foto à direita (obrigatório) |
+| `stats` | `{ icon: LucideIcon; value: string; label: string }[]` | — | Estatísticas do card flutuante (obrigatório) |
+
+```tsx
+<AboutHero
+  kicker="Sobre a EQS"
+  title="Construindo o futuro com engenharia, inovação e compromisso"
+  description="Há mais de 20 anos, a EQS Engenharia entrega soluções inteligentes..."
+  ctaLabel="Conheça nossa história"
+  image="/img/bridge.jpg"
+  stats={[
+    { icon: Clock, value: '20+', label: 'Anos de história' },
+    { icon: Users, value: '350+', label: 'Colaboradores' },
+    { icon: MapPin, value: '18', label: 'Estados atendidos' },
+    { icon: Building2, value: '7', label: 'Escritórios' },
+  ]}
+/>
+```
+
+---
+
+### ContentSplit
+**Import:** `import { ContentSplit } from '../ContentSplit/ContentSplit'`
+
+Bloco genérico imagem + texto lado a lado — reaproveitável em qualquer página institucional (usado em "Nossa história" na página Sobre).
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `image` | `string` | — | Imagem (obrigatório) |
+| `imagePosition` | `'left' \| 'right'` | `'left'` | Lado da imagem — inverte via `order`, sem duplicar markup |
+| `kicker` | `string` | — | Selo pequeno (obrigatório) |
+| `title` | `string` | — | Título (obrigatório) |
+| `paragraphs` | `string[]` | — | Um `<p>` por item do array (obrigatório) |
+| `ctaLabel` | `string` | — | Texto do CTA (opcional) |
+| `href` | `string` | `'#'` | Link do CTA |
+
+```tsx
+<ContentSplit
+  image="/img/historia.jpg"
+  kicker="Nossa história"
+  title="De um propósito sólido para grandes conquistas"
+  paragraphs={[
+    'A EQS nasceu com o propósito de transformar desafios em oportunidades...',
+    'Ao longo dessas duas décadas, evoluímos constantemente...',
+  ]}
+  ctaLabel="Linha do tempo"
+/>
+```
+
+---
+
+### ValueCard
+**Import:** `import { ValueCard } from '../ValueCard/ValueCard'`
+
+Ícone circular (outline) + título + descrição, centralizado — seção "Nossos valores" da página Sobre.
+
+| Prop | Tipo | Descrição |
+|------|------|-----------|
+| `icon` | `LucideIcon` | Ícone (obrigatório) |
+| `title` | `string` | Título (obrigatório) |
+| `description` | `string` | Texto de apoio (obrigatório) |
+
+```tsx
+<ValueCard icon={ShieldCheck} title="Segurança" description="Cuidamos das pessoas acima de tudo, sempre." />
+```
+
+---
+
+### LeadershipCard
+**Import:** `import { LeadershipCard } from '../LeadershipCard/LeadershipCard'`
+
+Foto + nome + cargo + link do LinkedIn — seção "Liderança" da página Sobre. Compõe internamente `Card.module.css`. O ícone do LinkedIn não existe mais no `lucide-react` (ícones de marca foram removidos da lib) — usa o texto `"in"` estilizado dentro de um círculo outline.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `photo` | `string` | — | Foto (obrigatório) |
+| `name` | `string` | — | Nome (obrigatório) |
+| `role` | `string` | — | Cargo (obrigatório) |
+| `linkedinHref` | `string` | — | Link do LinkedIn (opcional — sem ele, não renderiza o botão) |
+
+```tsx
+<LeadershipCard photo="/img/marcos.jpg" name="Marcos Aurélio" role="Diretor Presidente" linkedinHref="https://linkedin.com/in/..." />
+```
+
+---
+
+### SearchResultItem
+**Import:** `import { SearchResultItem } from '../SearchResultItem/SearchResultItem'`
+
+Linha genérica de resultado de busca — página de Pesquisa. O slot `leading` é livre (`ReactNode`), permitindo reaproveitar a mesma linha para notícias/eventos (miniatura + date-badge) e comunicados/departamentos/links (bolinha vermelha), evitando 5 componentes quase idênticos.
+
+| Prop | Tipo | Descrição |
+|------|------|-----------|
+| `leading` | `ReactNode` | Miniatura, date-badge ou bolinha — slot livre à esquerda (obrigatório) |
+| `title` | `ReactNode` | Título (obrigatório) |
+| `description` | `string` | Texto de apoio, corta em 1 linha (opcional) |
+| `meta` | `ReactNode` | Conteúdo à direita — data, contagem, local etc. (opcional) |
+| `showChevron` | `boolean` | Exibe seta à direita (opcional) |
+| `href` | `string` | Link do item (padrão `'#'`) |
+
+```tsx
+<SearchResultItem
+  leading={<img className={styles.searchResultItemImage} src="..." alt="" />}
+  title="Workshop BIM 4.0 reúne equipe técnica..."
+  description="O evento apresentou as novas ferramentas..."
+  meta={<span>08 dez 2026</span>}
+/>
+
+{/* Comunicados / Áreas e Departamentos / Links Úteis — leading em bolinha vermelha */}
+<SearchResultItem
+  leading={<span className={styles.searchResultItemDot} />}
+  title="Inscrições abertas para o Workshop de Liderança 2027"
+  description="As inscrições já estão abertas..."
+/>
+```
+
+**Container:** use `.commsPanel` (`shared/page.css`) para agrupar vários `SearchResultItem` num painel branco com bordas entre os itens.
+
+---
+
+### SiteHeaderMobile
+**Import:** `import { SiteHeaderMobile } from '../SiteHeaderMobile/SiteHeaderMobile'`
+
+Header do site institucional em telas mobile. 3 colunas: busca · logo · hambúrguer. Tocar na busca troca a linha por um input + botão fechar (estado interno `searchOpen`). O menu do hambúrguer é responsabilidade de quem usa o componente — reaproveita `Sheet` (ver exemplo abaixo), não é renderizado pelo próprio `SiteHeaderMobile`.
+
+| Prop | Tipo | Descrição |
+|------|------|-----------|
+| `onMenuOpen` | `() => void` | Chamado ao tocar no ícone de hambúrguer |
+| `onSearch` | `(value: string) => void` | Chamado a cada mudança no input de busca |
+
+```tsx
+const [menuOpen, setMenuOpen] = useState(false);
+
+<SiteHeaderMobile onMenuOpen={() => setMenuOpen(true)} onSearch={handleSearch} />
+
+<Sheet open={menuOpen} onClose={() => setMenuOpen(false)} title="Menu" footer={<FooterActions />}>
+  <nav className={styles.siteHeaderMobileNavList}>
+    <a className={`${styles.siteHeaderMobileNavItem} ${styles.siteHeaderMobileNavItemActive}`} href="/">Home</a>
+    <a className={styles.siteHeaderMobileNavItem} href="/noticias">Notícias</a>
+    {/* ...demais itens */}
+  </nav>
+</Sheet>
+```
+
+Classes do conteúdo do menu (usadas dentro do `Sheet`): `.siteHeaderMobileMenuPanel` (largura — combinar com `.sheetPanel`), `.siteHeaderMobileNavList`, `.siteHeaderMobileNavItem`, `.siteHeaderMobileNavItemActive`, `.siteHeaderMobileFooterList`, `.siteHeaderMobileFooterItem`, `.siteHeaderMobileFooterItemDestructive`
+
+**No HTML estático da Home (`site-desktop/index.html`):** este header convive no mesmo arquivo que o `SiteHeader` desktop — um leva `.hideMobile`, o outro `.hideDesktop` (ver `.hideMobile`/`.hideDesktop` em `rules.md`), e só um aparece por vez conforme a largura (breakpoint 640px).
+
+---
+
+### Footer
+**Import:** `import { Footer } from '../Footer/Footer'`
+
+| Prop | Tipo | Descrição |
+|------|------|-----------|
+| `columns` | `{ title: string; links: { label: string; href: string }[] }[]` | Colunas de links — tem default com Portal/Institucional |
+
+```tsx
+<Footer />
+```
+
+---
+
+### DepartmentCard
+**Import:** `import { DepartmentCard } from '../DepartmentCard/DepartmentCard'`
+
+Card de área/departamento — prévia compacta usada só na Home (avatar stack com "+N"). Para a página completa `areas-departamentos.html`, ver `DepartmentDetailCard` (lista todos os colaboradores, sem corte). Compõe internamente `Card.module.css` (`.card`, superfície sólida) + `Avatar` para o gestor e a pilha de colaboradores.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `icon` | `LucideIcon` | — | Ícone do departamento |
+| `name` | `string` | — | Nome do departamento |
+| `manager` | `{ name: string; initials: string; avatarUrl?: string }` | — | Gestor responsável |
+| `collaborators` | `DepartmentPerson[]` | — | Lista de colaboradores |
+| `maxAvatars` | `number` | `4` | Quantos avatares mostrar antes do "+N" |
+| `href` | `string` | `'#'` | Link do card |
+
+```tsx
+<DepartmentCard
+  icon={Megaphone}
+  name="Marketing"
+  manager={{ name: 'Camila Rocha', initials: 'CR' }}
+  collaborators={[
+    { name: 'João Silva', initials: 'JS' },
+    { name: 'Marina Costa', initials: 'MC' },
+  ]}
+  href="/areas-departamentos"
+/>
+```
+
+---
+
+### DepartmentDetailCard
+**Import:** `import { DepartmentDetailCard } from '../DepartmentDetailCard/DepartmentDetailCard'`
+
+Card completo de área/departamento — usado na página `areas-departamentos.html`. Diferente do `DepartmentCard`: lista **todos** os colaboradores (nunca corta com "ver todos") com e-mail de cada, e inclui um texto de resumo da área. Compõe internamente `Card.module.css` (`.card`) + `Avatar`.
+
+| Prop | Tipo | Descrição |
+|------|------|-----------|
+| `icon` | `LucideIcon` | Ícone do departamento (obrigatório) |
+| `name` | `string` | Nome do departamento (obrigatório) |
+| `manager` | `DepartmentContact` | Gestor responsável (obrigatório) |
+| `collaborators` | `DepartmentContact[]` | Lista completa de colaboradores — sem limite (obrigatório) |
+| `description` | `string` | Texto de resumo da área (obrigatório) |
+
+**`DepartmentContact`:** `{ name: string; initials: string; email: string; avatarUrl?: string }`
+
+```tsx
+<DepartmentDetailCard
+  icon={Megaphone}
+  name="Marketing"
+  manager={{ name: 'Camila Rocha', initials: 'CR', email: 'camila.rocha@eqs.com.br' }}
+  collaborators={[
+    { name: 'João Pereira', initials: 'JP', email: 'joao.pereira@eqs.com.br' },
+    { name: 'Mariana Santos', initials: 'MS', email: 'mariana.santos@eqs.com.br' },
+  ]}
+  description="Responsável por fortalecer a marca EQS..."
+/>
+```
+
+---
+
+### LinkCard
+**Import:** `import { LinkCard } from '../LinkCard/LinkCard'`
+
+Card simples de atalho — ícone + título + descrição, usado na seção Links Úteis da Home. Mesma família visual do `DepartmentCard` (compõe com `Card.module.css`, mesmo ícone 40×40), só que sem gestor/colaboradores.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `icon` | `LucideIcon` | — | Ícone do atalho (obrigatório) |
+| `title` | `string` | — | Título (obrigatório) |
+| `description` | `string` | — | Texto de apoio |
+| `href` | `string` | `'#'` | Link do card |
+
+```tsx
+<LinkCard icon={BookOpen} title="Manual da Marca EQS" description="Diretrizes de identidade visual e uso da marca." href="/links-uteis" />
+```
+
+---
+
+
+## Telas HTML standalone (painel-adm, site-desktop, site-mobile)
 
 Telas fora do Storybook são arquivos `.html` servidos via HTTP server. **Regra de CSS:**
 

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buscar — EQS Intranet</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/DropdownMenu/DropdownMenu.module.css" />
+  <link rel="stylesheet" href="../componentes/SiteHeader/SiteHeader.module.css" />
+  <link rel="stylesheet" href="../componentes/SiteHeaderMobile/SiteHeaderMobile.module.css" />
+  <link rel="stylesheet" href="../componentes/Sheet/Sheet.module.css" />
+  <link rel="stylesheet" href="../componentes/Breadcrumb/Breadcrumb.module.css" />
+  <link rel="stylesheet" href="../componentes/Card/Card.module.css" />
+  <link rel="stylesheet" href="../componentes/SearchResultItem/SearchResultItem.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Footer/Footer.module.css" />
+</head>
+<body class="layout-site">
+
+  <header class="siteHeader hideMobile">
+    <div class="siteHeaderInner">
+      <span class="logoDefault logoSm" role="img" aria-label="EQS Engenharia"></span>
+
+      <nav class="siteHeaderNav">
+        <a href="index.html" class="siteHeaderNavItem">Home</a>
+        <a href="noticias.html" class="siteHeaderNavItem">Notícias</a>
+        <a href="eventos.html" class="siteHeaderNavItem">Eventos</a>
+        <a href="comunicados.html" class="siteHeaderNavItem">Comunicados</a>
+        <a href="areas-departamentos.html" class="siteHeaderNavItem">Áreas e Departamentos</a>
+        <a href="sobre.html" class="siteHeaderNavItem">Sobre</a>
+        <a href="links-uteis.html" class="siteHeaderNavItem">Links Úteis</a>
+      </nav>
+
+      <div class="siteHeaderActions">
+        <div class="siteHeaderSearch wrapper">
+          <div class="inputWrap hasLeft">
+            <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+            <input class="input" type="text" placeholder="Buscar..." id="search-input-desktop" />
+          </div>
+        </div>
+
+        <div class="dropdownMenu" id="user-menu">
+          <button class="siteHeaderAvatarBtn" id="user-menu-trigger" aria-label="Menu do usuário" type="button">
+            <div class="avatar sm"><img class="avatarImg" src="../src/avatar/team-01.jpg" alt="Usuário" /></div>
+          </button>
+          <div class="dropdownMenu__panel end" id="user-menu-panel">
+            <button class="dropdownMenu__item" type="button" onclick="location.href='perfil.html'">
+              <span class="dropdownMenu__item__icon"><i data-lucide="user" width="16" height="16"></i></span>
+              Meu Perfil
+            </button>
+            <button class="dropdownMenu__item dropdownMenu__item--destructive" type="button" onclick="location.href='../painel-adm/login.html'">
+              <span class="dropdownMenu__item__icon"><i data-lucide="log-out" width="16" height="16"></i></span>
+              Sair
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Header mobile: busca | logo | hambúrguer ─────────────── -->
+  <header class="siteHeaderMobile hideDesktop">
+    <div class="siteHeaderMobileRow" id="mobile-header-default">
+      <button class="siteHeaderMobileIconBtn" type="button" aria-label="Buscar" onclick="openSearch()">
+        <i data-lucide="search" width="20" height="20"></i>
+      </button>
+      <span class="logoDefault logoSm" role="img" aria-label="EQS Engenharia"></span>
+      <button class="siteHeaderMobileIconBtn" type="button" aria-label="Abrir menu" onclick="openMobileMenu()">
+        <i data-lucide="menu" width="20" height="20"></i>
+      </button>
+    </div>
+    <div class="siteHeaderMobileSearchRow" id="mobile-header-search" hidden>
+      <input class="siteHeaderMobileSearchInput" type="text" placeholder="Buscar..." id="mobile-search-input" />
+      <button class="siteHeaderMobileIconBtn" type="button" aria-label="Fechar busca" onclick="closeSearch()">
+        <i data-lucide="x" width="20" height="20"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── Menu mobile (drawer) — reaproveita o Sheet ───────────── -->
+  <div class="sheetOverlay hideDesktop" id="mobile-menu-overlay" onclick="closeMobileMenu()">
+    <aside class="sheetPanel siteHeaderMobileMenuPanel" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="Menu">
+      <div class="sheetHeader">
+        <span class="sheetTitle">Menu</span>
+        <button class="sheetClose" type="button" aria-label="Fechar" onclick="closeMobileMenu()">
+          <i data-lucide="x" width="16" height="16"></i>
+        </button>
+      </div>
+      <div class="sheetBody">
+        <nav class="siteHeaderMobileNavList">
+          <a href="index.html" class="siteHeaderMobileNavItem">Home</a>
+          <a href="noticias.html" class="siteHeaderMobileNavItem">Notícias</a>
+          <a href="eventos.html" class="siteHeaderMobileNavItem">Eventos</a>
+          <a href="comunicados.html" class="siteHeaderMobileNavItem">Comunicados</a>
+          <a href="areas-departamentos.html" class="siteHeaderMobileNavItem">Áreas e Departamentos</a>
+          <a href="sobre.html" class="siteHeaderMobileNavItem">Sobre</a>
+          <a href="links-uteis.html" class="siteHeaderMobileNavItem">Links Úteis</a>
+        </nav>
+      </div>
+      <div class="sheetFooter">
+        <div class="siteHeaderMobileFooterList">
+          <a class="siteHeaderMobileFooterItem" href="perfil.html">
+            <i data-lucide="user" width="16" height="16"></i> Meu Perfil
+          </a>
+          <a class="siteHeaderMobileFooterItem siteHeaderMobileFooterItemDestructive" href="../painel-adm/login.html">
+            <i data-lucide="log-out" width="16" height="16"></i> Sair
+          </a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ── Breadcrumb ────────────────────────────────────────────── -->
+  <div class="siteBreadcrumbBar">
+    <div class="siteContainer">
+      <nav aria-label="Breadcrumb" class="nav">
+        <ol class="list">
+          <li class="item">
+            <a href="index.html" class="link">
+              Home
+              <span class="sep" aria-hidden="true"><i data-lucide="chevron-right" width="12" height="12"></i></span>
+            </a>
+          </li>
+          <li class="item"><span class="current" aria-current="page">Buscar</span></li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <main class="siteMain">
+    <section class="siteSection">
+      <div class="siteContainer">
+
+        <div class="searchResultsHeader">
+          <div class="searchResultsHeaderTop">
+            <div>
+              <h1 class="searchResultsTitle">Resultados para "<span id="search-term">workshop</span>"</h1>
+              <p class="searchResultsSubtitle">Encontramos <strong>24 resultados</strong> relacionados à sua busca.</p>
+            </div>
+            <button class="btn secondary" type="button" onclick="location.href='index.html'">
+              Limpar busca <i data-lucide="x" width="16" height="16"></i>
+            </button>
+          </div>
+
+          <div class="wrapper searchResultsInput">
+            <div class="inputWrap hasLeft">
+              <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+              <input class="input" type="text" placeholder="Buscar..." id="search-page-input" value="workshop" />
+            </div>
+          </div>
+        </div>
+
+        <div class="searchResultsGrid">
+          <div class="searchResultsMain">
+
+            <!-- ── Notícias ──────────────────────────────────────── -->
+            <div>
+              <div class="searchResultGroupHeader">
+                <div class="searchResultGroupTitle">
+                  <span class="searchResultGroupIcon"><i data-lucide="file-text" width="18" height="18"></i></span>
+                  <h2 class="searchResultGroupName">Notícias <span class="searchResultGroupCount">(3)</span></h2>
+                </div>
+                <button class="btn secondary" type="button" onclick="location.href='noticias.html'">Ver todos</button>
+              </div>
+              <div class="commsPanel">
+                <a class="searchResultItem" href="noticia-detalhe.html">
+                  <div class="searchResultItemLeading">
+                    <img class="searchResultItemImage" src="../src/noticia-1.jpg" alt="" />
+                  </div>
+                  <div class="searchResultItemText">
+                    <span class="searchResultItemTitle">Workshop BIM 4.0 reúne equipe técnica no auditório principal</span>
+                    <span class="searchResultItemDescription">O evento apresentou as novas ferramentas de modelagem tridimensional que já estão sendo incorporadas aos projetos...</span>
+                  </div>
+                  <div class="searchResultItemMeta"><span>08 dez 2026</span></div>
+                </a>
+                <a class="searchResultItem" href="noticias.html">
+                  <div class="searchResultItemLeading">
+                    <img class="searchResultItemImage" src="../src/business-people-meeting.jpg" alt="" />
+                  </div>
+                  <div class="searchResultItemText">
+                    <span class="searchResultItemTitle">EQS promove workshop sobre inovação em infraestrutura</span>
+                    <span class="searchResultItemDescription">Encontro reuniu colaboradores de diferentes áreas para discutir novas soluções e tecnologias aplicadas aos nossos projetos.</span>
+                  </div>
+                  <div class="searchResultItemMeta"><span>21 nov 2026</span></div>
+                </a>
+                <a class="searchResultItem" href="noticias.html">
+                  <div class="searchResultItemLeading">
+                    <img class="searchResultItemImage" src="../src/people-taking-part-high-protocol-event.jpg" alt="" />
+                  </div>
+                  <div class="searchResultItemText">
+                    <span class="searchResultItemTitle">Equipe participa de workshop internacional de engenharia</span>
+                    <span class="searchResultItemDescription">Representantes da EQS participaram de workshop internacional sobre gestão e execução de grandes obras.</span>
+                  </div>
+                  <div class="searchResultItemMeta"><span>10 out 2026</span></div>
+                </a>
+              </div>
+            </div>
+
+            <!-- ── Eventos ───────────────────────────────────────── -->
+            <div>
+              <div class="searchResultGroupHeader">
+                <div class="searchResultGroupTitle">
+                  <span class="searchResultGroupIcon"><i data-lucide="calendar" width="18" height="18"></i></span>
+                  <h2 class="searchResultGroupName">Eventos <span class="searchResultGroupCount">(2)</span></h2>
+                </div>
+                <button class="btn secondary" type="button" onclick="location.href='eventos.html'">Ver todos</button>
+              </div>
+              <div class="commsPanel">
+                <a class="searchResultItem" href="eventos.html">
+                  <div class="searchResultItemLeading">
+                    <div class="searchResultItemDate">
+                      <span class="searchResultItemDay">18</span>
+                      <span class="searchResultItemMonth">Dez</span>
+                    </div>
+                    <img class="searchResultItemImage" src="../src/hero-eventos.jpg" alt="" />
+                  </div>
+                  <div class="searchResultItemText">
+                    <span class="searchResultItemTitle">Workshop de Segurança do Trabalho</span>
+                    <span class="searchResultItemDescription"><i data-lucide="calendar" width="12" height="12"></i> 18 de dezembro de 2026 · 9h às 12h &nbsp; <i data-lucide="map-pin" width="12" height="12"></i> Sala de Treinamento — Sede RJ</span>
+                  </div>
+                </a>
+                <a class="searchResultItem" href="eventos.html">
+                  <div class="searchResultItemLeading">
+                    <div class="searchResultItemDate">
+                      <span class="searchResultItemDay">22</span>
+                      <span class="searchResultItemMonth">Jan</span>
+                    </div>
+                    <img class="searchResultItemImage" src="../src/smart-indian-engineer-man-wearing-safety-helmet-doing-stock-tick-check-cardboard-stock-product-management-factory-warehouse-background.jpg" alt="" />
+                  </div>
+                  <div class="searchResultItemText">
+                    <span class="searchResultItemTitle">Workshop BIM 4.0 — Avançado</span>
+                    <span class="searchResultItemDescription"><i data-lucide="calendar" width="12" height="12"></i> 22 de janeiro de 2027 · 14h às 17h &nbsp; <i data-lucide="map-pin" width="12" height="12"></i> Auditório — Sede SP</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <!-- ── Comunicados ───────────────────────────────────── -->
+            <div>
+              <div class="searchResultGroupHeader">
+                <div class="searchResultGroupTitle">
+                  <span class="searchResultGroupIcon"><i data-lucide="megaphone" width="18" height="18"></i></span>
+                  <h2 class="searchResultGroupName">Comunicados <span class="searchResultGroupCount">(1)</span></h2>
+                </div>
+                <button class="btn secondary" type="button" onclick="location.href='comunicados.html'">Ver todos</button>
+              </div>
+              <div class="commsPanel">
+                <a class="searchResultItem" href="comunicados.html">
+                  <div class="searchResultItemLeading">
+                    <span class="searchResultItemDot"></span>
+                  </div>
+                  <div class="searchResultItemText">
+                    <span class="searchResultItemTitle">Inscrições abertas para o Workshop de Liderança 2027</span>
+                    <span class="searchResultItemDescription">As inscrições para o Workshop de Liderança já estão abertas. Garanta sua vaga e participe deste momento de desenvolvimento.</span>
+                  </div>
+                  <div class="searchResultItemMeta"><span>02 dez 2026</span></div>
+                </a>
+              </div>
+            </div>
+
+            <!-- ── Áreas e Departamentos ─────────────────────────── -->
+            <div>
+              <div class="searchResultGroupHeader">
+                <div class="searchResultGroupTitle">
+                  <span class="searchResultGroupIcon"><i data-lucide="users" width="18" height="18"></i></span>
+                  <h2 class="searchResultGroupName">Áreas e Departamentos <span class="searchResultGroupCount">(1)</span></h2>
+                </div>
+                <button class="btn secondary" type="button" onclick="location.href='areas-departamentos.html'">Ver todos</button>
+              </div>
+              <div class="commsPanel">
+                <a class="searchResultItem" href="areas-departamentos.html">
+                  <div class="searchResultItemLeading">
+                    <span class="searchResultItemDot"></span>
+                  </div>
+                  <div class="searchResultItemText">
+                    <span class="searchResultItemTitle">Departamento de Engenharia</span>
+                    <span class="searchResultItemDescription">Gestor responsável: Carlos Eduardo Mendes — carlos.mendes@eqs.com.br</span>
+                  </div>
+                  <div class="searchResultItemMeta">
+                    <span>32 colaboradores</span>
+                    <span>Sede São Paulo</span>
+                  </div>
+                  <i data-lucide="chevron-right" width="16" height="16" class="searchResultItemChevron"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- ── Links Úteis ────────────────────────────────────── -->
+            <div>
+              <div class="searchResultGroupHeader">
+                <div class="searchResultGroupTitle">
+                  <span class="searchResultGroupIcon"><i data-lucide="link" width="18" height="18"></i></span>
+                  <h2 class="searchResultGroupName">Links Úteis <span class="searchResultGroupCount">(1)</span></h2>
+                </div>
+                <button class="btn secondary" type="button" onclick="location.href='links-uteis.html'">Ver todos</button>
+              </div>
+              <div class="commsPanel">
+                <a class="searchResultItem" href="links-uteis.html">
+                  <div class="searchResultItemLeading">
+                    <span class="searchResultItemDot"></span>
+                  </div>
+                  <div class="searchResultItemText">
+                    <span class="searchResultItemTitle">Central de Workshops</span>
+                    <span class="searchResultItemDescription">Acesse materiais, apresentações e gravações dos workshops realizados pela EQS.</span>
+                  </div>
+                  <i data-lucide="chevron-right" width="16" height="16" class="searchResultItemChevron"></i>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ── Sugestões (sidebar) ───────────────────────────────── -->
+          <div class="card searchSuggestions">
+            <div class="searchSuggestionsHeader">
+              <i data-lucide="search" width="18" height="18"></i>
+              <h3 class="searchSuggestionsTitle">Sugestões</h3>
+            </div>
+            <p class="searchSuggestionsSubtitle">Tente pesquisar por</p>
+            <div class="searchSuggestionsList">
+              <a class="searchSuggestionItem" href="search.html?q=workshop%20seguran%C3%A7a"><i data-lucide="search" width="14" height="14"></i>workshop segurança</a>
+              <a class="searchSuggestionItem" href="search.html?q=workshop%20bim"><i data-lucide="search" width="14" height="14"></i>workshop bim</a>
+              <a class="searchSuggestionItem" href="search.html?q=workshop%20lideran%C3%A7a"><i data-lucide="search" width="14" height="14"></i>workshop liderança</a>
+              <a class="searchSuggestionItem" href="search.html?q=workshop%20rh"><i data-lucide="search" width="14" height="14"></i>workshop rh</a>
+              <a class="searchSuggestionItem" href="search.html?q=workshop%20inova%C3%A7%C3%A3o"><i data-lucide="search" width="14" height="14"></i>workshop inovação</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footerInner">
+      <div class="footerBrand">
+        <span class="logoDefault logoSm" role="img" aria-label="EQS Engenharia"></span>
+        <p class="footerTagline">Intranet corporativa da EQS Engenharia.</p>
+      </div>
+      <div class="footerColumns">
+        <div class="footerColumn">
+          <span class="footerColumnTitle">Portal</span>
+          <a class="footerLink" href="noticias.html">Notícias</a>
+          <a class="footerLink" href="eventos.html">Eventos</a>
+          <a class="footerLink" href="comunicados.html">Comunicados</a>
+          <a class="footerLink" href="areas-departamentos.html">Áreas e Departamentos</a>
+        </div>
+        <div class="footerColumn">
+          <span class="footerColumnTitle">Institucional</span>
+          <a class="footerLink" href="sobre.html">Sobre</a>
+          <a class="footerLink" href="links-uteis.html">Links Úteis</a>
+        </div>
+      </div>
+    </div>
+    <div class="footerBottom">© 2026 EQS Engenharia. Todos os direitos reservados.</div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- ── Scroll por arrasto (emula touch abaixo de 640px) ─────────────── -->
+  <script src="../shared/touch-scroll.js"></script>
+
+  <script>
+    lucide.createIcons();
+
+    /* Menu do avatar (padrão DropdownMenu) — header desktop */
+    const menu = document.getElementById('user-menu');
+    const trigger = document.getElementById('user-menu-trigger');
+    const panel = document.getElementById('user-menu-panel');
+    trigger.addEventListener('click', () => panel.classList.toggle('open'));
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target)) panel.classList.remove('open');
+    });
+
+    /* Busca (header mobile) */
+    function openSearch() {
+      document.getElementById('mobile-header-default').hidden = true;
+      document.getElementById('mobile-header-search').hidden = false;
+      document.getElementById('mobile-search-input').focus();
+    }
+    function closeSearch() {
+      document.getElementById('mobile-header-search').hidden = true;
+      document.getElementById('mobile-header-default').hidden = false;
+    }
+
+    /* Menu (drawer, header mobile) */
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    function openMobileMenu() {
+      mobileMenuOverlay.classList.add('sheetOpen');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+      mobileMenuOverlay.classList.remove('sheetOpen');
+      document.body.style.overflow = '';
+    }
+
+    /* Página de busca — lê ?q= da URL pra atualizar título e input (dados de exemplo continuam fixos) */
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q');
+    if (q) {
+      document.getElementById('search-term').textContent = q;
+      document.getElementById('search-page-input').value = q;
+    }
+
+    /* Header (topo, mobile e o input desta página) redireciona pra esta página ao pesquisar */
+    function goToSearch(value) {
+      const term = value.trim();
+      if (term) window.location.href = 'search.html?q=' + encodeURIComponent(term);
+    }
+    document.getElementById('search-input-desktop').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') goToSearch(e.target.value);
+    });
+    document.getElementById('mobile-search-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') goToSearch(e.target.value);
+    });
+    document.getElementById('search-page-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') goToSearch(e.target.value);
+    });
+  </script>
+
+</body>
+</html>

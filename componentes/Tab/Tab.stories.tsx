@@ -51,6 +51,17 @@ export const SecondTabActive: Story = {
   },
 };
 
+export const Underline: Story = {
+  name: 'Variante underline (site institucional)',
+  args: {
+    variant: 'underline',
+    tabs: [
+      { label: 'Próximos eventos', content: <p style={{ margin: 0, color: 'var(--color-text-secondary)', fontSize: 'var(--font-size-sm)' }}>Lista de eventos futuros.</p> },
+      { label: 'Eventos passados', content: <p style={{ margin: 0, color: 'var(--color-text-secondary)', fontSize: 'var(--font-size-sm)' }}>Lista de eventos já realizados.</p> },
+    ],
+  },
+};
+
 export const ManyTabs: Story = {
   name: 'Muitas abas',
   args: {

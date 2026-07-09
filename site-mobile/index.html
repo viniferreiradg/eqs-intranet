@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EQS Intranet — Portal</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/SiteHeaderMobile/SiteHeaderMobile.module.css" />
+  <link rel="stylesheet" href="../componentes/Sheet/Sheet.module.css" />
+  <link rel="stylesheet" href="../componentes/Hero/Hero.module.css" />
+  <link rel="stylesheet" href="../componentes/NewsCard/NewsCard.module.css" />
+  <link rel="stylesheet" href="../componentes/EventHighlightCard/EventHighlightCard.module.css" />
+  <link rel="stylesheet" href="../componentes/EventListItem/EventListItem.module.css" />
+  <link rel="stylesheet" href="../componentes/EventCalendar/EventCalendar.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+</head>
+<body class="layout-site hideScrollbar">
+
+  <!-- ── Header mobile: busca | logo | hambúrguer ─────────────── -->
+  <header class="siteHeaderMobile">
+    <div class="siteHeaderMobileRow" id="mobile-header-default">
+      <button class="siteHeaderMobileIconBtn" type="button" aria-label="Buscar" onclick="openSearch()">
+        <i data-lucide="search" width="20" height="20"></i>
+      </button>
+      <span class="logoDefault logoSm" role="img" aria-label="EQS Engenharia"></span>
+      <button class="siteHeaderMobileIconBtn" type="button" aria-label="Abrir menu" onclick="openMenu()">
+        <i data-lucide="menu" width="20" height="20"></i>
+      </button>
+    </div>
+    <div class="siteHeaderMobileSearchRow" id="mobile-header-search" hidden>
+      <input class="siteHeaderMobileSearchInput" type="text" placeholder="Buscar..." id="mobile-search-input" />
+      <button class="siteHeaderMobileIconBtn" type="button" aria-label="Fechar busca" onclick="closeSearch()">
+        <i data-lucide="x" width="20" height="20"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="siteMain">
+    <div class="hero heroMobile">
+      <img class="heroImage" src="../src/hero-eventos.jpg" alt="" />
+      <div class="heroScrim"></div>
+      <div class="heroInner">
+        <div class="heroContent">
+          <span class="heroTag">Destaque</span>
+          <h1 class="heroTitle">Expansão do Terminal Norte: Marco de 85% Concluído</h1>
+          <p class="heroDescription">A EQS Engenharia celebra o avanço das obras estruturais no Terminal Norte, mantendo o padrão de precisão técnica e segurança.</p>
+          <a class="heroLink" href="noticias.html">
+            Ler notícia completa <i data-lucide="arrow-right" width="16" height="16"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <section class="siteSection siteSectionMobile">
+      <div class="siteContainer">
+        <div class="siteSectionHeader">
+          <div>
+            <span class="siteSectionKicker">Fique por dentro</span>
+            <h2 class="siteSectionTitle">Notícias</h2>
+          </div>
+        </div>
+        <div class="siteGridStack">
+          <a class="newsCard" href="noticias.html">
+            <div class="newsImageWrap">
+              <img class="newsImage" src="../src/noticia-1.jpg" alt="" />
+              <span class="newsTag" data-status="info">Institucional</span>
+            </div>
+            <div class="newsBody">
+              <h3 class="newsTitle">Workshop BIM 4.0 reúne equipe técnica no auditório principal</h3>
+              <p class="newsExcerpt">Treinamento apresentou as novas ferramentas de modelagem usadas nos projetos em andamento.</p>
+              <span class="newsDate">08 de dezembro de 2026</span>
+            </div>
+          </a>
+          <a class="newsCard" href="noticias.html">
+            <div class="newsImageWrap">
+              <img class="newsImage" src="../src/noticia-2.jpg" alt="" />
+              <span class="newsTag" data-status="warning">RH</span>
+            </div>
+            <div class="newsBody">
+              <h3 class="newsTitle">Confraternização EQS 2026 — detalhes do evento</h3>
+              <p class="newsExcerpt">Confira data, local e programação da confraternização de fim de ano.</p>
+              <span class="newsDate">05 de dezembro de 2026</span>
+            </div>
+          </a>
+          <a class="newsCard" href="noticias.html">
+            <div class="newsImageWrap">
+              <img class="newsImage" src="../src/noticia-3.jpg" alt="" />
+              <span class="newsTag" data-status="success">Institucional</span>
+            </div>
+            <div class="newsBody">
+              <h3 class="newsTitle">Reunião de Metas 2026 será transmitida on-line</h3>
+              <p class="newsExcerpt">Participe da apresentação dos resultados e metas do próximo ano fiscal.</p>
+              <span class="newsDate">01 de dezembro de 2026</span>
+            </div>
+          </a>
+        </div>
+        <div class="siteSectionFooter">
+          <button class="btn secondary" type="button" onclick="location.href='noticias.html'">Ver todas</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="siteSection siteSectionMobile">
+      <div class="siteContainer">
+        <div class="siteSectionHeader">
+          <div>
+            <span class="siteSectionKicker">Agenda</span>
+            <h2 class="siteSectionTitle">Próximos Eventos</h2>
+          </div>
+        </div>
+        <div class="siteGridStack">
+          <div class="eventsPanel">
+            <div class="eventHighlightCard">
+              <img class="eventHighlightImage" src="../src/noticia-2.jpg" alt="" />
+              <div class="eventHighlightScrim"></div>
+              <div class="eventHighlightOverlay">
+                <span class="eventHighlightKicker">Agenda</span>
+                <h3 class="eventHighlightHeading">Próximo Evento</h3>
+              </div>
+              <div class="eventHighlightPanel">
+                <div class="eventHighlightDateBadge">
+                  <span class="eventHighlightDay">18</span>
+                  <span class="eventHighlightMonth">Dez</span>
+                </div>
+                <div class="eventHighlightPanelBody">
+                  <h4 class="eventHighlightTitle">Confraternização EQS 2026</h4>
+                  <div class="eventHighlightMeta">
+                    <span class="eventHighlightMetaItem"><i data-lucide="map-pin" width="14" height="14"></i>Auditório — Sede SP</span>
+                    <span class="eventHighlightMetaItem"><i data-lucide="clock" width="14" height="14"></i>Início às 19h</span>
+                  </div>
+                  <p class="eventHighlightDescription">Um momento especial para celebrar nossas conquistas, fortalecer conexões e olhar juntos para o futuro.</p>
+                  <a class="eventHighlightCta" href="eventos.html">
+                    Confirmar presença <i data-lucide="arrow-right" width="16" height="16"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="eventsOtherWrap">
+              <span class="eventsOtherLabel">Outros eventos</span>
+              <div class="siteGridStack">
+                <a class="eventListItem" href="eventos.html">
+                  <div class="eventListItemDate">
+                    <span class="eventListItemDay">22</span>
+                    <span class="eventListItemMonth">Dez</span>
+                  </div>
+                  <div class="eventListItemText">
+                    <span class="eventListItemTitle">Workshop de Segurança do Trabalho</span>
+                    <span class="eventListItemLocation"><i data-lucide="map-pin" width="12" height="12"></i>Sala de Treinamento — Sede RJ</span>
+                  </div>
+                </a>
+                <a class="eventListItem" href="eventos.html">
+                  <div class="eventListItemDate">
+                    <span class="eventListItemDay">05</span>
+                    <span class="eventListItemMonth">Jan</span>
+                  </div>
+                  <div class="eventListItemText">
+                    <span class="eventListItemTitle">Reunião de Metas 2026</span>
+                    <span class="eventListItemLocation"><i data-lucide="map-pin" width="12" height="12"></i>Transmissão on-line</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="eventCalendar">
+            <div class="eventCalendarHeader">
+              <h3 class="eventCalendarMonth">Dezembro 2026</h3>
+              <div class="eventCalendarNav">
+                <button class="eventCalendarNavBtn" type="button" aria-label="Mês anterior"><i data-lucide="chevron-left" width="16" height="16"></i></button>
+                <button class="eventCalendarNavBtn" type="button" aria-label="Próximo mês"><i data-lucide="chevron-right" width="16" height="16"></i></button>
+              </div>
+            </div>
+            <div class="eventCalendarWeekdays">
+              <span class="eventCalendarWeekday">Dom</span>
+              <span class="eventCalendarWeekday">Seg</span>
+              <span class="eventCalendarWeekday">Ter</span>
+              <span class="eventCalendarWeekday">Qua</span>
+              <span class="eventCalendarWeekday">Qui</span>
+              <span class="eventCalendarWeekday">Sex</span>
+              <span class="eventCalendarWeekday">Sáb</span>
+            </div>
+            <div class="eventCalendarGrid">
+              <span class="eventCalendarCellEmpty"></span>
+              <span class="eventCalendarCellEmpty"></span>
+              <span class="eventCalendarCell">1</span>
+              <span class="eventCalendarCell">2</span>
+              <span class="eventCalendarCell">3</span>
+              <span class="eventCalendarCell">4</span>
+              <span class="eventCalendarCell">5</span>
+              <span class="eventCalendarCell">6</span>
+              <span class="eventCalendarCell">7</span>
+              <span class="eventCalendarCell">8</span>
+              <span class="eventCalendarCell">9</span>
+              <span class="eventCalendarCell">10</span>
+              <span class="eventCalendarCell">11</span>
+              <span class="eventCalendarCell">12</span>
+              <span class="eventCalendarCell">13</span>
+              <span class="eventCalendarCell">14</span>
+              <span class="eventCalendarCell">15</span>
+              <span class="eventCalendarCell">16</span>
+              <span class="eventCalendarCell">17</span>
+              <span class="eventCalendarCell eventCalendarCellActive">18</span>
+              <span class="eventCalendarCell">19</span>
+              <span class="eventCalendarCell">20</span>
+              <span class="eventCalendarCell">21</span>
+              <span class="eventCalendarCell">22</span>
+              <span class="eventCalendarCell">23</span>
+              <span class="eventCalendarCell">24</span>
+              <span class="eventCalendarCell">25</span>
+              <span class="eventCalendarCell">26</span>
+              <span class="eventCalendarCell">27</span>
+              <span class="eventCalendarCell">28</span>
+              <span class="eventCalendarCell">29</span>
+              <span class="eventCalendarCell">30</span>
+              <span class="eventCalendarCell">31</span>
+              <span class="eventCalendarCellEmpty"></span>
+              <span class="eventCalendarCellEmpty"></span>
+            </div>
+            <a class="eventCalendarFooter" href="eventos.html">
+              Ver todos os eventos
+              <i data-lucide="chevron-right" width="16" height="16"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ── Menu (drawer) — reaproveita o Sheet ──────────────────── -->
+  <div class="sheetOverlay" id="mobile-menu-overlay" onclick="closeMenu()">
+    <aside class="sheetPanel siteHeaderMobileMenuPanel" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="Menu">
+      <div class="sheetHeader">
+        <span class="sheetTitle">Menu</span>
+        <button class="sheetClose" type="button" aria-label="Fechar" onclick="closeMenu()">
+          <i data-lucide="x" width="16" height="16"></i>
+        </button>
+      </div>
+      <div class="sheetBody">
+        <nav class="siteHeaderMobileNavList">
+          <a href="index.html" class="siteHeaderMobileNavItem siteHeaderMobileNavItemActive" aria-current="page">Home</a>
+          <a href="noticias.html" class="siteHeaderMobileNavItem">Notícias</a>
+          <a href="eventos.html" class="siteHeaderMobileNavItem">Eventos</a>
+          <a href="comunicados.html" class="siteHeaderMobileNavItem">Comunicados</a>
+          <a href="areas-departamentos.html" class="siteHeaderMobileNavItem">Áreas e Departamentos</a>
+          <a href="sobre.html" class="siteHeaderMobileNavItem">Sobre</a>
+          <a href="links-uteis.html" class="siteHeaderMobileNavItem">Links Úteis</a>
+        </nav>
+      </div>
+      <div class="sheetFooter">
+        <div class="siteHeaderMobileFooterList">
+          <a class="siteHeaderMobileFooterItem" href="perfil.html">
+            <i data-lucide="user" width="16" height="16"></i> Meu Perfil
+          </a>
+          <a class="siteHeaderMobileFooterItem siteHeaderMobileFooterItemDestructive" href="../painel-adm/login.html">
+            <i data-lucide="log-out" width="16" height="16"></i> Sair
+          </a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ── Lucide icons ──────────────────────────────────────────── -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- ── Scroll por arrasto (emula touch) ─────────────────────────── -->
+  <script src="../shared/touch-scroll.js"></script>
+
+  <script>
+    lucide.createIcons();
+
+    function openSearch() {
+      document.getElementById('mobile-header-default').hidden = true;
+      document.getElementById('mobile-header-search').hidden = false;
+      document.getElementById('mobile-search-input').focus();
+    }
+    function closeSearch() {
+      document.getElementById('mobile-header-search').hidden = true;
+      document.getElementById('mobile-header-default').hidden = false;
+    }
+
+    const menuOverlay = document.getElementById('mobile-menu-overlay');
+    function openMenu() {
+      menuOverlay.classList.add('sheetOpen');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      menuOverlay.classList.remove('sheetOpen');
+      document.body.style.overflow = '';
+    }
+  </script>
+
+</body>
+</html>

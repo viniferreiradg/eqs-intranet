@@ -24,10 +24,10 @@ const IconBtn = ({ children }: { children: React.ReactNode }) => (
       width:          32,
       height:         32,
       borderRadius:   'var(--radius-full)',
-      background:     'var(--color-glass-surface)',
-      border:         '1px solid var(--color-glass-border)',
+      background:     'var(--color-bg-subtle)',
+      border:         '1px solid var(--color-border-subtle)',
       cursor:         'pointer',
-      color:          'var(--color-nav-idle)',
+      color:          'var(--color-text-tertiary)',
     }}
   >
     {children}

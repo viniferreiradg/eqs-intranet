@@ -105,6 +105,6 @@
 .cardDivider {
   grid-column: 1 / -1;
   height: var(--border-width-thin);
-  background: var(--color-border-glass);
+  background: var(--color-border-subtle);
   margin: var(--spacing-xs) 0;
 }

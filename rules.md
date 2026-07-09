@@ -2,7 +2,7 @@
 _Last updated: 2026-05-22_
 
 > Source of truth completa: `CLAUDE.md` neste mesmo diretório.  
-> Este arquivo é a referência rápida para criação de telas HTML em `painel-adm/`, `painel-usuario-desktop/` e `painel-usuario-mobile/`.
+> Este arquivo é a referência rápida para criação de telas HTML em `painel-adm/`, `site-desktop/` e `site-mobile/`.
 
 ---
 
@@ -294,10 +294,10 @@ Classes: `.card` (container), `.tableWrap`, `.table`, `.thead`, `.tbody`, `.tr`,
 
 | Classe | Token de fundo | Uso |
 |--------|---------------|-----|
-| `.card` | `--color-glass-surface` — `rgba(255,255,255,0.08)` dark / `rgba(0,0,0,0.05)` light | Glass padrão (adapta ao tema). Usar em formulários. |
-| `.card2` | `--color-glass2-surface` — `rgba(255,255,255,0.40)` | Glass 2: mais opaco, tema-independente. |
+| `.card` | `--color-bg-surface` (sólido) | Superfície padrão. Usar em formulários, listagens, painéis. |
+| `.card2` | `--color-bg-elevated` (sólido, um degrau mais claro) | Card de destaque/elevado sobre um `.card` padrão. |
 
-Ambas usam `backdrop-filter: blur(16px)` e `border: --color-glass-border`.  
+Ambas usam `border: --color-border-subtle`. Nenhuma usa `backdrop-filter`/blur — não há fundo decorativo (blobs) por trás para justificar translucidez; o sistema é flat/sólido.  
 **Não coexiste com:** Table.module.css (mesma classe `.card`).
 
 ---
@@ -332,7 +332,7 @@ Classes: `.nav` (no `<nav>`), `.list` (no `<ol>`), `.item` (no `<li>`), `.link` 
 <link rel="stylesheet" href="../componentes/Divider/Divider.module.css" />
 ```
 Uso: `<hr class="divider" />`  
-Cor: `--color-border-glass` (translúcido — `rgba(255,255,255,0.13)` dark / `rgba(0,0,0,0.08)` light)  
+Cor: `--color-border-subtle` (sólido)  
 Margin: `0 var(--spacing-xl)` (inset horizontal)
 
 ---
@@ -463,6 +463,1055 @@ Adaptado do Geist Calendar `horizontalLayout` com tokens do design system.
 
 ---
 
+## Componentes do site institucional (site-desktop)
+
+Layout de body: `body.layout-site` (sem sidebar — header no topo + `<main class="siteMain">` + footer, página inteira rola). Definido em `shared/page.css`.
+
+### SiteHeader
+```html
+<link rel="stylesheet" href="../componentes/SiteHeader/SiteHeader.module.css" />
+```
+Sempre linkar junto: `Logo.module.css`, `Input.module.css`, `Avatar.module.css`, `DropdownMenu.module.css` (o header usa os quatro internamente).
+
+Classes: `.siteHeader` (`<header>`, sticky top, fundo full-bleed), `.siteHeaderInner` (conteúdo — respeita o mesmo grid de 1200px das seções, `margin: 0 auto`), `.siteHeaderNav`, `.siteHeaderNavItem`, `.siteHeaderNavItemActive`, `.siteHeaderActions`, `.siteHeaderSearch` (wrapper de largura fixa em volta do Input), `.siteHeaderAvatarBtn` (trigger do DropdownMenu)
+
+**Importante:** `.siteHeader` é só o fundo/borda full-bleed — todo o conteúdo (logo, nav, busca, avatar) fica dentro de `.siteHeaderInner`, nunca direto em `.siteHeader`.
+
+```html
+<header class="siteHeader">
+  <div class="siteHeaderInner">
+    <span class="logoDefault logoSm" role="img" aria-label="EQS Engenharia"></span>
+
+    <nav class="siteHeaderNav">
+      <a href="index.html" class="siteHeaderNavItem siteHeaderNavItemActive" aria-current="page">Home</a>
+      <a href="noticias.html" class="siteHeaderNavItem">Notícias</a>
+      <a href="comunicados.html" class="siteHeaderNavItem">Comunicados</a>
+      <a href="sobre.html" class="siteHeaderNavItem">Sobre</a>
+      <a href="links-uteis.html" class="siteHeaderNavItem">Links Úteis</a>
+    </nav>
+
+    <div class="siteHeaderActions">
+      <div class="siteHeaderSearch wrapper">
+        <div class="inputWrap hasLeft">
+          <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+          <input class="input" type="text" placeholder="Buscar..." />
+        </div>
+      </div>
+
+      <div class="dropdownMenu" id="user-menu">
+        <button class="siteHeaderAvatarBtn" id="user-menu-trigger" aria-label="Menu do usuário" type="button">
+          <div class="avatar sm"><span class="avatarInitials">AD</span></div>
+        </button>
+        <div class="dropdownMenu__panel end" id="user-menu-panel">
+          <button class="dropdownMenu__item" onclick="location.href='perfil.html'">
+            <span class="dropdownMenu__item__icon"><i data-lucide="user" width="16" height="16"></i></span>
+            Meu Perfil
+          </button>
+          <button class="dropdownMenu__item dropdownMenu__item--destructive" onclick="location.href='login.html'">
+            <span class="dropdownMenu__item__icon"><i data-lucide="log-out" width="16" height="16"></i></span>
+            Sair
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+```
+
+**JS do menu do avatar (padrão DropdownMenu em HTML standalone):**
+```js
+const menu = document.getElementById('user-menu');
+const trigger = document.getElementById('user-menu-trigger');
+const panel = document.getElementById('user-menu-panel');
+trigger.addEventListener('click', () => panel.classList.toggle('open'));
+document.addEventListener('click', (e) => { if (!menu.contains(e.target)) panel.classList.remove('open'); });
+```
+
+---
+
+### Hero
+```html
+<link rel="stylesheet" href="../componentes/Hero/Hero.module.css" />
+```
+Banner de destaque — usado no topo da Home. Classes: `.hero` (foto full-bleed), `.heroImage`, `.heroScrim` (gradiente escurecendo a base), `.heroInner` (conteúdo — mesmo grid de 1200px do resto da página, agora em flex-row para acomodar o painel lateral opcional), `.heroContent`, `.heroTag`, `.heroTitle`, `.heroDescription`, `.heroLink`, `.heroPanel` (wrapper opcional do lado direito, ex: `QuickLinksCard`)
+
+**Importante:** igual ao SiteHeader — a foto de fundo é full-bleed, mas o texto/CTA ficam dentro de `.heroInner` para alinhar com o grid das seções abaixo.
+
+```html
+<div class="hero">
+  <img class="heroImage" src="..." alt="" />
+  <div class="heroScrim"></div>
+  <div class="heroInner">
+    <div class="heroContent">
+      <span class="heroTag">Destaque</span>
+      <h1 class="heroTitle">Título da notícia em destaque</h1>
+      <p class="heroDescription">Resumo curto da notícia.</p>
+      <a class="heroLink" href="noticia-detalhe.html">
+        Ler notícia completa <i data-lucide="arrow-right" width="16" height="16"></i>
+      </a>
+    </div>
+    <div class="heroPanel">
+      <!-- opcional: QuickLinksCard ou outro conteúdo flutuante -->
+    </div>
+  </div>
+</div>
+```
+
+**Responsivo:** abaixo de 640px o próprio `.hero` já reduz sozinho via `@media` (não precisa de classe extra) — `min-height` cai pra 480px, título vira `--font-size-2xl`, descrição vira `--font-size-sm`, e `.heroPanel` some (em mobile o painel de atalhos `QuickLinksCard` viraria uma seção própria abaixo do Hero, não um painel lateral — ainda não construída). A classe `.heroMobile` ainda existe no CSS por compatibilidade com o antigo `site-mobile/index.html` (não mais em uso), mas a Home atual não precisa dela.
+
+---
+
+### QuickLinksCard
+```html
+<link rel="stylesheet" href="../componentes/QuickLinksCard/QuickLinksCard.module.css" />
+```
+Painel flutuante de atalhos — usado dentro de `.heroPanel` no Hero da Home. Lista de linhas (ícone + título + subtítulo + chevron) e um rodapé com CTA "Acessar todos os links".
+
+Classes: `.quickLinksCard`, `.quickLinksList`, `.quickLinksItem` (`<a>`), `.quickLinksItemIcon`, `.quickLinksItemText`, `.quickLinksItemTitle`, `.quickLinksItemSubtitle`, `.quickLinksItemChevron`, `.quickLinksFooter` (`<a>`)
+
+```html
+<div class="quickLinksCard">
+  <div class="quickLinksList">
+    <a class="quickLinksItem" href="links-uteis.html">
+      <span class="quickLinksItemIcon"><i data-lucide="life-buoy" width="18" height="18"></i></span>
+      <span class="quickLinksItemText">
+        <span class="quickLinksItemTitle">Central de Suporte</span>
+        <span class="quickLinksItemSubtitle">Abra um chamado</span>
+      </span>
+      <i data-lucide="chevron-right" width="16" height="16" class="quickLinksItemChevron"></i>
+    </a>
+  </div>
+  <a class="quickLinksFooter" href="links-uteis.html">
+    Acessar todos os links
+    <i data-lucide="chevron-right" width="16" height="16"></i>
+  </a>
+</div>
+```
+
+---
+
+### NewsCard
+```html
+<link rel="stylesheet" href="../componentes/NewsCard/NewsCard.module.css" />
+```
+Card de conteúdo — prévias de Notícias e Comunicados. Classes: `.newsCard` (`<a>`), `.newsImageWrap`, `.newsImage`, `.newsTag` (`data-status`: success/info/warning/error/disabled), `.newsBody`, `.newsTitle`, `.newsExcerpt` (2 linhas, corta com reticências), `.newsDate`
+
+```html
+<a class="newsCard" href="noticia-detalhe.html">
+  <div class="newsImageWrap">
+    <img class="newsImage" src="..." alt="" />
+    <span class="newsTag" data-status="info">Institucional</span>
+  </div>
+  <div class="newsBody">
+    <h3 class="newsTitle">Título da notícia</h3>
+    <p class="newsExcerpt">Resumo de até 2 linhas da notícia...</p>
+    <span class="newsDate">12 de dezembro de 2026</span>
+  </div>
+</a>
+```
+
+**Sem imagem:** omitir `<img>` — `.newsImageWrap` mantém o `aspect-ratio` com o fundo `--color-bg-subtle`.
+
+---
+
+### EventCard
+```html
+<link rel="stylesheet" href="../componentes/EventCard/EventCard.module.css" />
+```
+Card de evento — seção "Próximos Eventos" da Home e página completa de Eventos. Classes: `.eventCard` (`<a>`), `.eventImageWrap`, `.eventImage`, `.eventDateBadge` (chip com dia/mês, ancorado no canto superior esquerdo da imagem), `.eventDay`, `.eventMonth`, `.eventBody`, `.eventTitle`, `.eventLocation` (ícone `map-pin` + texto)
+
+```html
+<a class="eventCard" href="evento-detalhe.html">
+  <div class="eventImageWrap">
+    <img class="eventImage" src="..." alt="" />
+    <div class="eventDateBadge">
+      <span class="eventDay">18</span>
+      <span class="eventMonth">Dez</span>
+    </div>
+  </div>
+  <div class="eventBody">
+    <h3 class="eventTitle">Confraternização EQS 2026</h3>
+    <span class="eventLocation"><i data-lucide="map-pin" width="14" height="14"></i>Auditório — Sede SP</span>
+  </div>
+</a>
+```
+
+**Sem imagem:** omitir `<img>` e `.eventDateBadge` (o badge é posicionado sobre a imagem; sem imagem, a data fica só no texto se necessário) — `.eventImageWrap` mantém o `aspect-ratio` com o fundo `--color-bg-subtle`.
+
+---
+
+### EventHighlightCard
+```html
+<link rel="stylesheet" href="../componentes/EventHighlightCard/EventHighlightCard.module.css" />
+```
+Card do evento em destaque — topo do painel "Próximos Eventos" da Home. Foto de fundo cobre o card inteiro; `.eventHighlightScrim` é um degradê de preto (opaco) até preto com opacidade 0, indo da borda esquerda até 90% da largura — dá contraste ao texto, que fica sobreposto direto na foto (sem painel branco). Kicker+heading no topo, data+título+meta+descrição+CTA embaixo, todos em texto claro.
+
+Classes: `.eventHighlightCard`, `.eventHighlightImage`, `.eventHighlightScrim`, `.eventHighlightOverlay`, `.eventHighlightKicker`, `.eventHighlightHeading`, `.eventHighlightPanel` (sem fundo — só posiciona o conteúdo sobre a foto), `.eventHighlightDateBadge`, `.eventHighlightDay`, `.eventHighlightMonth`, `.eventHighlightPanelBody`, `.eventHighlightTitle`, `.eventHighlightMeta`, `.eventHighlightMetaItem` (ícone + texto), `.eventHighlightDescription` (2 linhas), `.eventHighlightCta`
+
+```html
+<div class="eventHighlightCard">
+  <img class="eventHighlightImage" src="..." alt="" />
+  <div class="eventHighlightScrim"></div>
+  <div class="eventHighlightOverlay">
+    <span class="eventHighlightKicker">Agenda</span>
+    <h3 class="eventHighlightHeading">Próximo Evento</h3>
+  </div>
+  <div class="eventHighlightPanel">
+    <div class="eventHighlightDateBadge">
+      <span class="eventHighlightDay">18</span>
+      <span class="eventHighlightMonth">Dez</span>
+    </div>
+    <div class="eventHighlightPanelBody">
+      <h4 class="eventHighlightTitle">Confraternização EQS 2026</h4>
+      <div class="eventHighlightMeta">
+        <span class="eventHighlightMetaItem"><i data-lucide="map-pin" width="14" height="14"></i>Auditório — Sede SP</span>
+        <span class="eventHighlightMetaItem"><i data-lucide="clock" width="14" height="14"></i>Início às 19h</span>
+      </div>
+      <p class="eventHighlightDescription">Descrição curta do evento...</p>
+      <a class="eventHighlightCta" href="eventos.html">Confirmar presença <i data-lucide="arrow-right" width="16" height="16"></i></a>
+    </div>
+  </div>
+</div>
+```
+
+**Variante `wide`** (página de listagem de Eventos — `eventos.html`) — banner full-width, sem painel branco, meta em linha e até 2 CTAs. Classes: `.eventHighlightCardWide` (junto com `.eventHighlightCard`), `.eventHighlightWideContent`, `.eventHighlightWideTitle`, `.eventHighlightWideDescription`, `.eventHighlightWideActions`, `.eventHighlightSecondaryCta` (segundo botão, outline)
+
+```html
+<div class="eventHighlightCard eventHighlightCardWide">
+  <img class="eventHighlightImage" src="..." alt="" />
+  <div class="eventHighlightScrim"></div>
+  <div class="eventHighlightWideContent">
+    <span class="eventHighlightKicker">Evento em destaque</span>
+    <h3 class="eventHighlightWideTitle">Confraternização EQS 2026</h3>
+    <p class="eventHighlightWideDescription">Descrição do evento...</p>
+    <div class="eventHighlightMeta">
+      <span class="eventHighlightMetaItem"><i data-lucide="calendar" width="14" height="14"></i>18 de dezembro de 2026</span>
+      <span class="eventHighlightMetaItem"><i data-lucide="clock" width="14" height="14"></i>Das 09h às 17h</span>
+      <span class="eventHighlightMetaItem"><i data-lucide="map-pin" width="14" height="14"></i>Auditório — Sede SP</span>
+    </div>
+    <div class="eventHighlightWideActions">
+      <a class="eventHighlightCta" href="eventos.html">Confirmar presença <i data-lucide="arrow-right" width="16" height="16"></i></a>
+      <a class="eventHighlightSecondaryCta" href="eventos.html">Ver detalhes <i data-lucide="arrow-right" width="16" height="16"></i></a>
+    </div>
+  </div>
+</div>
+```
+
+---
+
+### EventRow
+```html
+<link rel="stylesheet" href="../componentes/EventRow/EventRow.module.css" />
+```
+Linha horizontal de evento — usada na listagem completa de Eventos (`eventos.html`). Diferente do `EventCard` (vertical, compacto) e do `EventListItem` (sem imagem): aqui tem data + imagem + tag + título + meta em linha + descrição + CTA, tudo num card horizontal.
+
+Classes: `.eventRow`, `.eventRowDate`, `.eventRowDay`, `.eventRowMonth`, `.eventRowImageWrap`, `.eventRowImage`, `.eventRowContent`, `.eventRowTag` (`data-status`: success/info/warning/error/disabled), `.eventRowTitle`, `.eventRowMeta`, `.eventRowMetaItem`, `.eventRowDescription` (2 linhas), `.eventRowCta`
+
+```html
+<div class="eventRow">
+  <div class="eventRowDate">
+    <span class="eventRowDay">22</span>
+    <span class="eventRowMonth">Dez</span>
+  </div>
+  <div class="eventRowImageWrap">
+    <img class="eventRowImage" src="..." alt="" />
+  </div>
+  <div class="eventRowContent">
+    <span class="eventRowTag" data-status="success">Workshop</span>
+    <h3 class="eventRowTitle">Workshop de Segurança do Trabalho</h3>
+    <div class="eventRowMeta">
+      <span class="eventRowMetaItem"><i data-lucide="calendar" width="14" height="14"></i>Segunda-feira, 22 de dezembro de 2026</span>
+      <span class="eventRowMetaItem"><i data-lucide="map-pin" width="14" height="14"></i>Sala de Treinamento — Sede RJ</span>
+      <span class="eventRowMetaItem"><i data-lucide="clock" width="14" height="14"></i>Das 14h às 16h</span>
+    </div>
+    <p class="eventRowDescription">Descrição curta do evento...</p>
+  </div>
+  <a class="eventRowCta" href="eventos.html">Confirmar presença</a>
+</div>
+```
+
+**Responsivo:** abaixo de 640px, `.eventRow` vira `flex-direction: column` (ordem do DOM já é a ordem visual desejada — sem `order`) — data, depois imagem 100% de largura, depois conteúdo, depois CTA também 100% de largura (`align-self: stretch; justify-content: center`). Evitar `flex:1` + `width:100%` juntos num item de `flex-wrap`: `flex-basis:0%` do `flex:1` ignora o `width`, o item colapsa e deixa o próximo item "subir" para a mesma linha.
+
+**Container:** use `.eventRowStack` (`shared/page.css`) pra empilhar vários com espaçamento.
+
+---
+
+### EventInfoCard
+```html
+<link rel="stylesheet" href="../componentes/EventInfoCard/EventInfoCard.module.css" />
+```
+Card lateral com dados essenciais do evento — usado em `detalhes-evento.html`. Linhas ícone + label + valor(es), seguidas de um CTA primário e um link secundário.
+
+Classes: `.eventInfoCard`, `.eventInfoRow`, `.eventInfoIcon`, `.eventInfoText`, `.eventInfoLabel`, `.eventInfoValue`, `.eventInfoValueStrong` (primeira linha em destaque, ex: nome do local), `.eventInfoActions`, `.eventInfoCta`, `.eventInfoCalendarLink`
+
+```html
+<div class="eventInfoCard">
+  <div class="eventInfoRow">
+    <span class="eventInfoIcon"><i data-lucide="calendar" width="18" height="18"></i></span>
+    <div class="eventInfoText">
+      <span class="eventInfoLabel">Data</span>
+      <span class="eventInfoValue">08 de dezembro de 2026</span>
+      <span class="eventInfoValue">Das 09h às 17h</span>
+    </div>
+  </div>
+  <div class="eventInfoRow">
+    <span class="eventInfoIcon"><i data-lucide="map-pin" width="18" height="18"></i></span>
+    <div class="eventInfoText">
+      <span class="eventInfoLabel">Local</span>
+      <span class="eventInfoValueStrong">Auditório — Sede SP</span>
+      <span class="eventInfoValue">Av. das Nações Unidas, 12.901</span>
+    </div>
+  </div>
+  <div class="eventInfoActions">
+    <a class="eventInfoCta" href="eventos.html">Confirmar presença <i data-lucide="arrow-right" width="16" height="16"></i></a>
+    <a class="eventInfoCalendarLink" href="eventos.html"><i data-lucide="calendar-plus" width="16" height="16"></i>Adicionar ao calendário</a>
+  </div>
+</div>
+```
+
+---
+
+### EventScheduleItem
+```html
+<link rel="stylesheet" href="../componentes/EventScheduleItem/EventScheduleItem.module.css" />
+```
+Item da lista "Programação" em `detalhes-evento.html` — ponto + conector vertical, horário e título na mesma linha, descrição abaixo. Parecido com `Timeline`, mas sem os estados done/active/pending (usa sempre a cor da marca).
+
+Classes: `.eventScheduleItem`, `.eventScheduleVis`, `.eventScheduleDot`, `.eventScheduleConnector`, `.eventScheduleContent`, `.eventScheduleHeader`, `.eventScheduleTime`, `.eventScheduleTitle`, `.eventScheduleDescription` (opcional)
+
+```html
+<div class="eventScheduleItem">
+  <div class="eventScheduleVis">
+    <span class="eventScheduleDot"></span>
+    <span class="eventScheduleConnector"></span>
+  </div>
+  <div class="eventScheduleContent">
+    <div class="eventScheduleHeader">
+      <span class="eventScheduleTime">09h00</span>
+      <span class="eventScheduleTitle">Abertura</span>
+    </div>
+    <p class="eventScheduleDescription">Boas-vindas e apresentação dos objetivos do workshop.</p>
+  </div>
+</div>
+```
+
+**Container:** use `.eventScheduleList` (`shared/page.css`) pra empilhar vários — esconde o conector e o padding-bottom do último item automaticamente.
+
+---
+
+### DocumentListItem
+```html
+<link rel="stylesheet" href="../componentes/DocumentListItem/DocumentListItem.module.css" />
+```
+Item de lista de arquivo para download — usado na seção "Materiais e documentos" de `detalhes-evento.html`.
+
+Classes: `.docItem`, `.docIcon`, `.docText`, `.docName`, `.docMeta`, `.docDownload`
+
+```html
+<div class="docItem">
+  <span class="docIcon"><i data-lucide="file-text" width="18" height="18"></i></span>
+  <div class="docText">
+    <span class="docName">Apresentação BIM 4.0</span>
+    <span class="docMeta">PDF · 8.4 MB</span>
+  </div>
+  <a class="docDownload" href="..." download><i data-lucide="download" width="14" height="14"></i> Baixar</a>
+</div>
+```
+
+**Container:** use `.docList` (`shared/page.css`) pra empilhar vários com espaçamento.
+
+---
+
+### Layout: página de Detalhe do Evento
+`detalhes-evento.html`: header → breadcrumb (3 níveis: Home / Eventos / nome do evento) → `.eventDetailHeader` (badge `.newsTag` + `.eventDetailTitle` + `.eventDetailDateRow`) → `.eventDetailMainGrid` (esquerda: foto `.articleHero` + `.eventDetailSectionTitle` "Sobre o evento" + `.articleBody`; direita: `EventInfoCard`) → `.eventDetailSecondaryGrid` (dois `.card.eventDetailPanel`: "Programação" com `.eventScheduleList` de `EventScheduleItem`, e "Materiais e documentos" com `.docList` de `DocumentListItem` + `Feedback` tipo `info`) → seção "Eventos relacionados" (`EventCard` × 3) → Links Úteis → `Footer`.
+
+`.eventDetailSectionTitle` é o padrão de título com barra vermelha à esquerda usado nas três seções (Sobre o evento / Programação / Materiais e documentos) — genérico o bastante pra reaproveitar em outras páginas de detalhe futuras.
+
+**Responsivo:** abaixo de 640px, `.eventDetailMainGrid` e `.eventDetailSecondaryGrid` colapsam pra 1 coluna (ordem do DOM já é a ordem visual: foto/sobre → info card → programação → materiais) e `.eventDetailTitle` reduz para `--font-size-2xl` (mesmo padrão do `.articleTitle`).
+
+---
+
+### Layout: página de Áreas e Departamentos — `areas-departamentos.html` (page.css)
+Estrutura: header → breadcrumb (2 níveis: Home / Áreas e Departamentos) → `.sitePageHeader` (eyebrow `.siteSectionKicker` + `.sitePageTitle` + texto `.siteBodyText`, sem imagem — página de listagem pura) → `.deptDetailList` (pilha vertical de `DepartmentDetailCard`, um por área) → seção Links Úteis → `Footer`.
+
+`.sitePageTitle` é o padrão de título grande de página de listagem (sem imagem/hero) — reaproveitável em futuras páginas do tipo "Sobre", diferente do `.articleTitle` (tem foto de capa acima) e do `.eventDetailTitle` (tem badge + data).
+
+---
+
+### Tab
+```html
+<link rel="stylesheet" href="../componentes/Tab/Tab.module.css" />
+```
+Duas variantes: **segmented** (padrão, abas em caixa com fundo gradiente — usado no painel-adm) e **underline** (abas simples com sublinhado vermelho — usado no site institucional, ex: "Próximos eventos" / "Eventos passados" em `eventos.html`).
+
+Classes (underline): `.tabWrapper`, `.tabList.tabListUnderline`, `.tabBtnUnderline`, `.tabBtnUnderlineActive`
+
+```html
+<div class="tabWrapper">
+  <div class="tabList tabListUnderline" role="tablist">
+    <button class="tabBtnUnderline tabBtnUnderlineActive" role="tab" aria-selected="true" onclick="selectTab('a')">Próximos eventos</button>
+    <button class="tabBtnUnderline" role="tab" aria-selected="false" onclick="selectTab('b')">Eventos passados</button>
+  </div>
+</div>
+```
+
+Em HTML estático, a troca de painel é feita via JS simples: toggle da classe `.tabBtnUnderlineActive` + `hidden` no painel correspondente (ver `selectEventsTab()` em `eventos.html`).
+
+---
+
+### EventListItem
+```html
+<link rel="stylesheet" href="../componentes/EventListItem/EventListItem.module.css" />
+```
+Linha compacta de evento — usada na lista "Outros eventos" ao lado do `EventHighlightCard`. Sem imagem, formato horizontal.
+
+Classes: `.eventListItem` (`<a>`), `.eventListItemDate`, `.eventListItemDay`, `.eventListItemMonth`, `.eventListItemText`, `.eventListItemTitle`, `.eventListItemLocation`
+
+```html
+<a class="eventListItem" href="eventos.html">
+  <div class="eventListItemDate">
+    <span class="eventListItemDay">22</span>
+    <span class="eventListItemMonth">Dez</span>
+  </div>
+  <div class="eventListItemText">
+    <span class="eventListItemTitle">Workshop de Segurança do Trabalho</span>
+    <span class="eventListItemLocation"><i data-lucide="map-pin" width="12" height="12"></i>Sala de Treinamento — Sede RJ</span>
+  </div>
+</a>
+```
+
+---
+
+### EventCalendar
+```html
+<link rel="stylesheet" href="../componentes/EventCalendar/EventCalendar.module.css" />
+```
+Calendário compacto — coluna lateral do painel "Próximos Eventos" da Home. Estático (protótipo): os botões de mês anterior/próximo não têm lógica real, servem apenas de indicação visual.
+
+Classes: `.eventCalendar`, `.eventCalendarHeader`, `.eventCalendarMonth`, `.eventCalendarNav`, `.eventCalendarNavBtn`, `.eventCalendarWeekdays`, `.eventCalendarWeekday`, `.eventCalendarGrid`, `.eventCalendarCell`, `.eventCalendarCellEmpty` (dias em branco no início/fim do mês), `.eventCalendarCellActive` (dia com evento, destacado), `.eventCalendarFooter` (link com barra de destaque à esquerda)
+
+```html
+<div class="eventCalendar">
+  <div class="eventCalendarHeader">
+    <h3 class="eventCalendarMonth">Dezembro 2026</h3>
+    <div class="eventCalendarNav">
+      <button class="eventCalendarNavBtn" type="button" aria-label="Mês anterior"><i data-lucide="chevron-left" width="16" height="16"></i></button>
+      <button class="eventCalendarNavBtn" type="button" aria-label="Próximo mês"><i data-lucide="chevron-right" width="16" height="16"></i></button>
+    </div>
+  </div>
+  <div class="eventCalendarWeekdays">
+    <span class="eventCalendarWeekday">Dom</span>
+    <!-- ...Seg a Sáb -->
+  </div>
+  <div class="eventCalendarGrid">
+    <span class="eventCalendarCellEmpty"></span>
+    <span class="eventCalendarCell">1</span>
+    <span class="eventCalendarCell eventCalendarCellActive">18</span>
+    <!-- ...demais dias -->
+  </div>
+  <a class="eventCalendarFooter" href="eventos.html">
+    Ver todos os eventos <i data-lucide="chevron-right" width="16" height="16"></i>
+  </a>
+</div>
+```
+
+---
+
+### Layout: seção "Próximos Eventos" (page.css)
+Classes de `shared/page.css` específicas para montar a seção na Home: `.siteEventsGrid` (grid 2fr/1fr — painel de eventos + calendário), `.eventsPanel` (card branco que agrupa `EventHighlightCard` + lista "Outros eventos" — sem padding próprio, o `EventHighlightCard` ocupa o painel de ponta a ponta), `.eventsOtherWrap` (só esse bloco recebe padding), `.eventsOtherLabel`, `.eventsOtherList` (grid 2 colunas de `EventListItem`)
+
+---
+
+### Layout: página de Eventos — `eventos.html` (page.css)
+Classes específicas da listagem completa: `.eventsTabsBar` (espaçamento entre o card de destaque e os tabs), `.eventsContentPanel` (espaçamento entre os tabs e o grid de conteúdo), `.eventRowStack` (pilha vertical de `EventRow` — reaproveita `.siteEventsGrid` pro split lista/calendário), `.eventsSidebar` (coluna direita: só o calendário, `display:flex; flex-direction:column`), `.eventsSidebarMiniList` (lista de `EventListItem` dentro do card do calendário, com borda superior separando da grade de dias — no desktop, o `EventCalendar` tem `height:100%` e estica pra acompanhar a altura da lista à esquerda via `align-items: stretch` do `.siteEventsGrid`, então a mini lista inclui **todos** os próximos eventos, sem link "ver mais", pra preencher o espaço sem sobra vazia). `.eventsPromoCard`/`.eventsPromoIcon`/`.eventsPromoTitle`/`.eventsPromoDescription`/`.eventsPromoCta` (card "Não perca!" com CTA de notificações) ficam definidas mas **não usadas** por enquanto — removidas da página a pedido do usuário, prontas pra reaproveitar depois.
+
+Estrutura geral da página: header → breadcrumb → `EventHighlightCard` variante `wide` → `Tab` variante `underline` (Próximos/Passados, troca de painel via JS) → `.siteEventsGrid` (esquerda: `.eventRowStack` de `EventRow` + `Pagination`; direita: `.eventsSidebar`) → seção Links Úteis → `Footer`.
+
+---
+
+### CommunicationListItem
+```html
+<link rel="stylesheet" href="../componentes/CommunicationListItem/CommunicationListItem.module.css" />
+```
+Linha de lista vertical — usada na seção Comunicados da Home (substituiu os cards horizontais do `NewsCard`). Ícone quadrado à esquerda, título+descrição no meio, data e chevron à direita.
+
+Classes: `.commListItem` (`<a>`), `.commListItemIcon`, `.commListItemText`, `.commListItemTitle`, `.commListItemDescription` (1 linha, corta com reticências), `.commListItemMeta`, `.commListItemDate`, `.commListItemChevron`
+
+```html
+<a class="commListItem" href="comunicados.html">
+  <span class="commListItemIcon"><i data-lucide="heart-pulse" width="18" height="18"></i></span>
+  <span class="commListItemText">
+    <span class="commListItemTitle">Atualização do plano de saúde a partir de janeiro</span>
+    <span class="commListItemDescription">Novas regras de coparticipação entram em vigor no próximo ciclo.</span>
+  </span>
+  <span class="commListItemMeta">
+    <span class="commListItemDate">10 de dezembro de 2026</span>
+    <i data-lucide="chevron-right" width="16" height="16" class="commListItemChevron"></i>
+  </span>
+</a>
+```
+
+**Container:** use `.commsPanel` (`shared/page.css`) para agrupar vários `.commListItem` — card branco com borda entre os itens (o próprio componente cuida do `border-bottom`, exceto no último).
+
+**Responsivo:** abaixo de 640px cada `.commListItem` vira um card individual (borda, radius, sombra própria, `flex-wrap`), e `.commListItemMeta` (data + chevron) desce pra uma linha própria em vez de ficar espremida ao lado do texto — foi o que causava o título quebrando palavra por palavra por falta de espaço. `.commsPanel` fica transparente/sem borda nesse breakpoint (o espaçamento vem do `gap` entre os cards, não mais de divisórias internas).
+
+**Variante `.commListItemCard`** — usada em `comunicados.html` (listagem completa). Cada item é um card independente **e expansível**: renderizado como `<button>` (não `<a>`) — clicar expande um `.commListItemPanel` com o texto completo do comunicado, tipo FAQ/accordion. Não existe página de "detalhe do comunicado" — a expansão inline substitui a navegação. Classes extras: `.commListItemPanel` (colapsado por padrão, `max-height:0`), `.commListItemPanelContent` (texto completo). A seta (`.commListItemChevron`) fica sempre centralizada verticalmente no card via `position:absolute` e gira 90° quando `.commListItemCard.open`.
+
+```html
+<button type="button" class="commListItem commListItemCard" aria-expanded="false">
+  <span class="commListItemIcon"><i data-lucide="heart-pulse" width="18" height="18"></i></span>
+  <span class="commListItemText">
+    <span class="commListItemTitle">Atualização do plano de saúde a partir de janeiro</span>
+    <span class="commListItemDescription">Novas regras de coparticipação entram em vigor no próximo ciclo.</span>
+  </span>
+  <span class="commListItemMeta">
+    <span class="commListItemDate">10 de dezembro de 2026</span>
+    <i data-lucide="chevron-right" width="16" height="16" class="commListItemChevron"></i>
+  </span>
+  <span class="commListItemPanel">
+    <p class="commListItemPanelContent">Texto completo do comunicado...</p>
+  </span>
+</button>
+```
+
+```js
+document.querySelectorAll('.commListItemCard').forEach((card) => {
+  card.addEventListener('click', () => {
+    const isOpen = card.classList.toggle('open');
+    card.setAttribute('aria-expanded', String(isOpen));
+  });
+});
+```
+
+---
+
+### StatsBanner
+```html
+<link rel="stylesheet" href="../componentes/StatsBanner/StatsBanner.module.css" />
+```
+Banner escuro full-bleed com números de destaque — usado na seção Sobre da Home. Segue o mesmo padrão do Hero/SiteHeader: fundo full-bleed, conteúdo alinhado ao grid de 1200px. Altura definida por `padding: var(--spacing-3xl) 0` (64px), não por `min-height`. Linha superior (texto + CTA) e linha de números empilhadas verticalmente — os números ficam num bloco à parte, ocupando 100% da largura, abaixo de tudo.
+
+**Importante:** vai direto em `<main>`, fora de `.siteSection`/`.siteContainer` — igual ao `Hero`, porque o fundo é full-bleed.
+
+Classes: `.statsBanner`, `.statsBannerImage` (opcional — sem imagem, cai no fundo escuro `--color-gray-950`), `.statsBannerScrim`, `.statsBannerInner` (coluna: `.statsBannerTop` + `.statsBannerStats`), `.statsBannerTop` (linha: conteúdo + CTA), `.statsBannerContent`, `.statsBannerKicker`, `.statsBannerTitle`, `.statsBannerDescription`, `.statsBannerCta`, `.statsBannerStats` (linha full-width, `justify-content: space-between`), `.statsBannerStat`, `.statsBannerStatIcon`, `.statsBannerStatText`, `.statsBannerStatValue`, `.statsBannerStatLabel`
+
+```html
+<div class="statsBanner">
+  <img class="statsBannerImage" src="..." alt="" />
+  <div class="statsBannerScrim"></div>
+  <div class="statsBannerInner">
+    <div class="statsBannerTop">
+      <div class="statsBannerContent">
+        <span class="statsBannerKicker">Institucional</span>
+        <h2 class="statsBannerTitle">Sobre a EQS</h2>
+        <p class="statsBannerDescription">Texto de apoio...</p>
+      </div>
+      <a class="statsBannerCta" href="sobre.html">Saiba mais sobre a EQS <i data-lucide="arrow-right" width="16" height="16"></i></a>
+    </div>
+    <div class="statsBannerStats">
+      <div class="statsBannerStat">
+        <span class="statsBannerStatIcon"><i data-lucide="clock" width="18" height="18"></i></span>
+        <div class="statsBannerStatText">
+          <span class="statsBannerStatValue">20+</span>
+          <span class="statsBannerStatLabel">Anos de história</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+**Sem imagem:** omitir `<img class="statsBannerImage">` — o banner cai no fundo escuro sólido (`--color-gray-950`) com o mesmo scrim por cima.
+
+---
+
+### Home única — desktop + mobile responsiva (arquitetura)
+
+**A Home do site institucional é UMA página só: `site-desktop/index.html`.** Não existe mais `site-mobile/index.html` como página separada em uso — ela virou obsoleta (deixada no repositório sem uso, não deletada, mas não referenciada por nenhum `prototipo.html`). A ideia: qualquer alteração de conteúdo/layout se faz uma vez só, num arquivo só.
+
+**Duas formas de visualizar a mesma página:**
+- `site-desktop/prototipo.html` → carrega `index.html` largo, num iframe de largura normal
+- `site-mobile/prototipo.html` → carrega **a mesma página** (`../site-desktop/index.html`) dentro do mockup de celular — o iframe estreito faz a página cair sozinha no breakpoint mobile
+
+**Breakpoint único: `640px`**, controlado só via `@media` em `shared/page.css` e nos `.module.css` dos componentes. Nada de duplicar página nem de variante manual tipo `.heroMobile`/`.siteSectionMobile` (essas classes antigas ainda existem no CSS por compatibilidade com o `site-mobile/index.html` abandonado, mas a Home atual não usa mais — usa os `@media` automáticos).
+
+**Regra ao criar uma seção nova nessa página:** pense sempre nos dois lados do breakpoint. Se o layout precisar de marcação diferente entre desktop e mobile (não só tamanho/coluna), duplique o bloco e alterne com `.hideMobile`/`.hideDesktop` (ver abaixo) — não crie uma segunda página.
+
+---
+
+### SiteHeaderMobile
+```html
+<link rel="stylesheet" href="../componentes/SiteHeaderMobile/SiteHeaderMobile.module.css" />
+<link rel="stylesheet" href="../componentes/Sheet/Sheet.module.css" />
+```
+Header mobile do site institucional — vive **dentro do mesmo `site-desktop/index.html`** que o `SiteHeader` desktop, escondido/mostrado via `.hideMobile`/`.hideDesktop` conforme a largura (ver seção "Home única" acima). Layout de 3 colunas: busca (esquerda) · logo (centro) · hambúrguer (direita). Tocar na busca troca a linha inteira por um input full-width + botão de fechar (X). Tocar no hambúrguer abre o menu, que **reaproveita o `Sheet`** (painel deslizante) com 100% de altura — em mobile a largura também vira 100% automaticamente porque `Sheet` já limita a `max-width: 100vw`.
+
+Classes do header: `.siteHeaderMobile` (`padding-top: 56px` fixo — não é token, libera espaço pra dynamic island/status bar do mockup de celular do `prototipo.html` não tapar o header), `.siteHeaderMobileRow` (grid 3 colunas), `.siteHeaderMobileSearchRow`, `.siteHeaderMobileSearchInput`, `.siteHeaderMobileIconBtn`
+
+Classes do conteúdo do menu (dentro do `Sheet`): `.siteHeaderMobileMenuPanel` (aplicar junto com `.sheetPanel` — define a largura de 400px que no `Sheet.tsx` viria via prop `width`, mas em HTML estático não tem prop, então fica aqui; também aplica `padding-top: 56px` no `.sheetHeader` interno, mesmo motivo do header — libera espaço pra dynamic island/status bar do mockup não tapar o topo do menu. Escopado só a `.siteHeaderMobileMenuPanel .sheetHeader`, não afeta o `Sheet` genérico usado em outras telas), `.siteHeaderMobileNavList`, `.siteHeaderMobileNavItem`, `.siteHeaderMobileNavItemActive`, `.siteHeaderMobileFooterList`, `.siteHeaderMobileFooterItem`, `.siteHeaderMobileFooterItemDestructive`
+
+```html
+<!-- Header desktop — visível acima de 640px -->
+<header class="siteHeader hideMobile">...</header>
+
+<!-- Header mobile — visível abaixo de 640px -->
+<header class="siteHeaderMobile hideDesktop">
+  <div class="siteHeaderMobileRow" id="mobile-header-default">
+    <button class="siteHeaderMobileIconBtn" type="button" aria-label="Buscar" onclick="openSearch()">
+      <i data-lucide="search" width="20" height="20"></i>
+    </button>
+    <span class="logoDefault logoSm" role="img" aria-label="EQS Engenharia"></span>
+    <button class="siteHeaderMobileIconBtn" type="button" aria-label="Abrir menu" onclick="openMobileMenu()">
+      <i data-lucide="menu" width="20" height="20"></i>
+    </button>
+  </div>
+  <div class="siteHeaderMobileSearchRow" id="mobile-header-search" hidden>
+    <input class="siteHeaderMobileSearchInput" type="text" placeholder="Buscar..." id="mobile-search-input" />
+    <button class="siteHeaderMobileIconBtn" type="button" aria-label="Fechar busca" onclick="closeSearch()">
+      <i data-lucide="x" width="20" height="20"></i>
+    </button>
+  </div>
+</header>
+
+<div class="sheetOverlay hideDesktop" id="mobile-menu-overlay" onclick="closeMobileMenu()">
+  <aside class="sheetPanel siteHeaderMobileMenuPanel" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="sheetHeader">
+      <span class="sheetTitle">Menu</span>
+      <button class="sheetClose" type="button" aria-label="Fechar" onclick="closeMobileMenu()">
+        <i data-lucide="x" width="16" height="16"></i>
+      </button>
+    </div>
+    <div class="sheetBody">
+      <nav class="siteHeaderMobileNavList">
+        <a href="index.html" class="siteHeaderMobileNavItem siteHeaderMobileNavItemActive" aria-current="page">Home</a>
+        <a href="noticias.html" class="siteHeaderMobileNavItem">Notícias</a>
+        <!-- ...demais itens -->
+      </nav>
+    </div>
+    <div class="sheetFooter">
+      <div class="siteHeaderMobileFooterList">
+        <a class="siteHeaderMobileFooterItem" href="perfil.html">
+          <i data-lucide="user" width="16" height="16"></i> Meu Perfil
+        </a>
+        <a class="siteHeaderMobileFooterItem siteHeaderMobileFooterItemDestructive" href="../painel-adm/login.html">
+          <i data-lucide="log-out" width="16" height="16"></i> Sair
+        </a>
+      </div>
+    </div>
+  </aside>
+</div>
+```
+
+**JS (toggle busca + menu — nomeado `openMobileMenu`/`closeMobileMenu`, não `openMenu`/`closeMenu`, pra não colidir com nada do header desktop):**
+```js
+function openSearch() {
+  document.getElementById('mobile-header-default').hidden = true;
+  document.getElementById('mobile-header-search').hidden = false;
+  document.getElementById('mobile-search-input').focus();
+}
+function closeSearch() {
+  document.getElementById('mobile-header-search').hidden = true;
+  document.getElementById('mobile-header-default').hidden = false;
+}
+const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+function openMobileMenu() {
+  mobileMenuOverlay.classList.add('sheetOpen');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileMenu() {
+  mobileMenuOverlay.classList.remove('sheetOpen');
+  document.body.style.overflow = '';
+}
+```
+
+---
+
+### Utilitários responsivos (`.hideMobile` / `.hideDesktop`)
+```css
+/* shared/page.css */
+@media (max-width: 640px) { .hideMobile { display: none !important; } }
+@media (min-width: 641px) { .hideDesktop { display: none !important; } }
+```
+Usar quando o mesmo conteúdo precisa de marcação diferente nos dois lados do breakpoint (não dá pra resolver só com CSS reflow) — ex: header desktop vs. mobile, ou botão "Ver todos" ao lado do título (desktop) vs. centralizado embaixo (mobile). Duplica o bloco no HTML, uma cópia com `.hideMobile`, outra com `.hideDesktop`.
+
+**Botão "Ver todos/todas":** no desktop fica dentro de `.siteSectionHeader`, ao lado do título. Em mobile não cabe — vira uma cópia separada, centralizada, com `.siteSectionFooter` (`shared/page.css`), depois do grid de conteúdo.
+
+```html
+<div class="siteSectionHeader">
+  <div>
+    <span class="siteSectionKicker">Fique por dentro</span>
+    <h2 class="siteSectionTitle">Notícias</h2>
+  </div>
+  <button class="btn secondary hideMobile" type="button" onclick="location.href='noticias.html'">Ver todas as notícias</button>
+</div>
+<div class="siteGrid3">
+  <!-- ...cards — colapsa pra 1 coluna sozinho abaixo de 640px -->
+</div>
+<div class="siteSectionFooter hideDesktop">
+  <button class="btn secondary" type="button" onclick="location.href='noticias.html'">Ver todas</button>
+</div>
+```
+
+**Exceção:** a seção "Próximos Eventos" não duplica o botão em mobile — o `EventCalendar` já tem seu próprio CTA "Ver todos os eventos" no rodapé (`.eventCalendarFooter`), então o botão do `.siteSectionHeader` só recebe `.hideMobile`, sem cópia.
+
+---
+
+### Grids responsivos (automático, sem classe extra)
+`.siteGrid3`, `.siteEventsGrid` e `.eventsOtherList` colapsam pra 1 coluna sozinhos abaixo de 640px (`@media` em `shared/page.css`) — não precisa trocar a classe no HTML nem usar `.siteGridStack` (essa classe ainda existe, mas é resquício da época de página separada; pode ser útil pra outros casos, mas as três grids acima já resolvem sozinhas).
+
+---
+
+### Scroll por arrasto (emula touch abaixo de 640px)
+`site-desktop/index.html` inclui `../shared/touch-scroll.js` no final — o script já checa `window.innerWidth <= 640` sozinho e só ativa o arrasto-pra-scroll abaixo disso (acima disso não interfere em nada do mouse normal: seleção de texto, drag, etc.). A barra de rolagem nativa some automaticamente abaixo de 640px via `@media` em `body.layout-site` (`shared/page.css`) — não precisa de nenhuma classe no `<body>`.
+
+```html
+<body class="layout-site">
+  ...
+  <script src="../shared/touch-scroll.js"></script>
+</body>
+```
+
+---
+
+### Footer
+```html
+<link rel="stylesheet" href="../componentes/Footer/Footer.module.css" />
+```
+Classes: `.footer`, `.footerInner`, `.footerBrand`, `.footerTagline`, `.footerColumns`, `.footerColumn`, `.footerColumnTitle`, `.footerLink`, `.footerBottom`
+
+```html
+<footer class="footer">
+  <div class="footerInner">
+    <div class="footerBrand">
+      <span class="logoDefault logoSm" role="img" aria-label="EQS Engenharia"></span>
+      <p class="footerTagline">Intranet corporativa da EQS Engenharia.</p>
+    </div>
+    <div class="footerColumns">
+      <div class="footerColumn">
+        <span class="footerColumnTitle">Portal</span>
+        <a class="footerLink" href="noticias.html">Notícias</a>
+        <a class="footerLink" href="eventos.html">Eventos</a>
+        <a class="footerLink" href="comunicados.html">Comunicados</a>
+      </div>
+      <div class="footerColumn">
+        <span class="footerColumnTitle">Institucional</span>
+        <a class="footerLink" href="sobre.html">Sobre</a>
+        <a class="footerLink" href="links-uteis.html">Links Úteis</a>
+      </div>
+    </div>
+  </div>
+  <div class="footerBottom">© 2026 EQS Engenharia. Todos os direitos reservados.</div>
+</footer>
+```
+
+---
+
+### DepartmentCard
+```html
+<link rel="stylesheet" href="../componentes/DepartmentCard/DepartmentCard.module.css" />
+<link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+```
+Card de área/departamento — prévia na Home + página completa de Áreas e Departamentos. Mostra gestor responsável e pilha de avatares dos colaboradores (com "+N" quando passa do limite visível).
+
+Classes: `.deptCard` (`<a>`), `.deptHeader`, `.deptIcon`, `.deptName`, `.deptRow`, `.deptRowLabel`, `.deptManager`, `.deptManagerName`, `.deptAvatarStack`, `.deptAvatarStackItem` (envolve cada `.avatar` para o efeito de sobreposição), `.deptAvatarMore` (bolha "+N", mesmo tamanho de um avatar sm)
+
+**Fotos dos avatares:** todos os avatares visíveis (gestor + colaboradores, exceto o "+N") usam foto real, não iniciais — `<img class="avatarImg" src="..." />` dentro do `.avatar`, em vez de `<span class="avatarInitials">`. Fotos ficam em `src/avatar/team-01.jpg` a `team-10.jpg` (recortadas 240×240, ~10-15KB cada, originais do usuário também na mesma pasta). Como só existem 10 fotos únicas para 11 avatares visíveis na Home, uma foto é reaproveitada em duas pessoas de departamentos diferentes (LA em Financeiro e HC em RH dividem `team-04.jpg`) — sem problema visual porque não aparecem lado a lado.
+
+```html
+<a class="deptCard card" href="areas-departamentos.html">
+  <div class="deptHeader">
+    <span class="deptIcon"><i data-lucide="megaphone" width="20" height="20"></i></span>
+    <h3 class="deptName">Marketing</h3>
+  </div>
+
+  <div class="deptRow">
+    <span class="deptRowLabel">Gestor responsável</span>
+    <div class="deptManager">
+      <div class="avatar sm"><span class="avatarInitials">CR</span></div>
+      <span class="deptManagerName">Camila Rocha</span>
+    </div>
+  </div>
+
+  <div class="deptRow">
+    <span class="deptRowLabel">Colaboradores</span>
+    <div class="deptAvatarStack">
+      <span class="deptAvatarStackItem"><div class="avatar sm"><span class="avatarInitials">JS</span></div></span>
+      <span class="deptAvatarStackItem"><div class="avatar sm"><span class="avatarInitials">MC</span></div></span>
+      <span class="deptAvatarStackItem"><div class="avatar sm"><span class="avatarInitials">PA</span></div></span>
+      <span class="deptAvatarStackItem"><div class="avatar sm"><span class="avatarInitials">FL</span></div></span>
+      <span class="deptAvatarMore">+2</span>
+    </div>
+  </div>
+</a>
+```
+
+**Nota:** `.deptCard` é linkado junto com `.card` (superfície sólida) para o fundo do card — mesma composição usada em `.linkCard` (`LinkCard`, Links Úteis).
+
+---
+
+### DepartmentDetailCard
+```html
+<link rel="stylesheet" href="../componentes/Card/Card.module.css" />
+<link rel="stylesheet" href="../componentes/DepartmentDetailCard/DepartmentDetailCard.module.css" />
+```
+Card completo de área/departamento — usado na página `areas-departamentos.html`. Diferente do `DepartmentCard` (prévia compacta da Home, avatar stack com "+N"): aqui lista **todos** os colaboradores (nunca corta com "ver todos", mesmo que sejam muitos) e inclui e-mail de cada pessoa + texto de resumo da área.
+
+Classes: `.deptDetailCard` (linkado junto com `.card`), `.deptDetailHeader`, `.deptDetailHeaderLeft`, `.deptDetailTitleRow`, `.deptDetailIcon`, `.deptDetailName`, `.deptDetailDivider` (linha vertical entre o bloco esquerdo e o gestor), `.deptDetailManagerCol` (coluna com o badge acima do gestor), `.deptDetailBadge` ("Gestor responsável"), `.deptDetailManager`, `.deptDetailContactText`, `.deptDetailContactName`, `.deptDetailContactEmail`, `.deptDetailBody`, `.deptDetailSectionLabel` ("Colaboradores"), `.deptDetailCollabGrid` (4 colunas desktop → 2 em ~900px → 1 em mobile), `.deptDetailCollabItem`, `.deptDetailDescription`
+
+```html
+<div class="card deptDetailCard">
+  <div class="deptDetailHeader">
+    <div class="deptDetailHeaderLeft">
+      <div class="deptDetailTitleRow">
+        <span class="deptDetailIcon"><i data-lucide="megaphone" width="22" height="22"></i></span>
+        <h2 class="deptDetailName">Marketing</h2>
+      </div>
+    </div>
+    <span class="deptDetailDivider"></span>
+    <div class="deptDetailManagerCol">
+      <span class="deptDetailBadge">Gestor responsável</span>
+      <div class="deptDetailManager">
+        <div class="avatar md"><img class="avatarImg" src="..." alt="Camila Rocha" /></div>
+        <div class="deptDetailContactText">
+          <span class="deptDetailContactName">Camila Rocha</span>
+          <span class="deptDetailContactEmail">camila.rocha@eqs.com.br</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="deptDetailBody">
+    <span class="deptDetailSectionLabel">Colaboradores</span>
+    <div class="deptDetailCollabGrid">
+      <div class="deptDetailCollabItem">
+        <div class="avatar sm"><img class="avatarImg" src="..." alt="João Pereira" /></div>
+        <div class="deptDetailContactText">
+          <span class="deptDetailContactName">João Pereira</span>
+          <span class="deptDetailContactEmail">joao.pereira@eqs.com.br</span>
+        </div>
+      </div>
+      <!-- ...um .deptDetailCollabItem por colaborador, sem limite/corte -->
+    </div>
+    <p class="deptDetailDescription">Texto de resumo da área...</p>
+  </div>
+</div>
+```
+
+**Responsivo:** abaixo de 640px o `.deptDetailDivider` some, `.deptDetailManagerCol` (badge + gestor) desce pra uma linha própria (borda superior no lugar do divisor) e `.deptDetailCollabGrid` vira 1 coluna. Entre 641–900px a grade já reduz para 2 colunas.
+
+**Container:** use `.deptDetailList` (`shared/page.css`) pra empilhar vários cards de departamento com espaçamento generoso (`--spacing-xl`).
+
+---
+
+### LinkCard
+```html
+<link rel="stylesheet" href="../componentes/LinkCard/LinkCard.module.css" />
+<link rel="stylesheet" href="../componentes/Card/Card.module.css" />
+```
+Card simples de atalho — ícone + título + descrição. Usado na seção Links Úteis da Home. Variante mais enxuta da mesma família do `DepartmentCard` (mesmo ícone 40×40, mesma composição com `.card`), sem a parte de gestor/colaboradores.
+
+Classes: `.linkCard` (`<a>`, linkado junto com `.card` para o fundo sólido), `.linkIcon`, `.linkTitle`, `.linkDescription`
+
+```html
+<a class="card linkCard" href="links-uteis.html">
+  <span class="linkIcon"><i data-lucide="book-open" width="20" height="20"></i></span>
+  <h3 class="linkTitle">Manual da Marca EQS</h3>
+  <p class="linkDescription">Diretrizes de identidade visual e uso da marca.</p>
+</a>
+```
+
+---
+
+### AboutHero
+```html
+<link rel="stylesheet" href="../componentes/AboutHero/AboutHero.module.css" />
+```
+Bloco de topo da página Sobre — texto + CTA à esquerda, foto à direita com um card de estatísticas **flutuando sobre a borda inferior da imagem** (`position: absolute` + `transform: translateY(50%)`). Diferente do `Hero` (full-bleed, texto sobre a foto com scrim escuro).
+
+Classes: `.aboutHero` (grid 2 colunas), `.aboutHeroContent`, `.aboutHeroKicker`, `.aboutHeroTitle`, `.aboutHeroDescription`, `.aboutHeroCta` (pill sólido), `.aboutHeroMedia` (`position: relative` — âncora da foto e do card flutuante), `.aboutHeroImage`, `.aboutHeroStats` (card branco flutuante), `.aboutHeroStat`, `.aboutHeroStatIcon` (ícone sem caixa, só cor), `.aboutHeroStatValue`, `.aboutHeroStatLabel`
+
+```html
+<div class="aboutHero">
+  <div class="aboutHeroContent">
+    <span class="aboutHeroKicker">Sobre a EQS</span>
+    <h1 class="aboutHeroTitle">Construindo o futuro com engenharia, inovação e compromisso</h1>
+    <p class="aboutHeroDescription">Há mais de 20 anos...</p>
+    <a class="aboutHeroCta" href="#historia">Conheça nossa história <i data-lucide="arrow-right" width="16" height="16"></i></a>
+  </div>
+  <div class="aboutHeroMedia">
+    <img class="aboutHeroImage" src="..." alt="" />
+    <div class="aboutHeroStats">
+      <div class="aboutHeroStat">
+        <span class="aboutHeroStatIcon"><i data-lucide="clock" width="22" height="22"></i></span>
+        <span class="aboutHeroStatValue">20+</span>
+        <span class="aboutHeroStatLabel">Anos de história</span>
+      </div>
+      <!-- ...demais stats -->
+    </div>
+  </div>
+</div>
+```
+
+**Responsivo:** abaixo de 640px vira 1 coluna e o card de estatísticas quebra linha (2 por linha) — precisa de mais `padding-bottom` na seção pra acomodar a sobreposição.
+
+---
+
+### ContentSplit
+```html
+<link rel="stylesheet" href="../componentes/ContentSplit/ContentSplit.module.css" />
+```
+Bloco genérico **imagem + texto lado a lado** — usado em "Nossa história" (Sobre), reaproveitável em qualquer seção institucional futura. `imagePosition` (`'left'`/`'right'`) inverte o lado da imagem via `order` no CSS, sem duplicar markup.
+
+Classes: `.contentSplit` (grid 2 colunas — adicionar `.contentSplitImageRight` pra inverter), `.contentSplitImage`, `.contentSplitText`, `.contentSplitKicker`, `.contentSplitTitle`, `.contentSplitParagraph` (um `<p>` por parágrafo), `.contentSplitCta` (pill outline, preenche no hover)
+
+```html
+<div class="contentSplit">
+  <img class="contentSplitImage" src="..." alt="" />
+  <div class="contentSplitText">
+    <span class="contentSplitKicker">Nossa história</span>
+    <h2 class="contentSplitTitle">De um propósito sólido para grandes conquistas</h2>
+    <p class="contentSplitParagraph">Parágrafo 1...</p>
+    <p class="contentSplitParagraph">Parágrafo 2...</p>
+    <a class="contentSplitCta" href="#">Linha do tempo <i data-lucide="arrow-right" width="16" height="16"></i></a>
+  </div>
+</div>
+```
+
+**Inverter lado da imagem:** `<div class="contentSplit contentSplitImageRight">` — a imagem some visualmente pra direita via `order`, sem trocar a ordem no DOM.
+
+---
+
+### ValueCard
+```html
+<link rel="stylesheet" href="../componentes/ValueCard/ValueCard.module.css" />
+```
+Ícone circular (outline) + título + descrição, **centralizado** — usado na seção "Nossos valores" (Sobre). Ícone segue a regra padrão de icon box: sem fundo, só `border: 1px solid var(--color-gray-300)`.
+
+Classes: `.valueCard`, `.valueIcon`, `.valueTitle`, `.valueDescription`
+
+```html
+<div class="valueCard">
+  <span class="valueIcon"><i data-lucide="shield-check" width="24" height="24"></i></span>
+  <h3 class="valueTitle">Segurança</h3>
+  <p class="valueDescription">Cuidamos das pessoas acima de tudo, sempre.</p>
+</div>
+```
+
+**Container:** use `.siteGrid5` (`shared/page.css`) — 5 colunas desktop → 2 em ~900px → 1 em mobile.
+
+---
+
+### LeadershipCard
+```html
+<link rel="stylesheet" href="../componentes/Card/Card.module.css" />
+<link rel="stylesheet" href="../componentes/LeadershipCard/LeadershipCard.module.css" />
+```
+Foto + nome + cargo + link do LinkedIn — usado na seção "Liderança" (Sobre). Ícone do LinkedIn não existe mais no `lucide-react` (ícones de marca foram removidos da lib) — usa o texto `"in"` estilizado dentro de um círculo outline, no lugar de um ícone.
+
+Classes: `.leadershipCard` (linkado junto com `.card`), `.leadershipPhoto`, `.leadershipBody`, `.leadershipText`, `.leadershipName`, `.leadershipRole`, `.leadershipLinkedin`
+
+```html
+<div class="card leadershipCard">
+  <img class="leadershipPhoto" src="..." alt="Marcos Aurélio" />
+  <div class="leadershipBody">
+    <div class="leadershipText">
+      <span class="leadershipName">Marcos Aurélio</span>
+      <span class="leadershipRole">Diretor Presidente</span>
+    </div>
+    <a class="leadershipLinkedin" href="#" aria-label="LinkedIn de Marcos Aurélio">in</a>
+  </div>
+</div>
+```
+
+**Container:** use `.aboutLeadershipGrid` (`shared/page.css`) — 3 colunas desktop, 1 coluna mobile.
+
+---
+
+### Layout: página Sobre — `sobre.html` (page.css)
+Estrutura: header → breadcrumb (Home / Sobre) → `AboutHero` → `ContentSplit` ("Nossa história", foto à esquerda) → "Nossos valores" (`.siteSectionHeaderCentered` + `.siteGrid5` de `ValueCard`) → "Atuação" (`.siteSectionHeaderCentered` + `.siteGrid5` de `.card.linkCard`) → "Liderança" (`.aboutLeadershipSection`: `.aboutLeadershipContent` + `.aboutLeadershipGrid` de `LeadershipCard`) → banner final (`.statsBanner` **sem** `.statsBannerStats` — só kicker/título/descrição/CTA) → Links Úteis → `Footer`.
+
+Novas classes de `page.css`: `.siteSectionHeaderCentered` (kicker+título+subtítulo centralizados, diferente do `.siteSectionHeader` que é alinhado à esquerda com botão à direita), `.siteGrid5`, `.aboutLeadershipSection`/`.aboutLeadershipContent`/`.aboutLeadershipGrid`.
+
+`StatsBanner` (componente) teve a prop `stats` tornada **opcional** — sem `stats`, renderiza só kicker/título/descrição/CTA (usado no banner final desta página, que não tem números).
+
+**Conflito resolvido:** existia uma classe `.aboutHero` antiga e não utilizada em `page.css` ("Sobre a empresa: hero centrado — logo + tagline", de um protótipo anterior nunca finalizado) que colidia com o componente `AboutHero` novo — o `text-align: center` dela vazava pro desktop mesmo sem o componente pedir isso. Removida junto com `.aboutTagline` (também morta, sem uso).
+
+---
+
+### Layout: página Links Úteis — `links-uteis.html` (page.css)
+Igual à estrutura de `noticias.html`, trocando os cards: `.sitePageHeader` (kicker "Recursos" + título "Links Úteis" + texto) → `.siteGrid3` de `.card.linkCard` (9 itens) → `Pagination` → banner final `.statsBanner` (mesmo do `sobre.html`, sem stats) → `Footer`.
+
+**Diferença importante:** não tem a seção "Links Úteis" no final (seria redundante, é a própria página) — no lugar dela entra o banner de CTA reaproveitado de `sobre.html`.
+
+---
+
+### SearchResultItem
+```html
+<link rel="stylesheet" href="../componentes/SearchResultItem/SearchResultItem.module.css" />
+```
+Linha genérica de resultado de busca — usada na página de Pesquisa (`search.html`). O slot `leading` (miniatura, ícone outline ou date-badge) é livre, permitindo reaproveitar a mesma linha pros 5 tipos de resultado (notícias, eventos, comunicados, departamentos, links úteis) sem criar 5 componentes quase idênticos.
+
+Classes: `.searchResultItem` (`<a>`, borda inferior entre itens exceto o último — mesmo padrão do `CommunicationListItem`), `.searchResultItemLeading`, `.searchResultItemText`, `.searchResultItemTitle`, `.searchResultItemDescription` (corta em 1 linha), `.searchResultItemMeta` (alinhado à direita), `.searchResultItemChevron`. Variantes do `leading`: `.searchResultItemImage` (miniatura 64×64, notícias/eventos), `.searchResultItemDate` + `.searchResultItemDay` + `.searchResultItemMonth` (date-badge, eventos, igual ao `EventRow`), `.searchResultItemDot` (bolinha vermelha 8×8 — comunicados, áreas e departamentos, links úteis; substituiu o ícone outline que era usado antes nesses 3 grupos). `.searchResultItemIcon` (ícone outline no leading) continua disponível na CSS pra uso futuro, mas não é mais usado em `search.html`.
+
+**Nota:** o destaque `<mark class="searchHighlight">` do termo buscado foi removido de `search.html`/`search-vazio.html` a pedido do usuário — não fazia sentido visualmente. A classe `.searchHighlight` continua na CSS do componente mas não é mais usada.
+
+```html
+<a class="searchResultItem" href="noticia-detalhe.html">
+  <div class="searchResultItemLeading">
+    <img class="searchResultItemImage" src="..." alt="" />
+  </div>
+  <div class="searchResultItemText">
+    <span class="searchResultItemTitle">Workshop BIM 4.0 reúne equipe técnica...</span>
+    <span class="searchResultItemDescription">O evento apresentou as novas ferramentas...</span>
+  </div>
+  <div class="searchResultItemMeta"><span>08 dez 2026</span></div>
+</a>
+
+<!-- Comunicados / Áreas e Departamentos / Links Úteis — leading em bolinha -->
+<a class="searchResultItem" href="comunicados.html">
+  <div class="searchResultItemLeading">
+    <span class="searchResultItemDot"></span>
+  </div>
+  <div class="searchResultItemText">
+    <span class="searchResultItemTitle">Inscrições abertas para o Workshop de Liderança 2027</span>
+    <span class="searchResultItemDescription">As inscrições para o Workshop de Liderança já estão abertas...</span>
+  </div>
+  <div class="searchResultItemMeta"><span>02 dez 2026</span></div>
+</a>
+```
+
+**Container:** use `.commsPanel` (`shared/page.css`, já existente) pra agrupar vários `.searchResultItem` num painel branco com bordas entre os itens — mesma classe reaproveitada de Comunicados.
+
+**Responsivo:** abaixo de 640px, `.searchResultItemMeta` some (evita aglomerar texto secundário numa tela estreita).
+
+---
+
+### Layout: página de Busca — `search.html` (page.css)
+Estrutura: header → breadcrumb (Home / Buscar) → `.searchResultsHeader` (título com o termo buscado + subtítulo com contagem + botão "Limpar busca") → `.searchResultsGrid` (2fr/1fr: `.searchResultsMain` com um grupo por tipo de resultado + sidebar "Sugestões") → `Footer` (sem seção de Links Úteis nem banner — página utilitária, não institucional).
+
+**Correção de layout (grid + texto que encolhe):** `.searchResultsMain` (item do grid `.searchResultsGrid`) precisa de `min-width: 0` — sem isso, o item do CSS Grid não encolhe abaixo do conteúdo intrínseco (título/descrição em `white-space: nowrap`), ficando mais largo que a coluna e cortando texto no mobile (bug reportado e corrigido).
+
+Cada grupo de resultado: `.searchResultGroupHeader` (`.searchResultGroupIcon` outline + `.searchResultGroupName` com contagem + botão "Ver todos") seguido de um `.commsPanel` com `SearchResultItem`s dentro.
+
+Sidebar "Sugestões": `.card.searchSuggestions` com `.searchSuggestionsHeader`/`.searchSuggestionsTitle`/`.searchSuggestionsSubtitle`/`.searchSuggestionsList`/`.searchSuggestionItem` (links com ícone de busca, cada um leva pra `search.html?q=<termo>`).
+
+**Interatividade:** a página lê `?q=` da URL pra atualizar o texto destacado no título (`#search-term`) — os resultados em si continuam fixos (protótipo estático, sem busca real). Os campos de busca do header (desktop e mobile) desta página redirecionam para `search.html?q=<valor>` ao pressionar Enter. Os outros headers do site (`noticias.html`, `eventos.html` etc.) ainda não têm esse redirecionamento ligado — só o de `search.html` foi ligado nesta tarefa.
+
+**Nota de ambiente:** o preview usado durante o desenvolvimento normaliza a URL e descarta a query string na navegação — o comportamento de `?q=` não pôde ser 100% confirmado nesse ambiente, apesar do código ser padrão (`URLSearchParams`).
+
+**Input de busca no próprio header da página** (`.searchResultsInput`, dentro de `.searchResultsHeader`): reaproveita as classes do `Input` (`.wrapper`/`.inputWrap hasLeft`/`.iconLeft`/`.input`). `.searchResultsHeader` é `flex-direction: column` (título+botão numa linha via `.searchResultsHeaderTop`, input full-width embaixo, max 480px no desktop). Vem pré-preenchido com o termo atual e também dispara `goToSearch()` no Enter.
+
+---
+
+### Layout: página de Busca — estado vazio — `search-vazio.html` (page.css)
+Mesma estrutura de `search.html` (header, breadcrumb, `.searchResultsHeader` com input) até o `.searchResultsGrid` — a partir daí, no lugar dos grupos de resultado, entra:
+
+- `.searchEmptyState` (centralizado, `max-width: 480px`): `.searchEmptyIcon` (círculo outline 96px, ícone `search-x` — mesma regra de sempre, sem fundo) + `.searchEmptyTitle` + `.searchEmptyDescription` + `.searchEmptyActions` (botão "Voltar para a Home")
+- `.card.searchSuggestions.searchSuggestionsCentered` — o mesmo card de sugestões da `search.html`, só que centralizado (`max-width: 420px; margin: 0 auto`) já que não há mais coluna de resultados ao lado pra ele ser sidebar de.
+
+Sem `.searchResultsGrid` nessa página — como não há resultados, não faz sentido o grid 2fr/1fr.
+
+---
+
 ## Conflitos de classes conhecidos
 
 | Classe | Componentes conflitantes | Solução |
@@ -479,7 +1528,7 @@ Quando a página já usa Dropdown, implementar toggle com CSS page-level:
 ```css
 .switchLabel { display: inline-flex; align-items: center; gap: var(--spacing-sm); cursor: pointer; user-select: none; flex-shrink: 0; }
 .switchInput { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
-.switchTrack { position: relative; width: 44px; height: 24px; background: var(--color-glass-surface); border: var(--border-width-thin) solid var(--color-glass-border); border-radius: var(--radius-full); transition: background var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast); flex-shrink: 0; }
+.switchTrack { position: relative; width: 44px; height: 24px; background: var(--color-bg-subtle); border: var(--border-width-thin) solid var(--color-border-default); border-radius: var(--radius-full); transition: background var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast); flex-shrink: 0; }
 .switchThumb { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; background: white; border-radius: 50%; box-shadow: var(--shadow-xs); transition: transform var(--transition-fast); }
 .switchLabel:has(input:checked) .switchTrack { background: var(--gradient-brand); border-color: transparent; box-shadow: var(--shadow-highlight), var(--shadow-glow-sm); }
 .switchLabel:has(input:checked) .switchThumb { transform: translateX(20px); }
@@ -613,7 +1662,7 @@ Quando a página já usa Dropdown, implementar multi-select com CSS page-level:
 ### Cores semânticas (preferir sempre)
 - Texto: `--color-text-primary`, `--color-text-secondary`, `--color-text-tertiary`, `--color-text-brand`
 - Fundo: `--color-bg-default`, `--color-bg-surface`, `--color-bg-brand`
-- Borda: `--color-border-default`, `--color-border-subtle`, `--color-border-muted`, `--color-border-glass`, `--color-border-focus`
+- Borda: `--color-border-default`, `--color-border-subtle`, `--color-border-muted`, `--color-border-focus`
 - Ação: `--color-action-primary`, `--color-action-primary-hover`
 
 ### Espaçamento
@@ -632,9 +1681,6 @@ Quando a página já usa Dropdown, implementar multi-select com CSS page-level:
 
 ### Gradiente e glow brand
 `--gradient-brand` · `--shadow-glow-sm` · `--shadow-highlight` · `--shadow-xs`
-
-### Glass
-`--color-glass-surface` · `--color-glass-border`
 
 ---
 

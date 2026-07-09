@@ -7,7 +7,7 @@ const meta: Meta<typeof FAB> = {
   component: FAB,
   tags: ['autodocs'],
   argTypes: {
-    variant: { control: 'select', options: ['glass', 'brand'] },
+    variant: { control: 'select', options: ['default', 'brand'] },
     size:    { control: 'select', options: ['sm', 'md', 'lg'] },
     disabled: { control: 'boolean' },
   },
@@ -34,7 +34,7 @@ type Story = StoryObj<typeof FAB>;
 export const VehicleSelector: Story = {
   args: {
     icon: <Car size={20} />,
-    variant: 'glass',
+    variant: 'default',
     size: 'md',
     'aria-label': 'Selecionar veículo',
   },
@@ -43,7 +43,7 @@ export const VehicleSelector: Story = {
 export const QRScanner: Story = {
   args: {
     icon: <QrCode size={20} />,
-    variant: 'glass',
+    variant: 'default',
     size: 'md',
     'aria-label': 'Escanear QR Code',
   },

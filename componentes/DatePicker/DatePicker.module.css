@@ -76,12 +76,10 @@
   top: calc(100% + var(--spacing-xs));
   left: 50%;
   transform: translateX(-50%);
-  background: var(--color-glass-surface);
-  border: var(--border-width-thin) solid var(--color-glass-border);
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-xl);
-  backdrop-filter: blur(var(--blur-glass));
-  -webkit-backdrop-filter: blur(var(--blur-glass));
   display: flex;
   flex-direction: row;
   z-index: 200;

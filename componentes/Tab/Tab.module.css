@@ -51,3 +51,35 @@
 .tabRight  { border-top-right-radius: var(--radius-md); }
 
 .tabPanel { padding: var(--spacing-md) 0; color: var(--color-text-secondary); line-height: var(--line-height-normal); }
+
+/* ── Variante underline (site institucional) ─────────────────────────── */
+.tabListUnderline {
+  gap: var(--spacing-xl);
+}
+.tabListUnderline::after {
+  border-bottom: none;
+}
+
+.tabBtnUnderline {
+  padding: 0 0 var(--spacing-sm);
+  border: none;
+  border-bottom: var(--border-width-medium) solid transparent;
+  background: none;
+  font-family: var(--font-body);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.tabBtnUnderline:hover {
+  color: var(--color-text-primary);
+}
+
+.tabBtnUnderlineActive {
+  color: var(--color-action-primary);
+  font-weight: var(--font-weight-bold);
+  border-bottom-color: var(--color-action-primary);
+}

@@ -3,10 +3,8 @@
    ─────────────────────────────────────────────────────────────────────── */
 .card {
   width: 100%;
-  background: var(--color-table-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: var(--border-width-thin) solid var(--color-glass-border);
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
   border-radius: var(--radius-md);
   overflow: hidden;
   font-family: var(--font-body);
@@ -55,7 +53,7 @@
    Bottom border separates header from striped rows
    ─────────────────────────────────────────────────────────────────────── */
 .headerRow {
-  border-bottom: var(--border-width-thin) solid var(--color-glass-border);
+  border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
 }
 
 .th {
@@ -66,7 +64,7 @@
   color: var(--color-text-secondary);
   white-space: nowrap;
   user-select: none;
-  background: var(--color-table-head-bg);
+  background: var(--color-bg-subtle);
   border-right: none;
   text-align: left;
 }
@@ -94,7 +92,7 @@
 
 /* ── Body rows ───────────────────────────────────────────────────────────*/
 .tr:hover .td {
-  background: var(--color-table-row-hover);
+  background: var(--color-bg-subtle);
 }
 
 /* ── Data cells ──────────────────────────────────────────────────────────
@@ -107,7 +105,7 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-regular);
   color: var(--color-text-primary);
-  border-bottom: var(--border-width-thin) solid var(--color-table-border);
+  border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
   border-right: none;
 }
 

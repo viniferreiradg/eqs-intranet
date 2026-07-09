@@ -1,0 +1,152 @@
+.commListItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  text-decoration: none;
+  color: inherit;
+  transition: background var(--transition-fast);
+}
+
+.commListItem:hover {
+  background: var(--color-bg-subtle);
+}
+
+.commListItem:not(:last-child) {
+  border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+.commListItemIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--spacing-3xl);
+  height: var(--spacing-3xl);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-gray-300);
+  color: var(--color-action-primary);
+}
+
+.commListItemText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+  min-width: 0;
+  flex: 1;
+}
+
+.commListItemTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.commListItemDescription {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.commListItemMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-shrink: 0;
+}
+
+.commListItemDate {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
+}
+
+.commListItemChevron {
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}
+
+/* ── Variante "card" — item independente e expansível (comunicados.html) ──
+   Renderizado como <button> (não <a>): clicar expande o texto completo
+   abaixo, tipo acordeão/FAQ — não navega para uma página de detalhe. */
+.commListItemCard {
+  position: relative;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  row-gap: var(--spacing-sm);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-body);
+  text-align: left;
+  cursor: pointer;
+}
+
+.commListItemCard .commListItemMeta {
+  flex-basis: 100%;
+  justify-content: space-between;
+}
+
+/* Seta sempre centralizada verticalmente no card, independente da altura do texto/data.
+   Gira 90° quando expandido, como indicador de estado (mesmo padrão do Accordion). */
+.commListItemCard .commListItemChevron {
+  position: absolute;
+  top: 50%;
+  right: var(--spacing-lg);
+  transform: translateY(-50%);
+  transition: transform var(--transition-fast);
+}
+
+.commListItemCard.open .commListItemChevron {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+/* Painel expansível — texto completo do comunicado */
+.commListItemPanel {
+  flex-basis: 100%;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-normal);
+}
+
+.commListItemCard.open .commListItemPanel {
+  max-height: 600px;
+}
+
+.commListItemPanelContent {
+  margin: 0;
+  padding-top: var(--spacing-sm);
+  border-top: var(--border-width-thin) solid var(--color-border-subtle);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+  white-space: normal;
+}
+
+/* ── Responsivo (Home única) — vira card individual, meta desce pra linha própria ── */
+@media (max-width: 640px) {
+  .commListItem {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    row-gap: var(--spacing-sm);
+    border: var(--border-width-thin) solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-surface);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .commListItem:not(:last-child) {
+    border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
+  }
+
+  .commListItemMeta {
+    flex-basis: 100%;
+    justify-content: space-between;
+  }
+}

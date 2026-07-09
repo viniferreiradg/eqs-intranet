@@ -234,7 +234,6 @@
   --color-border-muted:    var(--color-gray-600);
   --color-border-disabled: var(--color-gray-700);
   --color-border-focus:    var(--color-brand-400);
-  --color-border-glass:    rgba(255, 255, 255, 0.13);
 
   /* ─── Semantic — Action/Primary ────────────────────── */
   --color-action-primary:         var(--color-brand-500);
@@ -277,23 +276,6 @@
   --color-status-purple-bg:   var(--color-purple-950);
   --color-status-purple-fg:   var(--color-purple-300);
 
-  /* ─── Glass surfaces ───────────────────────────────── */
-  --color-glass-surface:  rgba(255, 255, 255, 0.08);
-  --color-glass-whtite:  rgba(255, 255, 255, 0.4);
-  --color-glass-border:   rgba(255, 255, 255, 0.14);
-  --color-glass2-surface: rgba(255, 255, 255, 0.40);
-
-  --blur-glass:           12px;
-  --color-sidebar-bg:     rgba(0, 0, 0, 0.28);
-  --color-nav-idle:       rgba(255, 255, 255, 0.36);
-  --color-nav-active-bg:  rgba(255, 255, 255, 0.06);
-  --color-nav-active-text: rgba(255, 255, 255, 0.90);
-  --color-nav-hover-bg:   rgba(128, 128, 128, 0.06);
-  --color-table-bg:        rgba(255, 255, 255, 0.025);
-  --color-table-head-bg:   rgba(255, 255, 255, 0.03);
-  --color-table-border:    rgba(255, 255, 255, 0.05);
-  --color-table-row-hover: rgba(255, 255, 255, 0.018);
-
   /* ─── Brand effect ──────────────────────────────────── */
   --gradient-brand:    linear-gradient(135deg, var(--color-brand-400) 0%, var(--color-brand-600) 100%);
   --shadow-highlight:  inset 0 1px 0 rgba(255, 255, 255, 0.18);
@@ -312,28 +294,8 @@
   --color-on-brand-btn-press:  rgba(255, 255, 255, 0.12);
 }
 
-/* ─── Dark mode semantic overrides ───────────────────── */
-[data-theme="dark"] {
-  /* Sidebar — contraste visível sobre bg-default */
-  --color-sidebar-bg: rgba(255, 255, 255, 0.06);
-}
-
 /* ─── Light mode overrides ───────────────────────────── */
 [data-theme="light"] {
-  /* Glass surfaces */
-  --color-glass-surface:  rgba(0, 0, 0, 0.05);
-  --color-glass-secondary:  rgba(255, 255, 255, 0.4);
-  --color-glass-border:   rgba(0, 0, 0, 0.10);
-  --color-sidebar-bg:     rgba(255, 255, 255, 0.72);
-  --color-nav-idle:       rgba(15, 12, 20, 0.38);
-  --color-nav-active-bg:  rgba(15, 12, 20, 0.06);
-  --color-nav-active-text: rgba(15, 12, 20, 0.88);
-  --color-nav-hover-bg:   rgba(128, 128, 128, 0.06);
-  --color-table-bg:        rgba(255, 255, 255, 0.55);
-  --color-table-head-bg:   rgba(0, 0, 0, 0.05);
-  --color-table-border:    rgba(0, 0, 0, 0.05);
-  --color-table-row-hover: rgba(0, 0, 0, 0.015);
-
   /* Shadows (light-optimized) */
   --shadow-xs:    0 1px 4px rgba(35, 35, 35, 0.05);
   --shadow-sm:    0 1px 2px rgba(35, 35, 35, 0.10), 0 1px 2px rgba(35, 35, 35, 0.12);
@@ -371,7 +333,6 @@
   --color-border-muted:    var(--color-gray-200);
   --color-border-disabled: var(--color-gray-200);
   --color-border-focus:    var(--color-brand-500);
-  --color-border-glass:    rgba(0, 0, 0, 0.08);
 
   /* Action / Primary */
   --color-action-primary:         var(--color-brand-500);
@@ -427,4 +388,10 @@ body {
   color: var(--color-text-primary);
   background-color: var(--color-bg-default);
   -webkit-font-smoothing: antialiased;
+}
+
+/* Seleção de texto — cor da marca em vez do azul padrão do navegador */
+::selection {
+  background-color: var(--color-action-primary);
+  color: var(--color-gray-white);
 }

@@ -1,0 +1,243 @@
+.eventHighlightCard {
+  position: relative;
+  min-height: 340px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg-subtle);
+}
+
+.eventHighlightImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Degradê do preto até opacidade 0 — só nos 20% iniciais da imagem, para legibilidade do texto à esquerda */
+.eventHighlightScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 90%);
+}
+
+.eventHighlightOverlay {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+  padding: var(--spacing-lg) var(--spacing-lg) 0;
+}
+
+.eventHighlightKicker {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-action-primary);
+}
+
+.eventHighlightHeading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-white);
+  line-height: var(--line-height-tight);
+}
+
+.eventHighlightPanel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: flex-start;
+  max-width: 480px;
+  margin: var(--spacing-2xl) var(--spacing-lg) var(--spacing-lg);
+}
+
+.eventHighlightDateBadge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--spacing-4xl);
+  height: var(--spacing-4xl);
+  border: var(--border-width-thin) solid var(--color-action-primary);
+  border-radius: var(--radius-sm);
+  line-height: var(--line-height-tight);
+}
+
+.eventHighlightDay {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-action-primary);
+}
+
+.eventHighlightMonth {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-action-primary);
+}
+
+.eventHighlightPanelBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  min-width: 0;
+}
+
+.eventHighlightTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-white);
+  line-height: var(--line-height-snug);
+}
+
+.eventHighlightMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.eventHighlightMetaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  font-size: var(--font-size-xs);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.eventHighlightDescription {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: rgba(255, 255, 255, 0.75);
+  line-height: var(--line-height-normal);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.eventHighlightCta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  align-self: flex-start;
+  margin-top: var(--spacing-2xs);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  background: var(--color-action-primary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-white);
+  text-decoration: none;
+  transition: background var(--transition-fast);
+}
+
+.eventHighlightCta:hover {
+  background: var(--color-action-primary-hover);
+}
+
+/* ── Variante "wide" (página de listagem de Eventos) — full-width, sem painel ── */
+.eventHighlightCardWide {
+  min-height: 280px;
+  display: flex;
+}
+
+.eventHighlightCardWide .eventHighlightScrim {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.35) 100%);
+}
+
+.eventHighlightWideContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  max-width: 640px;
+  padding: var(--spacing-xl);
+}
+
+.eventHighlightWideTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-white);
+  line-height: var(--line-height-tight);
+}
+
+.eventHighlightWideDescription {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: var(--line-height-normal);
+}
+
+.eventHighlightCardWide .eventHighlightMeta {
+  gap: var(--spacing-lg);
+  margin: var(--spacing-2xs) 0;
+}
+
+.eventHighlightCardWide .eventHighlightMetaItem {
+  font-size: var(--font-size-sm);
+}
+
+.eventHighlightWideActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
+}
+
+.eventHighlightCardWide .eventHighlightCta {
+  margin-top: 0;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-sm);
+}
+
+.eventHighlightSecondaryCta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: var(--border-width-thin) solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-white);
+  text-decoration: none;
+  transition: background var(--transition-fast);
+}
+
+.eventHighlightSecondaryCta:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 640px) {
+  .eventHighlightCardWide {
+    min-height: 0;
+  }
+
+  .eventHighlightWideContent {
+    padding: var(--spacing-lg);
+  }
+
+  .eventHighlightWideTitle {
+    font-size: var(--font-size-xl);
+  }
+
+  .eventHighlightCardWide .eventHighlightMeta {
+    gap: var(--spacing-sm);
+  }
+}

@@ -5,7 +5,7 @@ export interface FABProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Icon to display — use Lucide React */
   icon: ReactNode;
   /** Visual variant */
-  variant?: 'glass' | 'brand';
+  variant?: 'default' | 'brand';
   /** Size */
   size?: 'sm' | 'md' | 'lg';
   /** Accessible label (required) */
@@ -14,7 +14,7 @@ export interface FABProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export function FAB({
   icon,
-  variant = 'glass',
+  variant = 'default',
   size = 'md',
   className,
   ...props

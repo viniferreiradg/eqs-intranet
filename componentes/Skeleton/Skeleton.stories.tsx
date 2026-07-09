@@ -13,8 +13,8 @@ type Story = StoryObj<typeof Skeleton>;
 /* ── Estilo de card reutilizado nos exemplos compostos ── */
 const card: React.CSSProperties = {
   padding: 'var(--spacing-lg)',
-  background: 'var(--color-glass-surface)',
-  border: '1px solid var(--color-glass-border)',
+  background: 'var(--color-bg-surface)',
+  border: '1px solid var(--color-border-subtle)',
   borderRadius: 'var(--radius-sm)',
   display: 'flex',
   flexDirection: 'column',

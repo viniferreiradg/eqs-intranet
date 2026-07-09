@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notícias — EQS Intranet</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/DropdownMenu/DropdownMenu.module.css" />
+  <link rel="stylesheet" href="../componentes/SiteHeader/SiteHeader.module.css" />
+  <link rel="stylesheet" href="../componentes/SiteHeaderMobile/SiteHeaderMobile.module.css" />
+  <link rel="stylesheet" href="../componentes/Sheet/Sheet.module.css" />
+  <link rel="stylesheet" href="../componentes/Breadcrumb/Breadcrumb.module.css" />
+  <link rel="stylesheet" href="../componentes/NewsCard/NewsCard.module.css" />
+  <link rel="stylesheet" href="../componentes/Pagination/Pagination.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Card/Card.module.css" />
+  <link rel="stylesheet" href="../componentes/LinkCard/LinkCard.module.css" />
+  <link rel="stylesheet" href="../componentes/Footer/Footer.module.css" />
+</head>
+<body class="layout-site">
+
+  <header class="siteHeader hideMobile">
+    <div class="siteHeaderInner">
+      <span class="logoDefault logoSm" role="img" aria-label="EQS Engenharia"></span>
+
+      <nav class="siteHeaderNav">
+        <a href="index.html" class="siteHeaderNavItem">Home</a>
+        <a href="noticias.html" class="siteHeaderNavItem siteHeaderNavItemActive" aria-current="page">Notícias</a>
+        <a href="eventos.html" class="siteHeaderNavItem">Eventos</a>
+        <a href="comunicados.html" class="siteHeaderNavItem">Comunicados</a>
+        <a href="areas-departamentos.html" class="siteHeaderNavItem">Áreas e Departamentos</a>
+        <a href="sobre.html" class="siteHeaderNavItem">Sobre</a>
+        <a href="links-uteis.html" class="siteHeaderNavItem">Links Úteis</a>
+      </nav>
+
+      <div class="siteHeaderActions">
+        <div class="siteHeaderSearch wrapper">
+          <div class="inputWrap hasLeft">
+            <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+            <input class="input" type="text" placeholder="Buscar..." />
+          </div>
+        </div>
+
+        <div class="dropdownMenu" id="user-menu">
+          <button class="siteHeaderAvatarBtn" id="user-menu-trigger" aria-label="Menu do usuário" type="button">
+            <div class="avatar sm"><img class="avatarImg" src="../src/avatar/team-01.jpg" alt="Usuário" /></div>
+          </button>
+          <div class="dropdownMenu__panel end" id="user-menu-panel">
+            <button class="dropdownMenu__item" type="button" onclick="location.href='perfil.html'">
+              <span class="dropdownMenu__item__icon"><i data-lucide="user" width="16" height="16"></i></span>
+              Meu Perfil
+            </button>
+            <button class="dropdownMenu__item dropdownMenu__item--destructive" type="button" onclick="location.href='../painel-adm/login.html'">
+              <span class="dropdownMenu__item__icon"><i data-lucide="log-out" width="16" height="16"></i></span>
+              Sair
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Header mobile: busca | logo | hambúrguer ─────────────── -->
+  <header class="siteHeaderMobile hideDesktop">
+    <div class="siteHeaderMobileRow" id="mobile-header-default">
+      <button class="siteHeaderMobileIconBtn" type="button" aria-label="Buscar" onclick="openSearch()">
+        <i data-lucide="search" width="20" height="20"></i>
+      </button>
+      <span class="logoDefault logoSm" role="img" aria-label="EQS Engenharia"></span>
+      <button class="siteHeaderMobileIconBtn" type="button" aria-label="Abrir menu" onclick="openMobileMenu()">
+        <i data-lucide="menu" width="20" height="20"></i>
+      </button>
+    </div>
+    <div class="siteHeaderMobileSearchRow" id="mobile-header-search" hidden>
+      <input class="siteHeaderMobileSearchInput" type="text" placeholder="Buscar..." id="mobile-search-input" />
+      <button class="siteHeaderMobileIconBtn" type="button" aria-label="Fechar busca" onclick="closeSearch()">
+        <i data-lucide="x" width="20" height="20"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── Menu mobile (drawer) — reaproveita o Sheet ───────────── -->
+  <div class="sheetOverlay hideDesktop" id="mobile-menu-overlay" onclick="closeMobileMenu()">
+    <aside class="sheetPanel siteHeaderMobileMenuPanel" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="Menu">
+      <div class="sheetHeader">
+        <span class="sheetTitle">Menu</span>
+        <button class="sheetClose" type="button" aria-label="Fechar" onclick="closeMobileMenu()">
+          <i data-lucide="x" width="16" height="16"></i>
+        </button>
+      </div>
+      <div class="sheetBody">
+        <nav class="siteHeaderMobileNavList">
+          <a href="index.html" class="siteHeaderMobileNavItem">Home</a>
+          <a href="noticias.html" class="siteHeaderMobileNavItem siteHeaderMobileNavItemActive" aria-current="page">Notícias</a>
+          <a href="eventos.html" class="siteHeaderMobileNavItem">Eventos</a>
+          <a href="comunicados.html" class="siteHeaderMobileNavItem">Comunicados</a>
+          <a href="areas-departamentos.html" class="siteHeaderMobileNavItem">Áreas e Departamentos</a>
+          <a href="sobre.html" class="siteHeaderMobileNavItem">Sobre</a>
+          <a href="links-uteis.html" class="siteHeaderMobileNavItem">Links Úteis</a>
+        </nav>
+      </div>
+      <div class="sheetFooter">
+        <div class="siteHeaderMobileFooterList">
+          <a class="siteHeaderMobileFooterItem" href="perfil.html">
+            <i data-lucide="user" width="16" height="16"></i> Meu Perfil
+          </a>
+          <a class="siteHeaderMobileFooterItem siteHeaderMobileFooterItemDestructive" href="../painel-adm/login.html">
+            <i data-lucide="log-out" width="16" height="16"></i> Sair
+          </a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ── Breadcrumb ────────────────────────────────────────────── -->
+  <div class="siteBreadcrumbBar">
+    <div class="siteContainer">
+      <nav aria-label="Breadcrumb" class="nav">
+        <ol class="list">
+          <li class="item">
+            <a href="index.html" class="link">
+              Home
+              <span class="sep" aria-hidden="true"><i data-lucide="chevron-right" width="12" height="12"></i></span>
+            </a>
+          </li>
+          <li class="item"><span class="current" aria-current="page">Notícias</span></li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <main class="siteMain">
+    <section class="siteSection">
+      <div class="siteContainer">
+
+        <div class="sitePageHeader">
+          <span class="siteSectionKicker">Fique por dentro</span>
+          <h1 class="sitePageTitle">Notícias</h1>
+          <p class="siteBodyText">Acompanhe as novidades, conquistas e atualizações da EQS Engenharia.</p>
+        </div>
+
+        <div class="siteGrid3">
+          <a class="newsCard" href="noticia-detalhe.html">
+            <div class="newsImageWrap">
+              <img class="newsImage" src="../src/noticia-1.jpg" alt="" />
+              <span class="newsTag" data-status="info">Institucional</span>
+            </div>
+            <div class="newsBody">
+              <h3 class="newsTitle">Workshop BIM 4.0 reúne equipe técnica no auditório principal</h3>
+              <p class="newsExcerpt">Treinamento apresentou as novas ferramentas de modelagem usadas nos projetos em andamento.</p>
+              <span class="newsDate">08 de dezembro de 2026</span>
+            </div>
+          </a>
+          <a class="newsCard" href="noticias.html">
+            <div class="newsImageWrap">
+              <img class="newsImage" src="../src/noticia-2.jpg" alt="" />
+              <span class="newsTag" data-status="warning">RH</span>
+            </div>
+            <div class="newsBody">
+              <h3 class="newsTitle">Confraternização EQS 2026 — detalhes do evento</h3>
+              <p class="newsExcerpt">Confira data, local e programação da confraternização de fim de ano.</p>
+              <span class="newsDate">05 de dezembro de 2026</span>
+            </div>
+          </a>
+          <a class="newsCard" href="noticias.html">
+            <div class="newsImageWrap">
+              <img class="newsImage" src="../src/noticia-3.jpg" alt="" />
+              <span class="newsTag" data-status="success">Institucional</span>
+            </div>
+            <div class="newsBody">
+              <h3 class="newsTitle">Reunião de Metas 2026 será transmitida on-line</h3>
+              <p class="newsExcerpt">Participe da apresentação dos resultados e metas do próximo ano fiscal.</p>
+              <span class="newsDate">01 de dezembro de 2026</span>
+            </div>
+          </a>
+          <a class="newsCard" href="noticias.html">
+            <div class="newsImageWrap">
+              <img class="newsImage" src="../src/hero-eventos.jpg" alt="" />
+              <span class="newsTag" data-status="info">Institucional</span>
+            </div>
+            <div class="newsBody">
+              <h3 class="newsTitle">Expansão do Terminal Norte atinge 85% de conclusão</h3>
+              <p class="newsExcerpt">Obras estruturais avançam mantendo o padrão de precisão técnica e segurança.</p>
+              <span class="newsDate">28 de novembro de 2026</span>
+            </div>
+          </a>
+          <a class="newsCard" href="noticias.html">
+            <div class="newsImageWrap">
+              <img class="newsImage" src="../src/noticia-1.jpg" alt="" />
+              <span class="newsTag" data-status="error">Segurança</span>
+            </div>
+            <div class="newsBody">
+              <h3 class="newsTitle">Nova NR-12 entra em vigor nas unidades fabris</h3>
+              <p class="newsExcerpt">Equipes de operação passam por recertificação obrigatória até fevereiro.</p>
+              <span class="newsDate">20 de novembro de 2026</span>
+            </div>
+          </a>
+          <a class="newsCard" href="noticias.html">
+            <div class="newsImageWrap">
+              <img class="newsImage" src="../src/noticia-2.jpg" alt="" />
+              <span class="newsTag" data-status="disabled">TI</span>
+            </div>
+            <div class="newsBody">
+              <h3 class="newsTitle">Migração do sistema de ponto eletrônico concluída</h3>
+              <p class="newsExcerpt">Novo app já está disponível para registro de jornada em todas as unidades.</p>
+              <span class="newsDate">15 de novembro de 2026</span>
+            </div>
+          </a>
+          <a class="newsCard" href="noticias.html">
+            <div class="newsImageWrap">
+              <img class="newsImage" src="../src/noticia-3.jpg" alt="" />
+              <span class="newsTag" data-status="warning">RH</span>
+            </div>
+            <div class="newsBody">
+              <h3 class="newsTitle">Programa de estágio 2027 abre inscrições em janeiro</h3>
+              <p class="newsExcerpt">Vagas em Engenharia, TI e Administrativo para universitários de todo o país.</p>
+              <span class="newsDate">10 de novembro de 2026</span>
+            </div>
+          </a>
+          <a class="newsCard" href="noticias.html">
+            <div class="newsImageWrap">
+              <img class="newsImage" src="../src/hero-eventos.jpg" alt="" />
+              <span class="newsTag" data-status="info">Institucional</span>
+            </div>
+            <div class="newsBody">
+              <h3 class="newsTitle">EQS Engenharia é certificada ISO 9001:2026</h3>
+              <p class="newsExcerpt">Certificação reforça o compromisso com qualidade em todos os processos.</p>
+              <span class="newsDate">03 de novembro de 2026</span>
+            </div>
+          </a>
+          <a class="newsCard" href="noticias.html">
+            <div class="newsImageWrap">
+              <img class="newsImage" src="../src/noticia-1.jpg" alt="" />
+              <span class="newsTag" data-status="success">Institucional</span>
+            </div>
+            <div class="newsBody">
+              <h3 class="newsTitle">Terminal Sul recebe visita técnica de autoridades portuárias</h3>
+              <p class="newsExcerpt">Comitiva avaliou avanço das obras e protocolos de segurança operacional.</p>
+              <span class="newsDate">28 de outubro de 2026</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="pagination">
+          <span class="info">Exibindo 1–9 de 24 resultados</span>
+          <div class="controls">
+            <button class="paginBtn" aria-label="Página anterior" disabled><i data-lucide="chevron-left" width="14" height="14"></i></button>
+            <button class="paginBtn paginBtnActive" aria-current="page">1</button>
+            <button class="paginBtn">2</button>
+            <button class="paginBtn">3</button>
+            <span class="ellipsis">…</span>
+            <button class="paginBtn">6</button>
+            <button class="paginBtn" aria-label="Próxima página"><i data-lucide="chevron-right" width="14" height="14"></i></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="siteSection">
+      <div class="siteContainer">
+        <div class="siteSectionHeader">
+          <div>
+            <span class="siteSectionKicker">Recursos</span>
+            <h2 class="siteSectionTitle">Links Úteis</h2>
+          </div>
+          <button class="btn secondary hideMobile" type="button" onclick="location.href='links-uteis.html'">Veja mais</button>
+        </div>
+        <div class="siteGrid3">
+          <a class="card linkCard" href="links-uteis.html">
+            <span class="linkIcon"><i data-lucide="book-open" width="20" height="20"></i></span>
+            <h3 class="linkTitle">Manual da Marca EQS</h3>
+            <p class="linkDescription">Diretrizes de identidade visual e uso da marca.</p>
+          </a>
+          <a class="card linkCard" href="links-uteis.html">
+            <span class="linkIcon"><i data-lucide="shield-check" width="20" height="20"></i></span>
+            <h3 class="linkTitle">Código de Conduta</h3>
+            <p class="linkDescription">Políticas internas e diretrizes de ética.</p>
+          </a>
+          <a class="card linkCard" href="links-uteis.html">
+            <span class="linkIcon"><i data-lucide="life-buoy" width="20" height="20"></i></span>
+            <h3 class="linkTitle">Central de Suporte</h3>
+            <p class="linkDescription">Abra um chamado com o time de TI ou Facilities.</p>
+          </a>
+        </div>
+        <div class="siteSectionFooter hideDesktop">
+          <button class="btn secondary" type="button" onclick="location.href='links-uteis.html'">Veja mais</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footerInner">
+      <div class="footerBrand">
+        <span class="logoDefault logoSm" role="img" aria-label="EQS Engenharia"></span>
+        <p class="footerTagline">Intranet corporativa da EQS Engenharia.</p>
+      </div>
+      <div class="footerColumns">
+        <div class="footerColumn">
+          <span class="footerColumnTitle">Portal</span>
+          <a class="footerLink" href="noticias.html">Notícias</a>
+          <a class="footerLink" href="eventos.html">Eventos</a>
+          <a class="footerLink" href="comunicados.html">Comunicados</a>
+          <a class="footerLink" href="areas-departamentos.html">Áreas e Departamentos</a>
+        </div>
+        <div class="footerColumn">
+          <span class="footerColumnTitle">Institucional</span>
+          <a class="footerLink" href="sobre.html">Sobre</a>
+          <a class="footerLink" href="links-uteis.html">Links Úteis</a>
+        </div>
+      </div>
+    </div>
+    <div class="footerBottom">© 2026 EQS Engenharia. Todos os direitos reservados.</div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- ── Scroll por arrasto (emula touch abaixo de 640px) ─────────────── -->
+  <script src="../shared/touch-scroll.js"></script>
+
+  <script>
+    lucide.createIcons();
+
+    /* Menu do avatar (padrão DropdownMenu) — header desktop */
+    const menu = document.getElementById('user-menu');
+    const trigger = document.getElementById('user-menu-trigger');
+    const panel = document.getElementById('user-menu-panel');
+    trigger.addEventListener('click', () => panel.classList.toggle('open'));
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target)) panel.classList.remove('open');
+    });
+
+    /* Busca (header mobile) */
+    function openSearch() {
+      document.getElementById('mobile-header-default').hidden = true;
+      document.getElementById('mobile-header-search').hidden = false;
+      document.getElementById('mobile-search-input').focus();
+    }
+    function closeSearch() {
+      document.getElementById('mobile-header-search').hidden = true;
+      document.getElementById('mobile-header-default').hidden = false;
+    }
+
+    /* Menu (drawer, header mobile) */
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    function openMobileMenu() {
+      mobileMenuOverlay.classList.add('sheetOpen');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+      mobileMenuOverlay.classList.remove('sheetOpen');
+      document.body.style.overflow = '';
+    }
+  </script>
+
+</body>
+</html>

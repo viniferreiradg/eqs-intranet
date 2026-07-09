@@ -53,6 +53,799 @@ body.layout-auth {
   overflow: auto;
 }
 
+/* Site: header no topo + conteúdo full-width + footer — página inteira rola,
+   sem sidebar (diferente do dashboard, que é a área de gestão de conteúdo). */
+body.layout-site {
+  display: block;
+  min-height: 100vh;
+  overflow: auto;
+}
+
+.siteMain {
+  display: block;
+  width: 100%;
+}
+
+/* ── Site institucional — container e seções ─────────────────────────────────── */
+.siteContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
+}
+
+.siteSection {
+  padding: var(--spacing-4xl) 0;
+}
+
+/* Barra de breadcrumb — topo das páginas internas (ex: Notícias, Eventos) */
+.siteBreadcrumbBar {
+  background: var(--color-bg-subtle);
+  border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
+  padding: var(--spacing-md) 0;
+}
+
+/* ── Página de artigo (detalhe de notícia/comunicado) ─────────────────────────── */
+.articleHero {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
+.articleHeader {
+  max-width: 760px;
+  margin: 0 auto;
+  padding-top: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.articleTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+}
+
+.articleDate {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+.articleBody {
+  max-width: 760px;
+  margin: var(--spacing-xl) auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-normal);
+}
+
+.articleBody p {
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .articleHero {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-sm);
+  }
+
+  .articleTitle {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+.siteSectionHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xl);
+}
+
+/* Rótulo pequeno acima do título — cria hierarquia em camadas (olho + título grande) */
+.siteSectionKicker {
+  display: block;
+  margin: 0 0 var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-brand);
+}
+
+.siteSectionTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.siteGrid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+}
+
+/* Pilha vertical de cards — usada nas seções da Home em site-mobile (1 coluna) */
+.siteGridStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+/* Rodapé de seção — botão "Ver todos/todas" centralizado abaixo do conteúdo
+   (site-mobile: o botão não cabe ao lado do título, então desce e centraliza) */
+.siteSectionFooter {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-lg);
+}
+
+/* Esconde a barra de rolagem nativa (mantém o scroll funcional) — usar em
+   site-mobile junto com ../shared/touch-scroll.js, que emula o arrasto por
+   toque via mouse, pra a pré-visualização no mockup de celular não mostrar
+   uma barra de rolagem de desktop. */
+html:has(.hideScrollbar),
+.hideScrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html:has(.hideScrollbar)::-webkit-scrollbar,
+.hideScrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Grid da seção "Próximos Eventos" — painel principal (evento destaque + outros) + calendário */
+.siteEventsGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-md);
+  align-items: stretch;
+}
+
+/* Pagination como filha direta do grid (não do .eventRowStack) — ocupa as
+   duas colunas, ficando embaixo da lista e do calendário, não só da lista */
+.siteEventsGrid > .pagination {
+  grid-column: 1 / -1;
+}
+
+/* Painel branco que agrupa EventHighlightCard + lista "Outros eventos" */
+.eventsPanel {
+  display: flex;
+  flex-direction: column;
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Só o bloco "Outros eventos" recebe padding — o EventHighlightCard ocupa o painel de ponta a ponta */
+.eventsOtherWrap {
+  padding: var(--spacing-lg);
+}
+
+.eventsOtherLabel {
+  display: block;
+  margin: 0 0 var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.eventsOtherList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+}
+
+/* Coluna lateral da listagem de Eventos — calendário + lista mini + promo */
+.eventsSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.eventsSidebarMiniList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+.eventsSidebarLink {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-brand);
+  text-decoration: none;
+}
+
+.eventsSidebarLink:hover {
+  text-decoration: underline;
+}
+
+/* Card de destaque "Não perca!" — CTA de notificações na coluna lateral */
+.eventsPromoCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  background: var(--color-status-error-bg);
+}
+
+.eventsPromoIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-3xl);
+  height: var(--spacing-3xl);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-surface);
+  color: var(--color-action-primary);
+}
+
+.eventsPromoTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.eventsPromoDescription {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+}
+
+.eventsPromoCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  background: var(--color-action-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-white);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.eventsPromoCta:hover {
+  background: var(--color-action-primary-hover);
+}
+
+/* Pilha vertical de EventRow — lista principal da página de Eventos */
+.eventRowStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+/* Espaçamentos da página de Eventos — tabs abaixo do card de destaque,
+   grid/painéis de conteúdo abaixo dos tabs */
+.eventsTabsBar {
+  margin-top: var(--spacing-xl);
+}
+
+.eventsContentPanel {
+  margin-top: var(--spacing-xl);
+}
+
+/* Card que agrupa CommunicationListItem em lista vertical (seção Comunicados) */
+.commsPanel {
+  display: flex;
+  flex-direction: column;
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Parágrafo de texto corrido (ex: resumo da seção Sobre na Home) */
+.siteBodyText {
+  max-width: 720px;
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+}
+
+/* ── Cabeçalho de página de listagem (eyebrow + título + texto) ──────────────
+   Ex: Áreas e Departamentos — sem imagem, diferente do Hero/StatsBanner. */
+.sitePageHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding-bottom: var(--spacing-xl);
+}
+
+.sitePageTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+}
+
+/* Pilha vertical de DepartmentDetailCard — página Áreas e Departamentos */
+.deptDetailList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+/* ── Página Sobre ──────────────────────────────────────────────────────────── */
+
+/* Cabeçalho de seção centralizado (kicker + título + subtítulo opcional) —
+   diferente do .siteSectionHeader (alinhado à esquerda, com botão à direita) */
+.siteSectionHeaderCentered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xl);
+}
+
+.siteSectionHeaderCentered .siteSectionKicker {
+  margin-bottom: 0;
+}
+
+.siteSectionHeaderCentered .siteBodyText {
+  max-width: 640px;
+}
+
+.siteGrid5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--spacing-md);
+}
+
+/* Seção "Liderança": texto à esquerda (largura fixa) + grid de LeadershipCard à direita */
+.aboutLeadershipSection {
+  display: flex;
+  gap: var(--spacing-2xl);
+  align-items: flex-start;
+}
+
+.aboutLeadershipContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+  width: 320px;
+}
+
+.aboutLeadershipGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+  flex: 1;
+}
+
+/* ── Página de Busca ───────────────────────────────────────────────────────── */
+.searchResultsHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.searchResultsHeaderTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-lg);
+}
+
+.searchResultsInput {
+  max-width: 480px;
+}
+
+.searchResultsTitle {
+  margin: 0 0 var(--spacing-xs);
+  font-family: var(--font-display);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+}
+
+.searchResultsSubtitle {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.searchResultsSubtitle strong {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Conteúdo (esquerda) + Sugestões (direita) */
+.searchResultsGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-lg);
+  align-items: start;
+}
+
+.searchResultsMain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  min-width: 0;
+}
+
+.searchResultGroupHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.searchResultGroupTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.searchResultGroupIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-3xl);
+  height: var(--spacing-3xl);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-gray-300);
+  color: var(--color-action-primary);
+  flex-shrink: 0;
+}
+
+.searchResultGroupName {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.searchResultGroupCount {
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-tertiary);
+}
+
+/* Sugestões (sidebar) */
+.searchSuggestions {
+  padding: var(--spacing-lg);
+}
+
+.searchSuggestionsHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-2xs);
+}
+
+.searchSuggestionsTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.searchSuggestionsSubtitle {
+  margin: 0 0 var(--spacing-md);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.searchSuggestionsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+
+.searchSuggestionItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.searchSuggestionItem:hover {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-primary);
+}
+
+.searchSuggestionItem i {
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+/* Estado vazio — nenhum resultado encontrado */
+.searchEmptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-sm);
+  max-width: 480px;
+  margin: 0 auto;
+  padding: var(--spacing-3xl) 0 var(--spacing-2xl);
+}
+
+.searchEmptyIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-4xl);
+  height: var(--spacing-4xl);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-gray-300);
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.searchEmptyTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-snug);
+}
+
+.searchEmptyDescription {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+}
+
+.searchEmptyActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-sm);
+}
+
+/* Sugestões centralizadas (usadas junto ao estado vazio, sem coluna de resultados ao lado) */
+.searchSuggestionsCentered {
+  max-width: 420px;
+  margin: 0 auto var(--spacing-3xl);
+}
+
+@media (max-width: 640px) {
+  .searchResultsHeaderTop {
+    flex-direction: column;
+  }
+
+  .searchResultsInput {
+    max-width: 100%;
+  }
+
+  .searchResultsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .searchEmptyState {
+    padding: var(--spacing-2xl) 0 var(--spacing-xl);
+  }
+}
+
+@media (max-width: 900px) {
+  .siteGrid5 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .siteGrid5 {
+    grid-template-columns: 1fr;
+  }
+
+  .aboutLeadershipSection {
+    flex-direction: column;
+  }
+
+  .aboutLeadershipContent {
+    width: 100%;
+  }
+
+  .aboutLeadershipGrid {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+}
+
+/* ── Página de detalhe do evento ──────────────────────────────────────────── */
+.eventDetailHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding-bottom: var(--spacing-xl);
+}
+
+.eventDetailTitle {
+  margin: 0;
+  max-width: 760px;
+  font-family: var(--font-display);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+}
+
+.eventDetailDateRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+/* Título de seção com barra vermelha à esquerda ("Sobre o evento", "Programação"...) */
+.eventDetailSectionTitle {
+  margin: 0 0 var(--spacing-lg);
+  padding-left: var(--spacing-sm);
+  border-left: var(--border-width-thick) solid var(--color-action-primary);
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+/* Foto + "Sobre o evento" (esquerda) + EventInfoCard (direita) */
+.eventDetailMainGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-xl);
+  align-items: start;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.eventDetailAbout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+/* Programação (esquerda) + Materiais e documentos (direita) */
+.eventDetailSecondaryGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.eventDetailPanel {
+  padding: var(--spacing-lg);
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Wrapper de EventScheduleItem — some o conector do último item */
+.eventScheduleList .eventScheduleItem:last-child .eventScheduleConnector { display: none; }
+.eventScheduleList .eventScheduleItem:last-child .eventScheduleContent { padding-bottom: 0; }
+
+/* Wrapper de DocumentListItem */
+.docList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+/* Espaço acima do Feedback (aviso) dentro do painel de Materiais e documentos */
+.eventDetailInfoBanner {
+  margin-top: var(--spacing-lg);
+}
+
+/* ── Site institucional — responsivo (Home única, desktop + mobile) ───────────
+   Breakpoint único: 640px. A mesma página HTML serve as duas visualizações
+   (site-desktop/prototipo.html mostra larga; site-mobile/prototipo.html carrega
+   essa mesma página num iframe estreito, dentro do mockup de celular). */
+
+/* Mostra só em desktop / só em mobile — usado pra alternar blocos que têm
+   marcação diferente entre os dois (ex: header com nav horizontal vs.
+   header com hambúrguer+drawer, ou botão ao lado do título vs. centralizado
+   embaixo), quando não dá pra resolver só com CSS reflow. */
+@media (max-width: 640px) {
+  .hideMobile { display: none !important; }
+}
+@media (min-width: 641px) {
+  .hideDesktop { display: none !important; }
+}
+
+@media (max-width: 640px) {
+  /* Duas seções seguidas com padding de desktop (96px) somam quase 192px de vão */
+  .siteSection {
+    padding: var(--spacing-2xl) 0;
+  }
+
+  .siteGrid3,
+  .siteEventsGrid,
+  .eventsOtherList,
+  .eventDetailMainGrid,
+  .eventDetailSecondaryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .eventDetailTitle {
+    font-size: var(--font-size-2xl);
+  }
+
+  .sitePageTitle {
+    font-size: var(--font-size-2xl);
+  }
+
+  /* No mobile (1 coluna), mantém a ordem visual original: lista, depois
+     paginação, depois calendário — sem isso a paginação viraria filha #3
+     e cairia depois do calendário só por causa da ordem no DOM */
+  .siteEventsGrid > .eventRowStack { order: 1; }
+  .siteEventsGrid > .pagination    { order: 2; }
+  .siteEventsGrid > .eventsSidebar { order: 3; }
+
+  /* Comunicados vira pilha de cards individuais em vez de um painel único
+     com divisórias (ver .commListItem em CommunicationListItem.module.css) */
+  .commsPanel {
+    gap: var(--spacing-md);
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  /* Esconde a barra de rolagem nativa (mantém o scroll funcional) — a
+     pré-visualização no mockup de celular do prototipo.html é testada com
+     mouse, então o scroll real vem do arrasto emulado em touch-scroll.js.
+     O scroll de fato acontece no <html> (documento), não só no <body>. */
+  html:has(body.layout-site),
+  body.layout-site {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  html:has(body.layout-site)::-webkit-scrollbar,
+  body.layout-site::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* ── Coluna principal ────────────────────────────────────────────────────────── */
 .main {
   flex: 1;
@@ -142,10 +935,10 @@ body.layout-auth {
   font-weight: var(--font-weight-medium) !important;
   position: sticky;
   left: 0;
-  background: var(--color-table-bg);
+  background: var(--color-bg-surface);
   z-index: 1;
 }
-.tr:hover .tdFirst { background: var(--color-table-row-hover); }
+.tr:hover .tdFirst { background: var(--color-bg-subtle); }
 
 /* ── Tabela — colunas de módulo (permissões) ─────────────────────────────────── */
 .thModule { text-align: center !important; }
@@ -161,7 +954,7 @@ body.layout-auth {
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-lg) var(--spacing-md);
-  border-top: var(--border-width-thin) solid var(--color-table-border);
+  border-top: var(--border-width-thin) solid var(--color-border-subtle);
 }
 .tableFooterSpaced {
   display: flex;
@@ -169,7 +962,7 @@ body.layout-auth {
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-md) var(--spacing-md);
-  border-top: var(--border-width-thin) solid var(--color-table-border);
+  border-top: var(--border-width-thin) solid var(--color-border-subtle);
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
 }
@@ -426,10 +1219,9 @@ body.layout-auth {
 
 .dpPopover {
   position: absolute; top: calc(100% + var(--spacing-xs)); left: 0;
-  background: var(--color-glass-surface);
-  border: var(--border-width-thin) solid var(--color-glass-border);
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
   border-radius: var(--radius-sm); box-shadow: var(--shadow-xl);
-  backdrop-filter: blur(var(--blur-glass)); -webkit-backdrop-filter: blur(var(--blur-glass));
   display: flex; flex-direction: row; z-index: 200; overflow: hidden;
 }
 .dpPopover[hidden] { display: none; }
@@ -497,7 +1289,7 @@ body.layout-auth {
 }
 .dpNavHidden  { width: 28px; height: 28px; flex-shrink: 0; }
 .dpHidden     { display: none; }
-.dpPopoverRight { left: auto; right: 0; background: var(--color-glass-secondary); }
+.dpPopoverRight { left: auto; right: 0; background: var(--color-bg-elevated); }
 
 
 /* ── Grid de MetricCards — 5 colunas (logs de erros) ────────────────────────── */
@@ -645,7 +1437,7 @@ body.layout-auth {
 
 /* ── Distribuidor: pino de cor no mapa ───────────────────────────────────────── */
 .pinCell   { display: flex; align-items: center; gap: var(--spacing-xs); }
-.pinSwatch { width: 14px; height: 14px; border-radius: var(--radius-full); flex-shrink: 0; border: var(--border-width-thin) solid var(--color-border-glass); }
+.pinSwatch { width: 14px; height: 14px; border-radius: var(--radius-full); flex-shrink: 0; border: var(--border-width-thin) solid var(--color-border-subtle); }
 .pinHex    { font-family: var(--font-mono); font-size: var(--font-size-xs); color: var(--color-text-secondary); letter-spacing: 0.04em; }
 
 /* ── Distribuidor: URL OCPI truncada na tabela ───────────────────────────────── */
@@ -705,7 +1497,7 @@ body.layout-auth {
   margin-left: auto;
   display: flex;
   align-items: center;
-  color: var(--color-nav-idle);
+  color: var(--color-text-tertiary);
   flex-shrink: 0;
   transition: transform var(--transition-fast);
 }
@@ -719,7 +1511,7 @@ body.layout-auth {
   padding: var(--spacing-xs) var(--spacing-md) var(--spacing-xs) calc(var(--spacing-xl) + var(--spacing-sm));
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-regular);
-  color: var(--color-nav-idle);
+  color: var(--color-text-tertiary);
   background: none;
   border: none;
   cursor: pointer;
@@ -731,8 +1523,8 @@ body.layout-auth {
   overflow: hidden;
   width: 100%;
 }
-.navSubItem:hover { color: var(--color-nav-active-text); background: var(--color-nav-hover-bg); }
-.navSubItemActive { color: var(--color-nav-active-text) !important; font-weight: var(--font-weight-medium) !important; background: var(--color-nav-active-bg) !important; }
+.navSubItem:hover { color: var(--color-text-brand); background: var(--color-bg-subtle); }
+.navSubItemActive { color: var(--color-text-brand) !important; font-weight: var(--font-weight-medium) !important; background: var(--color-bg-brand) !important; }
 
 /* ── Sidebar colapsada — ocultar labels e ajustar logo ──────────────────────── */
 .closed .navLabel,
@@ -825,16 +1617,6 @@ body.layout-auth {
   margin-top: var(--spacing-md);
 }
 
-/* ── Sobre a empresa: hero centrado (logo + tagline) ────────────────────────── */
-.aboutHero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: var(--spacing-md);
-}
-.aboutTagline { font-size: var(--font-size-sm); color: var(--color-text-tertiary); margin: 0; }
-
 /* ── Coluna vertical de botões (recursos, links) ────────────────────────────── */
 .btnStack { display: flex; flex-direction: column; gap: var(--spacing-xs); }
 /* Respiro entre btnStack e texto que vem logo abaixo (ex: nota de copyright) */
@@ -903,7 +1685,7 @@ body.layout-auth {
   transition: background var(--transition-fast);
 }
 .notifListItem:last-child { border-bottom: none; }
-.notifListItem:hover { background: var(--color-glass-surface); }
+.notifListItem:hover { background: var(--color-bg-subtle); }
 
 .notifListIcon {
   display: flex;
@@ -1014,7 +1796,7 @@ body.layout-auth {
 }
 .themeOptionPreview--dark    .themeOptionPreviewSidebar { background: var(--color-gray-black); }
 .themeOptionPreview--light   .themeOptionPreviewSidebar { background: var(--color-gray-200); }
-.themeOptionPreview--glass   .themeOptionPreviewSidebar { background: var(--color-glass-surface); }
+.themeOptionPreview--glass   .themeOptionPreviewSidebar { background: var(--color-bg-elevated); }
 .themeOptionPreview--minimal .themeOptionPreviewSidebar { background: var(--color-bg-surface); }
 
 /* Pontos de navegação na mini sidebar */
@@ -1054,7 +1836,7 @@ body.layout-auth {
 }
 .themeOptionPreview--dark    .themeOptionPreviewArea { background: var(--color-gray-800); }
 .themeOptionPreview--light   .themeOptionPreviewArea { background: var(--color-gray-white); border-color: var(--color-gray-200); }
-.themeOptionPreview--glass   .themeOptionPreviewArea { background: var(--color-glass-surface); border-color: var(--color-glass-border); }
+.themeOptionPreview--glass   .themeOptionPreviewArea { background: var(--color-bg-elevated); border-color: var(--color-border-subtle); }
 .themeOptionPreview--minimal .themeOptionPreviewArea { background: var(--color-bg-surface); border-color: var(--color-border-subtle); }
 
 /* Rodapé do card de opção: label + checkmark */
@@ -1430,7 +2212,7 @@ body.layout-auth {
 .cashbackPct.highlight { color: var(--color-status-warning-fg); }
 
 /* ── Linha de total no rodapé da tabela ─────────────────────────────────── */
-.tableTotalRow .td { font-weight: var(--font-weight-semibold); color: var(--color-text-primary); border-top: var(--border-width-medium) solid var(--color-table-border); }
+.tableTotalRow .td { font-weight: var(--font-weight-semibold); color: var(--color-text-primary); border-top: var(--border-width-medium) solid var(--color-border-subtle); }
 
 /* ── Sparkline de tendência ─────────────────────────────────────────────── */
 .sparkline { display: block; width: 80px; height: 24px; }
@@ -1875,7 +2657,7 @@ body.layout-auth {
 .trTotal .tdFirst {
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
-  background: var(--color-table-bg) !important;
+  background: var(--color-bg-surface) !important;
   border-top: var(--border-width-medium) solid var(--color-border-default);
   cursor: default;
 }
@@ -1894,9 +2676,9 @@ body.layout-auth {
   padding: var(--spacing-sm) var(--spacing-lg) var(--spacing-md) var(--spacing-3xl);
 }
 .expandTable { width: 100%; margin-bottom: var(--spacing-sm); }
-.expandTable .td { background: var(--color-table-bg); }
+.expandTable .td { background: var(--color-bg-surface); }
 .expandTable .tr:hover .td,
-.expandTable .tr:hover .tdFirst { background: var(--color-table-row-hover); }
+.expandTable .tr:hover .tdFirst { background: var(--color-bg-subtle); }
 .expandFooter {
   display: flex;
   justify-content: flex-end;
@@ -2751,11 +3533,9 @@ body.layout-auth {
 .minimal-theme #sidebar                    { background: var(--color-gray-black); }
 [data-theme="light"] .minimal-theme #sidebar { background: var(--color-gray-white); border-right-color: var(--color-gray-200); }
 
-/* Cards e tabelas: sem sombra e sem backdrop-blur */
+/* Cards e tabelas: sem sombra (Card.module.css já é uma superfície sólida — sem glass/blur) */
 .minimal-theme .card {
   box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
 }
 
 /* ── Dialog de detalhe — grid 2 colunas ─────────────────────────────────── */

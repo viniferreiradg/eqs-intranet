@@ -51,11 +51,9 @@
 }
 
 .secondary {
-  background: var(--color-glass-surface);
+  background: var(--color-bg-surface);
   color: var(--color-text-secondary);
-  border-color: var(--color-glass-border);
-  backdrop-filter: blur(var(--blur-glass));
-  -webkit-backdrop-filter: blur(var(--blur-glass));
+  border-color: var(--color-border-default);
 }
 .secondary:hover:not(:disabled) {
   opacity: 0.75;
@@ -65,11 +63,9 @@
 }
 
 .destructive {
-  background: var(--color-glass-surface);
+  background: var(--color-bg-surface);
   color: var(--color-action-error);
   border-color: var(--color-action-error);
-  backdrop-filter: blur(var(--blur-glass));
-  -webkit-backdrop-filter: blur(var(--blur-glass));
 }
 .destructive:hover:not(:disabled) {
   opacity: 0.75;
