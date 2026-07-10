@@ -7,7 +7,7 @@ const meta: Meta<typeof Avatar> = {
   component: Avatar,
   parameters: { layout: 'centered' },
   argTypes: {
-    size: { control: 'radio', options: ['sm', 'md'] },
+    size: { control: 'radio', options: ['sm', 'md', 'lg'] },
   },
 };
 export default meta;
@@ -23,6 +23,18 @@ export const WithPhoto: Story = {
     src: placeholder,
     alt: 'Foto de perfil',
     size: 'md',
+  },
+};
+
+export const LargeInitials: Story = {
+  args: { initials: 'AR', size: 'lg' },
+};
+
+export const LargePhoto: Story = {
+  args: {
+    src: placeholder,
+    alt: 'Foto de perfil',
+    size: 'lg',
   },
 };
 

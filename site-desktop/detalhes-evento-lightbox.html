@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Workshop BIM 4.0 reúne equipe técnica no auditório principal — EQS Intranet</title>
+  <title>Workshop BIM 4.0 reúne equipe técnica no auditório principal (Lightbox) — EQS Intranet</title>
 
   <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
@@ -170,8 +170,8 @@
           </div>
         </div>
 
-        <!-- ── Lightbox — abre ao clicar numa foto da galeria ────── -->
-        <div class="lightboxOverlay" id="lightbox-overlay" style="display:none;">
+        <!-- ── Lightbox — nesta variante já inicia aberto, a fim de registro visual no protótipo ────── -->
+        <div class="lightboxOverlay" id="lightbox-overlay" style="display:flex;">
           <button class="lightboxClose" type="button" aria-label="Fechar" id="lightbox-close">
             <i data-lucide="x" width="20" height="20"></i>
           </button>
@@ -179,8 +179,8 @@
             <i data-lucide="chevron-left" width="24" height="24"></i>
           </button>
           <div class="lightboxImageWrap">
-            <img class="lightboxImage" id="lightbox-image" src="" alt="" />
-            <span class="lightboxCounter" id="lightbox-counter"></span>
+            <img class="lightboxImage" id="lightbox-image" src="../src/hero-eventos.jpg" alt="" />
+            <span class="lightboxCounter" id="lightbox-counter">1 / 8</span>
           </div>
           <button class="lightboxNavBtn lightboxNext" type="button" aria-label="Próxima foto" id="lightbox-next">
             <i data-lucide="chevron-right" width="24" height="24"></i>

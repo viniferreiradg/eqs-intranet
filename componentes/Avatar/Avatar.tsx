@@ -3,7 +3,7 @@ import styles from './Avatar.module.css';
 export interface AvatarProps {
   src?: string;
   initials?: string;
-  size?: 'sm' | 'md';
+  size?: 'sm' | 'md' | 'lg';
   alt?: string;
 }
 

@@ -15,11 +15,12 @@ const defaultColumns: FooterColumn[] = [
     { label: 'Notícias', href: 'noticias.html' },
     { label: 'Eventos', href: 'eventos.html' },
     { label: 'Comunicados', href: 'comunicados.html' },
-    { label: 'Áreas e Departamentos', href: 'areas-departamentos.html' },
+    { label: 'Setores', href: 'setores.html' },
   ] },
   { title: 'Institucional', links: [
     { label: 'Sobre', href: 'sobre.html' },
     { label: 'Links Úteis', href: 'links-uteis.html' },
+    { label: 'Documentos', href: 'documentos.html' },
   ] },
 ];
 

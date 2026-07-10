@@ -140,7 +140,7 @@ esses elementos ficam sem tamanho/imagem (invisíveis, sem erro no console).
 ```html
 <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
 ```
-Classes: `.avatar`, `.md`, `.sm`, `.avatarInitials`
+Classes: `.avatar`, `.sm` (32px), `.md` (40px), `.lg` (64px), `.avatarInitials`
 
 ---
 
@@ -477,6 +477,8 @@ Classes: `.siteHeader` (`<header>`, sticky top, fundo full-bleed), `.siteHeaderI
 
 **Importante:** `.siteHeader` é só o fundo/borda full-bleed — todo o conteúdo (logo, nav, busca, avatar) fica dentro de `.siteHeaderInner`, nunca direto em `.siteHeader`.
 
+**Nas páginas reais, este HTML não é copiado manualmente — é gerado por `shared/site-header.js`** (ver seção dedicada logo abaixo do `SiteHeaderMobile`). O bloco abaixo existe só como referência de marcação/classes.
+
 ```html
 <header class="siteHeader">
   <div class="siteHeaderInner">
@@ -503,7 +505,9 @@ Classes: `.siteHeader` (`<header>`, sticky top, fundo full-bleed), `.siteHeaderI
           <div class="avatar sm"><span class="avatarInitials">AD</span></div>
         </button>
         <div class="dropdownMenu__panel end" id="user-menu-panel">
-          <button class="dropdownMenu__item" onclick="location.href='perfil.html'">
+          <!-- "Meu Perfil": site-header.js chama window.openProfileDialog() se a página
+               definir esse hook (ex: dialog de perfil no index.html); senão navega p/ perfil.html -->
+          <button class="dropdownMenu__item" onclick="window.openProfileDialog ? window.openProfileDialog() : location.href='perfil.html'">
             <span class="dropdownMenu__item__icon"><i data-lucide="user" width="16" height="16"></i></span>
             Meu Perfil
           </button>
@@ -822,8 +826,73 @@ Classes: `.docItem`, `.docIcon`, `.docText`, `.docName`, `.docMeta`, `.docDownlo
 
 ---
 
+### EventGalleryItem
+```html
+<link rel="stylesheet" href="../componentes/EventGalleryItem/EventGalleryItem.module.css" />
+```
+Miniatura clicável de foto (4:3, `object-fit: cover`, zoom leve no hover) — usada na seção "Fotos do evento" de `detalhes-evento.html` e na página `evento-fotos.html`. Clique abre o `Lightbox` (abaixo), com navegação entre as demais fotos da grade.
+
+Classes: `.eventGalleryItem` (`<button type="button">`, não `<a>` — não navega, abre o Lightbox), `.eventGalleryImage`
+
+```html
+<button class="eventGalleryItem" type="button" data-lightbox-src="../src/foto.jpg">
+  <img class="eventGalleryImage" src="../src/foto.jpg" alt="" />
+</button>
+```
+
+**Container:** `.eventGalleryGrid` (`shared/page.css`) — grid de 4 colunas no desktop, 2 no mobile (abaixo de 640px).
+
+---
+
+### Lightbox
+```html
+<link rel="stylesheet" href="../componentes/Lightbox/Lightbox.module.css" />
+```
+Visualizador de foto em tela cheia (fundo escuro, imagem centralizada `object-fit: contain`, contador "X / Y") com navegação entre fotos — abre ao clicar num `EventGalleryItem`. Fecha ao clicar no fundo (backdrop), no X, ou apertar Escape; setas do teclado (`←`/`→`) navegam.
+
+Classes: `.lightboxOverlay` (fixed, fundo `rgba(0,0,0,0.9)`), `.lightboxClose`, `.lightboxNavBtn` + `.lightboxPrev`/`.lightboxNext` (botões circulares translúcidos), `.lightboxImageWrap`, `.lightboxImage`, `.lightboxCounter`.
+
+```html
+<div class="lightboxOverlay" id="lightbox-overlay" style="display:none;">
+  <button class="lightboxClose" type="button" aria-label="Fechar" id="lightbox-close">
+    <i data-lucide="x" width="20" height="20"></i>
+  </button>
+  <button class="lightboxNavBtn lightboxPrev" type="button" aria-label="Foto anterior" id="lightbox-prev">
+    <i data-lucide="chevron-left" width="24" height="24"></i>
+  </button>
+  <div class="lightboxImageWrap">
+    <img class="lightboxImage" id="lightbox-image" src="" alt="" />
+    <span class="lightboxCounter" id="lightbox-counter"></span>
+  </div>
+  <button class="lightboxNavBtn lightboxNext" type="button" aria-label="Próxima foto" id="lightbox-next">
+    <i data-lucide="chevron-right" width="24" height="24"></i>
+  </button>
+</div>
+```
+
+**JS (abrir/fechar/navegar — igual em `detalhes-evento.html` e `evento-fotos.html`):**
+```js
+function openLightbox(index) { lightboxIndex = index; renderLightbox(); lightboxOverlay.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+function closeLightbox() { lightboxOverlay.style.display = 'none'; document.body.style.overflow = ''; }
+/* fecha só se o clique foi no próprio backdrop, não em botões/imagem por cima dele */
+lightboxOverlay.addEventListener('click', (e) => { if (e.target === lightboxOverlay) closeLightbox(); });
+```
+
+---
+
+### Layout: página "Galeria de fotos" — `evento-fotos.html` (page.css)
+Estrutura: header → breadcrumb (4 níveis: Home / Eventos / nome do evento / Fotos) → `.sitePageHeader` (kicker "Eventos" + título "Fotos do evento" + contagem total) → `.eventGalleryGrid` de `EventGalleryItem` + `Lightbox` → `Footer`. Acessada pelo botão "Veja mais fotos" em `detalhes-evento.html`.
+
+**Carregamento em lotes (infinite scroll) — protótipo com 100 fotos:** em vez de renderizar as 100 de uma vez, a página gera as imagens ciclando sobre 8 fotos reais (`BASE_IMAGES`) e as injeta 8 por vez (`BATCH_SIZE`) conforme o usuário rola a página. Um `IntersectionObserver` observa `.eventGalleryLoading` (ícone `loader-circle` girando via `@keyframes eventGalleryLoadingSpin`, `shared/page.css`) logo abaixo da grade; quando ele entra na tela, espera ~600ms (atraso simulado, só pra deixar o ícone visível) e injeta o próximo lote via `insertAdjacentHTML('beforeend', ...)`.
+
+**Cuidado ao reimplementar esse padrão:** o `IntersectionObserver` só dispara numa *mudança* de estado (entrou/saiu da tela) — se a sentinela permanecer visível após um lote carregar (tela alta o bastante), ele não dispara de novo sozinho. A página guarda o último estado em `sentinelVisible` e chama `maybeLoadMore()` recursivamente depois de cada lote, pra continuar carregando em cascata até a sentinela sair da tela ou acabarem as fotos — sem isso, o carregamento trava depois do primeiro lote em telas grandes.
+
+O clique nas miniaturas usa delegação de evento no container da grade (`grid.addEventListener('click', ...)` com `e.target.closest('.eventGalleryItem')`), então itens injetados depois já funcionam sem precisar religar listener nenhum.
+
+---
+
 ### Layout: página de Detalhe do Evento
-`detalhes-evento.html`: header → breadcrumb (3 níveis: Home / Eventos / nome do evento) → `.eventDetailHeader` (badge `.newsTag` + `.eventDetailTitle` + `.eventDetailDateRow`) → `.eventDetailMainGrid` (esquerda: foto `.articleHero` + `.eventDetailSectionTitle` "Sobre o evento" + `.articleBody`; direita: `EventInfoCard`) → `.eventDetailSecondaryGrid` (dois `.card.eventDetailPanel`: "Programação" com `.eventScheduleList` de `EventScheduleItem`, e "Materiais e documentos" com `.docList` de `DocumentListItem` + `Feedback` tipo `info`) → seção "Eventos relacionados" (`EventCard` × 3) → Links Úteis → `Footer`.
+`detalhes-evento.html`: header → breadcrumb (3 níveis: Home / Eventos / nome do evento) → `.eventDetailHeader` (badge `.newsTag` + `.eventDetailTitle` + `.eventDetailDateRow`) → `.eventDetailMainGrid` (esquerda: foto `.articleHero` + `.eventDetailSectionTitle` "Sobre o evento" + `.articleBody`; direita: `EventInfoCard`) → `.eventDetailGallery` ("Fotos do evento": `.eventGalleryGrid` de `EventGalleryItem`, 8 fotos) → `.eventDetailSecondaryGrid` (dois `.card.eventDetailPanel`: "Programação" com `.eventScheduleList` de `EventScheduleItem`, e "Materiais e documentos" com `.docList` de `DocumentListItem` + `Feedback` tipo `info`) → seção "Eventos relacionados" (`EventCard` × 3) → Links Úteis → `Footer`.
 
 `.eventDetailSectionTitle` é o padrão de título com barra vermelha à esquerda usado nas três seções (Sobre o evento / Programação / Materiais e documentos) — genérico o bastante pra reaproveitar em outras páginas de detalhe futuras.
 
@@ -831,8 +900,8 @@ Classes: `.docItem`, `.docIcon`, `.docText`, `.docName`, `.docMeta`, `.docDownlo
 
 ---
 
-### Layout: página de Áreas e Departamentos — `areas-departamentos.html` (page.css)
-Estrutura: header → breadcrumb (2 níveis: Home / Áreas e Departamentos) → `.sitePageHeader` (eyebrow `.siteSectionKicker` + `.sitePageTitle` + texto `.siteBodyText`, sem imagem — página de listagem pura) → `.deptDetailList` (pilha vertical de `DepartmentDetailCard`, um por área) → seção Links Úteis → `Footer`.
+### Layout: página de Setores — `setores.html` (page.css)
+Estrutura: header → breadcrumb (2 níveis: Home / Setores) → `.sitePageHeader` (eyebrow `.siteSectionKicker` + `.sitePageTitle` + texto `.siteBodyText`, sem imagem — página de listagem pura) → `.deptDetailList` (pilha vertical de `DepartmentDetailCard`, um por área) → seção Links Úteis → `Footer`.
 
 `.sitePageTitle` é o padrão de título grande de página de listagem (sem imagem/hero) — reaproveitável em futuras páginas do tipo "Sobre", diferente do `.articleTitle` (tem foto de capa acima) e do `.eventDetailTitle` (tem badge + data).
 
@@ -1124,6 +1193,37 @@ function closeMobileMenu() {
 }
 ```
 
+**Este JS acima é só referência de comportamento — nas páginas reais ele vive dentro de `shared/site-header.js`, não em cada HTML.** Ver seção seguinte.
+
+---
+
+### `shared/site-header.js` — header compartilhado entre todas as páginas do site-desktop
+
+O `SiteHeader`/`SiteHeaderMobile`/drawer descritos acima **não são mais copiados manualmente em cada página** (`index.html`, `noticias.html`, `eventos.html` etc.) — isso gerava 3 blocos de HTML idênticos (só o item ativo do nav mudava) repetidos em 11 arquivos, exigindo editar todos toda vez que o menu mudasse (ex: renomear um item). Mesmo problema que o `painel-adm/shared/sidebar.js` já resolve para a sidebar do painel — o header do site segue o mesmo padrão: um único array de itens, renderizado via JS, injetado em cada página.
+
+**Uso em cada página:**
+```html
+<body class="layout-site" data-page="noticias">
+  <div id="site-header-root"></div>
+  <!-- resto da página -->
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="../shared/site-header.js"></script>
+  <!-- ../shared/, não shared/ — o arquivo vive na raiz do projeto (mesma pasta do touch-scroll.js), não dentro de site-desktop/ -->
+</body>
+```
+
+`data-page` no `<body>` controla qual item do nav recebe `.siteHeaderNavItemActive`/`.siteHeaderMobileNavItemActive`. IDs válidos: `home | noticias | eventos | comunicados | setores | sobre | links-uteis`. Páginas sem item correspondente no menu (`search.html`, `search-vazio.html`) simplesmente omitem o atributo — nenhum item fica ativo.
+
+O script:
+- Injeta os 3 blocos (header desktop, header mobile, drawer) dentro de `#site-header-root`
+- Chama `lucide.createIcons()` depois de injetar (os ícones do header não existiam no DOM até então)
+- Liga o dropdown do avatar, abrir/fechar busca mobile, abrir/fechar o drawer — tudo que antes era `<script>` inline duplicado em cada página
+- Expõe `window.goToSearch(value)` — redireciona para `search.html?q=<valor>` ao apertar Enter nos dois campos de busca do header (desktop e mobile). `search.html`/`search-vazio.html` reaproveitam essa mesma função pro campo de busca da própria página (`search-page-input`), em vez de duplicar a lógica de redirect.
+- Botão "Modo escuro"/"Modo claro" (estado logado) — entre "Meu Perfil" e "Sair" no dropdown do avatar (desktop, `#theme-toggle-desktop`) e no rodapé do drawer (mobile, `#theme-toggle-mobile`). Alterna `data-theme` no `<html>`, troca ícone (moon/sun) e label, e persiste em `localStorage` (`eqs-site-theme`) — sem isso o tema resetaria a cada navegação, já que toda página nasce com `data-theme="light"`.
+
+**Para adicionar/renomear um item do menu:** editar só o array `NAV_ITEMS` em `shared/site-header.js` — não precisa tocar nenhuma página.
+
 ---
 
 ### Utilitários responsivos (`.hideMobile` / `.hideDesktop`)
@@ -1211,14 +1311,14 @@ Classes: `.footer`, `.footerInner`, `.footerBrand`, `.footerTagline`, `.footerCo
 <link rel="stylesheet" href="../componentes/DepartmentCard/DepartmentCard.module.css" />
 <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
 ```
-Card de área/departamento — prévia na Home + página completa de Áreas e Departamentos. Mostra gestor responsável e pilha de avatares dos colaboradores (com "+N" quando passa do limite visível).
+Card de área/departamento — prévia na Home + página completa de Setores. Mostra gestor responsável e pilha de avatares dos colaboradores (com "+N" quando passa do limite visível).
 
 Classes: `.deptCard` (`<a>`), `.deptHeader`, `.deptIcon`, `.deptName`, `.deptRow`, `.deptRowLabel`, `.deptManager`, `.deptManagerName`, `.deptAvatarStack`, `.deptAvatarStackItem` (envolve cada `.avatar` para o efeito de sobreposição), `.deptAvatarMore` (bolha "+N", mesmo tamanho de um avatar sm)
 
 **Fotos dos avatares:** todos os avatares visíveis (gestor + colaboradores, exceto o "+N") usam foto real, não iniciais — `<img class="avatarImg" src="..." />` dentro do `.avatar`, em vez de `<span class="avatarInitials">`. Fotos ficam em `src/avatar/team-01.jpg` a `team-10.jpg` (recortadas 240×240, ~10-15KB cada, originais do usuário também na mesma pasta). Como só existem 10 fotos únicas para 11 avatares visíveis na Home, uma foto é reaproveitada em duas pessoas de departamentos diferentes (LA em Financeiro e HC em RH dividem `team-04.jpg`) — sem problema visual porque não aparecem lado a lado.
 
 ```html
-<a class="deptCard card" href="areas-departamentos.html">
+<a class="deptCard card" href="setores.html">
   <div class="deptHeader">
     <span class="deptIcon"><i data-lucide="megaphone" width="20" height="20"></i></span>
     <h3 class="deptName">Marketing</h3>
@@ -1254,7 +1354,7 @@ Classes: `.deptCard` (`<a>`), `.deptHeader`, `.deptIcon`, `.deptName`, `.deptRow
 <link rel="stylesheet" href="../componentes/Card/Card.module.css" />
 <link rel="stylesheet" href="../componentes/DepartmentDetailCard/DepartmentDetailCard.module.css" />
 ```
-Card completo de área/departamento — usado na página `areas-departamentos.html`. Diferente do `DepartmentCard` (prévia compacta da Home, avatar stack com "+N"): aqui lista **todos** os colaboradores (nunca corta com "ver todos", mesmo que sejam muitos) e inclui e-mail de cada pessoa + texto de resumo da área.
+Card completo de área/departamento — usado na página `setores.html`. Diferente do `DepartmentCard` (prévia compacta da Home, avatar stack com "+N"): aqui lista **todos** os colaboradores (nunca corta com "ver todos", mesmo que sejam muitos) e inclui e-mail de cada pessoa + texto de resumo da área.
 
 Classes: `.deptDetailCard` (linkado junto com `.card`), `.deptDetailHeader`, `.deptDetailHeaderLeft`, `.deptDetailTitleRow`, `.deptDetailIcon`, `.deptDetailName`, `.deptDetailDivider` (linha vertical entre o bloco esquerdo e o gestor), `.deptDetailManagerCol` (coluna com o badge acima do gestor), `.deptDetailBadge` ("Gestor responsável"), `.deptDetailManager`, `.deptDetailContactText`, `.deptDetailContactName`, `.deptDetailContactEmail`, `.deptDetailBody`, `.deptDetailSectionLabel` ("Colaboradores"), `.deptDetailCollabGrid` (4 colunas desktop → 2 em ~900px → 1 em mobile), `.deptDetailCollabItem`, `.deptDetailDescription`
 
@@ -1444,6 +1544,54 @@ Igual à estrutura de `noticias.html`, trocando os cards: `.sitePageHeader` (kic
 
 ---
 
+### DocumentCard
+```html
+<link rel="stylesheet" href="../componentes/Card/Card.module.css" />
+<link rel="stylesheet" href="../componentes/DocumentCard/DocumentCard.module.css" />
+```
+Card de documento para download — usado na página `documentos.html`. Título/descrição + linha de meta (badge de extensão, tamanho, data de atualização) à esquerda; divisor vertical; ícone + rótulo "Fazer download" (cor da marca) à direita. Diferente do `DocumentListItem` (linha única, usado em "Materiais e documentos" na página de detalhe do evento) — este é um card maior, de grid 2 colunas, com mais metadados.
+
+Classes: `.documentCard` (linkado junto com `.card` pro fundo sólido), `.documentCardMain`, `.documentCardTitle`, `.documentCardDescription`, `.documentCardMeta`, `.documentCardBadge` (outline, ex: ".PDF"), `.documentCardDivider`, `.documentCardDownload`, `.documentCardDownloadIcon`, `.documentCardDownloadLabel`
+
+```html
+<a class="card documentCard" href="...">
+  <div class="documentCardMain">
+    <h3 class="documentCardTitle">Manual da Marca EQS</h3>
+    <p class="documentCardDescription">Diretrizes de identidade visual e uso da marca.</p>
+    <div class="documentCardMeta">
+      <span class="documentCardBadge">.PDF</span>
+      <span>8.4 MB</span>
+      <span>Atualizado em 12/05/2025</span>
+    </div>
+  </div>
+  <div class="documentCardDivider"></div>
+  <div class="documentCardDownload">
+    <span class="documentCardDownloadIcon"><i data-lucide="download" width="20" height="20"></i></span>
+    <span class="documentCardDownloadLabel">Fazer download</span>
+  </div>
+</a>
+```
+
+**Container:** `.siteGrid2` (`shared/page.css`, nova classe — grid de 2 colunas no desktop, 1 no mobile abaixo de 640px, mesmo padrão de colapso do `.siteGrid3`/`.siteGrid5`).
+
+**Responsivo:** abaixo de 640px o card empilha em coluna (`flex-direction: column`), o divisor vira horizontal, e o bloco de download volta a ficar em linha (ícone + rótulo lado a lado, centralizado).
+
+---
+
+### Layout: página Documentos — `documentos.html` (page.css)
+Estrutura idêntica à `links-uteis.html`, trocando os cards: `.sitePageHeader` (kicker "Recursos" + título "Documentos" + texto) → `.siteGrid2` de `.card.documentCard` (8 itens) → `Pagination` → banner final `.statsBanner` (mesmo do `sobre.html`/`links-uteis.html`, sem stats) → `Footer`.
+
+Item de menu "Documentos" adicionado em `shared/site-header.js` (`NAV_ITEMS`, id `documentos`) — aparece no header desktop, no drawer mobile, e no rodapé (coluna "Institucional", depois de "Links Úteis") de todas as páginas do site.
+
+---
+
+### Layout: dialog "Meu Perfil" — `index.html` (page.css)
+Dialog aberto pela opção "Meu Perfil" do menu do avatar (só o `index.html` define o hook `window.openProfileDialog` — nas demais páginas o item ainda navega para `perfil.html`). Compõe `Dialog` (`.dialogOverlay` > `.dialog.sm`) + `Avatar` (`.avatar.lg`) + `DetailCard` (`.infoGrid`/`.infoLabel`/`.infoValue` para nome/e-mail/setor somente leitura) + `Button`.
+
+Classes próprias em `shared/page.css`: `.profilePhotoRow` (avatar + ações, com divisor inferior), `.profilePhotoActions` (botões "Trocar foto"/"Remover"), `.profilePhotoHint` (texto auxiliar). Troca de foto via `<input type="file">` oculto + `URL.createObjectURL`; remover volta para `.avatarInitials`.
+
+---
+
 ### SearchResultItem
 ```html
 <link rel="stylesheet" href="../componentes/SearchResultItem/SearchResultItem.module.css" />
@@ -1466,7 +1614,7 @@ Classes: `.searchResultItem` (`<a>`, borda inferior entre itens exceto o último
   <div class="searchResultItemMeta"><span>08 dez 2026</span></div>
 </a>
 
-<!-- Comunicados / Áreas e Departamentos / Links Úteis — leading em bolinha -->
+<!-- Comunicados / Setores / Links Úteis — leading em bolinha -->
 <a class="searchResultItem" href="comunicados.html">
   <div class="searchResultItemLeading">
     <span class="searchResultItemDot"></span>
@@ -1494,7 +1642,7 @@ Cada grupo de resultado: `.searchResultGroupHeader` (`.searchResultGroupIcon` ou
 
 Sidebar "Sugestões": `.card.searchSuggestions` com `.searchSuggestionsHeader`/`.searchSuggestionsTitle`/`.searchSuggestionsSubtitle`/`.searchSuggestionsList`/`.searchSuggestionItem` (links com ícone de busca, cada um leva pra `search.html?q=<termo>`).
 
-**Interatividade:** a página lê `?q=` da URL pra atualizar o texto destacado no título (`#search-term`) — os resultados em si continuam fixos (protótipo estático, sem busca real). Os campos de busca do header (desktop e mobile) desta página redirecionam para `search.html?q=<valor>` ao pressionar Enter. Os outros headers do site (`noticias.html`, `eventos.html` etc.) ainda não têm esse redirecionamento ligado — só o de `search.html` foi ligado nesta tarefa.
+**Interatividade:** a página lê `?q=` da URL pra atualizar o texto destacado no título (`#search-term`) — os resultados em si continuam fixos (protótipo estático, sem busca real). Os campos de busca do header (desktop e mobile), em **todas** as páginas do site (via `window.goToSearch` de `shared/site-header.js`), redirecionam para `search.html?q=<valor>` ao pressionar Enter.
 
 **Nota de ambiente:** o preview usado durante o desenvolvimento normaliza a URL e descarta a query string na navegação — o comportamento de `?q=` não pôde ser 100% confirmado nesse ambiente, apesar do código ser padrão (`URLSearchParams`).
 

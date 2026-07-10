@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fotos do evento — Workshop BIM 4.0 — EQS Intranet</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/DropdownMenu/DropdownMenu.module.css" />
+  <link rel="stylesheet" href="../componentes/SiteHeader/SiteHeader.module.css" />
+  <link rel="stylesheet" href="../componentes/SiteHeaderMobile/SiteHeaderMobile.module.css" />
+  <link rel="stylesheet" href="../componentes/Sheet/Sheet.module.css" />
+  <link rel="stylesheet" href="../componentes/Breadcrumb/Breadcrumb.module.css" />
+  <link rel="stylesheet" href="../componentes/EventGalleryItem/EventGalleryItem.module.css" />
+  <link rel="stylesheet" href="../componentes/Lightbox/Lightbox.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Footer/Footer.module.css" />
+</head>
+<body class="layout-site" data-page="eventos">
+
+  <div id="site-header-root"></div>
+
+  <!-- ── Breadcrumb ────────────────────────────────────────────── -->
+  <div class="siteBreadcrumbBar">
+    <div class="siteContainer">
+      <nav aria-label="Breadcrumb" class="nav">
+        <ol class="list">
+          <li class="item">
+            <a href="index.html" class="link">
+              Home
+              <span class="sep" aria-hidden="true"><i data-lucide="chevron-right" width="12" height="12"></i></span>
+            </a>
+          </li>
+          <li class="item">
+            <a href="eventos.html" class="link">
+              Eventos
+              <span class="sep" aria-hidden="true"><i data-lucide="chevron-right" width="12" height="12"></i></span>
+            </a>
+          </li>
+          <li class="item">
+            <a href="detalhes-evento.html" class="link">
+              Workshop BIM 4.0
+              <span class="sep" aria-hidden="true"><i data-lucide="chevron-right" width="12" height="12"></i></span>
+            </a>
+          </li>
+          <li class="item"><span class="current" aria-current="page">Fotos</span></li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <main class="siteMain">
+    <section class="siteSection">
+      <div class="siteContainer">
+
+        <div class="sitePageHeader">
+          <span class="siteSectionKicker">Eventos</span>
+          <h1 class="sitePageTitle">Fotos do evento</h1>
+          <p class="siteBodyText">Registro completo do Workshop BIM 4.0 reúne equipe técnica no auditório principal — <span id="photo-count">100</span> fotos.</p>
+        </div>
+
+        <div class="eventGalleryGrid" id="event-gallery-grid"></div>
+
+        <div class="eventGalleryLoading" id="event-gallery-loading">
+          <span class="eventGalleryLoadingIcon"><i data-lucide="loader-circle" width="18" height="18"></i></span>
+          Carregando mais fotos...
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ── Lightbox — abre ao clicar numa foto da galeria ────── -->
+  <div class="lightboxOverlay" id="lightbox-overlay" style="display:none;">
+    <button class="lightboxClose" type="button" aria-label="Fechar" id="lightbox-close">
+      <i data-lucide="x" width="20" height="20"></i>
+    </button>
+    <button class="lightboxNavBtn lightboxPrev" type="button" aria-label="Foto anterior" id="lightbox-prev">
+      <i data-lucide="chevron-left" width="24" height="24"></i>
+    </button>
+    <div class="lightboxImageWrap">
+      <img class="lightboxImage" id="lightbox-image" src="" alt="" />
+      <span class="lightboxCounter" id="lightbox-counter"></span>
+    </div>
+    <button class="lightboxNavBtn lightboxNext" type="button" aria-label="Próxima foto" id="lightbox-next">
+      <i data-lucide="chevron-right" width="24" height="24"></i>
+    </button>
+  </div>
+
+  <footer class="footer">
+    <div class="footerInner">
+      <div class="footerBrand">
+        <span class="logoDefault logoSm" role="img" aria-label="EQS Engenharia"></span>
+        <p class="footerTagline">Intranet corporativa da EQS Engenharia.</p>
+      </div>
+      <div class="footerColumns">
+        <div class="footerColumn">
+          <span class="footerColumnTitle">Portal</span>
+          <a class="footerLink" href="noticias.html">Notícias</a>
+          <a class="footerLink" href="eventos.html">Eventos</a>
+          <a class="footerLink" href="comunicados.html">Comunicados</a>
+          <a class="footerLink" href="setores.html">Setores</a>
+        </div>
+        <div class="footerColumn">
+          <span class="footerColumnTitle">Institucional</span>
+          <a class="footerLink" href="sobre.html">Sobre</a>
+          <a class="footerLink" href="links-uteis.html">Links Úteis</a>
+          <a class="footerLink" href="documentos.html">Documentos</a>
+        </div>
+      </div>
+    </div>
+    <div class="footerBottom">© 2026 EQS Engenharia. Todos os direitos reservados.</div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="../shared/site-header.js"></script>
+
+  <!-- ── Scroll por arrasto (emula touch abaixo de 640px) ─────────────── -->
+  <script src="../shared/touch-scroll.js"></script>
+
+  <script>
+    /* Protótipo: gera 100 fotos ciclando sobre um conjunto pequeno de imagens reais
+       (evita escrever 100 tags <img> à mão — mesmo efeito visual de um álbum grande) */
+    const BASE_IMAGES = [
+      '../src/hero-eventos.jpg',
+      '../src/business-people-meeting.jpg',
+      '../src/people-taking-part-high-protocol-event.jpg',
+      '../src/male-business-executive-giving-speech.jpg',
+      '../src/smart-indian-engineer-man-wearing-safety-helmet-doing-stock-tick-check-cardboard-stock-product-management-factory-warehouse-background.jpg',
+      '../src/powerful-satisfied-entrepreneurs-hugging-congratulating-each-other.jpg',
+      '../src/noticia-1.jpg',
+      '../src/noticia-2.jpg',
+    ];
+    const TOTAL_PHOTOS = 100;
+    const BATCH_SIZE = 8;
+    const galleryImages = Array.from({ length: TOTAL_PHOTOS }, (_, i) => BASE_IMAGES[i % BASE_IMAGES.length]);
+
+    const grid = document.getElementById('event-gallery-grid');
+    const loadingEl = document.getElementById('event-gallery-loading');
+    let loadedCount = 0;
+    let isLoadingBatch = false;
+    let sentinelVisible = false;
+
+    /* Miniatura da grade usa a versão reduzida (src/thumbs/) — só a foto aberta no
+       Lightbox carrega o arquivo original (grid.dataset em cada botão guarda o índice,
+       o Lightbox lê o original de `galleryImages`). */
+    function thumbSrc(fullSrc) {
+      return fullSrc.replace('../src/', '../src/thumbs/');
+    }
+
+    function renderBatch() {
+      const nextImages = galleryImages.slice(loadedCount, loadedCount + BATCH_SIZE);
+      grid.insertAdjacentHTML('beforeend', nextImages.map((src, i) => `
+        <button class="eventGalleryItem" type="button" data-index="${loadedCount + i}">
+          <img class="eventGalleryImage" src="${thumbSrc(src)}" alt="" loading="lazy" />
+        </button>
+      `).join(''));
+      loadedCount += nextImages.length;
+
+      if (loadedCount >= galleryImages.length) {
+        loadingEl.hidden = true;
+        loadObserver.disconnect();
+      }
+    }
+
+    /* Carrega 8 por vez, só quando a sentinela (ícone de loading) entra na tela.
+       Depois de cada lote, checa de novo se ela AINDA está visível — sem isso, numa
+       tela alta o bastante pra sempre mostrar a sentinela, o carregamento trava
+       depois do primeiro lote (o observer só dispara numa mudança de estado). */
+    function maybeLoadMore() {
+      if (!sentinelVisible || isLoadingBatch || loadedCount >= galleryImages.length) return;
+      isLoadingBatch = true;
+      setTimeout(() => {
+        renderBatch();
+        isLoadingBatch = false;
+        maybeLoadMore();
+      }, 600); // atraso simulado — deixa o ícone de loading visível
+    }
+
+    const loadObserver = new IntersectionObserver((entries) => {
+      sentinelVisible = entries[0].isIntersecting;
+      maybeLoadMore();
+    }, { rootMargin: '200px' });
+    loadObserver.observe(loadingEl);
+
+    renderBatch();
+
+    document.getElementById('photo-count').textContent = TOTAL_PHOTOS;
+
+    lucide.createIcons();
+
+    /* Lightbox — mesma lógica de detalhes-evento.html, agora sobre as 100 fotos geradas */
+    const lightboxOverlay = document.getElementById('lightbox-overlay');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxCounter = document.getElementById('lightbox-counter');
+    let lightboxIndex = 0;
+
+    function renderLightbox() {
+      lightboxImage.src = galleryImages[lightboxIndex];
+      lightboxCounter.textContent = `${lightboxIndex + 1} / ${galleryImages.length}`;
+    }
+    function openLightbox(index) {
+      lightboxIndex = index;
+      renderLightbox();
+      lightboxOverlay.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightboxOverlay.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    function showPrev() {
+      lightboxIndex = (lightboxIndex - 1 + galleryImages.length) % galleryImages.length;
+      renderLightbox();
+    }
+    function showNext() {
+      lightboxIndex = (lightboxIndex + 1) % galleryImages.length;
+      renderLightbox();
+    }
+
+    grid.addEventListener('click', (e) => {
+      const btn = e.target.closest('.eventGalleryItem');
+      if (btn) openLightbox(Number(btn.dataset.index));
+    });
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.getElementById('lightbox-prev').addEventListener('click', showPrev);
+    document.getElementById('lightbox-next').addEventListener('click', showNext);
+    /* Fecha só ao clicar no fundo (backdrop), não nos botões/imagem por cima dele */
+    lightboxOverlay.addEventListener('click', (e) => {
+      if (e.target === lightboxOverlay) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (lightboxOverlay.style.display !== 'flex') return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') showNext();
+    });
+  </script>
+
+</body>
+</html>

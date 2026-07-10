@@ -9,7 +9,7 @@ const meta: Meta<typeof DepartmentCard> = {
   parameters: {
     docs: {
       description: {
-        component: 'Card de área/departamento — usado na prévia da Home e na página completa de Áreas e Departamentos. Mostra o gestor responsável e uma pilha de avatares dos colaboradores.',
+        component: 'Card de área/departamento — usado na prévia da Home e na página completa de Setores. Mostra o gestor responsável e uma pilha de avatares dos colaboradores.',
       },
     },
   },

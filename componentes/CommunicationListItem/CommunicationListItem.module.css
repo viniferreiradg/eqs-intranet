@@ -149,4 +149,33 @@
     flex-basis: 100%;
     justify-content: space-between;
   }
+
+  /* Seta do card expansível (comunicados.html): no mobile ganha linha própria,
+     abaixo da data — em vez de flutuar (position: absolute) centralizada na
+     altura do card inteiro, o que fazia ela ficar espremida/deslocada no canto.
+     `display: contents` no wrapper .commListItemMeta "dissolve" a caixa dele,
+     promovendo data e seta a itens diretos do flex do card — só assim a seta
+     pode virar linha própria (flex-basis: 100%) independente da data. */
+  .commListItemCard .commListItemMeta {
+    display: contents;
+  }
+
+  .commListItemCard .commListItemDate {
+    flex-basis: 100%;
+  }
+
+  .commListItemCard .commListItemChevron {
+    position: static;
+    display: flex;
+    justify-content: center;
+    flex-basis: 100%;
+    /* Sem isso, o SVG (proporção travada) esticaria a altura pra acompanhar
+       os 100% de largura do flex-basis, virando um ícone gigante. */
+    height: var(--spacing-md);
+    transform: rotate(90deg);
+  }
+
+  .commListItemCard.open .commListItemChevron {
+    transform: rotate(-90deg);
+  }
 }

@@ -9,7 +9,7 @@
  *
  * IDs de página válidos:
  *   dashboard | noticias | eventos | comunicados | links-uteis |
- *   areas-departamentos | configuracoes
+ *   setores | configuracoes
  */
 (function () {
   'use strict';
@@ -25,7 +25,7 @@
     { id: 'eventos',             label: 'Eventos',                 icon: 'calendar-check',   href: 'eventos-lista.html' },
     { id: 'comunicados',         label: 'Comunicados',             icon: 'megaphone',        href: 'comunicados-lista.html' },
     { id: 'links-uteis',         label: 'Links Úteis',             icon: 'link-2',           href: 'links-uteis-lista.html' },
-    { id: 'areas-departamentos', label: 'Áreas e Departamentos',   icon: 'building-2',       href: 'areas-departamentos-lista.html' },
+    { id: 'setores', label: 'Setores',   icon: 'building-2',       href: 'setores-lista.html' },
     { id: 'configuracoes',       label: 'Configurações',           icon: 'settings',         href: 'configuracoes.html' },
   ];
 

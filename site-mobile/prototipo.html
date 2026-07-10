@@ -646,9 +646,19 @@
       {
         label: 'Home',
         screens: [
-          { label: 'Home', file: '../site-desktop/index.html' },
+          { label: 'Home (logado)', file: '../site-desktop/index.html' },
+          { label: 'Home — Meu Perfil (menu)', file: '../site-desktop/index.html#perfil-mobile' },
+          { label: 'Home (deslogado)', file: '../site-desktop/index-deslogado.html' },
         ],
       },
+      {
+        label: 'Login',
+        screens: [
+          { label: 'Login', file: '../site-desktop/login.html' },
+          { label: 'Redefinir senha', file: '../site-desktop/redefinir-senha.html' },
+          { label: 'Criar nova senha', file: '../site-desktop/criar-nova-senha.html' },
+        ],
+      },      
       {
         label: 'Notícias',
         screens: [
@@ -661,6 +671,8 @@
         screens: [
           { label: 'Listagem', file: '../site-desktop/eventos.html' },
           { label: 'Detalhe', file: '../site-desktop/detalhes-evento.html' },
+          { label: 'Detalhe (lightbox aberto)', file: '../site-desktop/detalhes-evento-lightbox.html' },
+          { label: 'Galeria de fotos', file: '../site-desktop/evento-fotos.html' },
         ],
       },
       {
@@ -670,9 +682,9 @@
         ],
       },
       {
-        label: 'Áreas e Departamentos',
+        label: 'Setores',
         screens: [
-          { label: 'Listagem', file: '../site-desktop/areas-departamentos.html' },
+          { label: 'Listagem', file: '../site-desktop/setores.html' },
         ],
       },
       {
@@ -688,12 +700,19 @@
         ],
       },
       {
+        label: 'Documentos',
+        screens: [
+          { label: 'Listagem', file: '../site-desktop/documentos.html' },
+        ],
+      },
+      {
         label: 'Busca',
         screens: [
           { label: 'Resultados', file: '../site-desktop/search.html' },
           { label: 'Sem resultados', file: '../site-desktop/search-vazio.html' },
         ],
       },
+
     ];
 
     /* ── Build sidebar ──────────────────────────────── */

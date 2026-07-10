@@ -26,7 +26,7 @@ export const Default: Story = {
   decorators: [(Story) => <div style={{ width: 375 }}><Story /></div>],
 };
 
-const NAV_ITEMS = ['Home', 'Notícias', 'Eventos', 'Comunicados', 'Áreas e Departamentos', 'Sobre', 'Links Úteis'];
+const NAV_ITEMS = ['Home', 'Notícias', 'Eventos', 'Comunicados', 'Setores', 'Sobre', 'Links Úteis'];
 
 export const WithMenu: Story = {
   render: () => {

@@ -174,6 +174,12 @@ body.layout-site {
   gap: var(--spacing-md);
 }
 
+.siteGrid2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+}
+
 /* Pilha vertical de cards — usada nas seções da Home em site-mobile (1 coluna) */
 .siteGridStack {
   display: flex;
@@ -374,7 +380,7 @@ html:has(.hideScrollbar)::-webkit-scrollbar,
 }
 
 /* ── Cabeçalho de página de listagem (eyebrow + título + texto) ──────────────
-   Ex: Áreas e Departamentos — sem imagem, diferente do Hero/StatsBanner. */
+   Ex: Setores — sem imagem, diferente do Hero/StatsBanner. */
 .sitePageHeader {
   display: flex;
   flex-direction: column;
@@ -391,7 +397,7 @@ html:has(.hideScrollbar)::-webkit-scrollbar,
   line-height: var(--line-height-tight);
 }
 
-/* Pilha vertical de DepartmentDetailCard — página Áreas e Departamentos */
+/* Pilha vertical de DepartmentDetailCard — página Setores */
 .deptDetailList {
   display: flex;
   flex-direction: column;
@@ -775,6 +781,44 @@ html:has(.hideScrollbar)::-webkit-scrollbar,
   margin-top: var(--spacing-lg);
 }
 
+/* Seção "Fotos do evento" — grade de EventGalleryItem */
+.eventDetailGallery {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.eventGalleryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+}
+
+.eventGalleryFooter {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-lg);
+}
+
+/* Página "Galeria de fotos" — carregamento em lotes (infinite scroll) */
+.eventGalleryLoading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xl) 0;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+}
+
+.eventGalleryLoadingIcon {
+  display: flex;
+  animation: eventGalleryLoadingSpin 0.8s linear infinite;
+}
+
+@keyframes eventGalleryLoadingSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 /* ── Site institucional — responsivo (Home única, desktop + mobile) ───────────
    Breakpoint único: 640px. A mesma página HTML serve as duas visualizações
    (site-desktop/prototipo.html mostra larga; site-mobile/prototipo.html carrega
@@ -791,6 +835,18 @@ html:has(.hideScrollbar)::-webkit-scrollbar,
   .hideDesktop { display: none !important; }
 }
 
+/* SiteHeaderMobile é position: fixed (não sai da tela ao rolar) — compensa com
+   padding-top na primeira seção depois dele, senão o conteúdo fica escondido atrás
+   do header. Usa o seletor de irmão adjacente (`#site-header-root + ...`) pra cobrir
+   as duas variações que existem hoje (página com breadcrumb vs. a Home, que vai
+   direto pro <main>) sem precisar tocar em nenhuma página — só o CSS do componente. */
+@media (max-width: 640px) {
+  #site-header-root + .siteBreadcrumbBar,
+  #site-header-root + .siteMain {
+    padding-top: 133px;
+  }
+}
+
 @media (max-width: 640px) {
   /* Duas seções seguidas com padding de desktop (96px) somam quase 192px de vão */
   .siteSection {
@@ -798,6 +854,7 @@ html:has(.hideScrollbar)::-webkit-scrollbar,
   }
 
   .siteGrid3,
+  .siteGrid2,
   .siteEventsGrid,
   .eventsOtherList,
   .eventDetailMainGrid,
@@ -807,6 +864,10 @@ html:has(.hideScrollbar)::-webkit-scrollbar,
 
   .eventDetailTitle {
     font-size: var(--font-size-2xl);
+  }
+
+  .eventGalleryGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .sitePageTitle {
@@ -3797,6 +3858,14 @@ html:has(.hideScrollbar)::-webkit-scrollbar,
   gap: var(--spacing-sm);
 }
 
+@media (max-width: 640px) {
+  .authRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+}
+
 /* Link de texto em páginas de auth (esqueci senha, voltar ao login) */
 .authLink {
   font-size: var(--font-size-sm);
@@ -3846,3 +3915,40 @@ html:has(.hideScrollbar)::-webkit-scrollbar,
   outline-offset: 2px;
 }
 .ckLabel { font-size: var(--font-size-sm); color: var(--color-text-secondary); }
+
+/* Telas de login do site-desktop (login/redefinir-senha/criar-nova-senha) — imagem de
+   fundo própria, diferente da usada em painel-adm (mesmo componente AuthCard). */
+.page.siteLoginPage::before {
+  background-image: url('../src/ChatGPT-Image-9-de-jul.jpg');
+}
+
+/* Dialog "Meu Perfil" (site-desktop) — linha da foto: avatar + ações de troca/remoção */
+.profilePhotoRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+.profilePhotoActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.profilePhotoHint {
+  margin: var(--spacing-xs) 0 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* Painel mobile "Meu Perfil" (push sobre o drawer do menu) — header com seta de
+   voltar à esquerda do título, em vez do X à direita do sheetHeader padrão.
+   Seletor composto: Sheet.module.css é linkado depois de page.css, então
+   .profileSheetHeader sozinho perderia para o space-between de .sheetHeader. */
+.sheetHeader.profileSheetHeader {
+  justify-content: flex-start;
+  gap: var(--spacing-sm);
+}

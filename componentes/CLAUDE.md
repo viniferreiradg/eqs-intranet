@@ -896,7 +896,7 @@ Filho do Sidebar — deve ser criado antes. Foto circular com fallback para inic
 |------|------|--------|-----------|
 | `src` | `string` | — | URL da foto |
 | `initials` | `string` | — | Iniciais exibidas quando sem foto |
-| `size` | `'sm' \| 'md'` | `'md'` | sm=32 px, md=40 px |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | sm=32 px, md=40 px, lg=64 px |
 | `alt` | `string` | `''` | Alt da imagem |
 
 **Foto padrão para stories:** `./src/placeholder.jpg` (colocar JPG em `Avatar/src/`)
@@ -1844,6 +1844,57 @@ Item de lista de arquivo para download — usado na seção "Materiais e documen
 
 ---
 
+### EventGalleryItem
+**Import:** `import { EventGalleryItem } from '../EventGalleryItem/EventGalleryItem'`
+
+Miniatura clicável de foto (4:3, zoom leve no hover) — seção "Fotos do evento" da página de detalhe do evento e da página `evento-fotos.html`. Clique abre o `Lightbox`, com navegação entre as demais fotos.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `src` | `string` | — | Miniatura exibida na grade (obrigatório) |
+| `alt` | `string` | `''` | Texto alternativo |
+| `onClick` | `() => void` | — | Abre o `Lightbox` nesta foto |
+
+```tsx
+<EventGalleryItem src="/img/evento-1.jpg" onClick={() => openLightbox(0)} />
+```
+
+**Container:** envolver vários num elemento com classe `.eventGalleryGrid` (`shared/page.css`) — grid de 4 colunas no desktop, 2 no mobile.
+
+---
+
+### Lightbox
+**Import:** `import { Lightbox } from '../Lightbox/Lightbox'`
+
+Visualizador de foto em tela cheia com navegação entre imagens (setas na tela + teclado). Aberto ao clicar num `EventGalleryItem`.
+
+| Prop | Tipo | Descrição |
+|------|------|-----------|
+| `images` | `string[]` | Lista de URLs das fotos (obrigatório) |
+| `index` | `number` | Índice da foto atual (obrigatório) |
+| `onClose` | `() => void` | Fecha o Lightbox (obrigatório) |
+| `onPrev` | `() => void` | Vai pra foto anterior, com wraparound (obrigatório) |
+| `onNext` | `() => void` | Vai pra próxima foto, com wraparound (obrigatório) |
+
+```tsx
+const [index, setIndex] = useState(0);
+const [open, setOpen] = useState(false);
+
+{open && (
+  <Lightbox
+    images={images}
+    index={index}
+    onClose={() => setOpen(false)}
+    onPrev={() => setIndex((i) => (i - 1 + images.length) % images.length)}
+    onNext={() => setIndex((i) => (i + 1) % images.length)}
+  />
+)}
+```
+
+**Em telas HTML standalone:** ver padrão completo (markup + JS) em `rules.md`, seção "Lightbox" — inclui o carregamento em lotes usado em `evento-fotos.html`.
+
+---
+
 ### CommunicationListItem
 **Import:** `import { CommunicationListItem } from '../CommunicationListItem/CommunicationListItem'`
 
@@ -2017,7 +2068,7 @@ Linha genérica de resultado de busca — página de Pesquisa. O slot `leading` 
   meta={<span>08 dez 2026</span>}
 />
 
-{/* Comunicados / Áreas e Departamentos / Links Úteis — leading em bolinha vermelha */}
+{/* Comunicados / Setores / Links Úteis — leading em bolinha vermelha */}
 <SearchResultItem
   leading={<span className={styles.searchResultItemDot} />}
   title="Inscrições abertas para o Workshop de Liderança 2027"
@@ -2055,7 +2106,7 @@ const [menuOpen, setMenuOpen] = useState(false);
 
 Classes do conteúdo do menu (usadas dentro do `Sheet`): `.siteHeaderMobileMenuPanel` (largura — combinar com `.sheetPanel`), `.siteHeaderMobileNavList`, `.siteHeaderMobileNavItem`, `.siteHeaderMobileNavItemActive`, `.siteHeaderMobileFooterList`, `.siteHeaderMobileFooterItem`, `.siteHeaderMobileFooterItemDestructive`
 
-**No HTML estático da Home (`site-desktop/index.html`):** este header convive no mesmo arquivo que o `SiteHeader` desktop — um leva `.hideMobile`, o outro `.hideDesktop` (ver `.hideMobile`/`.hideDesktop` em `rules.md`), e só um aparece por vez conforme a largura (breakpoint 640px).
+**Nas telas HTML estáticas do site-desktop:** este header convive com o `SiteHeader` desktop e o drawer — um leva `.hideMobile`, o outro `.hideDesktop` (ver `.hideMobile`/`.hideDesktop` em `rules.md`), e só um aparece por vez conforme a largura (breakpoint 640px). **Nenhuma página copia esse HTML manualmente** — os três blocos são injetados por `shared/site-header.js` (ver seção `shared/site-header.js — header compartilhado` em `rules.md`); a página só declara `<div id="site-header-root"></div>` + `data-page="<id>"` no `<body>`.
 
 ---
 
@@ -2075,7 +2126,7 @@ Classes do conteúdo do menu (usadas dentro do `Sheet`): `.siteHeaderMobileMenuP
 ### DepartmentCard
 **Import:** `import { DepartmentCard } from '../DepartmentCard/DepartmentCard'`
 
-Card de área/departamento — prévia compacta usada só na Home (avatar stack com "+N"). Para a página completa `areas-departamentos.html`, ver `DepartmentDetailCard` (lista todos os colaboradores, sem corte). Compõe internamente `Card.module.css` (`.card`, superfície sólida) + `Avatar` para o gestor e a pilha de colaboradores.
+Card de área/departamento — prévia compacta usada só na Home (avatar stack com "+N"). Para a página completa `setores.html`, ver `DepartmentDetailCard` (lista todos os colaboradores, sem corte). Compõe internamente `Card.module.css` (`.card`, superfície sólida) + `Avatar` para o gestor e a pilha de colaboradores.
 
 | Prop | Tipo | Padrão | Descrição |
 |------|------|--------|-----------|
@@ -2095,7 +2146,7 @@ Card de área/departamento — prévia compacta usada só na Home (avatar stack 
     { name: 'João Silva', initials: 'JS' },
     { name: 'Marina Costa', initials: 'MC' },
   ]}
-  href="/areas-departamentos"
+  href="/setores"
 />
 ```
 
@@ -2104,7 +2155,7 @@ Card de área/departamento — prévia compacta usada só na Home (avatar stack 
 ### DepartmentDetailCard
 **Import:** `import { DepartmentDetailCard } from '../DepartmentDetailCard/DepartmentDetailCard'`
 
-Card completo de área/departamento — usado na página `areas-departamentos.html`. Diferente do `DepartmentCard`: lista **todos** os colaboradores (nunca corta com "ver todos") com e-mail de cada, e inclui um texto de resumo da área. Compõe internamente `Card.module.css` (`.card`) + `Avatar`.
+Card completo de área/departamento — usado na página `setores.html`. Diferente do `DepartmentCard`: lista **todos** os colaboradores (nunca corta com "ver todos") com e-mail de cada, e inclui um texto de resumo da área. Compõe internamente `Card.module.css` (`.card`) + `Avatar`.
 
 | Prop | Tipo | Descrição |
 |------|------|-----------|
@@ -2146,6 +2197,34 @@ Card simples de atalho — ícone + título + descrição, usado na seção Link
 ```tsx
 <LinkCard icon={BookOpen} title="Manual da Marca EQS" description="Diretrizes de identidade visual e uso da marca." href="/links-uteis" />
 ```
+
+---
+
+### DocumentCard
+**Import:** `import { DocumentCard } from '../DocumentCard/DocumentCard'`
+
+Card de documento para download — página `documentos.html`. Título/descrição + badge de extensão/tamanho/data à esquerda, divisor, ícone + rótulo "Fazer download" (cor da marca) à direita. Diferente do `DocumentListItem` (linha única, "Materiais e documentos" da página de evento) — este é um card de grid maior, com mais metadados.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `title` | `string` | — | Título do documento (obrigatório) |
+| `description` | `string` | — | Texto de apoio |
+| `fileType` | `string` | — | Ex: `'PDF'` — exibido em maiúsculas num badge outline (obrigatório) |
+| `fileSize` | `string` | — | Ex: `'8.4 MB'` (obrigatório) |
+| `updatedAt` | `string` | — | Ex: `'12/05/2025'` (obrigatório) |
+| `href` | `string` | `'#'` | Link de download |
+
+```tsx
+<DocumentCard
+  title="Manual da Marca EQS"
+  description="Diretrizes de identidade visual e uso da marca."
+  fileType="PDF"
+  fileSize="8.4 MB"
+  updatedAt="12/05/2025"
+/>
+```
+
+**Container:** `.siteGrid2` (`shared/page.css`) — grid de 2 colunas no desktop, 1 no mobile.
 
 ---
 

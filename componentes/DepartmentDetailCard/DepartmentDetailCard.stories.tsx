@@ -9,7 +9,7 @@ const meta: Meta<typeof DepartmentDetailCard> = {
   parameters: {
     docs: {
       description: {
-        component: 'Card completo de área/departamento — usado na página "Áreas e Departamentos". Lista todos os colaboradores (sem "ver todos") e inclui um texto de resumo da área.',
+        component: 'Card completo de área/departamento — usado na página "Setores". Lista todos os colaboradores (sem "ver todos") e inclui um texto de resumo da área.',
       },
     },
   },

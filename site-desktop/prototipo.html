@@ -356,9 +356,20 @@
       {
         label: 'Home',
         screens: [
-          { label: 'Home', file: 'index.html' },
+          { label: 'Home (logado)', file: 'index.html' },
+          { label: 'Home — dialog Meu Perfil', file: 'index.html#perfil' },
+          { label: 'Home (deslogado)', file: 'index-deslogado.html' },
         ],
       },
+      {
+        label: 'Login',
+        screens: [
+          { label: 'Login', file: 'login.html' },
+          { label: 'Redefinir senha', file: 'redefinir-senha.html' },
+          { label: 'Criar nova senha', file: 'criar-nova-senha.html' },
+        ],
+      },
+
       {
         label: 'Notícias',
         screens: [
@@ -371,6 +382,8 @@
         screens: [
           { label: 'Listagem', file: 'eventos.html' },
           { label: 'Detalhe', file: 'detalhes-evento.html' },
+          { label: 'Detalhe (lightbox aberto)', file: 'detalhes-evento-lightbox.html' },
+          { label: 'Galeria de fotos', file: 'evento-fotos.html' },
         ],
       },
       {
@@ -380,9 +393,9 @@
         ],
       },
       {
-        label: 'Áreas e Departamentos',
+        label: 'Setores',
         screens: [
-          { label: 'Listagem', file: 'areas-departamentos.html' },
+          { label: 'Listagem', file: 'setores.html' },
         ],
       },
       {
@@ -395,6 +408,12 @@
         label: 'Links Úteis',
         screens: [
           { label: 'Listagem', file: 'links-uteis.html' },
+        ],
+      },
+      {
+        label: 'Documentos',
+        screens: [
+          { label: 'Listagem', file: 'documentos.html' },
         ],
       },
       {

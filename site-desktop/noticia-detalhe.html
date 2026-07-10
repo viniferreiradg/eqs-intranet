@@ -31,100 +31,9 @@
   <link rel="stylesheet" href="../componentes/LinkCard/LinkCard.module.css" />
   <link rel="stylesheet" href="../componentes/Footer/Footer.module.css" />
 </head>
-<body class="layout-site">
+<body class="layout-site" data-page="noticias">
 
-  <header class="siteHeader hideMobile">
-    <div class="siteHeaderInner">
-      <span class="logoDefault logoSm" role="img" aria-label="EQS Engenharia"></span>
-
-      <nav class="siteHeaderNav">
-        <a href="index.html" class="siteHeaderNavItem">Home</a>
-        <a href="noticias.html" class="siteHeaderNavItem siteHeaderNavItemActive" aria-current="page">Notícias</a>
-        <a href="eventos.html" class="siteHeaderNavItem">Eventos</a>
-        <a href="comunicados.html" class="siteHeaderNavItem">Comunicados</a>
-        <a href="areas-departamentos.html" class="siteHeaderNavItem">Áreas e Departamentos</a>
-        <a href="sobre.html" class="siteHeaderNavItem">Sobre</a>
-        <a href="links-uteis.html" class="siteHeaderNavItem">Links Úteis</a>
-      </nav>
-
-      <div class="siteHeaderActions">
-        <div class="siteHeaderSearch wrapper">
-          <div class="inputWrap hasLeft">
-            <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
-            <input class="input" type="text" placeholder="Buscar..." />
-          </div>
-        </div>
-
-        <div class="dropdownMenu" id="user-menu">
-          <button class="siteHeaderAvatarBtn" id="user-menu-trigger" aria-label="Menu do usuário" type="button">
-            <div class="avatar sm"><img class="avatarImg" src="../src/avatar/team-01.jpg" alt="Usuário" /></div>
-          </button>
-          <div class="dropdownMenu__panel end" id="user-menu-panel">
-            <button class="dropdownMenu__item" type="button" onclick="location.href='perfil.html'">
-              <span class="dropdownMenu__item__icon"><i data-lucide="user" width="16" height="16"></i></span>
-              Meu Perfil
-            </button>
-            <button class="dropdownMenu__item dropdownMenu__item--destructive" type="button" onclick="location.href='../painel-adm/login.html'">
-              <span class="dropdownMenu__item__icon"><i data-lucide="log-out" width="16" height="16"></i></span>
-              Sair
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- ── Header mobile: busca | logo | hambúrguer ─────────────── -->
-  <header class="siteHeaderMobile hideDesktop">
-    <div class="siteHeaderMobileRow" id="mobile-header-default">
-      <button class="siteHeaderMobileIconBtn" type="button" aria-label="Buscar" onclick="openSearch()">
-        <i data-lucide="search" width="20" height="20"></i>
-      </button>
-      <span class="logoDefault logoSm" role="img" aria-label="EQS Engenharia"></span>
-      <button class="siteHeaderMobileIconBtn" type="button" aria-label="Abrir menu" onclick="openMobileMenu()">
-        <i data-lucide="menu" width="20" height="20"></i>
-      </button>
-    </div>
-    <div class="siteHeaderMobileSearchRow" id="mobile-header-search" hidden>
-      <input class="siteHeaderMobileSearchInput" type="text" placeholder="Buscar..." id="mobile-search-input" />
-      <button class="siteHeaderMobileIconBtn" type="button" aria-label="Fechar busca" onclick="closeSearch()">
-        <i data-lucide="x" width="20" height="20"></i>
-      </button>
-    </div>
-  </header>
-
-  <!-- ── Menu mobile (drawer) — reaproveita o Sheet ───────────── -->
-  <div class="sheetOverlay hideDesktop" id="mobile-menu-overlay" onclick="closeMobileMenu()">
-    <aside class="sheetPanel siteHeaderMobileMenuPanel" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="Menu">
-      <div class="sheetHeader">
-        <span class="sheetTitle">Menu</span>
-        <button class="sheetClose" type="button" aria-label="Fechar" onclick="closeMobileMenu()">
-          <i data-lucide="x" width="16" height="16"></i>
-        </button>
-      </div>
-      <div class="sheetBody">
-        <nav class="siteHeaderMobileNavList">
-          <a href="index.html" class="siteHeaderMobileNavItem">Home</a>
-          <a href="noticias.html" class="siteHeaderMobileNavItem siteHeaderMobileNavItemActive" aria-current="page">Notícias</a>
-          <a href="eventos.html" class="siteHeaderMobileNavItem">Eventos</a>
-          <a href="comunicados.html" class="siteHeaderMobileNavItem">Comunicados</a>
-          <a href="areas-departamentos.html" class="siteHeaderMobileNavItem">Áreas e Departamentos</a>
-          <a href="sobre.html" class="siteHeaderMobileNavItem">Sobre</a>
-          <a href="links-uteis.html" class="siteHeaderMobileNavItem">Links Úteis</a>
-        </nav>
-      </div>
-      <div class="sheetFooter">
-        <div class="siteHeaderMobileFooterList">
-          <a class="siteHeaderMobileFooterItem" href="perfil.html">
-            <i data-lucide="user" width="16" height="16"></i> Meu Perfil
-          </a>
-          <a class="siteHeaderMobileFooterItem siteHeaderMobileFooterItemDestructive" href="../painel-adm/login.html">
-            <i data-lucide="log-out" width="16" height="16"></i> Sair
-          </a>
-        </div>
-      </div>
-    </aside>
-  </div>
+  <div id="site-header-root"></div>
 
   <!-- ── Breadcrumb ────────────────────────────────────────────── -->
   <div class="siteBreadcrumbBar">
@@ -260,12 +169,13 @@
           <a class="footerLink" href="noticias.html">Notícias</a>
           <a class="footerLink" href="eventos.html">Eventos</a>
           <a class="footerLink" href="comunicados.html">Comunicados</a>
-          <a class="footerLink" href="areas-departamentos.html">Áreas e Departamentos</a>
+          <a class="footerLink" href="setores.html">Setores</a>
         </div>
         <div class="footerColumn">
           <span class="footerColumnTitle">Institucional</span>
           <a class="footerLink" href="sobre.html">Sobre</a>
           <a class="footerLink" href="links-uteis.html">Links Úteis</a>
+          <a class="footerLink" href="documentos.html">Documentos</a>
         </div>
       </div>
     </div>
@@ -273,43 +183,13 @@
   </footer>
 
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="../shared/site-header.js"></script>
 
   <!-- ── Scroll por arrasto (emula touch abaixo de 640px) ─────────────── -->
   <script src="../shared/touch-scroll.js"></script>
 
   <script>
     lucide.createIcons();
-
-    /* Menu do avatar (padrão DropdownMenu) — header desktop */
-    const menu = document.getElementById('user-menu');
-    const trigger = document.getElementById('user-menu-trigger');
-    const panel = document.getElementById('user-menu-panel');
-    trigger.addEventListener('click', () => panel.classList.toggle('open'));
-    document.addEventListener('click', (e) => {
-      if (!menu.contains(e.target)) panel.classList.remove('open');
-    });
-
-    /* Busca (header mobile) */
-    function openSearch() {
-      document.getElementById('mobile-header-default').hidden = true;
-      document.getElementById('mobile-header-search').hidden = false;
-      document.getElementById('mobile-search-input').focus();
-    }
-    function closeSearch() {
-      document.getElementById('mobile-header-search').hidden = true;
-      document.getElementById('mobile-header-default').hidden = false;
-    }
-
-    /* Menu (drawer, header mobile) */
-    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-    function openMobileMenu() {
-      mobileMenuOverlay.classList.add('sheetOpen');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeMobileMenu() {
-      mobileMenuOverlay.classList.remove('sheetOpen');
-      document.body.style.overflow = '';
-    }
   </script>
 
 </body>

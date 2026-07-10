@@ -63,7 +63,7 @@ export const defaultNavItems: NavItemDef[] = [
   { id: 'eventos',               label: 'Eventos',                 icon: <CalendarCheck   size={20} /> },
   { id: 'comunicados',           label: 'Comunicados',             icon: <Megaphone       size={20} /> },
   { id: 'links-uteis',           label: 'Links Úteis',             icon: <Link2           size={20} /> },
-  { id: 'areas-departamentos',   label: 'Áreas e Departamentos',   icon: <Building2       size={20} /> },
+  { id: 'setores',   label: 'Setores',   icon: <Building2       size={20} /> },
   { id: 'configuracoes',         label: 'Configurações',           icon: <Settings        size={20} /> },
 ];
 
