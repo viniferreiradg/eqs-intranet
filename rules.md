@@ -1356,7 +1356,7 @@ Classes: `.deptCard` (`<a>`), `.deptHeader`, `.deptIcon`, `.deptName`, `.deptRow
 ```
 Card completo de área/departamento — usado na página `setores.html`. Diferente do `DepartmentCard` (prévia compacta da Home, avatar stack com "+N"): aqui lista **todos** os colaboradores (nunca corta com "ver todos", mesmo que sejam muitos) e inclui e-mail de cada pessoa + texto de resumo da área.
 
-Classes: `.deptDetailCard` (linkado junto com `.card`), `.deptDetailHeader`, `.deptDetailHeaderLeft`, `.deptDetailTitleRow`, `.deptDetailIcon`, `.deptDetailName`, `.deptDetailDivider` (linha vertical entre o bloco esquerdo e o gestor), `.deptDetailManagerCol` (coluna com o badge acima do gestor), `.deptDetailBadge` ("Gestor responsável"), `.deptDetailManager`, `.deptDetailContactText`, `.deptDetailContactName`, `.deptDetailContactEmail`, `.deptDetailBody`, `.deptDetailSectionLabel` ("Colaboradores"), `.deptDetailCollabGrid` (4 colunas desktop → 2 em ~900px → 1 em mobile), `.deptDetailCollabItem`, `.deptDetailDescription`
+Classes: `.deptDetailCard` (linkado junto com `.card`), `.deptDetailHeader`, `.deptDetailHeaderLeft`, `.deptDetailTitleRow`, `.deptDetailIcon`, `.deptDetailName`, `.deptDetailDivider` (linha vertical entre o bloco esquerdo e o gestor), `.deptDetailManagerCol` (coluna com o badge acima do gestor), `.deptDetailBadge` ("Gestor responsável"), `.deptDetailManager`, `.deptDetailContactText`, `.deptDetailContactName`, `.deptDetailContactEmail`, `.deptDetailBody`, `.deptDetailSectionLabel` ("Colaboradores"), `.deptDetailCollabGrid` (4 colunas desktop → 2 em ~900px → 1 em mobile), `.deptDetailCollabItem`, `.deptDetailDescription`, `.deptDetailFooter` (rodapé: descrição à esquerda + botão "Detalhes do setor" à direita — a borda superior migra da descrição pro rodapé)
 
 ```html
 <div class="card deptDetailCard">
@@ -1391,14 +1391,48 @@ Classes: `.deptDetailCard` (linkado junto com `.card`), `.deptDetailHeader`, `.d
       </div>
       <!-- ...um .deptDetailCollabItem por colaborador, sem limite/corte -->
     </div>
-    <p class="deptDetailDescription">Texto de resumo da área...</p>
+    <div class="deptDetailFooter">
+      <p class="deptDetailDescription">Texto de resumo da área...</p>
+      <button class="btn secondary" type="button" onclick="location.href='setores.html'">Detalhes do setor</button>
+    </div>
   </div>
 </div>
 ```
 
-**Responsivo:** abaixo de 640px o `.deptDetailDivider` some, `.deptDetailManagerCol` (badge + gestor) desce pra uma linha própria (borda superior no lugar do divisor) e `.deptDetailCollabGrid` vira 1 coluna. Entre 641–900px a grade já reduz para 2 colunas.
+**Responsivo:** abaixo de 640px o `.deptDetailDivider` some, `.deptDetailManagerCol` (badge + gestor) desce pra uma linha própria (borda superior no lugar do divisor), `.deptDetailCollabGrid` vira 1 coluna e o `.deptDetailFooter` empilha (botão full-width abaixo da descrição). Entre 641–900px a grade já reduz para 2 colunas.
 
 **Container:** use `.deptDetailList` (`shared/page.css`) pra empilhar vários cards de departamento com espaçamento generoso (`--spacing-xl`).
+
+---
+
+### TeamMemberCard
+```html
+<link rel="stylesheet" href="../componentes/TeamMemberCard/TeamMemberCard.module.css" />
+```
+Card de colaborador — seção "Nossa equipe" de `detalhes-setor.html`. Avatar + nome/cargo/e-mail, botão de e-mail outline (padrão `.linkIcon`: borda `gray-300`, sem fundo) à direita. Linkar junto com `Card.module.css` e `Avatar.module.css`.
+
+Classes: `.teamMemberCard` (junto com `.card`), `.teamMemberText`, `.teamMemberName`, `.teamMemberRole`, `.teamMemberEmail`, `.teamMemberMailBtn` (`<a href="mailto:...">`)
+
+```html
+<div class="card teamMemberCard">
+  <div class="avatar md"><img class="avatarImg" src="..." alt="João Pereira" /></div>
+  <div class="teamMemberText">
+    <span class="teamMemberName">João Pereira</span>
+    <span class="teamMemberRole">Analista de Marketing Pleno</span>
+    <span class="teamMemberEmail">joao.pereira@eqs.com.br</span>
+  </div>
+  <a class="teamMemberMailBtn" href="mailto:joao.pereira@eqs.com.br" aria-label="Enviar e-mail para João Pereira"><i data-lucide="mail" width="16" height="16"></i></a>
+</div>
+```
+
+**Container:** `.siteGrid3` (3 colunas desktop → 1 no mobile).
+
+---
+
+### Layout: página Detalhes do Setor — `detalhes-setor.html` (page.css)
+Estrutura: header → breadcrumb (3 níveis: Home / Setores / nome do setor) → `.sitePageBackLink` ("Voltar para Setores") → hero `.card.sectorHero` (`.sectorHeroTop`: `.sectorHeroIcon` outline + `.sectorHeroName` + descrição `.siteBodyText`, divisor e gestor reaproveitando classes do `DepartmentDetailCard`; embaixo `.sectorStatsRow` com 4 `.sectorStat` de ícone + `.sectorStatValue` + `.sectorStatLabel`) → seção "Nossa equipe" (`.siteSectionTinted`, `TeamMemberCard` × N em `.siteGrid3`) → seção "Documentos e materiais" (`DocumentCard` em `.siteGrid2` + CTA "Ver todos os documentos") → `Footer`. Acessada pelos botões "Detalhes do setor" de `setores.html`.
+
+**Responsivo:** `.sectorStatsRow` 4 colunas → 2 abaixo de 900px (divisores verticais só na coluna direita) ; hero com `flex-wrap` abaixo de 640px.
 
 ---
 

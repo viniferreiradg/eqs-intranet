@@ -51,16 +51,15 @@
 
   /* ── 6. HTML completo do sidebar ───────────────────────────────────────── */
   const sidebarHTML = `
-    <button class="toggleBtn" id="toggle-btn" aria-label="Recolher menu" type="button">
-      <i data-lucide="chevron-left"  class="toggleIcon-left"  width="14" height="14"></i>
-      <i data-lucide="chevron-right" class="toggleIcon-right" width="14" height="14"></i>
-    </button>
-
     <div class="logoRow">
       <div class="logoWrap">
         <span class="logoDefault logoMd logo-full"   role="img" aria-label="EQS Engenharia"></span>
         <span class="logoSymbol logoSm logo-symbol"  role="img" aria-label="EQS Engenharia"></span>
       </div>
+      <button class="toggleBtn" id="toggle-btn" aria-label="Recolher menu" type="button">
+        <i data-lucide="chevron-left"  class="toggleIcon-left"  width="14" height="14"></i>
+        <i data-lucide="chevron-right" class="toggleIcon-right" width="14" height="14"></i>
+      </button>
     </div>
 
     <div class="body">

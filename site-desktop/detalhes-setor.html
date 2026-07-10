@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marketing — Setores — EQS Intranet</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/DropdownMenu/DropdownMenu.module.css" />
+  <link rel="stylesheet" href="../componentes/SiteHeader/SiteHeader.module.css" />
+  <link rel="stylesheet" href="../componentes/SiteHeaderMobile/SiteHeaderMobile.module.css" />
+  <link rel="stylesheet" href="../componentes/Sheet/Sheet.module.css" />
+  <link rel="stylesheet" href="../componentes/Breadcrumb/Breadcrumb.module.css" />
+  <link rel="stylesheet" href="../componentes/Card/Card.module.css" />
+  <link rel="stylesheet" href="../componentes/DepartmentDetailCard/DepartmentDetailCard.module.css" />
+  <link rel="stylesheet" href="../componentes/TeamMemberCard/TeamMemberCard.module.css" />
+  <link rel="stylesheet" href="../componentes/DocumentCard/DocumentCard.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Footer/Footer.module.css" />
+</head>
+<body class="layout-site" data-page="setores">
+
+  <div id="site-header-root"></div>
+
+  <!-- ── Breadcrumb ────────────────────────────────────────────── -->
+  <div class="siteBreadcrumbBar">
+    <div class="siteContainer">
+      <nav aria-label="Breadcrumb" class="nav">
+        <ol class="list">
+          <li class="item">
+            <a href="index.html" class="link">
+              Home
+              <span class="sep" aria-hidden="true"><i data-lucide="chevron-right" width="12" height="12"></i></span>
+            </a>
+          </li>
+          <li class="item">
+            <a href="setores.html" class="link">
+              Setores
+              <span class="sep" aria-hidden="true"><i data-lucide="chevron-right" width="12" height="12"></i></span>
+            </a>
+          </li>
+          <li class="item"><span class="current" aria-current="page">Marketing</span></li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <main class="siteMain">
+    <section class="siteSection">
+      <div class="siteContainer">
+
+        <a class="sitePageBackLink" href="setores.html">
+          <i data-lucide="arrow-left" width="16" height="16"></i>
+          Voltar para Setores
+        </a>
+
+        <!-- ── Hero do setor ─────────────────────────────────────── -->
+        <div class="card sectorHero">
+          <div class="sectorHeroTop">
+            <span class="sectorHeroIcon"><i data-lucide="megaphone" width="32" height="32"></i></span>
+            <div class="sectorHeroInfo">
+              <h1 class="sectorHeroName">Marketing</h1>
+              <p class="siteBodyText">Responsável por fortalecer a marca EQS, gerar valor para o negócio e conectar nossas soluções ao mercado.</p>
+              <p class="siteBodyText">Atuamos com estratégia de marca, comunicação, conteúdo, campanhas e relacionamento com o público.</p>
+            </div>
+            <span class="deptDetailDivider"></span>
+            <div class="deptDetailManagerCol">
+              <span class="deptDetailBadge">Gestor responsável</span>
+              <div class="deptDetailManager">
+                <div class="avatar md"><img class="avatarImg" src="../src/avatar/team-01.jpg" alt="Camila Rocha" /></div>
+                <div class="deptDetailContactText">
+                  <span class="deptDetailContactName">Camila Rocha</span>
+                  <span class="deptDetailContactEmail">camila.rocha@eqs.com.br</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sectorStatsRow">
+            <div class="sectorStat">
+              <span class="sectorStatIcon"><i data-lucide="users" width="20" height="20"></i></span>
+              <div class="sectorStatText">
+                <span class="sectorStatValue">6</span>
+                <span class="sectorStatLabel">Colaboradores</span>
+              </div>
+            </div>
+            <div class="sectorStat">
+              <span class="sectorStatIcon"><i data-lucide="mail" width="20" height="20"></i></span>
+              <div class="sectorStatText">
+                <span class="sectorStatValue">marketing@eqs.com.br</span>
+                <span class="sectorStatLabel">E-mail do setor</span>
+              </div>
+            </div>
+            <div class="sectorStat">
+              <span class="sectorStatIcon"><i data-lucide="landmark" width="20" height="20"></i></span>
+              <div class="sectorStatText">
+                <span class="sectorStatValue">Escritório Matriz</span>
+                <span class="sectorStatLabel">São Paulo - SP</span>
+              </div>
+            </div>
+            <div class="sectorStat">
+              <span class="sectorStatIcon"><i data-lucide="calendar" width="20" height="20"></i></span>
+              <div class="sectorStatText">
+                <span class="sectorStatValue">Desde 2010</span>
+                <span class="sectorStatLabel">Atuação na EQS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Nossa equipe ──────────────────────────────────────────── -->
+    <section class="siteSection siteSectionTinted">
+      <div class="siteContainer">
+        <div class="siteSectionHeader">
+          <div>
+            <span class="siteSectionKicker">Quem faz acontecer</span>
+            <h2 class="siteSectionTitle">Nossa equipe</h2>
+          </div>
+        </div>
+        <div class="siteGrid3">
+          <div class="card teamMemberCard">
+            <div class="avatar md"><img class="avatarImg" src="../src/avatar/team-02.jpg" alt="João Pereira" /></div>
+            <div class="teamMemberText">
+              <span class="teamMemberName">João Pereira</span>
+              <span class="teamMemberRole">Analista de Marketing Pleno</span>
+              <span class="teamMemberEmail">joao.pereira@eqs.com.br</span>
+            </div>
+            <a class="teamMemberMailBtn" href="mailto:joao.pereira@eqs.com.br" aria-label="Enviar e-mail para João Pereira"><i data-lucide="mail" width="16" height="16"></i></a>
+          </div>
+          <div class="card teamMemberCard">
+            <div class="avatar md"><img class="avatarImg" src="../src/avatar/team-05.jpg" alt="Mariana Santos" /></div>
+            <div class="teamMemberText">
+              <span class="teamMemberName">Mariana Santos</span>
+              <span class="teamMemberRole">Especialista em Conteúdo</span>
+              <span class="teamMemberEmail">mariana.santos@eqs.com.br</span>
+            </div>
+            <a class="teamMemberMailBtn" href="mailto:mariana.santos@eqs.com.br" aria-label="Enviar e-mail para Mariana Santos"><i data-lucide="mail" width="16" height="16"></i></a>
+          </div>
+          <div class="card teamMemberCard">
+            <div class="avatar md"><img class="avatarImg" src="../src/avatar/team-03.jpg" alt="Felipe Lima" /></div>
+            <div class="teamMemberText">
+              <span class="teamMemberName">Felipe Lima</span>
+              <span class="teamMemberRole">Designer Gráfico</span>
+              <span class="teamMemberEmail">felipe.lima@eqs.com.br</span>
+            </div>
+            <a class="teamMemberMailBtn" href="mailto:felipe.lima@eqs.com.br" aria-label="Enviar e-mail para Felipe Lima"><i data-lucide="mail" width="16" height="16"></i></a>
+          </div>
+          <div class="card teamMemberCard">
+            <div class="avatar md"><img class="avatarImg" src="../src/avatar/team-07.jpg" alt="Beatriz Alves" /></div>
+            <div class="teamMemberText">
+              <span class="teamMemberName">Beatriz Alves</span>
+              <span class="teamMemberRole">Analista de Comunicação</span>
+              <span class="teamMemberEmail">beatriz.alves@eqs.com.br</span>
+            </div>
+            <a class="teamMemberMailBtn" href="mailto:beatriz.alves@eqs.com.br" aria-label="Enviar e-mail para Beatriz Alves"><i data-lucide="mail" width="16" height="16"></i></a>
+          </div>
+          <div class="card teamMemberCard">
+            <div class="avatar md"><img class="avatarImg" src="../src/avatar/team-08.jpg" alt="Rafael Nunes" /></div>
+            <div class="teamMemberText">
+              <span class="teamMemberName">Rafael Nunes</span>
+              <span class="teamMemberRole">Analista de Mídia</span>
+              <span class="teamMemberEmail">rafael.nunes@eqs.com.br</span>
+            </div>
+            <a class="teamMemberMailBtn" href="mailto:rafael.nunes@eqs.com.br" aria-label="Enviar e-mail para Rafael Nunes"><i data-lucide="mail" width="16" height="16"></i></a>
+          </div>
+          <div class="card teamMemberCard">
+            <div class="avatar md"><img class="avatarImg" src="../src/avatar/team-10.jpg" alt="Larissa Prado" /></div>
+            <div class="teamMemberText">
+              <span class="teamMemberName">Larissa Prado</span>
+              <span class="teamMemberRole">Assistente de Marketing</span>
+              <span class="teamMemberEmail">larissa.prado@eqs.com.br</span>
+            </div>
+            <a class="teamMemberMailBtn" href="mailto:larissa.prado@eqs.com.br" aria-label="Enviar e-mail para Larissa Prado"><i data-lucide="mail" width="16" height="16"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Documentos e materiais ────────────────────────────────── -->
+    <section class="siteSection">
+      <div class="siteContainer">
+        <div class="siteSectionHeader">
+          <div>
+            <span class="siteSectionKicker">Recursos</span>
+            <h2 class="siteSectionTitle">Documentos e materiais</h2>
+          </div>
+          <button class="btn secondary hideMobile" type="button" onclick="location.href='documentos.html'">Ver todos os documentos</button>
+        </div>
+        <div class="siteGrid2">
+          <a class="card documentCard" href="documentos.html">
+            <div class="documentCardMain">
+              <h3 class="documentCardTitle">Manual da Marca EQS</h3>
+              <p class="documentCardDescription">Diretrizes de identidade visual e uso da marca.</p>
+              <div class="documentCardMeta">
+                <span class="documentCardBadge">.PDF</span>
+                <span>8.4 MB</span>
+                <span>Atualizado em 12/05/2026</span>
+              </div>
+            </div>
+            <div class="documentCardDivider"></div>
+            <div class="documentCardDownload">
+              <span class="documentCardDownloadIcon"><i data-lucide="download" width="20" height="20"></i></span>
+              <span class="documentCardDownloadLabel">Fazer download</span>
+            </div>
+          </a>
+          <a class="card documentCard" href="documentos.html">
+            <div class="documentCardMain">
+              <h3 class="documentCardTitle">Apresentação Institucional</h3>
+              <p class="documentCardDescription">Apresentação institucional atualizada da EQS Engenharia.</p>
+              <div class="documentCardMeta">
+                <span class="documentCardBadge">.PDF</span>
+                <span>5.2 MB</span>
+                <span>Atualizado em 03/04/2026</span>
+              </div>
+            </div>
+            <div class="documentCardDivider"></div>
+            <div class="documentCardDownload">
+              <span class="documentCardDownloadIcon"><i data-lucide="download" width="20" height="20"></i></span>
+              <span class="documentCardDownloadLabel">Fazer download</span>
+            </div>
+          </a>
+          <a class="card documentCard" href="documentos.html">
+            <div class="documentCardMain">
+              <h3 class="documentCardTitle">Planejamento de Marketing 2026</h3>
+              <p class="documentCardDescription">Plano estratégico de marketing para o ano de 2026.</p>
+              <div class="documentCardMeta">
+                <span class="documentCardBadge">.PDF</span>
+                <span>2.1 MB</span>
+                <span>Atualizado em 15/01/2026</span>
+              </div>
+            </div>
+            <div class="documentCardDivider"></div>
+            <div class="documentCardDownload">
+              <span class="documentCardDownloadIcon"><i data-lucide="download" width="20" height="20"></i></span>
+              <span class="documentCardDownloadLabel">Fazer download</span>
+            </div>
+          </a>
+          <a class="card documentCard" href="documentos.html">
+            <div class="documentCardMain">
+              <h3 class="documentCardTitle">Calendário de Campanhas</h3>
+              <p class="documentCardDescription">Cronograma anual de campanhas e ações de marketing.</p>
+              <div class="documentCardMeta">
+                <span class="documentCardBadge">.PDF</span>
+                <span>1.3 MB</span>
+                <span>Atualizado em 20/06/2026</span>
+              </div>
+            </div>
+            <div class="documentCardDivider"></div>
+            <div class="documentCardDownload">
+              <span class="documentCardDownloadIcon"><i data-lucide="download" width="20" height="20"></i></span>
+              <span class="documentCardDownloadLabel">Fazer download</span>
+            </div>
+          </a>
+        </div>
+        <div class="siteSectionFooter hideDesktop">
+          <button class="btn secondary" type="button" onclick="location.href='documentos.html'">Ver todos os documentos</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footerInner">
+      <div class="footerBrand">
+        <span class="logoDefault logoSm" role="img" aria-label="EQS Engenharia"></span>
+        <p class="footerTagline">Intranet corporativa da EQS Engenharia.</p>
+      </div>
+      <div class="footerColumns">
+        <div class="footerColumn">
+          <span class="footerColumnTitle">Portal</span>
+          <a class="footerLink" href="noticias.html">Notícias</a>
+          <a class="footerLink" href="eventos.html">Eventos</a>
+          <a class="footerLink" href="comunicados.html">Comunicados</a>
+          <a class="footerLink" href="setores.html">Setores</a>
+        </div>
+        <div class="footerColumn">
+          <span class="footerColumnTitle">Institucional</span>
+          <a class="footerLink" href="sobre.html">Sobre</a>
+          <a class="footerLink" href="links-uteis.html">Links Úteis</a>
+          <a class="footerLink" href="documentos.html">Documentos</a>
+        </div>
+      </div>
+    </div>
+    <div class="footerBottom">© 2026 EQS Engenharia. Todos os direitos reservados.</div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="../shared/site-header.js"></script>
+
+  <!-- ── Scroll por arrasto (emula touch abaixo de 640px) ─────────────── -->
+  <script src="../shared/touch-scroll.js"></script>
+
+  <script>
+    lucide.createIcons();
+  </script>
+
+</body>
+</html>

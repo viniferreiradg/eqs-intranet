@@ -77,6 +77,13 @@ body.layout-site {
   padding: var(--spacing-4xl) 0;
 }
 
+/* Variante com degradê sutil de fundo (subtle no topo → surface na base) — destaca a
+   seção do fundo padrão da página. Com tokens, o dark mode ganha o mesmo efeito
+   automaticamente, só que escuro (gray-950 → gray-900). */
+.siteSectionTinted {
+  background: linear-gradient(0deg, var(--color-bg-surface), var(--color-bg-subtle));
+}
+
 /* Barra de breadcrumb — topo das páginas internas (ex: Notícias, Eventos) */
 .siteBreadcrumbBar {
   background: var(--color-bg-subtle);
@@ -3951,4 +3958,143 @@ html:has(.hideScrollbar)::-webkit-scrollbar,
 .sheetHeader.profileSheetHeader {
   justify-content: flex-start;
   gap: var(--spacing-sm);
+}
+
+/* ── Página Detalhes do Setor (detalhes-setor.html) ──────────────────────────── */
+
+/* Link "Voltar para Setores" acima do hero — reaproveitável em outras páginas de detalhe */
+.sitePageBackLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-brand);
+  text-decoration: none;
+}
+
+.sitePageBackLink:hover {
+  text-decoration: underline;
+}
+
+/* Hero do setor: ícone + nome/descrição | divisor | gestor responsável (classes do
+   DepartmentDetailCard), com a régua de stats embaixo */
+.sectorHero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-2xl);
+}
+
+.sectorHeroTop {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xl);
+}
+
+/* Ícone do setor — mesmo padrão outline do .linkIcon, em tamanho maior */
+.sectorHeroIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border: var(--border-width-thin) solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-brand);
+  flex-shrink: 0;
+}
+
+.sectorHeroInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.sectorHeroName {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+/* Régua de dados essenciais do setor (colaboradores / e-mail / escritório / desde) */
+.sectorStatsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-lg);
+  padding-top: var(--spacing-xl);
+  border-top: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+.sectorStat {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  min-width: 0;
+}
+
+.sectorStat + .sectorStat {
+  border-left: var(--border-width-thin) solid var(--color-border-subtle);
+  padding-left: var(--spacing-lg);
+}
+
+.sectorStatIcon {
+  display: inline-flex;
+  color: var(--color-text-brand);
+  flex-shrink: 0;
+  margin-top: var(--spacing-2xs);
+}
+
+.sectorStatText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+  min-width: 0;
+}
+
+.sectorStatValue {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sectorStatLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-tertiary);
+}
+
+@media (max-width: 900px) {
+  .sectorStatsRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* na grade 2x2 só a coluna da direita ganha divisor */
+  .sectorStat + .sectorStat {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .sectorStat:nth-child(even) {
+    border-left: var(--border-width-thin) solid var(--color-border-subtle);
+    padding-left: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 640px) {
+  .sectorHero {
+    padding: var(--spacing-lg);
+  }
+
+  .sectorHeroTop {
+    flex-wrap: wrap;
+  }
 }
