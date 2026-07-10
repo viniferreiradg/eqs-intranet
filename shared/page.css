@@ -4094,7 +4094,27 @@ html:has(.hideScrollbar)::-webkit-scrollbar,
     padding: var(--spacing-lg);
   }
 
+  /* mobile: tudo empilhado — ícone, nome/descrição e gestor um embaixo do outro */
   .sectorHeroTop {
-    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  /* mobile: um stat por linha, ícone acima do valor/label */
+  .sectorStatsRow {
+    grid-template-columns: 1fr;
+  }
+
+  .sectorStat {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .sectorStat:nth-child(even) {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .sectorStatIcon {
+    margin-top: 0;
   }
 }
