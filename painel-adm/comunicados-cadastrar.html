@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
   <link rel="stylesheet" href="../componentes/Textarea/Textarea.module.css" />
   <link rel="stylesheet" href="../componentes/IconPicker/IconPicker.module.css" />
+  <link rel="stylesheet" href="../componentes/ImageUpload/ImageUpload.module.css" />
   <link rel="stylesheet" href="../componentes/Toggle/Toggle.module.css" />
   <link rel="stylesheet" href="../componentes/Feedback/Feedback.module.css" />
 </head>
@@ -99,11 +100,30 @@
 
             <div class="wrapper" id="conteudo-wrapper">
               <label class="label" for="conteudo">Conteúdo completo</label>
-              <textarea class="textarea" id="conteudo" name="conteudo" rows="8" placeholder="Texto completo do comunicado — é exibido quando o colaborador expande o item no portal..."></textarea>
+              <textarea class="textarea" id="conteudo" name="conteudo" rows="8" placeholder="Texto completo do comunicado — é exibido por inteiro na listagem do portal..."></textarea>
               <span class="errorText" id="conteudo-error" hidden>
                 <span class="msgIcon"><i data-lucide="circle-x" width="14" height="14"></i></span>
                 O conteúdo é obrigatório.
               </span>
+            </div>
+
+            <div class="wrapper">
+              <span class="label">Fotos (opcional)</span>
+              <label class="dropzone" id="fotos-dropzone">
+                <input type="file" accept="image/*" multiple class="hiddenInput" id="fotos-input" />
+                <div class="empty" id="fotos-empty">
+                  <span class="emptyIcon"><i data-lucide="image-plus" width="24" height="24"></i></span>
+                  <span class="emptyText">Clique ou arraste fotos</span>
+                  <span class="emptyHint">PNG ou JPG, até 5MB por arquivo — aparece na galeria do comunicado</span>
+                </div>
+                <div class="preview" id="fotos-preview" hidden>
+                  <div class="previewGrid" id="fotos-grid"></div>
+                  <div class="previewActions">
+                    <button type="button" class="previewAction" id="fotos-add" aria-label="Adicionar fotos" title="Adicionar"><i data-lucide="plus" width="14" height="14"></i></button>
+                    <button type="button" class="previewAction" id="fotos-clear" aria-label="Remover todas" title="Remover todas"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </div>
+              </label>
             </div>
           </div>
         </div>
@@ -117,6 +137,15 @@
             <span class="toggleLabel">Publicar agora</span>
           </label>
           <span class="helperText" id="publicar-hint">O comunicado ficará visível no portal imediatamente após salvar.</span>
+        </div>
+
+        <div class="formSection toggleField">
+          <label class="toggleWrapper" for="exigir-confirmacao">
+            <input type="checkbox" class="toggleInput" id="exigir-confirmacao" name="exigir-confirmacao" />
+            <span class="toggleTrack"><span class="toggleThumb"></span></span>
+            <span class="toggleLabel">Exigir confirmação de leitura</span>
+          </label>
+          <span class="helperText">Usuários precisarão marcar como lido ao visualizar o comunicado.</span>
         </div>
 
         <div class="formFooter">
@@ -133,6 +162,123 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script src="shared/sidebar.js"></script>
   <script>
+    /* ── Imagem — dropzone com ações (visualizar/alterar/remover) ────────── */
+    const imagemInput = document.getElementById('imagem-input');
+    const imagemDropzone = document.getElementById('imagem-dropzone');
+    const imagemEmpty = document.getElementById('imagem-empty');
+    const imagemPreview = document.getElementById('imagem-preview');
+    const imagemImg = document.getElementById('imagem-preview-img');
+
+    function mostrarImagem(src) {
+      imagemEmpty.hidden = !!src;
+      imagemPreview.hidden = !src;
+      if (src) imagemImg.src = src;
+    }
+
+    imagemInput.addEventListener('change', () => {
+      const file = imagemInput.files?.[0];
+      if (file) mostrarImagem(URL.createObjectURL(file));
+    });
+    document.getElementById('imagem-view').addEventListener('click', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      window.open(imagemImg.src, '_blank');
+    });
+    document.getElementById('imagem-change').addEventListener('click', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      imagemInput.click();
+    });
+    document.getElementById('imagem-remove').addEventListener('click', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      imagemInput.value = '';
+      mostrarImagem(null);
+    });
+    imagemDropzone.addEventListener('dragover', (e) => { e.preventDefault(); imagemDropzone.classList.add('dragOver'); });
+    imagemDropzone.addEventListener('dragleave', () => imagemDropzone.classList.remove('dragOver'));
+    imagemDropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      imagemDropzone.classList.remove('dragOver');
+      const file = e.dataTransfer.files?.[0];
+      if (file) { imagemInput.files = e.dataTransfer.files; mostrarImagem(URL.createObjectURL(file)); }
+    });
+
+    /* ── Fotos (galeria) — múltiplas imagens com preview ─────────────────── */
+    const fotosInput = document.getElementById('fotos-input');
+    const fotosDropzone = document.getElementById('fotos-dropzone');
+    const fotosEmpty = document.getElementById('fotos-empty');
+    const fotosPreview = document.getElementById('fotos-preview');
+    const fotosGrid = document.getElementById('fotos-grid');
+    let fotosSelecionadas = [];
+
+    function atualizarGaleria() {
+      fotosGrid.innerHTML = fotosSelecionadas.map((src, idx) => `
+        <div class="previewItem">
+          <img src="${src}" alt="Foto ${idx + 1}" />
+          <button type="button" class="previewItemRemove" data-index="${idx}" aria-label="Remover foto"><i data-lucide="trash-2" width="14" height="14"></i></button>
+        </div>
+      `).join('');
+
+      fotosEmpty.hidden = fotosSelecionadas.length > 0;
+      fotosPreview.hidden = fotosSelecionadas.length === 0;
+
+      lucide.createIcons();
+
+      fotosGrid.querySelectorAll('.previewItemRemove').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const idx = parseInt(btn.dataset.index);
+          fotosSelecionadas.splice(idx, 1);
+          atualizarGaleria();
+        });
+      });
+    }
+
+    function adicionarFotos(files) {
+      Array.from(files).forEach((file) => {
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            fotosSelecionadas.push(e.target.result);
+            atualizarGaleria();
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+
+    fotosInput.addEventListener('change', () => {
+      if (fotosInput.files?.length) adicionarFotos(fotosInput.files);
+    });
+
+    document.getElementById('fotos-add').addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      fotosInput.click();
+    });
+
+    document.getElementById('fotos-clear').addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      fotosSelecionadas = [];
+      fotosInput.value = '';
+      atualizarGaleria();
+    });
+
+    fotosDropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      fotosDropzone.classList.add('dragOver');
+    });
+
+    fotosDropzone.addEventListener('dragleave', () => {
+      fotosDropzone.classList.remove('dragOver');
+    });
+
+    fotosDropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      fotosDropzone.classList.remove('dragOver');
+      if (e.dataTransfer.files?.length) adicionarFotos(e.dataTransfer.files);
+    });
+
     /* ── IconPicker (vanilla) — grade com os principais ícones Lucide ────── */
     const ICON_OPTIONS = [
       'megaphone', 'bell', 'info', 'triangle-alert', 'calendar-clock', 'users',

@@ -165,7 +165,13 @@
                 </div>
                 <span class="msChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
               </div>
-              <div class="msMenu" id="colaboradores-menu" role="listbox" hidden></div>
+              <div class="msMenu" id="colaboradores-menu" role="listbox" hidden>
+                <div class="msSearchWrap">
+                  <span class="msSearchIcon"><i data-lucide="search" width="14" height="14"></i></span>
+                  <input type="text" class="msSearchInput" id="colaboradores-search" placeholder="Buscar colaborador..." autocomplete="off" />
+                </div>
+                <div id="colaboradores-options"></div>
+              </div>
               <span class="msHelperText" id="colaboradores-hint">Nenhum colaborador selecionado.</span>
             </div>
           </div>
@@ -272,21 +278,39 @@
       if (!gestorDropdown.contains(e.target)) gestorMenu.classList.remove('open');
     });
 
-    /* ── MultiSelect de colaboradores ────────────────────────────────────── */
+    /* ── MultiSelect de colaboradores (com busca — lista pode ter centenas) ── */
     const msRoot = document.getElementById('colaboradores-ms');
     const msField = document.getElementById('colaboradores-field');
     const msInner = document.getElementById('colaboradores-inner');
     const msMenu = document.getElementById('colaboradores-menu');
     const msHint = document.getElementById('colaboradores-hint');
+    const msSearch = document.getElementById('colaboradores-search');
+    const msOptionsList = document.getElementById('colaboradores-options');
     let colaboradores = [];
 
     msMenu.classList.add('msMenuUp'); /* campo fica no fim da página — menu abre para cima */
-    msMenu.innerHTML = USUARIOS.map((u) => `
-      <div class="msOption" data-value="${u.id}" role="option" aria-selected="false">
-        <span class="msCheck"><i data-lucide="check" width="12" height="12"></i></span>
-        <img class="msAvatar" src="${u.avatar}" alt="" />
-        <span class="msOptionLabel">${u.nome}</span>
-      </div>`).join('');
+
+    function normalizarTexto(texto) {
+      return texto.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+    }
+
+    function renderOptions() {
+      const query = normalizarTexto(msSearch.value.trim());
+      const filtrados = query
+        ? USUARIOS.filter((u) => normalizarTexto(u.nome).includes(query))
+        : USUARIOS;
+
+      msOptionsList.innerHTML = filtrados.length
+        ? filtrados.map((u) => `
+            <div class="msOption${colaboradores.includes(u.id) ? ' msSelected' : ''}" data-value="${u.id}" role="option" aria-selected="${colaboradores.includes(u.id)}">
+              <span class="msCheck"><i data-lucide="check" width="12" height="12"></i></span>
+              <img class="msAvatar" src="${u.avatar}" alt="" />
+              <span class="msOptionLabel">${u.nome}</span>
+            </div>`).join('')
+        : '<div class="msEmpty">Nenhum colaborador encontrado.</div>';
+
+      lucide.createIcons();
+    }
 
     function renderChips() {
       const selecionados = USUARIOS.filter((u) => colaboradores.includes(u.id));
@@ -303,7 +327,10 @@
       msHint.textContent = selecionados.length
         ? `${selecionados.length} colaborador${selecionados.length !== 1 ? 'es' : ''} selecionado${selecionados.length !== 1 ? 's' : ''}.`
         : 'Nenhum colaborador selecionado.';
-      msMenu.querySelectorAll('.msOption').forEach((o) => {
+      /* Atualiza apenas a classe dos nós já renderizados — nunca recriar o DOM
+         aqui, senão o item clicado fica desconectado durante o bubbling do
+         evento e o listener de "clique fora" fecha o menu por engano. */
+      msOptionsList.querySelectorAll('.msOption').forEach((o) => {
         const on = colaboradores.includes(o.dataset.value);
         o.classList.toggle('msSelected', on);
         o.setAttribute('aria-selected', String(on));
@@ -322,9 +349,27 @@
       msMenu.hidden = !open;
       msField.classList.toggle('msOpen', open);
       msField.setAttribute('aria-expanded', String(open));
+      if (open) {
+        setTimeout(() => msSearch.focus(), 0);
+      } else {
+        msSearch.value = '';
+        renderOptions();
+      }
     });
 
-    msMenu.addEventListener('click', (e) => {
+    msSearch.addEventListener('click', (e) => e.stopPropagation());
+    msSearch.addEventListener('input', renderOptions);
+    msSearch.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        msMenu.hidden = true;
+        msField.classList.remove('msOpen');
+        msField.setAttribute('aria-expanded', 'false');
+        msSearch.value = '';
+        renderOptions();
+      }
+    });
+
+    msOptionsList.addEventListener('click', (e) => {
       const option = e.target.closest('.msOption');
       if (!option) return;
       const id = option.dataset.value;
@@ -339,6 +384,8 @@
         msMenu.hidden = true;
         msField.classList.remove('msOpen');
         msField.setAttribute('aria-expanded', 'false');
+        msSearch.value = '';
+        renderOptions();
       }
     });
 

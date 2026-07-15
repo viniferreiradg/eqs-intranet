@@ -44,6 +44,7 @@
   <link rel="stylesheet" href="../componentes/Footer/Footer.module.css" />
   <link rel="stylesheet" href="../componentes/Dialog/Dialog.module.css" />
   <link rel="stylesheet" href="../componentes/DetailCard/DetailCard.module.css" />
+  <link rel="stylesheet" href="../componentes/CommunicationCard/CommunicationCard.module.css" />
 </head>
 <body class="layout-site" data-page="home">
 
@@ -272,56 +273,6 @@
               <i data-lucide="chevron-right" width="16" height="16"></i>
             </a>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="siteSection">
-      <div class="siteContainer">
-        <div class="siteSectionHeader">
-          <div>
-            <span class="siteSectionKicker">Avisos</span>
-            <h2 class="siteSectionTitle">Comunicados</h2>
-          </div>
-          <button class="btn secondary hideMobile" type="button" onclick="location.href='comunicados.html'">Ver todos</button>
-        </div>
-        <div class="commsPanel">
-          <a class="commListItem" href="comunicados.html">
-            <span class="commListItemIcon"><i data-lucide="heart-pulse" width="18" height="18"></i></span>
-            <span class="commListItemText">
-              <span class="commListItemTitle">Atualização do plano de saúde a partir de janeiro</span>
-              <span class="commListItemDescription">Novas regras de coparticipação entram em vigor no próximo ciclo.</span>
-            </span>
-            <span class="commListItemMeta">
-              <span class="commListItemDate">10 de dezembro de 2026</span>
-              <i data-lucide="chevron-right" width="16" height="16" class="commListItemChevron"></i>
-            </span>
-          </a>
-          <a class="commListItem" href="comunicados.html">
-            <span class="commListItemIcon"><i data-lucide="wrench" width="18" height="18"></i></span>
-            <span class="commListItemText">
-              <span class="commListItemTitle">Manutenção programada no sistema financeiro</span>
-              <span class="commListItemDescription">Sistema ficará indisponível no sábado, das 08h às 12h.</span>
-            </span>
-            <span class="commListItemMeta">
-              <span class="commListItemDate">09 de dezembro de 2026</span>
-              <i data-lucide="chevron-right" width="16" height="16" class="commListItemChevron"></i>
-            </span>
-          </a>
-          <a class="commListItem" href="comunicados.html">
-            <span class="commListItemIcon"><i data-lucide="utensils-crossed" width="18" height="18"></i></span>
-            <span class="commListItemText">
-              <span class="commListItemTitle">Novo horário de funcionamento do refeitório</span>
-              <span class="commListItemDescription">A partir de segunda-feira, o almoço passa a ser servido das 11h30 às 14h.</span>
-            </span>
-            <span class="commListItemMeta">
-              <span class="commListItemDate">03 de dezembro de 2026</span>
-              <i data-lucide="chevron-right" width="16" height="16" class="commListItemChevron"></i>
-            </span>
-          </a>
-        </div>
-        <div class="siteSectionFooter hideDesktop">
-          <button class="btn secondary" type="button" onclick="location.href='comunicados.html'">Ver todos</button>
         </div>
       </div>
     </section>
@@ -594,6 +545,60 @@
     </aside>
   </div>
 
+  <!-- ── Botão flutuante: comunicados pendentes de confirmação ─────────── -->
+  <button class="commFab" type="button" id="comm-fab" aria-label="Comunicados pendentes de confirmação" onclick="openCommFabDialog()">
+    <i data-lucide="megaphone" width="22" height="22"></i>
+    <span class="commFabBadge" id="comm-fab-badge">2</span>
+  </button>
+
+  <div class="dialogOverlay" id="comm-fab-dialog" style="display:none;" onclick="closeCommFabDialog()">
+    <div class="dialog lg" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="comm-fab-dialog-title">
+      <div class="dialogHeader">
+        <span class="dialogTitle" id="comm-fab-dialog-title">Comunicados pendentes</span>
+        <button class="dialogCloseBtn" onclick="closeCommFabDialog()" aria-label="Fechar" type="button">
+          <i data-lucide="x" width="16" height="16"></i>
+        </button>
+      </div>
+      <div class="dialogBody">
+        <div class="commGrid" id="comm-fab-list">
+          <div class="card commCard">
+            <div class="commCardHeader">
+              <span class="commCardIcon" data-status="success"><i data-lucide="heart-pulse" width="18" height="18"></i></span>
+              <div class="commCardHeaderText">
+                <h3 class="commCardTitle">Atualização do plano de saúde a partir de janeiro</h3>
+                <span class="commCardDate"><i data-lucide="calendar" width="12" height="12"></i>10 de dezembro de 2026</span>
+              </div>
+            </div>
+            <div class="commCardImageWrap">
+              <img class="commCardImage" src="../src/male-business-executive-giving-speech.jpg" alt="" />
+            </div>
+            <p class="commCardBody">A partir de janeiro de 2027, o plano de saúde corporativo passa a adotar novas regras de coparticipação para consultas e exames eletivos. Colaboradores que realizarem procedimentos fora da rede referenciada terão coparticipação de 20% sobre o valor da tabela. Consultas e exames dentro da rede referenciada seguem sem coparticipação. Dúvidas podem ser encaminhadas à área de Recursos Humanos.</p>
+            <button class="btn primary commFabAckBtn" type="button">Estou ciente</button>
+          </div>
+
+          <div class="card commCard">
+            <div class="commCardHeader">
+              <span class="commCardIcon" data-status="info"><i data-lucide="laptop" width="18" height="18"></i></span>
+              <div class="commCardHeaderText">
+                <h3 class="commCardTitle">Nova política de trabalho remoto entra em vigor</h3>
+                <span class="commCardDate"><i data-lucide="calendar" width="12" height="12"></i>20 de novembro de 2026</span>
+              </div>
+            </div>
+            <div class="commCardImageWrap">
+              <img class="commCardImage" src="../src/business-people-meeting.jpg" alt="" />
+            </div>
+            <p class="commCardBody">A partir de janeiro de 2027, colaboradores das áreas administrativas poderão optar por até 2 dias de trabalho remoto por semana, mediante acordo com a liderança direta. Equipes de obra, operação e áreas que exigem presença física seguem no regime presencial. Mais detalhes e o formulário de adesão estarão disponíveis no portal de RH a partir de 05 de dezembro.</p>
+            <button class="btn primary commFabAckBtn" type="button">Estou ciente</button>
+          </div>
+        </div>
+        <div class="commFabEmpty" id="comm-fab-empty" hidden>
+          <i data-lucide="circle-check" width="32" height="32"></i>
+          <p>Nenhum comunicado pendente de confirmação.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script src="../shared/site-header.js"></script>
 
@@ -659,6 +664,39 @@
       });
       document.getElementById('profile-photo-input').value = '';
     }
+
+    // Botão flutuante — comunicados pendentes de confirmação
+    var commFabDialog = document.getElementById('comm-fab-dialog');
+    var commFabBadge = document.getElementById('comm-fab-badge');
+    var commFabList = document.getElementById('comm-fab-list');
+    var commFabEmpty = document.getElementById('comm-fab-empty');
+
+    function updateCommFabCount() {
+      var pending = commFabList.querySelectorAll('.commCard').length;
+      commFabBadge.hidden = pending === 0;
+      commFabBadge.textContent = pending;
+      commFabList.hidden = pending === 0;
+      commFabEmpty.hidden = pending !== 0;
+    }
+
+    window.openCommFabDialog = function () {
+      commFabDialog.style.display = 'flex';
+    };
+    function closeCommFabDialog() {
+      commFabDialog.style.display = 'none';
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeCommFabDialog();
+    });
+
+    commFabList.querySelectorAll('.commFabAckBtn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        btn.closest('.commCard').remove();
+        updateCommFabCount();
+      });
+    });
+
+    updateCommFabCount();
   </script>
 </body>
 </html>

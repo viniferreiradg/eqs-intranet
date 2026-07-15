@@ -1,0 +1,83 @@
+/* ── CommunicationCard — post de comunicado (ícone + texto + imagem opcional) ──
+   Exibido como um "post de feed": título e texto completo sempre visíveis,
+   sem truncar e sem link de detalhe. Ordem fixa: cabeçalho (ícone + título +
+   data) → imagem opcional → texto completo.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.commCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+}
+
+/* ── Cabeçalho: ícone tintado + título + data ─────────── */
+.commCardHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+}
+
+.commCardIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+}
+
+.commCardIcon[data-status='success'] { background: var(--color-status-success-bg); color: var(--color-status-success-fg); }
+.commCardIcon[data-status='error']   { background: var(--color-status-error-bg);   color: var(--color-status-error-fg); }
+.commCardIcon[data-status='warning'] { background: var(--color-status-warning-bg); color: var(--color-status-warning-fg); }
+.commCardIcon[data-status='info']    { background: var(--color-status-info-bg);    color: var(--color-status-info-fg); }
+
+.commCardHeaderText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+  min-width: 0;
+}
+
+.commCardTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-snug);
+}
+
+.commCardDate {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* ── Imagem opcional — entre cabeçalho e texto ────────── */
+.commCardImageWrap {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+
+.commCardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Corpo: texto completo, sem truncar ───────────────── */
+.commCardBody {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  white-space: pre-line;
+}

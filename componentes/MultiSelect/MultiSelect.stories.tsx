@@ -130,6 +130,25 @@ export const AbrindoParaCima: Story = {
   },
 };
 
+export const Buscavel: Story = {
+  name: 'Com busca (searchable)',
+  render: () => {
+    const [value, setValue] = useState<string[]>([]);
+    return (
+      <MultiSelect
+        label="Colaboradores"
+        options={pessoaOptions}
+        value={value}
+        onChange={setValue}
+        placeholder="Selecione os colaboradores"
+        searchable
+        searchPlaceholder="Buscar colaborador..."
+        helperText="Use quando a lista de opções for grande — filtra por nome ao digitar."
+      />
+    );
+  },
+};
+
 export const Desabilitado: Story = {
   render: () => (
     <MultiSelect

@@ -145,6 +145,48 @@
   bottom: calc(100% + var(--spacing-xs));
 }
 
+/* ── Busca (variante searchable) — fixa no topo do menu ── */
+.msSearchWrap {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-bg-elevated);
+  border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+.msSearchIcon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}
+
+.msSearchInput {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+.msSearchInput::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+/* ── Estado vazio (busca sem resultado) ── */
+.msEmpty {
+  padding: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  text-align: center;
+}
+
 /* ── Avatar nas opções e chips (variante com pessoas) ── */
 .msAvatar {
   width: 20px;

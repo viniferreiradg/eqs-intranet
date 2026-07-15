@@ -1,6 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
-import { ChevronDown, X, Check } from 'lucide-react';
+import { ChevronDown, X, Check, Search } from 'lucide-react';
 import styles from './MultiSelect.module.css';
+
+function normalize(text: string): string {
+  return text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+}
 
 export interface MultiSelectOption {
   label: string;
@@ -28,6 +32,10 @@ export interface MultiSelectProps {
   error?: string;
   /** Abre o menu para cima — usar quando o campo fica perto do fim da página */
   dropUp?: boolean;
+  /** Exibe campo de busca no topo do menu — usar quando a lista de opções é grande */
+  searchable?: boolean;
+  /** Placeholder do campo de busca (só com searchable) */
+  searchPlaceholder?: string;
 }
 
 export function MultiSelect({
@@ -40,9 +48,13 @@ export function MultiSelect({
   helperText,
   error,
   dropUp = false,
+  searchable = false,
+  searchPlaceholder = 'Buscar...',
 }: MultiSelectProps) {
   const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState('');
   const ref = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -51,6 +63,15 @@ export function MultiSelect({
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
   }, []);
+
+  useEffect(() => {
+    if (open && searchable) searchRef.current?.focus();
+    if (!open) setSearch('');
+  }, [open, searchable]);
+
+  const filteredOptions = searchable && search
+    ? options.filter(opt => normalize(opt.label).includes(normalize(search)))
+    : options;
 
   const toggle = (val: string) => {
     if (!onChange) return;
@@ -119,24 +140,43 @@ export function MultiSelect({
           role="listbox"
           aria-multiselectable="true"
         >
-          {options.map(opt => {
-            const isSelected = value.includes(opt.value);
-            return (
-              <div
-                key={opt.value}
-                className={[styles.msOption, isSelected ? styles.msSelected : ''].filter(Boolean).join(' ')}
-                role="option"
-                aria-selected={isSelected}
-                onClick={() => toggle(opt.value)}
-              >
-                <span className={styles.msCheck}>
-                  {isSelected && <Check size={10} />}
-                </span>
-                {opt.avatar && <img className={styles.msAvatar} src={opt.avatar} alt="" />}
-                <span className={styles.msOptionLabel}>{opt.label}</span>
-              </div>
-            );
-          })}
+          {searchable && (
+            <div className={styles.msSearchWrap}>
+              <span className={styles.msSearchIcon}><Search size={14} /></span>
+              <input
+                ref={searchRef}
+                className={styles.msSearchInput}
+                type="text"
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                onClick={e => e.stopPropagation()}
+                onKeyDown={e => { if (e.key === 'Escape') setOpen(false); }}
+                placeholder={searchPlaceholder}
+              />
+            </div>
+          )}
+          {filteredOptions.length === 0 ? (
+            <div className={styles.msEmpty}>Nenhum resultado encontrado.</div>
+          ) : (
+            filteredOptions.map(opt => {
+              const isSelected = value.includes(opt.value);
+              return (
+                <div
+                  key={opt.value}
+                  className={[styles.msOption, isSelected ? styles.msSelected : ''].filter(Boolean).join(' ')}
+                  role="option"
+                  aria-selected={isSelected}
+                  onClick={() => toggle(opt.value)}
+                >
+                  <span className={styles.msCheck}>
+                    {isSelected && <Check size={10} />}
+                  </span>
+                  {opt.avatar && <img className={styles.msAvatar} src={opt.avatar} alt="" />}
+                  <span className={styles.msOptionLabel}>{opt.label}</span>
+                </div>
+              );
+            })
+          )}
         </div>
       )}
 

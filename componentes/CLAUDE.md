@@ -459,6 +459,8 @@ Dropdown com seleção múltipla. Os itens selecionados aparecem como chips remo
 | `helperText` | `string` | — | Texto auxiliar |
 | `error` | `string` | — | Mensagem de erro (borda vermelha) |
 | `dropUp` | `boolean` | `false` | Abre o menu para cima — usar quando o campo fica perto do fim da página |
+| `searchable` | `boolean` | `false` | Exibe campo de busca fixo no topo do menu — usar quando a lista de opções é grande (ex: centenas de colaboradores). Filtra por `label`, ignorando maiúsculas/acentos. Seleção já feita nunca é perdida ao filtrar — só oculta opções não selecionadas que não combinam com a busca |
+| `searchPlaceholder` | `string` | `'Buscar...'` | Placeholder do campo de busca (só com `searchable`) |
 
 ```tsx
 const [value, setValue] = useState<string[]>([]);
@@ -471,6 +473,19 @@ const [value, setValue] = useState<string[]>([]);
   value={value}
   onChange={setValue}
   placeholder="Selecione os carregadores"
+/>
+```
+
+Com busca (lista grande — ex: colaboradores de toda a empresa):
+```tsx
+<MultiSelect
+  label="Colaboradores"
+  options={colaboradoresOptions}
+  value={value}
+  onChange={setValue}
+  placeholder="Selecione os colaboradores"
+  searchable
+  searchPlaceholder="Buscar colaborador..."
 />
 ```
 

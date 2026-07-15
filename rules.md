@@ -1712,13 +1712,14 @@ Quando a página já usa Dropdown, implementar toggle com CSS page-level:
 ```html
 <link rel="stylesheet" href="../componentes/MultiSelect/MultiSelect.module.css" />
 ```
-Classes: `.multiSelect` (container), `.msLabel`, `.msField` (trigger), `.msField.msOpen`, `.msField.msDisabled`, `.msField.msError`, `.msInner`, `.msPlaceholder`, `.msChip`, `.msChipLabel`, `.msChipRemove`, `.msChevron`, `.msMenu`, `.msMenu.msMenuUp` (menu abre para cima), `.msOption`, `.msOption.msSelected`, `.msCheck`, `.msAvatar` (foto redonda na opção/chip — 20px na opção, 16px dentro do chip), `.msOptionLabel`, `.msHelperText`, `.msErrorText`
+Classes: `.multiSelect` (container), `.msLabel`, `.msField` (trigger), `.msField.msOpen`, `.msField.msDisabled`, `.msField.msError`, `.msInner`, `.msPlaceholder`, `.msChip`, `.msChipLabel`, `.msChipRemove`, `.msChevron`, `.msMenu`, `.msMenu.msMenuUp` (menu abre para cima), `.msSearchWrap`, `.msSearchIcon`, `.msSearchInput` (busca — variante searchable), `.msEmpty` (estado sem resultado na busca), `.msOption`, `.msOption.msSelected`, `.msCheck`, `.msAvatar` (foto redonda na opção/chip — 20px na opção, 16px dentro do chip), `.msOptionLabel`, `.msHelperText`, `.msErrorText`
 
 Todas as classes prefixadas com `ms` — sem conflito com Dropdown, Input, Toggle ou outros.
 
 **Variantes:**
 - **dropUp** — adicionar `.msMenuUp` no `.msMenu` quando o campo fica perto do fim da página (senão o menu estoura a tela para baixo). Em React: prop `dropUp`.
 - **com avatares** — inserir `<img class="msAvatar" src="..." alt="" />` antes do label na opção (depois do `.msCheck`) e no chip (antes do `.msChipLabel`). Em React: campo `avatar` na option. Usado nos colaboradores de `setores-cadastrar.html`.
+- **searchable** — campo de busca fixo (`.msSearchWrap`) no topo do `.msMenu`, antes das opções. Usar quando a lista tem muitas opções (ex: colaboradores de toda a empresa — rolar uma lista de centenas é inviável). Filtra por nome, normalizando acentos/caixa (`text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()`). Seleção já feita nunca é perdida ao filtrar — o filtro só controla o que é renderizado em `.msMenu`, a seleção vive num array separado. Sem resultado → `.msEmpty` com "Nenhum [entidade] encontrado.". Autofoco no input ao abrir o menu; busca reseta ao fechar. Em React: prop `searchable` (+ `searchPlaceholder`). Usado nos colaboradores de `setores-cadastrar.html`.
 - Estados de seleção (chip, opção selecionada, checkbox) usam cinza neutro (`--color-bg-subtle`/`--color-bg-disabled`), não a cor da marca.
 
 ```html

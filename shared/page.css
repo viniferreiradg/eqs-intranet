@@ -194,6 +194,67 @@ body.layout-site {
   gap: var(--spacing-md);
 }
 
+/* Comunicados: 1 card por linha — ~25% mais largo que uma coluna do .siteGrid2 (560px → 700px) */
+.commGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  max-width: 700px;
+}
+
+/* ── Comunicados: botão flutuante (Home) — abre dialog com pendentes de confirmação ── */
+.commFab {
+  position: fixed;
+  bottom: var(--spacing-xl);
+  right: var(--spacing-xl);
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: var(--color-action-primary);
+  color: var(--color-gray-white);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  z-index: 100;
+  transition: background var(--transition-fast);
+}
+.commFab:hover { background: var(--color-action-primary-hover); }
+
+/* Classe própria (não reaproveita .badge) — evita colisão com o .badge de status usado em Table.module.css */
+.commFabBadge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 var(--spacing-2xs);
+  border-radius: var(--radius-full);
+  background: var(--color-gray-white);
+  color: var(--color-action-primary);
+  border: var(--border-width-medium) solid var(--color-action-primary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estado vazio dentro do dialog de pendentes */
+.commFabEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  text-align: center;
+  color: var(--color-text-tertiary);
+}
+.commFabEmpty svg { color: var(--color-status-success-fg); }
+
 /* Rodapé de seção — botão "Ver todos/todas" centralizado abaixo do conteúdo
    (site-mobile: o botão não cabe ao lado do título, então desce e centraliza) */
 .siteSectionFooter {
@@ -363,6 +424,12 @@ html:has(.hideScrollbar)::-webkit-scrollbar,
 
 .eventsContentPanel {
   margin-top: var(--spacing-xl);
+}
+
+/* Espaço entre os tabs de categoria e o grid de cards — página Documentos.
+   Sem margin-top: o .sitePageHeader acima já tem padding-bottom. */
+.documentsTabsBar {
+  margin-bottom: var(--spacing-xl);
 }
 
 /* Card que agrupa CommunicationListItem em lista vertical (seção Comunicados) */

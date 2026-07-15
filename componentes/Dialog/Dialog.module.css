@@ -39,7 +39,17 @@
   overflow-y: auto;
   color: var(--color-text-secondary);
   line-height: var(--line-height-normal);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-default) transparent;
 }
+
+.dialogBody::-webkit-scrollbar { width: 6px; }
+.dialogBody::-webkit-scrollbar-track { background: transparent; }
+.dialogBody::-webkit-scrollbar-thumb {
+  background: var(--color-border-default);
+  border-radius: var(--radius-full);
+}
+.dialogBody::-webkit-scrollbar-thumb:hover { background: var(--color-text-tertiary); }
 
 .dialogFooter {
   padding: var(--spacing-md) var(--spacing-lg);
