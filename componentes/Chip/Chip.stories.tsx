@@ -4,7 +4,7 @@ import { Mail, Bell } from 'lucide-react';
 import { Chip, ChipGroup } from './Chip';
 
 const meta: Meta<typeof Chip> = {
-  title: 'Components/Chip',
+  title: 'Primitives/Chip',
   component: Chip,
   tags: ['autodocs'],
 };

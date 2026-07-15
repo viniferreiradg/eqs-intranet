@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — EQS Intranet</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/Background/Background.module.css" />
+  <link rel="stylesheet" href="../componentes/Card/Card.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Sheet/Sheet.module.css" />
+  <link rel="stylesheet" href="../componentes/NotificationItem/NotificationItem.module.css" />
+  <link rel="stylesheet" href="../componentes/LineChart/LineChart.module.css" />
+</head>
+<body class="layout-dashboard" data-page="dashboard">
+
+  <aside id="sidebar-root"></aside>
+
+  <main class="main bgWrapper">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <div class="pageHeader">
+      <h1 class="pageTitle">Dashboard</h1>
+      <p class="pageSubtitle">Visão geral da intranet — últimos 30 dias.</p>
+    </div>
+
+    <div class="pageContent">
+
+      <!-- ── KPIs ─────────────────────────────────────────────────── -->
+      <div class="metricsGrid4">
+        <div class="metricCard">
+          <span class="metricCardLabel">Colaboradores ativos</span>
+          <p class="metricCardValue">39</p>
+          <span class="metricCardGrowth">+3 este mês</span>
+        </div>
+        <div class="metricCard">
+          <span class="metricCardLabel">Acessos ao portal no mês</span>
+          <p class="metricCardValue">4.820</p>
+          <span class="metricCardGrowth">+12% vs. mês anterior</span>
+        </div>
+        <div class="metricCard">
+          <span class="metricCardLabel">Publicações no mês</span>
+          <p class="metricCardValue">14</p>
+          <span class="metricCardMeta">6 notícias · 5 comunicados · 3 eventos</span>
+        </div>
+        <div class="metricCard">
+          <span class="metricCardLabel">Confirmações — Confraternização</span>
+          <p class="metricCardValue">87</p>
+          <span class="metricCardMeta">68% dos convidados</span>
+        </div>
+      </div>
+
+      <!-- ── Gráficos: acessos por dia + colaboradores por setor ───── -->
+      <div class="chartsRow">
+        <div class="root">
+          <div class="title">Acessos ao portal por dia</div>
+          <div id="chart-acessos"></div>
+        </div>
+        <div class="root">
+          <div class="title">Colaboradores por setor</div>
+          <div id="chart-setores"></div>
+        </div>
+      </div>
+
+      <!-- ── Próximos eventos + Notícias mais lidas ─────────────────── -->
+      <div class="grid2">
+        <div class="card dashPanel">
+          <div class="dashPanelHeader">
+            <h2 class="dashPanelTitle">Próximos eventos</h2>
+            <a class="dashPanelLink" href="eventos-lista.html">Ver todos <i data-lucide="arrow-right" width="12" height="12"></i></a>
+          </div>
+          <div class="dashList">
+            <button class="dashItem" type="button" onclick="location.href='eventos-lista.html'">
+              <span class="dashItemIcon"><i data-lucide="presentation" width="16" height="16"></i></span>
+              <span class="dashItemText">
+                <span class="dashItemTitle">Workshop BIM 4.0</span>
+                <span class="dashItemMeta">08/12/2026 · Auditório — Sede SP</span>
+              </span>
+            </button>
+            <button class="dashItem" type="button" onclick="location.href='eventos-lista.html'">
+              <span class="dashItemIcon"><i data-lucide="party-popper" width="16" height="16"></i></span>
+              <span class="dashItemText">
+                <span class="dashItemTitle">Confraternização EQS 2026</span>
+                <span class="dashItemMeta">18/12/2026 · Auditório — Sede SP · 87 confirmados</span>
+              </span>
+            </button>
+            <button class="dashItem" type="button" onclick="location.href='eventos-lista.html'">
+              <span class="dashItemIcon"><i data-lucide="hard-hat" width="16" height="16"></i></span>
+              <span class="dashItemText">
+                <span class="dashItemTitle">Workshop de Segurança do Trabalho</span>
+                <span class="dashItemMeta">22/12/2026 · Sala de Treinamento — Sede RJ</span>
+              </span>
+            </button>
+            <button class="dashItem" type="button" onclick="location.href='eventos-lista.html'">
+              <span class="dashItemIcon"><i data-lucide="graduation-cap" width="16" height="16"></i></span>
+              <span class="dashItemText">
+                <span class="dashItemTitle">Treinamento de Liderança</span>
+                <span class="dashItemMeta">12/01/2027 · Online — Microsoft Teams</span>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card dashPanel">
+          <div class="dashPanelHeader">
+            <h2 class="dashPanelTitle">Notícias mais lidas</h2>
+            <a class="dashPanelLink" href="noticias-lista.html">Ver todas <i data-lucide="arrow-right" width="12" height="12"></i></a>
+          </div>
+          <div class="rankList" id="rank-noticias"></div>
+        </div>
+      </div>
+
+      <!-- ── Acesso rápido + Rascunhos pendentes ────────────────────── -->
+      <div class="grid2">
+        <div class="card dashPanel">
+          <div class="dashPanelHeader">
+            <h2 class="dashPanelTitle">Acesso rápido</h2>
+          </div>
+          <div class="quickGrid">
+            <button class="btn secondary hasLeft" type="button" onclick="location.href='eventos-cadastrar.html'">
+              <span class="icon"><i data-lucide="calendar-plus" width="16" height="16"></i></span>
+              Novo Evento
+            </button>
+            <button class="btn secondary hasLeft" type="button" onclick="location.href='usuarios-cadastrar.html'">
+              <span class="icon"><i data-lucide="user-plus" width="16" height="16"></i></span>
+              Novo Colaborador
+            </button>
+            <button class="btn secondary hasLeft" type="button" onclick="location.href='comunicados-cadastrar.html'">
+              <span class="icon"><i data-lucide="megaphone" width="16" height="16"></i></span>
+              Novo Comunicado
+            </button>
+            <button class="btn secondary hasLeft" type="button" onclick="location.href='documentos-cadastrar.html'">
+              <span class="icon"><i data-lucide="file-plus" width="16" height="16"></i></span>
+              Novo Documento
+            </button>
+            <button class="btn secondary hasLeft" type="button" onclick="location.href='noticias-cadastrar.html'">
+              <span class="icon"><i data-lucide="newspaper" width="16" height="16"></i></span>
+              Nova Notícia
+            </button>
+            <button class="btn secondary hasLeft" type="button" onclick="location.href='setores-cadastrar.html'">
+              <span class="icon"><i data-lucide="building-2" width="16" height="16"></i></span>
+              Novo Setor
+            </button>
+          </div>
+        </div>
+
+        <div class="card dashPanel">
+          <div class="dashPanelHeader">
+            <h2 class="dashPanelTitle">Rascunhos pendentes</h2>
+          </div>
+          <div class="dashList">
+            <button class="dashItem" type="button" onclick="location.href='eventos-lista.html'">
+              <span class="dashItemIcon"><i data-lucide="shield-check" width="16" height="16"></i></span>
+              <span class="dashItemText">
+                <span class="dashItemTitle">SIPAT 2026 — Semana de Prevenção</span>
+                <span class="dashItemMeta">Evento · criado em 02/07/2026</span>
+              </span>
+            </button>
+            <button class="dashItem" type="button" onclick="location.href='eventos-lista.html'">
+              <span class="dashItemIcon"><i data-lucide="users" width="16" height="16"></i></span>
+              <span class="dashItemText">
+                <span class="dashItemTitle">Integração de Novos Colaboradores</span>
+                <span class="dashItemMeta">Evento · criado em 28/06/2026</span>
+              </span>
+            </button>
+            <button class="dashItem" type="button" onclick="location.href='comunicados-lista.html'">
+              <span class="dashItemIcon"><i data-lucide="calendar-clock" width="16" height="16"></i></span>
+              <span class="dashItemText">
+                <span class="dashItemTitle">Recesso de fim de ano — orientações gerais</span>
+                <span class="dashItemMeta">Comunicado · criado em 25/06/2026</span>
+              </span>
+            </button>
+            <button class="dashItem" type="button" onclick="location.href='links-uteis-lista.html'">
+              <span class="dashItemIcon"><i data-lucide="message-circle" width="16" height="16"></i></span>
+              <span class="dashItemText">
+                <span class="dashItemTitle">Ouvidoria Interna</span>
+                <span class="dashItemMeta">Link útil · inativo desde 20/06/2026</span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ── Sheet: Notificações (aberto pelo sininho do sidebar) ──────────── -->
+  <div class="sheetOverlay" id="notif-sheet" onclick="notifSheetClose()">
+    <aside class="sheetPanel" onclick="event.stopPropagation()" aria-label="Notificações">
+      <div class="sheetHeader">
+        <span class="sheetTitle">Notificações</span>
+        <button class="sheetClose" onclick="notifSheetClose()" aria-label="Fechar" type="button">
+          <i data-lucide="x" width="16" height="16"></i>
+        </button>
+      </div>
+      <div class="sheetBody">
+        <div class="notifList">
+          <div class="notifItem">
+            <span class="notifItemIcon" data-status="success"><i data-lucide="party-popper" width="16" height="16"></i></span>
+            <div class="notifItemBody">
+              <div class="notifItemTitleRow">
+                <span class="notifItemTitle"><span class="notifItemDot"></span>87 confirmações no evento</span>
+                <span class="notifItemTime">Agora</span>
+              </div>
+              <span class="notifItemDescription">Confraternização EQS 2026 — 68% dos convidados já confirmaram.</span>
+            </div>
+          </div>
+          <div class="notifItem">
+            <span class="notifItemIcon" data-status="warning"><i data-lucide="clock" width="16" height="16"></i></span>
+            <div class="notifItemBody">
+              <div class="notifItemTitleRow">
+                <span class="notifItemTitle"><span class="notifItemDot"></span>Rascunho aguardando publicação</span>
+                <span class="notifItemTime">1h</span>
+              </div>
+              <span class="notifItemDescription">SIPAT 2026 — Semana de Prevenção está como rascunho há 12 dias.</span>
+            </div>
+          </div>
+          <div class="notifItem">
+            <span class="notifItemIcon" data-status="info"><i data-lucide="megaphone" width="16" height="16"></i></span>
+            <div class="notifItemBody">
+              <div class="notifItemTitleRow">
+                <span class="notifItemTitle">Novo comunicado publicado</span>
+                <span class="notifItemTime">3h</span>
+              </div>
+              <span class="notifItemDescription">Atualização do plano de saúde a partir de janeiro.</span>
+            </div>
+          </div>
+          <div class="notifItem">
+            <span class="notifItemIcon" data-status="info"><i data-lucide="user-plus" width="16" height="16"></i></span>
+            <div class="notifItemBody">
+              <div class="notifItemTitleRow">
+                <span class="notifItemTitle">Novo colaborador cadastrado</span>
+                <span class="notifItemTime">Ontem</span>
+              </div>
+              <span class="notifItemDescription">Larissa Campos adicionada ao setor Engenharia.</span>
+            </div>
+          </div>
+          <div class="notifItem">
+            <span class="notifItemIcon"><i data-lucide="file-text" width="16" height="16"></i></span>
+            <div class="notifItemBody">
+              <div class="notifItemTitleRow">
+                <span class="notifItemTitle">Documento atualizado</span>
+                <span class="notifItemTime">Ontem</span>
+              </div>
+              <span class="notifItemDescription">Manual da Marca EQS — nova versão disponível para download.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sheetFooter">
+        <button class="btn ghost sm hasLeft" type="button" id="notif-marcar-lidas">
+          <span class="icon"><i data-lucide="check-check" width="14" height="14"></i></span>
+          Marcar todas como lidas
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script>
+    /* ── Sheet de notificações — o sidebar.js chama notifSheetOpen() no sininho ── */
+    function notifSheetOpen()  { document.getElementById('notif-sheet').classList.add('sheetOpen'); }
+    function notifSheetClose() { document.getElementById('notif-sheet').classList.remove('sheetOpen'); }
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') notifSheetClose(); });
+  </script>
+  <script src="shared/sidebar.js"></script>
+  <script>
+    lucide.createIcons();
+
+    /* "Marcar todas como lidas" — remove os dots e zera o badge do sininho */
+    document.getElementById('notif-marcar-lidas').addEventListener('click', () => {
+      document.querySelectorAll('.notifItemDot').forEach((dot) => dot.remove());
+      const badge = document.getElementById('notif-badge');
+      if (badge) badge.remove();
+    });
+
+    /* abre direto com o sheet visível via hash — dashboard.html#notificacoes (prototipo.html) */
+    if (location.hash === '#notificacoes') notifSheetOpen();
+
+    /* ── Cores lidas dos tokens — os gráficos seguem o tema ──────────────── */
+    const css = getComputedStyle(document.documentElement);
+    const token = (name) => css.getPropertyValue(name).trim();
+    const corBrand = token('--color-action-primary');
+    const corTexto = token('--color-text-tertiary');
+    const corGrade = token('--color-border-subtle');
+    const paletaSetores = [
+      corBrand,
+      token('--color-action-secondary'),
+      token('--color-action-success'),
+      token('--color-action-warning'),
+      token('--color-status-purple-fg'),
+      token('--color-text-tertiary'),
+    ];
+
+    /* ── LineChart: acessos ao portal por dia (14 dias) ──────────────────── */
+    new ApexCharts(document.getElementById('chart-acessos'), {
+      chart: { type: 'area', height: 260, toolbar: { show: false }, fontFamily: 'Inter, sans-serif' },
+      series: [{ name: 'Acessos', data: [142, 168, 155, 121, 89, 64, 173, 190, 176, 162, 149, 98, 71, 185] }],
+      xaxis: {
+        categories: ['29/06', '30/06', '01/07', '02/07', '03/07', '04/07', '05/07', '06/07', '07/07', '08/07', '09/07', '10/07', '11/07', '12/07'],
+        labels: { style: { colors: corTexto, fontSize: '11px' } },
+        axisBorder: { show: false }, axisTicks: { show: false },
+      },
+      yaxis: { labels: { style: { colors: corTexto, fontSize: '11px' } } },
+      colors: [corBrand],
+      stroke: { curve: 'smooth', width: 2 },
+      fill: { type: 'gradient', gradient: { opacityFrom: 0.25, opacityTo: 0.02 } },
+      dataLabels: { enabled: false },
+      grid: { borderColor: corGrade, strokeDashArray: 4 },
+      tooltip: { y: { formatter: (v) => `${v} acessos` } },
+    }).render();
+
+    /* ── DonutChart: colaboradores por setor ─────────────────────────────── */
+    new ApexCharts(document.getElementById('chart-setores'), {
+      chart: { type: 'donut', height: 260, fontFamily: 'Inter, sans-serif' },
+      series: [12, 7, 6, 5, 5, 4],
+      labels: ['Engenharia', 'Financeiro', 'TI', 'Marketing', 'Suprimentos', 'RH'],
+      colors: paletaSetores,
+      legend: { position: 'bottom', labels: { colors: corTexto }, fontSize: '12px' },
+      dataLabels: { enabled: false },
+      plotOptions: { pie: { donut: { size: '72%', labels: { show: true, total: { show: true, label: 'Total', color: corTexto, formatter: () => '39' } } } } },
+      stroke: { show: false },
+    }).render();
+
+    /* ── Ranking: notícias mais lidas (barra proporcional via JS) ────────── */
+    const NOTICIAS_MAIS_LIDAS = [
+      { titulo: 'Expansão do Terminal Norte: Marco de 85% Concluído', leituras: 1284 },
+      { titulo: 'Nova política de trabalho remoto entra em vigor', leituras: 976 },
+      { titulo: 'EQS conquista certificação ISO 9001:2026', leituras: 803 },
+      { titulo: 'Workshop BIM 4.0 reúne equipe técnica', leituras: 655 },
+      { titulo: 'Campanha de vacinação contra a gripe nas unidades', leituras: 542 },
+    ];
+
+    const maxLeituras = NOTICIAS_MAIS_LIDAS[0].leituras;
+    document.getElementById('rank-noticias').innerHTML = NOTICIAS_MAIS_LIDAS.map((n) => `
+      <div class="rankItem">
+        <div class="rankHeader">
+          <span class="rankTitle">${n.titulo}</span>
+          <span class="rankViews">${n.leituras.toLocaleString('pt-BR')} leituras</span>
+        </div>
+        <div class="rankBar"><div class="rankBarFill" data-leituras="${n.leituras}"></div></div>
+      </div>`).join('');
+
+    document.querySelectorAll('.rankBarFill').forEach((bar) => {
+      bar.style.width = `${Math.round((bar.dataset.leituras / maxLeituras) * 100)}%`;
+    });
+  </script>
+</body>
+</html>

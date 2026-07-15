@@ -3,7 +3,7 @@ import { Avatar } from './Avatar';
 import placeholder from './src/placeholder.jpg';
 
 const meta: Meta<typeof Avatar> = {
-  title: 'Components/Avatar',
+  title: 'Primitives/Avatar',
   component: Avatar,
   parameters: { layout: 'centered' },
   argTypes: {

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Toggle } from './Toggle';
 
 const meta: Meta<typeof Toggle> = {
-  title: 'Components/Toggle',
+  title: 'Primitives/Toggle',
   component: Toggle,
   tags: ['autodocs'],
 };

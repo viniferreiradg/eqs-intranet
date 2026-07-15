@@ -28,8 +28,8 @@
 
 .chip:has(input:checked) {
   border-color: var(--color-action-primary);
-  color: var(--color-text-brand);
-  background: var(--color-bg-brand);
+  color: var(--color-gray-white);
+  background: var(--color-action-primary);
 }
 
 .chipIcon {

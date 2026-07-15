@@ -21,14 +21,14 @@ export function Dialog({ open, onClose, title, children, actions, size = 'md' }:
   if (!open) return null;
 
   return (
-    <div className={styles.overlay} onClick={(e) => { if (e.target === e.currentTarget) onClose(); }} role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+    <div className={styles.dialogOverlay} onClick={(e) => { if (e.target === e.currentTarget) onClose(); }} role="dialog" aria-modal="true" aria-labelledby="dialog-title">
       <div className={[styles.dialog, styles[size]].join(' ')}>
-        <div className={styles.header}>
-          <h2 id="dialog-title" className={styles.title}>{title}</h2>
-          <button className={styles.closeBtn} onClick={onClose} aria-label="Fechar"><X size={18} /></button>
+        <div className={styles.dialogHeader}>
+          <h2 id="dialog-title" className={styles.dialogTitle}>{title}</h2>
+          <button className={styles.dialogCloseBtn} onClick={onClose} aria-label="Fechar"><X size={18} /></button>
         </div>
-        <div className={styles.body}>{children}</div>
-        {actions && <div className={styles.footer}>{actions}</div>}
+        <div className={styles.dialogBody}>{children}</div>
+        {actions && <div className={styles.dialogFooter}>{actions}</div>}
       </div>
     </div>
   );

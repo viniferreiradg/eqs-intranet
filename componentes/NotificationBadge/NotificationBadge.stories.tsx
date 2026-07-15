@@ -3,7 +3,7 @@ import { Bell } from 'lucide-react';
 import { NotificationBadge } from './NotificationBadge';
 
 const meta: Meta<typeof NotificationBadge> = {
-  title: 'Components/NotificationBadge',
+  title: 'Primitives/NotificationBadge',
   component: NotificationBadge,
   parameters: { layout: 'centered' },
   argTypes: {

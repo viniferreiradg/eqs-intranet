@@ -5,7 +5,7 @@ import { Input } from '../Input/Input';
 import { Feedback } from '../Feedback/Feedback';
 
 const meta: Meta<typeof AuthCard> = {
-  title: 'Components/AuthCard',
+  title: 'Composed/AuthCard',
   component: AuthCard,
   tags: ['autodocs'],
   parameters: {

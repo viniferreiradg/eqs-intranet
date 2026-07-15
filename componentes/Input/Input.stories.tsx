@@ -3,7 +3,7 @@ import { Search, X } from 'lucide-react';
 import { Input } from './Input';
 
 const meta: Meta<typeof Input> = {
-  title: 'Components/Input',
+  title: 'Primitives/Input',
   component: Input,
   tags: ['autodocs'],
   decorators: [(Story) => <div style={{ width: 320 }}><Story /></div>],

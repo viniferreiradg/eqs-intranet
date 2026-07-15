@@ -1,6 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { MultiSelect } from './MultiSelect';
+import avatarPlaceholder from '../Avatar/src/placeholder.jpg';
+
+const pessoaOptions = [
+  { label: 'Ana Ribeiro',    value: 'ana',    avatar: avatarPlaceholder },
+  { label: 'Bruno Costa',    value: 'bruno',  avatar: avatarPlaceholder },
+  { label: 'Carla Mendes',   value: 'carla',  avatar: avatarPlaceholder },
+  { label: 'Diego Ferreira', value: 'diego',  avatar: avatarPlaceholder },
+  { label: 'Elisa Ramos',    value: 'elisa',  avatar: avatarPlaceholder },
+];
 
 const carregadorOptions = [
   { label: 'ALT-001 — ABB Terra 54 · Shopping Iguatemi SP',      value: 'alt-001' },
@@ -19,7 +28,7 @@ const localidadeOptions = [
 ];
 
 const meta: Meta<typeof MultiSelect> = {
-  title: 'Components/MultiSelect',
+  title: 'Primitives/MultiSelect',
   component: MultiSelect,
   tags: ['autodocs'],
   decorators: [(S) => <div style={{ width: 400, paddingBottom: 280 }}><S /></div>],
@@ -84,6 +93,38 @@ export const ComTextoAuxiliar: Story = {
         onChange={setValue}
         placeholder="Selecione as localidades"
         helperText="A tarifa será aplicada em todas as localidades selecionadas"
+      />
+    );
+  },
+};
+
+export const ComAvatares: Story = {
+  render: () => {
+    const [value, setValue] = useState(['ana', 'bruno']);
+    return (
+      <MultiSelect
+        label="Colaboradores"
+        options={pessoaOptions}
+        value={value}
+        onChange={setValue}
+        placeholder="Selecione os colaboradores"
+      />
+    );
+  },
+};
+
+export const AbrindoParaCima: Story = {
+  decorators: [(S) => <div style={{ paddingTop: 280 }}><S /></div>],
+  render: () => {
+    const [value, setValue] = useState<string[]>([]);
+    return (
+      <MultiSelect
+        label="Colaboradores"
+        options={pessoaOptions}
+        value={value}
+        onChange={setValue}
+        placeholder="Selecione os colaboradores"
+        dropUp
       />
     );
   },

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eventos — EQS Intranet</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/Background/Background.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../componentes/Tab/Tab.module.css" />
+  <link rel="stylesheet" href="../componentes/CalendarMonth/CalendarMonth.module.css" />
+  <link rel="stylesheet" href="../componentes/Dialog/Dialog.module.css" />
+  <link rel="stylesheet" href="../componentes/Table/Table.module.css" />
+  <link rel="stylesheet" href="../componentes/Pagination/Pagination.module.css" />
+</head>
+<body class="layout-dashboard" data-page="eventos">
+
+  <aside id="sidebar-root"></aside>
+
+  <main class="main bgWrapper">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <div class="pageHeader pageHeaderRow">
+      <div>
+        <h1 class="pageTitle">Eventos</h1>
+        <p class="pageSubtitle" id="eventos-count">6 eventos cadastrados</p>
+      </div>
+      <button class="btn primary hasLeft" type="button" onclick="location.href='eventos-cadastrar.html'">
+        <span class="icon"><i data-lucide="plus" width="16" height="16"></i></span>
+        Novo Evento
+      </button>
+    </div>
+
+    <div class="pageContent">
+      <div class="tabNav">
+        <div class="tabList" role="tablist">
+          <button class="tabBtn tabBtnActive" role="tab" aria-selected="true" type="button" data-tab="lista">Lista</button>
+          <button class="tabBtn" role="tab" aria-selected="false" type="button" data-tab="calendario">Calendário</button>
+        </div>
+      </div>
+
+      <!-- ── Tab: Lista ────────────────────────────────────────────── -->
+      <div id="tab-lista" role="tabpanel">
+        <div class="toolbar">
+          <div class="wrapper searchWrap">
+            <div class="inputWrap hasLeft">
+              <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+              <input class="input" type="text" id="search-input" placeholder="Buscar evento..." />
+            </div>
+          </div>
+
+          <div class="wrapper filterWrap" id="status-dropdown">
+            <div class="trigger" id="status-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+              <span id="status-value">Todos os status</span>
+              <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+            </div>
+            <div class="menu" role="listbox">
+              <div class="option selected" data-value="" role="option">Todos os status</div>
+              <div class="option" data-value="publicado" role="option">Publicado</div>
+              <div class="option" data-value="rascunho" role="option">Rascunho</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="tableWrap">
+            <table class="table">
+              <thead>
+                <tr class="headerRow">
+                  <th class="th thFirst">Evento</th>
+                  <th class="th">Data</th>
+                  <th class="th">Local</th>
+                  <th class="th">Status</th>
+                  <th class="th">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="eventos-tbody">
+                <tr class="tr" data-status="publicado">
+                  <td class="td tdFirst">
+                    <span class="cellTitleWithIcon">
+                      <span class="cellTitleIcon"><i data-lucide="party-popper" width="14" height="14"></i></span>
+                      Confraternização EQS 2026
+                    </span>
+                  </td>
+                  <td class="td tdMono">18/12/2026</td>
+                  <td class="td">Auditório — Sede SP</td>
+                  <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Publicado</span></td>
+                  <td class="td tdActions">
+                    <div class="cellActions">
+                      <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='eventos-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                      <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="tr" data-status="publicado">
+                  <td class="td tdFirst">
+                    <span class="cellTitleWithIcon">
+                      <span class="cellTitleIcon"><i data-lucide="hard-hat" width="14" height="14"></i></span>
+                      Workshop de Segurança do Trabalho
+                    </span>
+                  </td>
+                  <td class="td tdMono">22/12/2026</td>
+                  <td class="td">Sala de Treinamento — Sede RJ</td>
+                  <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Publicado</span></td>
+                  <td class="td tdActions">
+                    <div class="cellActions">
+                      <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='eventos-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                      <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="tr" data-status="publicado">
+                  <td class="td tdFirst">
+                    <span class="cellTitleWithIcon">
+                      <span class="cellTitleIcon"><i data-lucide="presentation" width="14" height="14"></i></span>
+                      Workshop BIM 4.0
+                    </span>
+                  </td>
+                  <td class="td tdMono">08/12/2026</td>
+                  <td class="td">Auditório — Sede SP</td>
+                  <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Publicado</span></td>
+                  <td class="td tdActions">
+                    <div class="cellActions">
+                      <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='eventos-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                      <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="tr" data-status="publicado">
+                  <td class="td tdFirst">
+                    <span class="cellTitleWithIcon">
+                      <span class="cellTitleIcon"><i data-lucide="graduation-cap" width="14" height="14"></i></span>
+                      Treinamento de Liderança
+                    </span>
+                  </td>
+                  <td class="td tdMono">12/01/2027</td>
+                  <td class="td">Online — Microsoft Teams</td>
+                  <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Publicado</span></td>
+                  <td class="td tdActions">
+                    <div class="cellActions">
+                      <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='eventos-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                      <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="tr" data-status="rascunho">
+                  <td class="td tdFirst">
+                    <span class="cellTitleWithIcon">
+                      <span class="cellTitleIcon"><i data-lucide="shield-check" width="14" height="14"></i></span>
+                      SIPAT 2026 — Semana de Prevenção
+                    </span>
+                  </td>
+                  <td class="td tdMono">20/01/2027</td>
+                  <td class="td">Todas as unidades</td>
+                  <td class="td"><span class="badge" data-status="disabled"><span class="badgeDot"></span>Rascunho</span></td>
+                  <td class="td tdActions">
+                    <div class="cellActions">
+                      <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='eventos-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                      <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="tr" data-status="rascunho">
+                  <td class="td tdFirst">
+                    <span class="cellTitleWithIcon">
+                      <span class="cellTitleIcon"><i data-lucide="users" width="14" height="14"></i></span>
+                      Integração de Novos Colaboradores
+                    </span>
+                  </td>
+                  <td class="td tdMono">05/01/2027</td>
+                  <td class="td">Sala de Reuniões — Sede SP</td>
+                  <td class="td"><span class="badge" data-status="disabled"><span class="badgeDot"></span>Rascunho</span></td>
+                  <td class="td tdActions">
+                    <div class="cellActions">
+                      <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='eventos-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                      <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="pagination">
+          <span class="info">Exibindo 1–6 de 6 resultados</span>
+          <div class="controls">
+            <button class="paginBtn" aria-label="Página anterior" disabled><i data-lucide="chevron-left" width="14" height="14"></i></button>
+            <button class="paginBtn paginBtnActive" aria-current="page">1</button>
+            <button class="paginBtn" aria-label="Próxima página" disabled><i data-lucide="chevron-right" width="14" height="14"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Tab: Calendário ───────────────────────────────────────── -->
+      <div id="tab-calendario" role="tabpanel" hidden>
+        <div class="toolbar">
+          <button class="btn secondary sm" type="button" id="cal-hoje">Hoje</button>
+          <button class="btn secondary sm iconOnly" type="button" id="cal-prev" aria-label="Mês anterior">
+            <span class="icon"><i data-lucide="chevron-left" width="16" height="16"></i></span>
+          </button>
+          <button class="btn secondary sm iconOnly" type="button" id="cal-next" aria-label="Próximo mês">
+            <span class="icon"><i data-lucide="chevron-right" width="16" height="16"></i></span>
+          </button>
+          <span class="evCalMonthLabel" id="cal-mes-label">Dezembro de 2026</span>
+
+          <div class="toolbarSpacer"></div>
+
+          <div class="wrapper filterWrap" id="calstatus-dropdown">
+            <div class="trigger" id="calstatus-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+              <span id="calstatus-value">Todos os status</span>
+              <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+            </div>
+            <div class="menu" role="listbox">
+              <div class="option selected" data-value="" role="option">Todos os status</div>
+              <div class="option" data-value="publicado" role="option">Publicado</div>
+              <div class="option" data-value="rascunho" role="option">Rascunho</div>
+            </div>
+          </div>
+
+          <div class="wrapper filterWrapXs" id="visao-dropdown">
+            <div class="trigger" id="visao-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+              <span id="visao-value">Mês</span>
+              <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+            </div>
+            <div class="menu" role="listbox">
+              <div class="option selected" data-value="mes" role="option">Mês</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="evCal">
+          <div class="evCalWeekdays">
+            <span class="evCalWeekday">Dom</span>
+            <span class="evCalWeekday">Seg</span>
+            <span class="evCalWeekday">Ter</span>
+            <span class="evCalWeekday">Qua</span>
+            <span class="evCalWeekday">Qui</span>
+            <span class="evCalWeekday">Sex</span>
+            <span class="evCalWeekday">Sáb</span>
+          </div>
+          <div class="evCalGrid" id="cal-grid"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ── Dialog: adição rápida de evento (estilo Google Calendar) ──────── -->
+  <div class="dialogOverlay" id="quick-dialog" style="display:none;" onclick="quickDialogClose()">
+    <div class="dialog md" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="quick-dialog-title">
+      <div class="dialogHeader">
+        <span class="dialogTitle" id="quick-dialog-title">Novo evento</span>
+        <button class="dialogCloseBtn" onclick="quickDialogClose()" aria-label="Fechar" type="button">
+          <i data-lucide="x" width="16" height="16"></i>
+        </button>
+      </div>
+      <div class="dialogBody">
+        <div class="formGrid">
+          <div class="wrapper" id="quick-titulo-wrapper">
+            <label class="label" for="quick-titulo">Título</label>
+            <div class="inputWrap">
+              <input class="input" id="quick-titulo" type="text" placeholder="Ex: Reunião de alinhamento" />
+            </div>
+            <span class="errorText" id="quick-titulo-error" hidden>
+              <span class="msgIcon"><i data-lucide="circle-x" width="14" height="14"></i></span>
+              O título é obrigatório.
+            </span>
+          </div>
+
+          <div class="grid3">
+            <div class="wrapper">
+              <label class="label" for="quick-data">Data</label>
+              <div class="inputWrap"><input class="input" id="quick-data" type="date" /></div>
+            </div>
+            <div class="wrapper">
+              <label class="label" for="quick-inicio">Início</label>
+              <div class="inputWrap"><input class="input" id="quick-inicio" type="time" value="09:00" /></div>
+            </div>
+            <div class="wrapper">
+              <label class="label" for="quick-fim">Término</label>
+              <div class="inputWrap"><input class="input" id="quick-fim" type="time" value="10:00" /></div>
+            </div>
+          </div>
+
+          <div class="wrapper" id="quickcat-dropdown">
+            <label class="label" for="quickcat-trigger">Categoria</label>
+            <div class="trigger" id="quickcat-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+              <span id="quickcat-value">Workshop</span>
+              <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+            </div>
+            <div class="menu" role="listbox">
+              <div class="option selected" data-value="workshop" role="option">Workshop</div>
+              <div class="option" data-value="treinamento" role="option">Treinamento</div>
+              <div class="option" data-value="confraternizacao" role="option">Confraternização</div>
+              <div class="option" data-value="institucional" role="option">Institucional</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dialogFooter">
+        <button class="btn ghost" type="button" onclick="location.href='eventos-cadastrar.html'">Mais opções</button>
+        <button class="btn primary" type="button" id="quick-salvar">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="shared/sidebar.js"></script>
+  <script>
+    lucide.createIcons();
+
+    /* ── Tabs — alterna painéis na própria página ────────────────────────── */
+    const tabBtns = document.querySelectorAll('.tabBtn');
+    tabBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach((b) => {
+          b.classList.toggle('tabBtnActive', b === btn);
+          b.setAttribute('aria-selected', String(b === btn));
+        });
+        document.querySelectorAll('[role="tabpanel"]').forEach((panel) => {
+          panel.hidden = panel.id !== 'tab-' + btn.dataset.tab;
+        });
+      });
+    });
+
+    /* abre direto numa tab via hash — ex: eventos-lista.html#calendario (prototipo.html) */
+    if (location.hash === '#calendario') {
+      document.querySelector('[data-tab="calendario"]').click();
+    }
+
+    /* ── Dropdowns (padrão documentado em rules.md) ──────────────────────── */
+    document.querySelectorAll('[id$="-dropdown"]').forEach((dropdown) => {
+      const trigger = dropdown.querySelector('.trigger');
+      const menu = dropdown.querySelector('.menu');
+      trigger.addEventListener('click', () => menu.classList.toggle('open'));
+      dropdown.querySelectorAll('.option').forEach((option) => {
+        option.addEventListener('click', () => {
+          dropdown.querySelectorAll('.option').forEach((o) => o.classList.remove('selected'));
+          option.classList.add('selected');
+          dropdown.querySelector('[id$="-value"]').textContent = option.textContent;
+          menu.classList.remove('open');
+          filtrarEventos();
+          renderCalendario();
+        });
+      });
+      document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) menu.classList.remove('open');
+      });
+    });
+
+    /* ── Busca + filtro de status ─────────────────────────────────────────── */
+    const searchInput = document.getElementById('search-input');
+    const rows = [...document.querySelectorAll('#eventos-tbody .tr')];
+    const countLabel = document.getElementById('eventos-count');
+
+    function filtrarEventos() {
+      const termo = searchInput.value.trim().toLowerCase();
+      const status = document.querySelector('#status-dropdown .option.selected').dataset.value;
+      let visiveis = 0;
+      rows.forEach((row) => {
+        const texto = row.textContent.toLowerCase();
+        const bateBusca = texto.includes(termo);
+        const bateStatus = !status || row.dataset.status === status;
+        const show = bateBusca && bateStatus;
+        row.hidden = !show;
+        if (show) visiveis++;
+      });
+      countLabel.textContent = `${visiveis} evento${visiveis !== 1 ? 's' : ''} encontrado${visiveis !== 1 ? 's' : ''}`;
+    }
+
+    searchInput.addEventListener('input', filtrarEventos);
+
+    /* ── Calendário — grade mensal (CalendarMonth) ───────────────────────── */
+    const EVENTOS_CAL = [
+      { data: '2026-12-08', hora: '09:00', titulo: 'Workshop BIM 4.0', status: 'publicado' },
+      { data: '2026-12-18', hora: '19:00', titulo: 'Confraternização EQS 2026', status: 'publicado' },
+      { data: '2026-12-22', hora: '14:00', titulo: 'Workshop de Segurança do Trabalho', status: 'publicado' },
+      { data: '2027-01-05', hora: '14:00', titulo: 'Integração de Novos Colaboradores', status: 'rascunho' },
+      { data: '2027-01-12', hora: '10:00', titulo: 'Treinamento de Liderança', status: 'publicado' },
+      { data: '2027-01-20', hora: '09:00', titulo: 'SIPAT 2026 — Semana de Prevenção', status: 'rascunho' },
+    ];
+
+    const MESES = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                   'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+
+    const hoje = new Date();
+    let calAno = 2026, calMes = 11; /* abre em Dezembro/2026, onde há eventos */
+
+    const calGrid = document.getElementById('cal-grid');
+    const calLabel = document.getElementById('cal-mes-label');
+
+    function renderCalendario() {
+      const filtroStatus = document.querySelector('#calstatus-dropdown .option.selected').dataset.value;
+      const primeiroDiaSemana = new Date(calAno, calMes, 1).getDay();
+      const diasNoMes = new Date(calAno, calMes + 1, 0).getDate();
+      const diasMesAnterior = new Date(calAno, calMes, 0).getDate();
+      const totalCelulas = Math.ceil((primeiroDiaSemana + diasNoMes) / 7) * 7;
+
+      calLabel.textContent = `${MESES[calMes]} de ${calAno}`;
+
+      let html = '';
+      for (let i = 0; i < totalCelulas; i++) {
+        const offset = i - primeiroDiaSemana;
+        const fora = offset < 0 || offset >= diasNoMes;
+        const dia = offset < 0 ? diasMesAnterior + offset + 1
+                  : offset >= diasNoMes ? offset - diasNoMes + 1
+                  : offset + 1;
+        const iso = fora ? null
+          : `${calAno}-${String(calMes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+        const ehHoje = !fora && hoje.getFullYear() === calAno && hoje.getMonth() === calMes && hoje.getDate() === dia;
+
+        const eventos = iso
+          ? EVENTOS_CAL.filter((e) => e.data === iso && (!filtroStatus || e.status === filtroStatus))
+          : [];
+
+        html += `<div class="evCalDay${fora ? ' evCalDayOutside' : ''}${ehHoje ? ' evCalDayToday' : ''}">
+          <span class="evCalDayNumber">${dia}</span>
+          ${eventos.map((e) => `
+            <button type="button" class="evCalEvent" onclick="location.href='eventos-editar.html'">
+              <span class="evCalEventTime"><span class="evCalEventDot${e.status === 'rascunho' ? ' evCalEventDotMuted' : ''}"></span>${e.hora}</span>
+              <span class="evCalEventTitle">${e.titulo}</span>
+            </button>`).join('')}
+          ${fora ? '' : `
+            <button type="button" class="evCalDayAdd" data-iso="${iso}" aria-label="Adicionar evento em ${dia}" title="Adicionar evento">
+              <i data-lucide="plus" width="14" height="14"></i>
+            </button>`}
+        </div>`;
+      }
+      calGrid.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    /* ── Adição rápida — botão "+" no hover do dia abre o dialog ─────────── */
+    calGrid.addEventListener('click', (e) => {
+      const addBtn = e.target.closest('.evCalDayAdd');
+      if (addBtn) quickDialogOpen(addBtn.dataset.iso);
+    });
+
+    const quickDialog = document.getElementById('quick-dialog');
+    const quickTitulo = document.getElementById('quick-titulo');
+    const quickData = document.getElementById('quick-data');
+
+    function quickDialogOpen(iso) {
+      quickTitulo.value = '';
+      quickData.value = iso;
+      document.getElementById('quick-titulo-wrapper').classList.remove('error');
+      document.getElementById('quick-titulo-error').hidden = true;
+      quickDialog.style.display = 'flex';
+      quickTitulo.focus();
+    }
+
+    function quickDialogClose() {
+      quickDialog.style.display = 'none';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') quickDialogClose();
+    });
+
+    document.getElementById('quick-salvar').addEventListener('click', () => {
+      const tituloVazio = !quickTitulo.value.trim();
+      document.getElementById('quick-titulo-wrapper').classList.toggle('error', tituloVazio);
+      document.getElementById('quick-titulo-error').hidden = !tituloVazio;
+      if (tituloVazio) return;
+
+      EVENTOS_CAL.push({
+        data: quickData.value,
+        hora: document.getElementById('quick-inicio').value,
+        titulo: quickTitulo.value.trim(),
+        status: 'publicado',
+      });
+      quickDialogClose();
+      renderCalendario();
+    });
+
+    document.getElementById('cal-prev').addEventListener('click', () => {
+      calMes--; if (calMes < 0) { calMes = 11; calAno--; }
+      renderCalendario();
+    });
+    document.getElementById('cal-next').addEventListener('click', () => {
+      calMes++; if (calMes > 11) { calMes = 0; calAno++; }
+      renderCalendario();
+    });
+    document.getElementById('cal-hoje').addEventListener('click', () => {
+      calAno = hoje.getFullYear();
+      calMes = hoje.getMonth();
+      renderCalendario();
+    });
+
+    renderCalendario();
+  </script>
+</body>
+</html>

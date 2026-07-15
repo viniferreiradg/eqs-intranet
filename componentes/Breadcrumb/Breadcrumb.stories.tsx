@@ -3,7 +3,7 @@ import { Home, Shirt } from 'lucide-react';
 import { Breadcrumb } from './Breadcrumb';
 
 const meta: Meta<typeof Breadcrumb> = {
-  title: 'Components/Breadcrumb',
+  title: 'Primitives/Breadcrumb',
   component: Breadcrumb,
   tags: ['autodocs'],
 };

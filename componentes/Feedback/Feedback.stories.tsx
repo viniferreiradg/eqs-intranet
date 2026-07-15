@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Feedback } from './Feedback';
 
-const meta: Meta<typeof Feedback> = { title: 'Components/Feedback', component: Feedback, tags: ['autodocs'],
+const meta: Meta<typeof Feedback> = { title: 'Primitives/Feedback', component: Feedback, tags: ['autodocs'],
   decorators: [(S) => <div style={{ width: 480 }}><S /></div>] };
 export default meta;
 type Story = StoryObj<typeof Feedback>;

@@ -3,7 +3,7 @@ import { HeartPulse, Wrench, UtensilsCrossed } from 'lucide-react';
 import { CommunicationListItem } from './CommunicationListItem';
 
 const meta: Meta<typeof CommunicationListItem> = {
-  title: 'Components/CommunicationListItem',
+  title: 'Primitives/CommunicationListItem',
   component: CommunicationListItem,
   tags: ['autodocs'],
   parameters: {

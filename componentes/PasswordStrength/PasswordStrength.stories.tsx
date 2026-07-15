@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { PasswordStrength } from './PasswordStrength';
 
 const meta: Meta<typeof PasswordStrength> = {
-  title: 'Components/PasswordStrength',
+  title: 'Primitives/PasswordStrength',
   component: PasswordStrength,
   tags: ['autodocs'],
   decorators: [(Story) => <div style={{ width: 320 }}><Story /></div>],

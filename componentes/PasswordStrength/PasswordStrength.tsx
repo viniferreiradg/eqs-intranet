@@ -14,7 +14,7 @@ function getScore(value: string): number {
   return score;
 }
 
-const LEVELS = ['', 'weak', 'medium', 'medium', 'strong'] as const;
+const LEVELS = ['', 'psWeak', 'psMedium', 'psMedium', 'psStrong'] as const;
 const LABELS = ['', 'Fraca', 'Média', 'Boa', 'Forte'];
 
 export function PasswordStrength({ value }: PasswordStrengthProps) {

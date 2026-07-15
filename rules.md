@@ -42,80 +42,6 @@ Botão de tema alterna `data-theme` e re-executa `lucide.createIcons()`.
 
 ## Componentes — CSS paths e classes HTML
 
-### StepIndicator _(Mobile)_
-```html
-<link rel="stylesheet" href="../../componentes/StepIndicator/StepIndicator.module.css" />
-```
-Classes: `.stepRoot` (container flex-column), `.stepBars` (row de barras), `.stepBar` (barra individual), `.stepBar.done` (preenchida — brand gradient), `.stepBar.pending` (vazia — fundo elevado), `.stepLabel` (texto "Passo X de Y")
-
-```html
-<!-- Passo 1 de 5 -->
-<div class="stepRoot" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5" aria-label="Passo 1 de 5">
-  <div class="stepBars">
-    <div class="stepBar done"></div>
-    <div class="stepBar pending"></div>
-    <div class="stepBar pending"></div>
-    <div class="stepBar pending"></div>
-    <div class="stepBar pending"></div>
-  </div>
-  <span class="stepLabel" aria-hidden="true">Passo 1 de 5</span>
-</div>
-```
-
-Regras:
-- `.done` = todos os passos com índice < current (1-indexed)
-- `.pending` = todos os passos com índice >= current
-- Sempre incluir `role="progressbar"` + `aria-valuenow/min/max` no `.stepRoot`
-
----
-
-### UserPin _(Mobile)_
-```html
-<link rel="stylesheet" href="../../componentes/UserPin/UserPin.module.css" />
-```
-Classe: `.userPin` — círculo brand com ícone `user` do Lucide. Visual 100% no componente; posicionamento no mapa via `.map-user-pin` em `page-mobile.css`.  
-Futuramente suportará prop `pulse` com animação em loop (placeholder comentado no CSS).
-
-```html
-<!-- posicionamento (.map-user-pin) + visual (.userPin) no mesmo elemento -->
-<div class="map-user-pin userPin" role="img" aria-label="Sua localização">
-  <i data-lucide="user" width="18" height="18"></i>
-</div>
-```
-
----
-
-### TimeSlot _(Mobile)_
-```html
-<link rel="stylesheet" href="../../componentes/TimeSlot/TimeSlot.module.css" />
-```
-Classes: `.timeSlot` (base — disponível), `.timeSlot.selected` (selecionado — gradiente brand), `.timeSlot.unavailable` (indisponível — dimmed + strikethrough + `disabled`)
-
-```html
-<!-- Disponível -->
-<button class="timeSlot" type="button">09:00</button>
-
-<!-- Selecionado -->
-<button class="timeSlot selected" type="button" aria-pressed="true">09:30</button>
-
-<!-- Indisponível -->
-<button class="timeSlot unavailable" type="button" disabled aria-disabled="true">10:00</button>
-```
-
-Usar dentro de `.time-slot-grid` (2 colunas, definida em `page-mobile.css`):
-```html
-<div class="time-slot-grid">
-  <button class="timeSlot selected">09:00</button>
-  <button class="timeSlot">09:30</button>
-  <button class="timeSlot unavailable" disabled>10:00</button>
-  ...
-</div>
-```
-
-Layout do dia complementar via classes de `page-mobile.css`: `.day-picker`, `.day-picker__nav`, `.day-picker__scroll`, `.day-picker__day` (+ `.active`), `.day-picker__day-name`, `.day-picker__day-date`. Seções com `.schedule-section` e `.schedule-section__label`.
-
----
-
 ### Tokens
 ```html
 <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
@@ -192,7 +118,9 @@ Classes: `.wrapper`, `.label`, `.textarea`, `.helperText`, `.errorText`, `.succe
 ```
 Dropzone de imagem com preview funcional — clique (via `<label for>`) ou arraste um arquivo.
 
-Classes: `.wrapper`, `.label`, `.dropzone`, `.dropzone.dragOver`, `.hiddenInput`, `.empty`, `.emptyIcon`, `.emptyText`, `.emptyHint`, `.preview`, `.previewImg`, `.previewRemove`, `.errorText`, `.helperText`
+Classes: `.wrapper`, `.label`, `.dropzone`, `.dropzone.dragOver`, `.hiddenInput`, `.empty`, `.emptyIcon`, `.emptyText`, `.emptyHint`, `.preview`, `.previewImg`, `.previewRemove`, `.previewActions` + `.previewAction` (barra de ações sobre a imagem: visualizar `eye` / alterar `upload` / remover `trash-2`), `.preview.previewContain` (logos/artes sem corte — `object-fit: contain` + fundo sutil), `.errorText`, `.helperText`
+
+**Variante "imagem existente"** (edição — a imagem já está no servidor): renderizar o `.preview` visível desde o início com `src` da imagem atual, `.empty` com `hidden`, e a barra `.previewActions` no lugar do `.previewRemove` sozinho. Visualizar abre a imagem (`window.open`), alterar dispara `input.click()`, remover volta ao estado vazio. Ver logo em `painel-adm/intranet.html`. Em React: props `value` (URL inicial) e `fit="contain"`.
 
 ```html
 <div class="wrapper">
@@ -284,6 +212,20 @@ Classes: `.card` (container), `.tableWrap`, `.table`, `.thead`, `.tbody`, `.tr`,
 **Atenção:** `.card` também existe em Card.module.css — **nunca linkar os dois na mesma página**.  
 **Regra:** use Table.module.css em páginas de lista/detalhe; Card.module.css em páginas de formulário.  
 **Status disponíveis para `.badge`:** `data-status="success|error|warning|info|orange|indigo|violet|pink"`
+
+---
+
+### CalendarMonth
+```html
+<link rel="stylesheet" href="../componentes/CalendarMonth/CalendarMonth.module.css" />
+```
+Grade mensal de eventos — visão calendário do painel (`eventos-lista.html`, tab Calendário).
+Classes: `.evCal` (container), `.evCalWeekdays` + `.evCalWeekday` (cabeçalho Dom–Sáb), `.evCalGrid` (grid 7 colunas), `.evCalDay` (célula, min-height 112px), `.evCalDayOutside` (dia de outro mês — número esmaecido), `.evCalDayToday` (dia atual — fundo `--color-bg-subtle` cinza, número semibold; **nunca a cor da marca**), `.evCalDayNumber`, `.evCalEvent` (chip `<button>`: hora + título), `.evCalEventTime`, `.evCalEventDot` (verde publicado) + `.evCalEventDotMuted` (cinza rascunho), `.evCalEventTitle`, `.evCalMonthLabel` (label "Dezembro de 2026" na toolbar)
+
+Prefixo `evCal` — sem conflito com DatePicker (`.calGrid`/`.calDay`) nem EventCalendar da Home.
+A grade é gerada por JS na página (ver `renderCalendario()` em `eventos-lista.html`); toolbar usa `.toolbar` + `.toolbarSpacer` (page.css) com botões Hoje/setas (Button `sm`) e dropdowns de status/visão.
+
+**Adição rápida:** `.evCalDayAdd` — "chip fantasma" de largura total (borda tracejada, 32px de altura, "+" centralizado), posicionado abaixo dos chips do dia, que só aparece no hover da célula (`.evCalDay:hover`). Só em dias do mês corrente (nunca em `.evCalDayOutside`). Clique abre um Dialog `sm` de criação rápida (Título, Data pré-preenchida, Início/Término, Categoria + "Mais opções" → formulário completo) — padrão em `eventos-lista.html`, com delegação de clique no container da grade. Em React: prop `onAddClick(dateIso)`.
 
 ---
 
@@ -384,6 +326,32 @@ Classes: `.alert`, `.success`, `.error`, `.warning`, `.info`, `.fbIcon`, `.fbBod
   <button class="fbDismiss" aria-label="Fechar"><i data-lucide="x" width="14" height="14"></i></button>
 </div>
 ```
+
+---
+
+### NotificationItem
+```html
+<link rel="stylesheet" href="../componentes/NotificationItem/NotificationItem.module.css" />
+```
+Linha de notificação — usada dentro do Sheet de notificações do painel (`dashboard.html`).
+Classes: `.notifList` (container — divisórias automáticas entre itens), `.notifItem`, `.notifItemIcon` (box 36px tintado — `data-status="success|error|warning|info"`, sem atributo = cinza neutro), `.notifItemBody`, `.notifItemTitleRow`, `.notifItemTitle`, `.notifItemDot` (dot de não lida, cor da marca), `.notifItemTime`, `.notifItemDescription`
+
+```html
+<div class="notifList">
+  <div class="notifItem">
+    <span class="notifItemIcon" data-status="success"><i data-lucide="party-popper" width="16" height="16"></i></span>
+    <div class="notifItemBody">
+      <div class="notifItemTitleRow">
+        <span class="notifItemTitle"><span class="notifItemDot"></span>Título</span>
+        <span class="notifItemTime">Agora</span>
+      </div>
+      <span class="notifItemDescription">Descrição curta.</span>
+    </div>
+  </div>
+</div>
+```
+
+**Padrão do Sheet de notificações:** a página define `notifSheetOpen()`/`notifSheetClose()` globais — o `sidebar.js` chama `notifSheetOpen()` no clique do sininho. Rodapé com "Marcar todas como lidas" (btn ghost) remove os dots e o badge. Hash `#notificacoes` abre o sheet no load (para registro no prototipo.html). Ver `dashboard.html`.
 
 ---
 
@@ -1429,6 +1397,30 @@ Classes: `.teamMemberCard` (junto com `.card`), `.teamMemberText`, `.teamMemberN
 
 ---
 
+### IconPicker
+```html
+<link rel="stylesheet" href="../componentes/IconPicker/IconPicker.module.css" />
+```
+Seletor de ícone Lucide — trigger com visual de Dropdown que abre grade 6×N com os principais ícones. Valor = nome kebab do Lucide (mesmo do `data-lucide`). Usa `.label`/`.helperText` do Input — **linkar `Input.module.css` junto**.
+
+Classes: `.iconPickerRoot` (+ `.open` via JS — seletor composto, sem conflito com Accordion/Sidebar), `.iconPickerTrigger`, `.iconPickerPreview` (icon box outline), `.iconPickerValue`, `.iconPickerPlaceholder`, `.iconPickerChevron`, `.iconPickerMenu` (grid 6 colunas), `.iconPickerOption` (+ `.selected`)
+
+```html
+<div class="iconPickerRoot" id="icone-picker">
+  <span class="label">Ícone</span>
+  <button type="button" class="iconPickerTrigger" id="icone-trigger" aria-haspopup="listbox" aria-expanded="false">
+    <span class="iconPickerPreview" id="icone-preview"><i data-lucide="megaphone" width="14" height="14"></i></span>
+    <span class="iconPickerValue" id="icone-value">megaphone</span>
+    <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+  </button>
+  <div class="iconPickerMenu" id="icone-menu" role="listbox"></div>
+</div>
+```
+
+JS: gerar as opções (`.iconPickerOption` com `<i data-lucide="...">`) a partir de um array de nomes, chamar `lucide.createIcons()` após injetar, alternar `.open` no `.iconPickerRoot` — padrão completo em `painel-adm/comunicados-cadastrar.html`.
+
+---
+
 ### Layout: página Detalhes do Setor — `detalhes-setor.html` (page.css)
 Estrutura: header → breadcrumb (3 níveis: Home / Setores / nome do setor) → `.sitePageBackLink` ("Voltar para Setores") → hero `.card.sectorHero` (`.sectorHeroTop`: `.sectorHeroIcon` outline + `.sectorHeroName` + descrição `.siteBodyText`, divisor e gestor reaproveitando classes do `DepartmentDetailCard`; embaixo `.sectorStatsRow` com 4 `.sectorStat` de ícone + `.sectorStatValue` + `.sectorStatLabel`) → seção "Nossa equipe" (`.siteSectionTinted`, `TeamMemberCard` × N em `.siteGrid3`) → seção "Documentos e materiais" (`DocumentCard` em `.siteGrid2` + CTA "Ver todos os documentos") → `Footer`. Acessada pelos botões "Detalhes do setor" de `setores.html`.
 
@@ -1720,9 +1712,14 @@ Quando a página já usa Dropdown, implementar toggle com CSS page-level:
 ```html
 <link rel="stylesheet" href="../componentes/MultiSelect/MultiSelect.module.css" />
 ```
-Classes: `.multiSelect` (container), `.msLabel`, `.msField` (trigger), `.msField.msOpen`, `.msField.msDisabled`, `.msField.msError`, `.msInner`, `.msPlaceholder`, `.msChip`, `.msChipLabel`, `.msChipRemove`, `.msChevron`, `.msMenu`, `.msOption`, `.msOption.msSelected`, `.msCheck`, `.msOptionLabel`, `.msHelperText`, `.msErrorText`
+Classes: `.multiSelect` (container), `.msLabel`, `.msField` (trigger), `.msField.msOpen`, `.msField.msDisabled`, `.msField.msError`, `.msInner`, `.msPlaceholder`, `.msChip`, `.msChipLabel`, `.msChipRemove`, `.msChevron`, `.msMenu`, `.msMenu.msMenuUp` (menu abre para cima), `.msOption`, `.msOption.msSelected`, `.msCheck`, `.msAvatar` (foto redonda na opção/chip — 20px na opção, 16px dentro do chip), `.msOptionLabel`, `.msHelperText`, `.msErrorText`
 
 Todas as classes prefixadas com `ms` — sem conflito com Dropdown, Input, Toggle ou outros.
+
+**Variantes:**
+- **dropUp** — adicionar `.msMenuUp` no `.msMenu` quando o campo fica perto do fim da página (senão o menu estoura a tela para baixo). Em React: prop `dropUp`.
+- **com avatares** — inserir `<img class="msAvatar" src="..." alt="" />` antes do label na opção (depois do `.msCheck`) e no chip (antes do `.msChipLabel`). Em React: campo `avatar` na option. Usado nos colaboradores de `setores-cadastrar.html`.
+- Estados de seleção (chip, opção selecionada, checkbox) usam cinza neutro (`--color-bg-subtle`/`--color-bg-disabled`), não a cor da marca.
 
 ```html
 <div class="multiSelect" id="meu-ms" data-placeholder="Selecione...">

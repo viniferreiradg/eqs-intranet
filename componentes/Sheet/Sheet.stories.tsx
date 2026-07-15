@@ -5,7 +5,7 @@ import { Sheet } from './Sheet';
 import { Button } from '../Button/Button';
 
 const meta: Meta<typeof Sheet> = {
-  title: 'Components/Sheet',
+  title: 'Primitives/Sheet',
   component: Sheet,
   parameters: { layout: 'fullscreen' },
 };

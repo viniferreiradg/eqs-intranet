@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { PasswordRequirements } from './PasswordRequirements';
 
 const meta: Meta<typeof PasswordRequirements> = {
-  title: 'Components/PasswordRequirements',
+  title: 'Primitives/PasswordRequirements',
   component: PasswordRequirements,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },

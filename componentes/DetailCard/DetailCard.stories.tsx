@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DetailGrid, DetailCard, TitleRow } from './DetailCard';
 
 const meta: Meta = {
-  title: 'Components/DetailCard',
+  title: 'Primitives/DetailCard',
   parameters: {
     layout: 'padded',
     backgrounds: { default: 'dark' },
@@ -19,41 +19,36 @@ const Badge = ({ label, status }: { label: string; status: string }) => (
   </span>
 );
 
-// ── Story: Cupom ─────────────────────────────────────────────────────────────
-export const Cupom: StoryObj = {
+// ── Story: Documento ──────────────────────────────────────────────────────────
+export const Documento: StoryObj = {
   render: () => (
     <div style={{ maxWidth: 860 }}>
-      <TitleRow title="PLT-BEMVINDO" badge={<Badge label="Ativo" status="success" />} />
+      <TitleRow title="Manual da Marca EQS" badge={<Badge label="Publicado" status="success" />} />
       <div style={{ marginTop: 'var(--spacing-md)' }}>
         <DetailGrid>
           <DetailCard
             title="Identificação"
             items={[
-              { label: 'Código',        value: 'PLT-BEMVINDO', variant: 'mono' },
-              { label: 'Tipo',          value: <Badge label="Percentual" status="violet" /> },
-              { label: 'Desconto',      value: '15%' },
-              { label: 'Limite máximo', value: 'R$ 20,00' },
-              { label: 'Aplicação',     value: 'Por código' },
+              { label: 'Categoria', value: 'Institucional' },
+              { label: 'Formato',   value: 'PDF', variant: 'mono' },
+              { label: 'Tamanho',   value: '8.4 MB' },
             ]}
           />
           <DetailCard
-            title="Vigência e limites"
+            title="Publicação"
             items={[
-              { label: 'Data de início',   value: '01/01/2026' },
-              { label: 'Data de validade', value: '31/12/2026' },
-              { label: 'Qtd. máxima',     value: '1.000 usos' },
-              { label: 'Limite por CPF',  value: '1 uso' },
+              { label: 'Setor responsável',    value: 'Marketing' },
+              { label: 'Data de publicação',   value: '12/05/2025' },
+              { label: 'Última atualização',   value: '20/06/2026' },
             ]}
           />
           <DetailCard
-            title="Público-alvo"
+            title="Visibilidade"
             full
             items={[
-              { label: 'Localidade',      value: 'Qualquer localidade' },
-              { label: 'Raio GPS',        value: '—', variant: 'dim' },
-              { label: 'Carregador',      value: 'Qualquer carregador' },
-              { label: 'Usuários ativos', value: '—', variant: 'dim' },
-              { label: 'Primeira recarga', value: 'Não' },
+              { label: 'Acesso',      value: 'Todos os colaboradores' },
+              { label: 'Downloads',   value: '348' },
+              { label: 'Observação',  value: '—', variant: 'dim' },
             ]}
           />
         </DetailGrid>
@@ -62,30 +57,27 @@ export const Cupom: StoryObj = {
   ),
 };
 
-// ── Story: Dispositivo ───────────────────────────────────────────────────────
-export const Dispositivo: StoryObj = {
+// ── Story: Colaborador ────────────────────────────────────────────────────────
+export const Colaborador: StoryObj = {
   render: () => (
     <div style={{ maxWidth: 860 }}>
-      <TitleRow title="ALT-001" badge={<Badge label="Ativo" status="success" />} />
+      <TitleRow title="Juliana Mendes" badge={<Badge label="Ativo" status="success" />} />
       <div style={{ marginTop: 'var(--spacing-md)' }}>
         <DetailGrid>
           <DetailCard
-            title="Informações do dispositivo"
+            title="Dados pessoais"
             items={[
-              { label: 'Localidade', value: 'Shopping Iguatemi SP' },
-              { label: 'Marca',      value: 'ABB' },
-              { label: 'Modelo',     value: 'Terra 54' },
-              { label: 'Nº de série', value: 'ALT-001', variant: 'mono' },
-              { label: 'Tipo',       value: <Badge label="DC" status="info" /> },
-              { label: 'Potência',   value: '50 kW' },
+              { label: 'Cargo',  value: 'Analista de Marketing Pleno' },
+              { label: 'E-mail', value: 'juliana.mendes@eqs.com.br' },
+              { label: 'Setor',  value: 'Marketing' },
             ]}
           />
           <DetailCard
-            title="Status operacional"
+            title="Vínculo"
             items={[
-              { label: 'Status atual',       value: <Badge label="Ativo" status="success" /> },
-              { label: 'Fonte',              value: 'OCPP (automático)' },
-              { label: 'Última atualização', value: '22/05/2026 às 14:30' },
+              { label: 'Matrícula',        value: 'EQS-00482', variant: 'mono' },
+              { label: 'Data de admissão', value: '03/02/2022' },
+              { label: 'Status',           value: <Badge label="Ativo" status="success" /> },
             ]}
           />
         </DetailGrid>
@@ -105,9 +97,9 @@ export const VariantesDeValor: StoryObj = {
           full
           items={[
             { label: 'Default',  value: 'Texto padrão' },
-            { label: 'Mono',     value: 'ALT-001-XYZ', variant: 'mono' },
+            { label: 'Mono',     value: 'EQS-00482', variant: 'mono' },
             { label: 'Dim',      value: '—', variant: 'dim' },
-            { label: 'Strong',   value: 'R$ 1.280,00', variant: 'strong' },
+            { label: 'Strong',   value: '348', variant: 'strong' },
           ]}
         />
       </DetailGrid>

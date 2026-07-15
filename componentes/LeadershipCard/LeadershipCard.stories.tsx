@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { LeadershipCard } from './LeadershipCard';
 
 const meta: Meta<typeof LeadershipCard> = {
-  title: 'Components/LeadershipCard',
+  title: 'Primitives/LeadershipCard',
   component: LeadershipCard,
   tags: ['autodocs'],
   parameters: {

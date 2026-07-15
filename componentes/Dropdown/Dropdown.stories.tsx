@@ -10,7 +10,7 @@ const options = [
 ];
 
 const meta: Meta<typeof Dropdown> = {
-  title: 'Components/Dropdown',
+  title: 'Primitives/Dropdown',
   component: Dropdown,
   tags: ['autodocs'],
   decorators: [(S) => <div style={{ width: 280, paddingBottom: 200 }}><S /></div>],

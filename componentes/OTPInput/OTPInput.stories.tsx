@@ -19,7 +19,7 @@ const meta: Meta<typeof OTPInput> = {
   },
   decorators: [
     (Story) => (
-      <div data-theme="dark" style={{ maxWidth: 393, margin: '0 auto', padding: '24px 16px' }}>
+      <div data-theme="dark" style={{ maxWidth: 393, margin: '0 auto', padding: '24px 16px', background: 'var(--color-bg-default)' }}>
         <Story />
       </div>
     ),

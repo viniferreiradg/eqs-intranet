@@ -3,7 +3,7 @@ import React from 'react';
 import { Background } from './Background';
 
 const meta: Meta<typeof Background> = {
-  title: 'Components/Background',
+  title: 'Primitives/Background',
   component: Background,
   parameters: { layout: 'fullscreen' },
 };
@@ -29,18 +29,5 @@ export const Default: Story = {
         </p>
       </div>
     </Background>
-  ),
-};
-
-export const DarkAndLight: Story = {
-  render: () => (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', height: '100vh' }}>
-      <Background data-theme="dark" style={{ background: 'var(--color-bg-default)' } as React.CSSProperties}>
-        <p style={{ position: 'relative', zIndex: 1, padding: 24, color: 'var(--color-text-primary)', fontFamily: 'var(--font-body)', fontSize: 12 }}>Dark</p>
-      </Background>
-      <Background data-theme="light" style={{ background: 'var(--color-bg-default)' } as React.CSSProperties}>
-        <p style={{ position: 'relative', zIndex: 1, padding: 24, color: 'var(--color-text-primary)', fontFamily: 'var(--font-body)', fontSize: 12 }}>Light</p>
-      </Background>
-    </div>
   ),
 };

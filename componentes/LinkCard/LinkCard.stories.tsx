@@ -3,7 +3,7 @@ import { BookOpen, ShieldCheck, LifeBuoy } from 'lucide-react';
 import { LinkCard } from './LinkCard';
 
 const meta: Meta<typeof LinkCard> = {
-  title: 'Components/LinkCard',
+  title: 'Primitives/LinkCard',
   component: LinkCard,
   tags: ['autodocs'],
   parameters: {

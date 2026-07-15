@@ -4,7 +4,7 @@ import { Calendar } from 'lucide-react';
 import { FilterChips } from './FilterChips';
 
 const meta: Meta<typeof FilterChips> = {
-  title: 'Components/FilterChips',
+  title: 'Primitives/FilterChips',
   component: FilterChips,
   tags: ['autodocs'],
 };

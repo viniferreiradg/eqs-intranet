@@ -39,79 +39,6 @@ Os tokens semânticos (ex: `--color-text-primary`, `--color-bg-default`) se adap
 
 ## Componentes disponíveis
 
-### AppBar _(Mobile)_
-**Import:** `import { AppBar } from '../AppBar/AppBar'`  
-**Story:** `Mobile/AppBar`
-
-| Prop | Tipo | Padrão | Descrição |
-|------|------|--------|-----------|
-| `title` | `string` | — | Título centralizado |
-| `onBack` | `() => void` | — | Exibe botão de voltar (ChevronLeft) quando fornecido |
-| `action` | `ReactNode` | — | Elemento opcional no lado direito |
-| `className` | `string` | — | Classe extra no container |
-
-```tsx
-<AppBar title="Esqueci minha senha" onBack={() => router.pop()} />
-<AppBar title="Detalhes" onBack={() => {}} action={<IconButton />} />
-```
-
-**Em telas HTML (sem React):** usar as classes do `AppBar.module.css` diretamente:
-```html
-<header class="appBar">
-  <div class="appBarSide appBarSideLeft">
-    <button class="appBarIconBtn" onclick="router.pop()" aria-label="Voltar">
-      <i data-lucide="chevron-left" width="24" height="24"></i>
-    </button>
-  </div>
-  <span class="appBarTitle">Título</span>
-  <div class="appBarSide appBarSideRight"></div>
-</header>
-```
-
-> O `padding-top` usa `calc(var(--status-bar-height, 0px) + var(--spacing-xs))`.  
-> No Storybook `--status-bar-height` é `0px` (fallback). Nas telas mobile é `59px` (definido em `page-mobile.css`).
-
----
-
-### FAB _(Mobile)_
-**Import:** `import { FAB } from '../FAB/FAB'`  
-**Story:** `Mobile/FAB`
-
-| Prop | Tipo | Padrão | Descrição |
-|------|------|--------|-----------|
-| `icon` | `ReactNode` | — | Ícone Lucide React |
-| `variant` | `'default' \| 'brand'` | `'default'` | Superfície sólida (padrão) ou gradiente brand |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | `md` = 48×48px |
-| `aria-label` | `string` | — | **Obrigatório** — acessibilidade |
-| `disabled` | `boolean` | — | Herdado do `<button>` |
-
-```tsx
-<FAB icon={<Car size={20} />} aria-label="Selecionar veículo" />
-<FAB icon={<QrCode size={20} />} aria-label="Escanear QR Code" />
-<FAB icon={<Zap size={22} />} variant="brand" aria-label="Iniciar recarga" />
-```
-
-**Em telas HTML:** usar a classe `.fab` de `FAB.module.css` + variantes `.brand`, `.sm`, `.lg`.  
-Posicionamento no mapa via `.map-fabs` em `page-mobile.css`.
-
----
-
-### BottomNav _(Mobile)_
-**Import:** `import { BottomNav } from '../BottomNav/BottomNav'`  
-**Story:** `Mobile/BottomNav`
-
-| Prop | Tipo | Padrão | Descrição |
-|------|------|--------|-----------|
-| `items` | `NavItemDef[]` | — | Array de `{ id, label, icon }` |
-| `activeId` | `string` | — | ID da aba ativa |
-| `onSelect` | `(id: string) => void` | — | Callback ao clicar numa aba |
-
-> **Nota:** Em `prototipo.html`, o BottomNav vive no shell (fora dos iframes). O router chama `updateBottomNav(screenId)` para alternar o `.navActive`. O nav flutua sobre as telas com `position: absolute; bottom: 0`.
-
-**Em telas HTML (sem React):** usar as classes do `BottomNav.module.css` diretamente no shell.
-
----
-
 ### OTPInput _(Mobile)_
 **Import:** `import { OTPInput } from '../OTPInput/OTPInput'`  
 **Story:** `Mobile/OTPInput`
@@ -206,7 +133,8 @@ Dropzone de imagem com preview funcional (clique ou arraste um arquivo). Usa `UR
 | Prop | Tipo | Padrão | Descrição |
 |------|------|--------|-----------|
 | `label` | `string` | — | Label acima do campo |
-| `value` | `string \| null` | — | URL de preview inicial (edição) |
+| `value` | `string \| null` | — | URL de imagem já existente — abre preenchido com ações de visualizar/alterar/remover sobre a imagem |
+| `fit` | `'cover' \| 'contain'` | `'cover'` | `contain` para logos/artes que não podem ser cortadas (imagem inteira + fundo sutil) |
 | `onChange` | `(file: File \| null, previewUrl: string \| null) => void` | — | Disparado ao selecionar/remover |
 | `hint` | `string` | `'PNG ou JPG, até 5MB'` | Texto auxiliar dentro da dropzone |
 | `helperText` | `string` | — | Texto auxiliar abaixo da dropzone |
@@ -522,7 +450,7 @@ Dropdown com seleção múltipla. Os itens selecionados aparecem como chips remo
 
 | Prop | Tipo | Padrão | Descrição |
 |------|------|--------|-----------|
-| `options` | `MultiSelectOption[]` | — | Lista `{ label, value }` |
+| `options` | `MultiSelectOption[]` | — | Lista `{ label, value, avatar? }` — `avatar` (URL) exibe foto redonda na opção e no chip |
 | `value` | `string[]` | `[]` | Valores selecionados |
 | `onChange` | `(value: string[]) => void` | — | Callback ao alterar seleção |
 | `label` | `string` | — | Label acima do campo |
@@ -530,6 +458,7 @@ Dropdown com seleção múltipla. Os itens selecionados aparecem como chips remo
 | `disabled` | `boolean` | `false` | Desabilita interação |
 | `helperText` | `string` | — | Texto auxiliar |
 | `error` | `string` | — | Mensagem de erro (borda vermelha) |
+| `dropUp` | `boolean` | `false` | Abre o menu para cima — usar quando o campo fica perto do fim da página |
 
 ```tsx
 const [value, setValue] = useState<string[]>([]);
@@ -675,6 +604,25 @@ Envolve qualquer elemento (ícone, botão) e sobrepõe um badge vermelho com con
   <span class="notifBadge">3</span>
 </button>
 ```
+
+---
+
+### NotificationItem
+**Import:** `import { NotificationItem, NotificationList } from '../NotificationItem/NotificationItem'`
+**Story:** `Components/NotificationItem`
+
+Linha de notificação para o Sheet de notificações do painel — ícone em box tintado por tipo (tokens de status), dot de não lida, descrição e horário à direita.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `icon` | `LucideIcon` | — | Ícone do box (obrigatório) |
+| `status` | `'success' \| 'error' \| 'warning' \| 'info' \| 'neutral'` | `'neutral'` | Cor do box do ícone |
+| `title` | `string` | — | Título (obrigatório) |
+| `description` | `string` | — | Texto de apoio |
+| `time` | `string` | — | Horário relativo ("Agora", "1h", "Ontem") |
+| `unread` | `boolean` | `false` | Dot de não lida ao lado do título |
+
+`NotificationList` envolve vários itens e aplica as divisórias. **Em telas HTML:** classes `notif*` (ver rules.md) + padrão `notifSheetOpen()` chamado pelo sininho do sidebar.
 
 ---
 
@@ -990,6 +938,26 @@ Seletor de intervalo de datas com layout horizontal (calendário à esquerda, co
 
 ---
 
+### CalendarMonth
+**Import:** `import { CalendarMonth } from '../CalendarMonth/CalendarMonth'`
+**Story:** `Components/CalendarMonth`
+
+Grade mensal de eventos — visão calendário do painel de Eventos. Dia atual destacado em cinza neutro (`--color-bg-subtle`, nunca a cor da marca); chips de evento com dot de status.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `year` | `number` | — | Ano exibido |
+| `month` | `number` | — | Mês exibido (0-indexado, como `Date`) |
+| `events` | `CalendarMonthEvent[]` | `[]` | `{ date: 'YYYY-MM-DD', time, title, status? }` — status `'publicado'` (dot verde) ou `'rascunho'` (dot cinza) |
+| `onEventClick` | `(event) => void` | — | Clique num chip de evento |
+| `onAddClick` | `(dateIso: string) => void` | — | Habilita o botão "+" no hover de cada dia (adição rápida) |
+| `weekdays` | `string[]` | Dom–Sáb | Cabeçalho dos dias |
+| `today` | `Date` | `new Date()` | Data destacada como hoje |
+
+**Em telas HTML:** classes `evCal*` (ver `rules.md`); a grade é gerada por JS na página — padrão em `painel-adm/eventos-lista.html`.
+
+---
+
 ### Card
 **CSS:** `../componentes/Card/Card.module.css`
 
@@ -1197,28 +1165,28 @@ Layout padrão de telas de detalhe (visualizar entidade). Grid de 2 colunas com 
 
 <!-- Cabeçalho da página -->
 <div class="titleRow">
-  <h1 class="pageTitle">ALT-001</h1>
-  <span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span>
+  <h1 class="pageTitle">Manual da Marca EQS</h1>
+  <span class="badge" data-status="success"><span class="badgeDot"></span>Publicado</span>
 </div>
 
 <!-- Grid de cards -->
 <div class="detailGrid">
   <div class="card detailCard">
-    <h2 class="cardTitle">Informações</h2>
+    <h2 class="cardTitle">Identificação</h2>
     <div class="infoGrid">
-      <span class="infoLabel">Serial</span>
-      <span class="infoValueMono">ALT-001</span>
+      <span class="infoLabel">Formato</span>
+      <span class="infoValueMono">PDF</span>
 
-      <span class="infoLabel">Status</span>
-      <span class="infoValue">Ativo</span>
+      <span class="infoLabel">Categoria</span>
+      <span class="infoValue">Institucional</span>
     </div>
   </div>
 
   <div class="card detailCardFull">
-    <h2 class="cardTitle">Resumo financeiro</h2>
+    <h2 class="cardTitle">Publicação</h2>
     <div class="infoGrid">
-      <span class="infoLabel">Total</span>
-      <span class="infoValueStrong">R$ 1.280,00</span>
+      <span class="infoLabel">Setor responsável</span>
+      <span class="infoValueStrong">Marketing</span>
 
       <span class="infoLabel">Observação</span>
       <span class="infoValueDim">—</span>
@@ -2248,6 +2216,29 @@ Card de colaborador — seção "Nossa equipe" de `detalhes-setor.html`. Avatar 
 
 **Container:** `.siteGrid3` (`shared/page.css`) — 3 colunas no desktop, 1 no mobile.
 **Conflitos:** nenhum — classes prefixadas com `teamMember`.
+
+---
+
+### IconPicker
+**Import:** `import { IconPicker, ICON_PICKER_OPTIONS } from '../IconPicker/IconPicker'`
+**Story:** `Components/IconPicker`
+
+Seletor de ícone Lucide — trigger com visual de Dropdown (ícone selecionado em box outline padrão + nome kebab) que abre uma grade 6×N com os 24 ícones principais. Usado no formulário de comunicados (`comunicados-cadastrar.html`). O valor é o nome kebab do Lucide (ex: `"heart-pulse"`), o mesmo usado em `data-lucide` nas telas HTML.
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `value` | `string` | — | Nome kebab do ícone selecionado |
+| `onChange` | `(name: string) => void` | — | Callback ao escolher |
+| `label` | `string` | — | Label acima do campo |
+| `placeholder` | `string` | `'Selecionar ícone'` | Texto sem seleção |
+
+```tsx
+const [icone, setIcone] = useState('megaphone');
+<IconPicker label="Ícone" value={icone} onChange={setIcone} />
+```
+
+**Em telas HTML:** classes `.iconPickerRoot` (+ `.open` via JS), `.iconPickerTrigger`, `.iconPickerPreview`, `.iconPickerValue`, `.iconPickerPlaceholder`, `.iconPickerChevron`, `.iconPickerMenu`, `.iconPickerOption` (+ `.selected`). A grade é gerada via JS a partir de um array de nomes + `lucide.createIcons()` (ver `comunicados-cadastrar.html`). Usa `.label`/`.helperText` do Input — linkar `Input.module.css` junto.
+**Conflitos:** nenhum — classes prefixadas com `iconPicker` (o estado `.open` é composto: `.iconPickerRoot.open`).
 
 ---
 

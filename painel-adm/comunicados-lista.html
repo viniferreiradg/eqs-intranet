@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comunicados — EQS Intranet</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/Background/Background.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../componentes/Table/Table.module.css" />
+  <link rel="stylesheet" href="../componentes/Pagination/Pagination.module.css" />
+</head>
+<body class="layout-dashboard" data-page="comunicados">
+
+  <aside id="sidebar-root"></aside>
+
+  <main class="main bgWrapper">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <div class="pageHeader pageHeaderRow">
+      <div>
+        <h1 class="pageTitle">Comunicados</h1>
+        <p class="pageSubtitle" id="comunicados-count">7 comunicados publicados</p>
+      </div>
+      <button class="btn primary hasLeft" type="button" onclick="location.href='comunicados-cadastrar.html'">
+        <span class="icon"><i data-lucide="plus" width="16" height="16"></i></span>
+        Novo Comunicado
+      </button>
+    </div>
+
+    <div class="pageContent">
+      <div class="toolbar">
+        <div class="wrapper searchWrap">
+          <div class="inputWrap hasLeft">
+            <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+            <input class="input" type="text" id="search-input" placeholder="Buscar comunicado..." />
+          </div>
+        </div>
+
+        <div class="wrapper filterWrap" id="status-dropdown">
+          <div class="trigger" id="status-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+            <span id="status-value">Todos os status</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu" role="listbox">
+            <div class="option selected" data-value="" role="option">Todos os status</div>
+            <div class="option" data-value="publicado" role="option">Publicado</div>
+            <div class="option" data-value="rascunho" role="option">Rascunho</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="tableWrap">
+          <table class="table">
+            <thead>
+              <tr class="headerRow">
+                <th class="th thFirst">Título</th>
+                <th class="th">Status</th>
+                <th class="th">Data</th>
+                <th class="th">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="comunicados-tbody">
+              <tr class="tr" data-status="rascunho">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="calendar-clock" width="14" height="14"></i></span>
+                    Recesso de fim de ano — orientações gerais
+                  </span>
+                </td>
+                <td class="td"><span class="badge" data-status="disabled"><span class="badgeDot"></span>Rascunho</span></td>
+                <td class="td tdMono">12/12/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='comunicados-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="publicado">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="heart-pulse" width="14" height="14"></i></span>
+                    Atualização do plano de saúde a partir de janeiro
+                  </span>
+                </td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Publicado</span></td>
+                <td class="td tdMono">10/12/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='comunicados-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="publicado">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="wrench" width="14" height="14"></i></span>
+                    Manutenção programada no sistema financeiro
+                  </span>
+                </td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Publicado</span></td>
+                <td class="td tdMono">09/12/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='comunicados-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="publicado">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="utensils-crossed" width="14" height="14"></i></span>
+                    Novo horário de funcionamento do refeitório
+                  </span>
+                </td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Publicado</span></td>
+                <td class="td tdMono">03/12/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='comunicados-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="publicado">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="shield-check" width="14" height="14"></i></span>
+                    Campanha de vacinação contra a gripe nas unidades
+                  </span>
+                </td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Publicado</span></td>
+                <td class="td tdMono">01/12/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='comunicados-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="publicado">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="badge-dollar-sign" width="14" height="14"></i></span>
+                    Antecipação do 13º salário — primeira parcela
+                  </span>
+                </td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Publicado</span></td>
+                <td class="td tdMono">28/11/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='comunicados-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="publicado">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="laptop" width="14" height="14"></i></span>
+                    Nova política de trabalho remoto entra em vigor
+                  </span>
+                </td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Publicado</span></td>
+                <td class="td tdMono">20/11/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='comunicados-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="publicado">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="car-front" width="14" height="14"></i></span>
+                    Obras no estacionamento da Sede SP a partir de segunda
+                  </span>
+                </td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Publicado</span></td>
+                <td class="td tdMono">15/11/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='comunicados-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="pagination">
+        <span class="info">Exibindo 1–8 de 8 resultados</span>
+        <div class="controls">
+          <button class="paginBtn" aria-label="Página anterior" disabled><i data-lucide="chevron-left" width="14" height="14"></i></button>
+          <button class="paginBtn paginBtnActive" aria-current="page">1</button>
+          <button class="paginBtn" aria-label="Próxima página" disabled><i data-lucide="chevron-right" width="14" height="14"></i></button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="shared/sidebar.js"></script>
+  <script>
+    lucide.createIcons();
+
+    /* ── Dropdown de status (padrão documentado em rules.md) ─────────────── */
+    document.querySelectorAll('[id$="-dropdown"]').forEach((dropdown) => {
+      const trigger = dropdown.querySelector('.trigger');
+      const menu = dropdown.querySelector('.menu');
+      trigger.addEventListener('click', () => menu.classList.toggle('open'));
+      dropdown.querySelectorAll('.option').forEach((option) => {
+        option.addEventListener('click', () => {
+          dropdown.querySelectorAll('.option').forEach((o) => o.classList.remove('selected'));
+          option.classList.add('selected');
+          dropdown.querySelector('[id$="-value"]').textContent = option.textContent;
+          menu.classList.remove('open');
+          filtrarComunicados();
+        });
+      });
+      document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) menu.classList.remove('open');
+      });
+    });
+
+    /* ── Busca + filtro de status ─────────────────────────────────────────── */
+    const searchInput = document.getElementById('search-input');
+    const rows = [...document.querySelectorAll('#comunicados-tbody .tr')];
+    const countLabel = document.getElementById('comunicados-count');
+
+    function filtrarComunicados() {
+      const termo = searchInput.value.trim().toLowerCase();
+      const status = document.querySelector('#status-dropdown .option.selected').dataset.value;
+      let visiveis = 0;
+      rows.forEach((row) => {
+        const titulo = row.querySelector('.tdFirst').textContent.toLowerCase();
+        const bateBusca = titulo.includes(termo);
+        const bateStatus = !status || row.dataset.status === status;
+        const show = bateBusca && bateStatus;
+        row.hidden = !show;
+        if (show) visiveis++;
+      });
+      countLabel.textContent = `${visiveis} comunicado${visiveis !== 1 ? 's' : ''} encontrado${visiveis !== 1 ? 's' : ''}`;
+    }
+
+    searchInput.addEventListener('input', filtrarComunicados);
+  </script>
+</body>
+</html>

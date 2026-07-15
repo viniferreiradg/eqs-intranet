@@ -3,7 +3,7 @@ import { Zap, RotateCcw, CircleDollarSign, Wifi } from 'lucide-react';
 import { MetricCard } from './MetricCard';
 
 const meta: Meta<typeof MetricCard> = {
-  title: 'Components/MetricCard',
+  title: 'Primitives/MetricCard',
   component: MetricCard,
   parameters: { layout: 'padded' },
   decorators: [

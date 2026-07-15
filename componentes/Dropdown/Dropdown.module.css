@@ -60,7 +60,9 @@
   max-height: 240px; overflow-y: auto;
   display: none;
 }
-.open .menu { display: block; }
+/* abre com .open no wrapper (React) OU no próprio .menu (JS padrão das telas HTML) */
+.open .menu,
+.menu.open { display: block; }
 
 .option {
   padding: var(--spacing-sm) var(--spacing-md);

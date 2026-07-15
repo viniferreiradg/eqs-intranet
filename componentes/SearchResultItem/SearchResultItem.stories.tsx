@@ -3,7 +3,7 @@ import { BookOpen } from 'lucide-react';
 import { SearchResultItem } from './SearchResultItem';
 
 const meta: Meta<typeof SearchResultItem> = {
-  title: 'Components/SearchResultItem',
+  title: 'Primitives/SearchResultItem',
   component: SearchResultItem,
   tags: ['autodocs'],
   parameters: {

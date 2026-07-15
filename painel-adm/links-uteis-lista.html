@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Links Úteis — EQS Intranet</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/Background/Background.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../componentes/Table/Table.module.css" />
+  <link rel="stylesheet" href="../componentes/Pagination/Pagination.module.css" />
+</head>
+<body class="layout-dashboard" data-page="links-uteis">
+
+  <aside id="sidebar-root"></aside>
+
+  <main class="main bgWrapper">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <div class="pageHeader pageHeaderRow">
+      <div>
+        <h1 class="pageTitle">Links Úteis</h1>
+        <p class="pageSubtitle" id="links-count">14 links cadastrados</p>
+      </div>
+      <button class="btn primary hasLeft" type="button" onclick="location.href='links-uteis-cadastrar.html'">
+        <span class="icon"><i data-lucide="plus" width="16" height="16"></i></span>
+        Novo Link
+      </button>
+    </div>
+
+    <div class="pageContent">
+      <div class="toolbar">
+        <div class="wrapper searchWrap">
+          <div class="inputWrap hasLeft">
+            <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+            <input class="input" type="text" id="search-input" placeholder="Buscar link..." />
+          </div>
+        </div>
+
+        <div class="wrapper filterWrap" id="status-dropdown">
+          <div class="trigger" id="status-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+            <span id="status-value">Todos os status</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu" role="listbox">
+            <div class="option selected" data-value="" role="option">Todos os status</div>
+            <div class="option" data-value="ativo" role="option">Ativo</div>
+            <div class="option" data-value="inativo" role="option">Inativo</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="tableWrap">
+          <table class="table">
+            <thead>
+              <tr class="headerRow">
+                <th class="th thFirst">Título</th>
+                <th class="th">URL</th>
+                <th class="th">Status</th>
+                <th class="th">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="links-tbody">
+              <tr class="tr" data-status="ativo">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="book-open" width="14" height="14"></i></span>
+                    Manual da Marca EQS
+                  </span>
+                </td>
+                <td class="td tdMono">portal.eqs.com.br/marca</td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='links-uteis-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="ativo">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="shield-check" width="14" height="14"></i></span>
+                    Código de Conduta
+                  </span>
+                </td>
+                <td class="td tdMono">portal.eqs.com.br/conduta</td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='links-uteis-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="ativo">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="life-buoy" width="14" height="14"></i></span>
+                    Central de Suporte
+                  </span>
+                </td>
+                <td class="td tdMono">suporte.eqs.com.br</td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='links-uteis-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="ativo">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="lock" width="14" height="14"></i></span>
+                    Política de Privacidade
+                  </span>
+                </td>
+                <td class="td tdMono">portal.eqs.com.br/privacidade</td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='links-uteis-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="ativo">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="gift" width="14" height="14"></i></span>
+                    Portal de Benefícios
+                  </span>
+                </td>
+                <td class="td tdMono">beneficios.eqs.com.br</td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='links-uteis-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="ativo">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="receipt" width="14" height="14"></i></span>
+                    Reembolso de Despesas
+                  </span>
+                </td>
+                <td class="td tdMono">portal.eqs.com.br/reembolso</td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='links-uteis-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="ativo">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="calendar-check" width="14" height="14"></i></span>
+                    Solicitação de Férias
+                  </span>
+                </td>
+                <td class="td tdMono">rh.eqs.com.br/ferias</td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='links-uteis-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="ativo">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="truck" width="14" height="14"></i></span>
+                    Catálogo de Fornecedores
+                  </span>
+                </td>
+                <td class="td tdMono">portal.eqs.com.br/fornecedores</td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='links-uteis-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="ativo">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="book-marked" width="14" height="14"></i></span>
+                    Base de Conhecimento Técnico
+                  </span>
+                </td>
+                <td class="td tdMono">wiki.eqs.com.br</td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='links-uteis-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="ativo">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="clock" width="14" height="14"></i></span>
+                    Registro de Ponto
+                  </span>
+                </td>
+                <td class="td tdMono">ponto.eqs.com.br</td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='links-uteis-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="ativo">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="wallet" width="14" height="14"></i></span>
+                    Holerite Online
+                  </span>
+                </td>
+                <td class="td tdMono">rh.eqs.com.br/holerite</td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='links-uteis-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="ativo">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="graduation-cap" width="14" height="14"></i></span>
+                    Treinamentos EAD
+                  </span>
+                </td>
+                <td class="td tdMono">ead.eqs.com.br</td>
+                <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='links-uteis-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="inativo">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="message-circle" width="14" height="14"></i></span>
+                    Ouvidoria Interna
+                  </span>
+                </td>
+                <td class="td tdMono">ouvidoria.eqs.com.br</td>
+                <td class="td"><span class="badge" data-status="disabled"><span class="badgeDot"></span>Inativo</span></td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='links-uteis-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-status="inativo">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="archive" width="14" height="14"></i></span>
+                    Intranet Antiga
+                  </span>
+                </td>
+                <td class="td tdMono">antiga.eqs.com.br</td>
+                <td class="td"><span class="badge" data-status="disabled"><span class="badgeDot"></span>Inativo</span></td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='links-uteis-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="pagination">
+        <span class="info">Exibindo 1–14 de 14 resultados</span>
+        <div class="controls">
+          <button class="paginBtn" aria-label="Página anterior" disabled><i data-lucide="chevron-left" width="14" height="14"></i></button>
+          <button class="paginBtn paginBtnActive" aria-current="page">1</button>
+          <button class="paginBtn" aria-label="Próxima página" disabled><i data-lucide="chevron-right" width="14" height="14"></i></button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="shared/sidebar.js"></script>
+  <script>
+    lucide.createIcons();
+
+    /* ── Dropdown de status (padrão documentado em rules.md) ─────────────── */
+    document.querySelectorAll('[id$="-dropdown"]').forEach((dropdown) => {
+      const trigger = dropdown.querySelector('.trigger');
+      const menu = dropdown.querySelector('.menu');
+      trigger.addEventListener('click', () => menu.classList.toggle('open'));
+      dropdown.querySelectorAll('.option').forEach((option) => {
+        option.addEventListener('click', () => {
+          dropdown.querySelectorAll('.option').forEach((o) => o.classList.remove('selected'));
+          option.classList.add('selected');
+          dropdown.querySelector('[id$="-value"]').textContent = option.textContent;
+          menu.classList.remove('open');
+          filtrarLinks();
+        });
+      });
+      document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) menu.classList.remove('open');
+      });
+    });
+
+    /* ── Busca + filtro de status ─────────────────────────────────────────── */
+    const searchInput = document.getElementById('search-input');
+    const rows = [...document.querySelectorAll('#links-tbody .tr')];
+    const countLabel = document.getElementById('links-count');
+
+    function filtrarLinks() {
+      const termo = searchInput.value.trim().toLowerCase();
+      const status = document.querySelector('#status-dropdown .option.selected').dataset.value;
+      let visiveis = 0;
+      rows.forEach((row) => {
+        const texto = (row.querySelector('.tdFirst').textContent + ' ' + row.querySelector('.tdMono').textContent).toLowerCase();
+        const bateBusca = texto.includes(termo);
+        const bateStatus = !status || row.dataset.status === status;
+        const show = bateBusca && bateStatus;
+        row.hidden = !show;
+        if (show) visiveis++;
+      });
+      countLabel.textContent = `${visiveis} link${visiveis !== 1 ? 's' : ''} encontrado${visiveis !== 1 ? 's' : ''}`;
+    }
+
+    searchInput.addEventListener('input', filtrarLinks);
+  </script>
+</body>
+</html>

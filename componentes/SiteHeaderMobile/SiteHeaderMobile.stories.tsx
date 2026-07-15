@@ -6,7 +6,7 @@ import { Sheet } from '../Sheet/Sheet';
 import styles from './SiteHeaderMobile.module.css';
 
 const meta: Meta<typeof SiteHeaderMobile> = {
-  title: 'Components/SiteHeaderMobile',
+  title: 'Mobile/SiteHeaderMobile',
   component: SiteHeaderMobile,
   tags: ['autodocs'],
   parameters: {

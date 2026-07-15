@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DocumentListItem } from './DocumentListItem';
 
 const meta: Meta<typeof DocumentListItem> = {
-  title: 'Components/DocumentListItem',
+  title: 'Primitives/DocumentListItem',
   component: DocumentListItem,
   tags: ['autodocs'],
   parameters: {

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intranet — EQS Intranet</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/Background/Background.module.css" />
+  <link rel="stylesheet" href="../componentes/Card/Card.module.css" />
+  <link rel="stylesheet" href="../componentes/Divider/Divider.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/Textarea/Textarea.module.css" />
+  <link rel="stylesheet" href="../componentes/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../componentes/IconPicker/IconPicker.module.css" />
+  <link rel="stylesheet" href="../componentes/ImageUpload/ImageUpload.module.css" />
+  <link rel="stylesheet" href="../componentes/Tab/Tab.module.css" />
+  <link rel="stylesheet" href="../componentes/Feedback/Feedback.module.css" />
+</head>
+<body class="layout-dashboard" data-page="intranet">
+
+  <aside id="sidebar-root"></aside>
+
+  <main class="main bgWrapper">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <div class="pageHeader">
+      <h1 class="pageTitle">Intranet</h1>
+      <p class="pageSubtitle">Edite o conteúdo das páginas do site da intranet.</p>
+    </div>
+
+    <div class="pageContent">
+      <div class="tabNav">
+        <div class="tabList" role="tablist">
+          <button class="tabBtn tabBtnActive" role="tab" aria-selected="true" type="button">Home</button>
+          <button class="tabBtn" role="tab" aria-selected="false" type="button" onclick="location.href='intranet-sobre.html'">Sobre</button>
+          <button class="tabBtn" role="tab" aria-selected="false" type="button" onclick="location.href='intranet-outras.html'">Outras páginas</button>
+        </div>
+      </div>
+
+      <!-- ── Formulário: Home ──────────────────────────────────────── -->
+      <form class="card" id="home-form" novalidate>
+          <div class="formSection">
+            <div class="alert success" id="form-feedback" role="alert" hidden>
+              <span class="fbIcon"><i data-lucide="circle-check" width="18" height="18"></i></span>
+              <div class="fbBody">
+                <div class="fbTitle">Alterações salvas</div>
+                <div class="fbMessage">O conteúdo da Home foi atualizado no portal.</div>
+              </div>
+              <button class="fbDismiss" type="button" aria-label="Fechar" onclick="this.closest('.alert').hidden = true"><i data-lucide="x" width="14" height="14"></i></button>
+            </div>
+
+            <h2 class="sectionTitle">Logo</h2>
+            <p class="sectionSubtitle">Exibida no cabeçalho do site e no rodapé.</p>
+
+            <div class="formGrid">
+              <div class="wrapper">
+                <label class="dropzone" id="logo-dropzone">
+                  <input type="file" accept="image/*" class="hiddenInput" id="logo-input" />
+                  <div class="empty" id="logo-empty" hidden>
+                    <span class="emptyIcon"><i data-lucide="image-plus" width="24" height="24"></i></span>
+                    <span class="emptyText">Clique ou arraste a logo</span>
+                    <span class="emptyHint">PNG com fundo transparente, até 2MB</span>
+                  </div>
+                  <!-- estado "imagem existente" — logo atual do site já carregada -->
+                  <div class="preview previewContain" id="logo-preview">
+                    <img class="previewImg" id="logo-preview-img" src="../componentes/Logo/logo-light.png" alt="Logo atual do site" />
+                    <div class="previewActions">
+                      <button type="button" class="previewAction" id="logo-view" aria-label="Visualizar logo" title="Visualizar">
+                        <i data-lucide="eye" width="14" height="14"></i>
+                      </button>
+                      <button type="button" class="previewAction" id="logo-change" aria-label="Alterar logo" title="Alterar">
+                        <i data-lucide="upload" width="14" height="14"></i>
+                      </button>
+                      <button type="button" class="previewAction" id="logo-remove" aria-label="Remover logo" title="Remover">
+                        <i data-lucide="trash-2" width="14" height="14"></i>
+                      </button>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="formSection">
+            <h2 class="sectionTitle">Hero</h2>
+            <p class="sectionSubtitle">Banner de destaque no topo da Home, com o painel de atalhos ao lado.</p>
+
+            <div class="formGrid">
+              <div class="wrapper">
+                <span class="label">Imagem de fundo</span>
+                <label class="dropzone" id="hero-dropzone">
+                  <input type="file" accept="image/*" class="hiddenInput" id="hero-input" />
+                  <div class="empty" id="hero-empty" hidden>
+                    <span class="emptyIcon"><i data-lucide="image-plus" width="24" height="24"></i></span>
+                    <span class="emptyText">Clique ou arraste a imagem</span>
+                    <span class="emptyHint">PNG ou JPG, até 5MB</span>
+                  </div>
+                  <!-- estado "imagem existente" — foto de fundo atual do Hero -->
+                  <div class="preview" id="hero-preview">
+                    <img class="previewImg" id="hero-preview-img" src="../src/hero-eventos.jpg" alt="Imagem de fundo atual da Home" />
+                    <div class="previewActions">
+                      <button type="button" class="previewAction" id="hero-view" aria-label="Visualizar imagem" title="Visualizar">
+                        <i data-lucide="eye" width="14" height="14"></i>
+                      </button>
+                      <button type="button" class="previewAction" id="hero-change" aria-label="Alterar imagem" title="Alterar">
+                        <i data-lucide="upload" width="14" height="14"></i>
+                      </button>
+                      <button type="button" class="previewAction" id="hero-remove" aria-label="Remover imagem" title="Remover">
+                        <i data-lucide="trash-2" width="14" height="14"></i>
+                      </button>
+                    </div>
+                  </div>
+                </label>
+              </div>
+
+              <div class="wrapper">
+                <label class="label" for="hero-eyebrow">Eyebrow</label>
+                <div class="inputWrap">
+                  <input class="input" id="hero-eyebrow" type="text" value="Destaque" />
+                </div>
+              </div>
+
+              <div class="wrapper">
+                <label class="label" for="hero-titulo">Título</label>
+                <div class="inputWrap">
+                  <input class="input" id="hero-titulo" type="text" value="Expansão do Terminal Norte: Marco de 85% Concluído" />
+                </div>
+              </div>
+
+              <div class="wrapper">
+                <label class="label" for="hero-texto">Texto</label>
+                <textarea class="textarea" id="hero-texto" rows="3">A EQS Engenharia celebra o avanço das obras estruturais no Terminal Norte, mantendo o padrão de precisão técnica e segurança.</textarea>
+              </div>
+
+              <div class="wrapper">
+                <label class="label" for="hero-link">Link</label>
+                <div class="inputWrap hasLeft">
+                  <span class="iconLeft"><i data-lucide="link" width="16" height="16"></i></span>
+                  <input class="input" id="hero-link" type="url" value="noticias.html" />
+                </div>
+                <span class="helperText">Destino do botão "Ler notícia completa".</span>
+              </div>
+
+              <div class="grid3">
+                <div class="wrapper" id="quicklink1-dropdown">
+                  <label class="label" for="quicklink1-trigger">Link útil 1</label>
+                  <div class="trigger" id="quicklink1-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+                    <span id="quicklink1-value">Central de Suporte</span>
+                    <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                  </div>
+                  <div class="menu" role="listbox" data-quicklink-menu data-selected="central-suporte"></div>
+                </div>
+
+                <div class="wrapper" id="quicklink2-dropdown">
+                  <label class="label" for="quicklink2-trigger">Link útil 2</label>
+                  <div class="trigger" id="quicklink2-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+                    <span id="quicklink2-value">Manual da Marca EQS</span>
+                    <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                  </div>
+                  <div class="menu" role="listbox" data-quicklink-menu data-selected="manual-marca"></div>
+                </div>
+
+                <div class="wrapper" id="quicklink3-dropdown">
+                  <label class="label" for="quicklink3-trigger">Link útil 3</label>
+                  <div class="trigger" id="quicklink3-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+                    <span id="quicklink3-value">Código de Conduta</span>
+                    <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                  </div>
+                  <div class="menu" role="listbox" data-quicklink-menu data-selected="codigo-conduta"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="formSection">
+            <h2 class="sectionTitle">Sobre</h2>
+            <p class="sectionSubtitle">Banner institucional da Home, com os números da empresa.</p>
+
+            <div class="formGrid">
+              <div class="wrapper">
+                <label class="label" for="sobre-titulo">Título</label>
+                <div class="inputWrap">
+                  <input class="input" id="sobre-titulo" type="text" value="Sobre a EQS" />
+                </div>
+              </div>
+
+              <div class="wrapper">
+                <label class="label" for="sobre-texto">Texto</label>
+                <textarea class="textarea" id="sobre-texto" rows="3">A EQS Engenharia atua há mais de 20 anos em projetos de infraestrutura de precisão, unindo tecnologia e segurança para entregar obras que atendem aos mais altos padrões.</textarea>
+              </div>
+
+              <div class="wrapper">
+                <label class="label" for="sobre-link">Link</label>
+                <div class="inputWrap hasLeft">
+                  <span class="iconLeft"><i data-lucide="link" width="16" height="16"></i></span>
+                  <input class="input" id="sobre-link" type="url" value="sobre.html" />
+                </div>
+                <span class="helperText">Destino do botão "Saiba mais sobre a EQS".</span>
+              </div>
+
+              <div class="grid3" data-stat-row="1">
+                <div class="iconPickerRoot" id="stat1-picker">
+                  <span class="label">Ícone do número 1</span>
+                  <button type="button" class="iconPickerTrigger" id="stat1-trigger" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="iconPickerPreview" id="stat1-preview"><i data-lucide="clock" width="14" height="14"></i></span>
+                    <span class="iconPickerValue" id="stat1-value">clock</span>
+                    <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                  </button>
+                  <div class="iconPickerMenu" id="stat1-menu" role="listbox" aria-label="Ícones"></div>
+                </div>
+                <div class="wrapper">
+                  <label class="label" for="stat1-numero">Número 1</label>
+                  <div class="inputWrap"><input class="input" id="stat1-numero" type="text" value="20+" /></div>
+                </div>
+                <div class="wrapper">
+                  <label class="label" for="stat1-texto">Texto 1</label>
+                  <div class="inputWrap"><input class="input" id="stat1-texto" type="text" value="Anos de história" /></div>
+                </div>
+              </div>
+
+              <div class="grid3" data-stat-row="2">
+                <div class="iconPickerRoot" id="stat2-picker">
+                  <span class="label">Ícone do número 2</span>
+                  <button type="button" class="iconPickerTrigger" id="stat2-trigger" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="iconPickerPreview" id="stat2-preview"><i data-lucide="users" width="14" height="14"></i></span>
+                    <span class="iconPickerValue" id="stat2-value">users</span>
+                    <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                  </button>
+                  <div class="iconPickerMenu" id="stat2-menu" role="listbox" aria-label="Ícones"></div>
+                </div>
+                <div class="wrapper">
+                  <label class="label" for="stat2-numero">Número 2</label>
+                  <div class="inputWrap"><input class="input" id="stat2-numero" type="text" value="350+" /></div>
+                </div>
+                <div class="wrapper">
+                  <label class="label" for="stat2-texto">Texto 2</label>
+                  <div class="inputWrap"><input class="input" id="stat2-texto" type="text" value="Colaboradores" /></div>
+                </div>
+              </div>
+
+              <div class="grid3" data-stat-row="3">
+                <div class="iconPickerRoot" id="stat3-picker">
+                  <span class="label">Ícone do número 3</span>
+                  <button type="button" class="iconPickerTrigger" id="stat3-trigger" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="iconPickerPreview" id="stat3-preview"><i data-lucide="map" width="14" height="14"></i></span>
+                    <span class="iconPickerValue" id="stat3-value">map</span>
+                    <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                  </button>
+                  <div class="iconPickerMenu" id="stat3-menu" role="listbox" aria-label="Ícones"></div>
+                </div>
+                <div class="wrapper">
+                  <label class="label" for="stat3-numero">Número 3</label>
+                  <div class="inputWrap"><input class="input" id="stat3-numero" type="text" value="18" /></div>
+                </div>
+                <div class="wrapper">
+                  <label class="label" for="stat3-texto">Texto 3</label>
+                  <div class="inputWrap"><input class="input" id="stat3-texto" type="text" value="Estados atendidos" /></div>
+                </div>
+              </div>
+
+              <div class="grid3" data-stat-row="4">
+                <div class="iconPickerRoot" id="stat4-picker">
+                  <span class="label">Ícone do número 4</span>
+                  <button type="button" class="iconPickerTrigger" id="stat4-trigger" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="iconPickerPreview" id="stat4-preview"><i data-lucide="shield-check" width="14" height="14"></i></span>
+                    <span class="iconPickerValue" id="stat4-value">shield-check</span>
+                    <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                  </button>
+                  <div class="iconPickerMenu" id="stat4-menu" role="listbox" aria-label="Ícones"></div>
+                </div>
+                <div class="wrapper">
+                  <label class="label" for="stat4-numero">Número 4</label>
+                  <div class="inputWrap"><input class="input" id="stat4-numero" type="text" value="7" /></div>
+                </div>
+                <div class="wrapper">
+                  <label class="label" for="stat4-texto">Texto 4</label>
+                  <div class="inputWrap"><input class="input" id="stat4-texto" type="text" value="Escritórios" /></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="formFooter">
+            <button class="btn secondary" type="button" onclick="location.reload()">Descartar alterações</button>
+            <button class="btn primary hasLeft" type="submit">
+              <span class="icon"><i data-lucide="save" width="16" height="16"></i></span>
+              Salvar alterações
+            </button>
+          </div>
+        </form>
+
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="shared/sidebar.js"></script>
+  <script>
+    /* ── Dropzones com imagem existente (visualizar/alterar/remover) ─────── */
+    function setupImageUpload(prefixo) {
+      const dropzone = document.getElementById(prefixo + '-dropzone');
+      const input = document.getElementById(prefixo + '-input');
+      const empty = document.getElementById(prefixo + '-empty');
+      const preview = document.getElementById(prefixo + '-preview');
+      const img = document.getElementById(prefixo + '-preview-img');
+
+      function mostrarImagem(src) {
+        empty.hidden = !!src;
+        preview.hidden = !src;
+        if (src) img.src = src;
+      }
+
+      input.addEventListener('change', () => {
+        const file = input.files?.[0];
+        if (file) mostrarImagem(URL.createObjectURL(file));
+      });
+
+      document.getElementById(prefixo + '-view').addEventListener('click', (e) => {
+        e.preventDefault(); e.stopPropagation();
+        window.open(img.src, '_blank');
+      });
+
+      document.getElementById(prefixo + '-change').addEventListener('click', (e) => {
+        e.preventDefault(); e.stopPropagation();
+        input.click();
+      });
+
+      document.getElementById(prefixo + '-remove').addEventListener('click', (e) => {
+        e.preventDefault(); e.stopPropagation();
+        input.value = '';
+        mostrarImagem(null);
+      });
+
+      dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragOver'); });
+      dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragOver'));
+      dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('dragOver');
+        const file = e.dataTransfer.files?.[0];
+        if (file) { input.files = e.dataTransfer.files; mostrarImagem(URL.createObjectURL(file)); }
+      });
+    }
+
+    setupImageUpload('logo');
+    setupImageUpload('hero');
+
+    /* ── Links úteis cadastrados (módulo Links Úteis) ────────────────────── */
+    const LINKS_UTEIS = [
+      { id: 'manual-marca',     nome: 'Manual da Marca EQS' },
+      { id: 'codigo-conduta',   nome: 'Código de Conduta' },
+      { id: 'central-suporte',  nome: 'Central de Suporte' },
+      { id: 'politica-privacidade', nome: 'Política de Privacidade' },
+      { id: 'portal-beneficios', nome: 'Portal de Benefícios' },
+      { id: 'reembolso',        nome: 'Reembolso de Despesas' },
+      { id: 'ferias',           nome: 'Solicitação de Férias' },
+      { id: 'fornecedores',     nome: 'Catálogo de Fornecedores' },
+      { id: 'base-conhecimento', nome: 'Base de Conhecimento Técnico' },
+    ];
+
+    document.querySelectorAll('[data-quicklink-menu]').forEach((menu) => {
+      const selecionado = menu.dataset.selected;
+      menu.innerHTML = LINKS_UTEIS.map((l) =>
+        `<div class="option${l.id === selecionado ? ' selected' : ''}" data-value="${l.id}" role="option">${l.nome}</div>`).join('');
+    });
+
+    /* ── Dropdowns (padrão rules.md) ─────────────────────────────────────── */
+    document.querySelectorAll('[id$="-dropdown"]').forEach((dropdown) => {
+      const trigger = dropdown.querySelector('.trigger');
+      const menu = dropdown.querySelector('.menu');
+      trigger.addEventListener('click', () => menu.classList.toggle('open'));
+      dropdown.querySelectorAll('.option').forEach((option) => {
+        option.addEventListener('click', () => {
+          dropdown.querySelectorAll('.option').forEach((o) => o.classList.remove('selected'));
+          option.classList.add('selected');
+          dropdown.querySelector('[id$="-value"]').textContent = option.textContent;
+          menu.classList.remove('open');
+        });
+      });
+      document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) menu.classList.remove('open');
+      });
+    });
+
+    /* ── IconPickers dos 4 números ───────────────────────────────────────── */
+    const ICON_OPTIONS = [
+      'clock', 'users', 'map', 'shield-check', 'building-2', 'trophy',
+      'award', 'briefcase', 'chart-line', 'globe', 'hard-hat', 'handshake',
+      'target', 'rocket', 'star', 'heart', 'lightbulb', 'map-pin',
+      'landmark', 'ruler', 'wrench', 'zap', 'leaf', 'calendar',
+    ];
+
+    function setupIconPicker(id, inicial) {
+      const root = document.getElementById(id + '-picker');
+      const trigger = document.getElementById(id + '-trigger');
+      const menu = document.getElementById(id + '-menu');
+      const preview = document.getElementById(id + '-preview');
+      const value = document.getElementById(id + '-value');
+      let selecionado = inicial;
+
+      menu.innerHTML = ICON_OPTIONS.map((name) => `
+        <button type="button" role="option" title="${name}" data-icon="${name}"
+          class="iconPickerOption${name === selecionado ? ' selected' : ''}"
+          aria-selected="${name === selecionado}">
+          <i data-lucide="${name}" width="18" height="18"></i>
+        </button>`).join('');
+
+      trigger.addEventListener('click', () => {
+        const open = root.classList.toggle('open');
+        trigger.setAttribute('aria-expanded', String(open));
+      });
+
+      menu.querySelectorAll('.iconPickerOption').forEach((option) => {
+        option.addEventListener('click', () => {
+          selecionado = option.dataset.icon;
+          menu.querySelectorAll('.iconPickerOption').forEach((o) => {
+            o.classList.toggle('selected', o === option);
+            o.setAttribute('aria-selected', String(o === option));
+          });
+          preview.innerHTML = `<i data-lucide="${selecionado}" width="14" height="14"></i>`;
+          value.textContent = selecionado;
+          lucide.createIcons();
+          root.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!root.contains(e.target)) {
+          root.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    setupIconPicker('stat1', 'clock');
+    setupIconPicker('stat2', 'users');
+    setupIconPicker('stat3', 'map');
+    setupIconPicker('stat4', 'shield-check');
+
+    /* ── Salvar (protótipo) — mostra feedback de sucesso ─────────────────── */
+    const form = document.getElementById('home-form');
+    const feedback = document.getElementById('form-feedback');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      feedback.hidden = false;
+      lucide.createIcons();
+      document.querySelector('.pageContent').scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>

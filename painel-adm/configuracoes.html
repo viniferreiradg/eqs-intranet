@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configurações — EQS Intranet</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/Background/Background.module.css" />
+  <link rel="stylesheet" href="../componentes/Card/Card.module.css" />
+  <link rel="stylesheet" href="../componentes/Divider/Divider.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/ImageUpload/ImageUpload.module.css" />
+  <link rel="stylesheet" href="../componentes/Dialog/Dialog.module.css" />
+  <link rel="stylesheet" href="../componentes/OTPInput/OTPInput.module.css" />
+  <link rel="stylesheet" href="../componentes/Tab/Tab.module.css" />
+  <link rel="stylesheet" href="../componentes/Feedback/Feedback.module.css" />
+  <link rel="stylesheet" href="../componentes/Chip/Chip.module.css" />
+</head>
+<body class="layout-dashboard" data-page="configuracoes">
+
+  <aside id="sidebar-root"></aside>
+
+  <main class="main bgWrapper">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <div class="pageHeader">
+      <h1 class="pageTitle">Configurações</h1>
+      <p class="pageSubtitle">Gerencie seu perfil e as preferências do painel.</p>
+    </div>
+
+    <div class="pageContent">
+      <div class="tabNav">
+        <div class="tabList" role="tablist">
+          <button class="tabBtn tabBtnActive" role="tab" aria-selected="true" type="button" data-tab="perfil">Perfil</button>
+          <button class="tabBtn" role="tab" aria-selected="false" type="button" data-tab="aparencia">Aparência</button>
+          <button class="tabBtn" role="tab" aria-selected="false" type="button" data-tab="notificacoes">Notificações</button>
+          <button class="tabBtn" role="tab" aria-selected="false" type="button" data-tab="sobre">Sobre</button>
+        </div>
+      </div>
+
+      <!-- ── Tab: Perfil ───────────────────────────────────────────── -->
+      <div id="tab-perfil" role="tabpanel">
+        <form class="card" id="perfil-form" novalidate>
+          <div class="formSection">
+            <div class="alert success" id="feedback-2fa" role="alert" hidden>
+              <span class="fbIcon"><i data-lucide="shield-check" width="18" height="18"></i></span>
+              <div class="fbBody">
+                <div class="fbTitle">Autenticação em dois fatores ativada</div>
+                <div class="fbMessage">A partir do próximo acesso, você receberá um código de verificação por e-mail.</div>
+              </div>
+              <button class="fbDismiss" type="button" aria-label="Fechar" onclick="this.closest('.alert').hidden = true"><i data-lucide="x" width="14" height="14"></i></button>
+            </div>
+
+            <div class="alert success" id="form-feedback" role="alert" hidden>
+              <span class="fbIcon"><i data-lucide="circle-check" width="18" height="18"></i></span>
+              <div class="fbBody">
+                <div class="fbTitle">Alterações salvas</div>
+                <div class="fbMessage">Seu perfil foi atualizado.</div>
+              </div>
+              <button class="fbDismiss" type="button" aria-label="Fechar" onclick="this.closest('.alert').hidden = true"><i data-lucide="x" width="14" height="14"></i></button>
+            </div>
+
+            <h2 class="sectionTitle">Perfil</h2>
+            <p class="sectionSubtitle">Como você aparece no painel e no portal.</p>
+
+            <div class="formGrid">
+              <div class="wrapper">
+                <span class="label">Foto de perfil</span>
+                <label class="dropzone" id="foto-dropzone">
+                  <input type="file" accept="image/*" class="hiddenInput" id="foto-input" />
+                  <div class="empty" id="foto-empty">
+                    <span class="emptyIcon"><i data-lucide="image-plus" width="24" height="24"></i></span>
+                    <span class="emptyText">Clique ou arraste uma foto</span>
+                    <span class="emptyHint">PNG ou JPG, até 5MB</span>
+                  </div>
+                  <div class="preview" id="foto-preview" hidden>
+                    <img class="previewImg" id="foto-preview-img" alt="Pré-visualização da foto de perfil" />
+                    <div class="previewActions">
+                      <button type="button" class="previewAction" id="foto-view" aria-label="Visualizar foto" title="Visualizar"><i data-lucide="eye" width="14" height="14"></i></button>
+                      <button type="button" class="previewAction" id="foto-change" aria-label="Alterar foto" title="Alterar"><i data-lucide="upload" width="14" height="14"></i></button>
+                      <button type="button" class="previewAction" id="foto-remove" aria-label="Remover foto" title="Remover"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                    </div>
+                  </div>
+                </label>
+              </div>
+
+              <div class="grid2">
+                <div class="wrapper" id="nome-wrapper">
+                  <label class="label" for="nome">Nome</label>
+                  <div class="inputWrap">
+                    <input class="input" id="nome" type="text" value="Admin EQS" />
+                  </div>
+                  <span class="errorText" id="nome-error" hidden>
+                    <span class="msgIcon"><i data-lucide="circle-x" width="14" height="14"></i></span>
+                    O nome é obrigatório.
+                  </span>
+                </div>
+
+                <div class="wrapper">
+                  <label class="label" for="cargo">Cargo</label>
+                  <div class="inputWrap">
+                    <input class="input" id="cargo" type="text" value="Administrador do Portal" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="wrapper" id="email-wrapper">
+                <label class="label" for="email">E-mail</label>
+                <div class="inputWrap hasLeft">
+                  <span class="iconLeft"><i data-lucide="mail" width="16" height="16"></i></span>
+                  <input class="input" id="email" type="email" value="admin@empresa.com" />
+                </div>
+                <span class="errorText" id="email-error" hidden>
+                  <span class="msgIcon"><i data-lucide="circle-x" width="14" height="14"></i></span>
+                  Informe um e-mail válido.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="formSection">
+            <h2 class="sectionTitle">Segurança</h2>
+            <p class="sectionSubtitle">Alterar senha e proteção adicional da conta.</p>
+
+            <div class="formGrid">
+              <div class="grid3">
+                <div class="wrapper">
+                  <label class="label" for="senha-atual">Senha atual</label>
+                  <div class="inputWrap hasLeft">
+                    <span class="iconLeft"><i data-lucide="lock" width="16" height="16"></i></span>
+                    <input class="input" id="senha-atual" type="password" placeholder="••••••••" autocomplete="current-password" />
+                  </div>
+                </div>
+                <div class="wrapper" id="senha-nova-wrapper">
+                  <label class="label" for="senha-nova">Nova senha</label>
+                  <div class="inputWrap hasLeft">
+                    <span class="iconLeft"><i data-lucide="lock" width="16" height="16"></i></span>
+                    <input class="input" id="senha-nova" type="password" placeholder="••••••••" autocomplete="new-password" />
+                  </div>
+                  <span class="errorText" id="senha-nova-error" hidden>
+                    <span class="msgIcon"><i data-lucide="circle-x" width="14" height="14"></i></span>
+                    As senhas não coincidem.
+                  </span>
+                </div>
+                <div class="wrapper">
+                  <label class="label" for="senha-confirmar">Confirmar nova senha</label>
+                  <div class="inputWrap hasLeft">
+                    <span class="iconLeft"><i data-lucide="lock" width="16" height="16"></i></span>
+                    <input class="input" id="senha-confirmar" type="password" placeholder="••••••••" autocomplete="new-password" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="card2 twofaFrame">
+                <div class="twofaFrameText">
+                  <h3 class="twofaFrameTitle">Autenticação em dois fatores</h3>
+                  <span class="batch error" id="twofa-status">Desativado</span>
+                </div>
+                <button class="btn secondary" type="button" id="twofa-btn">Ativar autenticação de dois fatores</button>
+              </div>
+
+              <div class="wrapper">
+                <span class="label">Último acesso</span>
+                <span class="helperText">Hoje às 08h42 · Windows · São Paulo - SP</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="formFooter">
+            <button class="btn secondary" type="button" onclick="location.reload()">Descartar alterações</button>
+            <button class="btn primary hasLeft" type="submit">
+              <span class="icon"><i data-lucide="save" width="16" height="16"></i></span>
+              Salvar alterações
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ── Tab: Aparência ───────────────────────────────────────── -->
+      <div id="tab-aparencia" role="tabpanel" hidden>
+        <div class="card">
+          <div class="formSection">
+            <div class="alert success" id="feedback-aparencia" role="alert" hidden>
+              <span class="fbIcon"><i data-lucide="circle-check" width="18" height="18"></i></span>
+              <div class="fbBody">
+                <div class="fbTitle">Preferências salvas</div>
+                <div class="fbMessage">O tema da interface foi atualizado.</div>
+              </div>
+              <button class="fbDismiss" type="button" aria-label="Fechar" onclick="this.closest('.alert').hidden = true"><i data-lucide="x" width="14" height="14"></i></button>
+            </div>
+
+            <h2 class="sectionTitle">Sistema de cores</h2>
+            <p class="sectionSubtitle">Escolha entre o modo escuro e o modo claro da interface.</p>
+
+            <div class="themeOptionGrid" role="radiogroup" aria-label="Sistema de cores">
+
+              <button class="themeOption" type="button" id="opt-dark" onclick="selectColorScheme('dark')" aria-pressed="false">
+                <div class="themeOptionPreview themeOptionPreview--dark" aria-hidden="true">
+                  <div class="themeOptionPreviewSidebar">
+                    <div class="themeOptionPreviewSidebarDot active"></div>
+                    <div class="themeOptionPreviewSidebarDot"></div>
+                    <div class="themeOptionPreviewSidebarDot"></div>
+                    <div class="themeOptionPreviewSidebarDot"></div>
+                  </div>
+                  <div class="themeOptionPreviewMain">
+                    <div class="themeOptionPreviewBar"></div>
+                    <div class="themeOptionPreviewArea"></div>
+                  </div>
+                </div>
+                <div class="themeOptionFooter">
+                  <div class="themeOptionInfo">
+                    <span class="themeOptionLabel">Tema escuro</span>
+                    <span class="themeOptionDesc">Interface com fundo escuro</span>
+                  </div>
+                  <span class="themeOptionCheck" aria-hidden="true">
+                    <i data-lucide="check" width="14" height="14"></i>
+                  </span>
+                </div>
+              </button>
+
+              <button class="themeOption" type="button" id="opt-light" onclick="selectColorScheme('light')" aria-pressed="false">
+                <div class="themeOptionPreview themeOptionPreview--light" aria-hidden="true">
+                  <div class="themeOptionPreviewSidebar">
+                    <div class="themeOptionPreviewSidebarDot active"></div>
+                    <div class="themeOptionPreviewSidebarDot"></div>
+                    <div class="themeOptionPreviewSidebarDot"></div>
+                    <div class="themeOptionPreviewSidebarDot"></div>
+                  </div>
+                  <div class="themeOptionPreviewMain">
+                    <div class="themeOptionPreviewBar"></div>
+                    <div class="themeOptionPreviewArea"></div>
+                  </div>
+                </div>
+                <div class="themeOptionFooter">
+                  <div class="themeOptionInfo">
+                    <span class="themeOptionLabel">Tema claro</span>
+                    <span class="themeOptionDesc">Interface com fundo claro</span>
+                  </div>
+                  <span class="themeOptionCheck" aria-hidden="true">
+                    <i data-lucide="check" width="14" height="14"></i>
+                  </span>
+                </div>
+              </button>
+
+            </div>
+          </div>
+
+          <div class="formFooter">
+            <button class="btn secondary" type="button" onclick="location.reload()">Descartar alterações</button>
+            <button class="btn primary hasLeft" type="button" id="aparencia-salvar">
+              <span class="icon"><i data-lucide="save" width="16" height="16"></i></span>
+              Salvar alterações
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Tab: Notificações ────────────────────────────────────── -->
+      <div id="tab-notificacoes" role="tabpanel" hidden>
+        <div class="card">
+          <div class="formSection">
+            <div class="alert success" id="feedback-notificacoes" role="alert" hidden>
+              <span class="fbIcon"><i data-lucide="circle-check" width="18" height="18"></i></span>
+              <div class="fbBody">
+                <div class="fbTitle">Preferências salvas</div>
+                <div class="fbMessage">Suas configurações de notificação foram atualizadas.</div>
+              </div>
+              <button class="fbDismiss" type="button" aria-label="Fechar" onclick="this.closest('.alert').hidden = true"><i data-lucide="x" width="14" height="14"></i></button>
+            </div>
+
+            <h2 class="sectionTitle">Eventos</h2>
+            <p class="sectionSubtitle">Alertas sobre publicação e proximidade de eventos do portal.</p>
+
+            <div class="notifRow">
+              <div class="notifInfo">
+                <span class="notifLabel">Novo evento publicado</span>
+                <span class="notifDesc">Aviso quando um novo evento for publicado no portal</span>
+              </div>
+              <div class="chipGroup">
+                <label class="chip"><input type="checkbox" checked /><i data-lucide="mail" width="14" height="14"></i>E-mail</label>
+                <label class="chip"><input type="checkbox" checked /><i data-lucide="bell" width="14" height="14"></i>Sistema</label>
+              </div>
+            </div>
+
+            <div class="notifRow">
+              <div class="notifInfo">
+                <span class="notifLabel">Eventos próximos</span>
+                <span class="notifDesc">Lembrete quando um evento confirmado estiver se aproximando</span>
+              </div>
+              <div class="chipGroup">
+                <label class="chip"><input type="checkbox" checked /><i data-lucide="mail" width="14" height="14"></i>E-mail</label>
+                <label class="chip"><input type="checkbox" checked /><i data-lucide="bell" width="14" height="14"></i>Sistema</label>
+              </div>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="formSection">
+            <h2 class="sectionTitle">Conteúdo</h2>
+            <p class="sectionSubtitle">Alertas sobre comunicados e documentos publicados no portal.</p>
+
+            <div class="notifRow">
+              <div class="notifInfo">
+                <span class="notifLabel">Comunicados importantes</span>
+                <span class="notifDesc">Aviso quando um comunicado marcado como importante for publicado</span>
+              </div>
+              <div class="chipGroup">
+                <label class="chip"><input type="checkbox" checked /><i data-lucide="mail" width="14" height="14"></i>E-mail</label>
+                <label class="chip"><input type="checkbox" checked /><i data-lucide="bell" width="14" height="14"></i>Sistema</label>
+              </div>
+            </div>
+
+            <div class="notifRow">
+              <div class="notifInfo">
+                <span class="notifLabel">Documento atualizado</span>
+                <span class="notifDesc">Notificação quando um documento existente for substituído ou revisado</span>
+              </div>
+              <div class="chipGroup">
+                <label class="chip"><input type="checkbox" /><i data-lucide="mail" width="14" height="14"></i>E-mail</label>
+                <label class="chip"><input type="checkbox" checked /><i data-lucide="bell" width="14" height="14"></i>Sistema</label>
+              </div>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="formSection">
+            <h2 class="sectionTitle">Usuários e sistema</h2>
+            <p class="sectionSubtitle">Alertas sobre novos usuários e atualizações da plataforma.</p>
+
+            <div class="notifRow">
+              <div class="notifInfo">
+                <span class="notifLabel">Novo usuário cadastrado</span>
+                <span class="notifDesc">Notificação quando um novo usuário for adicionado ao painel</span>
+              </div>
+              <div class="chipGroup">
+                <label class="chip"><input type="checkbox" checked /><i data-lucide="mail" width="14" height="14"></i>E-mail</label>
+                <label class="chip"><input type="checkbox" /><i data-lucide="bell" width="14" height="14"></i>Sistema</label>
+              </div>
+            </div>
+
+            <div class="notifRow">
+              <div class="notifInfo">
+                <span class="notifLabel">Atualizações do sistema</span>
+                <span class="notifDesc">Informações sobre novas funcionalidades e melhorias no painel</span>
+              </div>
+              <div class="chipGroup">
+                <label class="chip"><input type="checkbox" checked /><i data-lucide="mail" width="14" height="14"></i>E-mail</label>
+                <label class="chip"><input type="checkbox" /><i data-lucide="bell" width="14" height="14"></i>Sistema</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="formFooter">
+            <button class="btn secondary" type="button" onclick="location.reload()">Descartar alterações</button>
+            <button class="btn primary hasLeft" type="button" id="notificacoes-salvar">
+              <span class="icon"><i data-lucide="save" width="16" height="16"></i></span>
+              Salvar alterações
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Tab: Sobre ───────────────────────────────────────────── -->
+      <div id="tab-sobre" role="tabpanel" hidden>
+        <div class="card">
+
+          <!-- ── Hero ── -->
+          <div class="formSection">
+            <div class="aboutHero">
+              <span class="logoDefault logoMd" role="img" aria-label="EQS Engenharia"></span>
+              <p class="aboutTagline">Painel de administração da Intranet EQS Engenharia</p>
+            </div>
+            <p class="proseText">O painel administrativo é a interface central de gestão do portal institucional da EQS Engenharia. Permite administrar notícias, eventos, comunicados, documentos, colaboradores e setores — com visibilidade completa sobre todo o conteúdo publicado na intranet.</p>
+          </div>
+
+          <hr class="divider" />
+
+          <!-- ── Versão e ambiente ── -->
+          <div class="formSection">
+            <h2 class="sectionTitle">Versão e ambiente</h2>
+            <div class="metaGrid">
+              <div class="metaField">
+                <span class="metaLabel">Versão</span>
+                <span class="metaValue">1.0.0</span>
+              </div>
+              <div class="metaField">
+                <span class="metaLabel">Ambiente</span>
+                <span class="metaValue">Produção</span>
+              </div>
+              <div class="metaField">
+                <span class="metaLabel">Última atualização</span>
+                <span class="metaValue">Julho de 2026</span>
+              </div>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <!-- ── Novidades ── -->
+          <div class="formSection">
+            <h2 class="sectionTitle">Novidades — v1.0.0</h2>
+            <p class="sectionSubtitle">Principais funcionalidades desta versão</p>
+            <p class="proseText">Gestão completa de notícias, eventos, comunicados e documentos do portal institucional. Diretório de setores e colaboradores com dados de contato. Autenticação em dois fatores para maior segurança da conta. Personalização de aparência com temas claro e escuro. Central de preferências de notificações por e-mail e sistema.</p>
+          </div>
+
+          <hr class="divider" />
+
+          <!-- ── Suporte técnico ── -->
+          <div class="formSection">
+            <h2 class="sectionTitle">Suporte técnico</h2>
+            <p class="sectionSubtitle">Canais para dúvidas e incidentes da plataforma</p>
+            <div class="btnStack">
+              <a href="#" class="btn ghost hasLeft" rel="noopener">
+                <span class="icon"><i data-lucide="book-open" width="16" height="16"></i></span>
+                Documentação — docs.eqs.com.br
+              </a>
+              <a href="#" class="btn ghost hasLeft" rel="noopener">
+                <span class="icon"><i data-lucide="mail" width="16" height="16"></i></span>
+                Suporte técnico — suporte@eqs.com.br
+              </a>
+            </div>
+            <p class="proseText">© 2026 EQS Engenharia. Todos os direitos reservados.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ── Dialog: ativação da autenticação em dois fatores ──────────────── -->
+  <div class="dialogOverlay" id="twofa-dialog" style="display:none;" onclick="twofaClose()">
+    <div class="dialog md" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="twofa-title">
+      <div class="dialogHeader">
+        <span class="dialogTitle" id="twofa-title">Ativar autenticação em dois fatores</span>
+        <button class="dialogCloseBtn" onclick="twofaClose()" aria-label="Fechar" type="button">
+          <i data-lucide="x" width="16" height="16"></i>
+        </button>
+      </div>
+      <div class="dialogBody">
+
+        <!-- Etapa 1 — refazer o login -->
+        <div id="twofa-step1">
+          <div class="formGrid">
+            <p class="sectionSubtitle">Por segurança, confirme suas credenciais para continuar.</p>
+            <div class="wrapper">
+              <label class="label" for="twofa-email">E-mail</label>
+              <div class="inputWrap hasLeft">
+                <span class="iconLeft"><i data-lucide="mail" width="16" height="16"></i></span>
+                <input class="input" id="twofa-email" type="email" value="admin@empresa.com" readonly />
+              </div>
+            </div>
+            <div class="wrapper" id="twofa-senha-wrapper">
+              <label class="label" for="twofa-senha">Senha</label>
+              <div class="inputWrap hasLeft">
+                <span class="iconLeft"><i data-lucide="lock" width="16" height="16"></i></span>
+                <input class="input" id="twofa-senha" type="password" placeholder="••••••••" autocomplete="current-password" />
+              </div>
+              <span class="errorText" id="twofa-senha-error" hidden>
+                <span class="msgIcon"><i data-lucide="circle-x" width="14" height="14"></i></span>
+                Informe sua senha para continuar.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Etapa 2 — código enviado por e-mail (OTP) -->
+        <div id="twofa-step2" hidden>
+          <div class="formGrid">
+            <div class="alert info" role="status">
+              <span class="fbIcon"><i data-lucide="mail-check" width="18" height="18"></i></span>
+              <div class="fbBody">
+                <div class="fbTitle">Código enviado</div>
+                <div class="fbMessage">Enviamos um código de 6 dígitos para <strong>admin@empresa.com</strong>. Ele expira em <span id="twofa-otp-timer">10:00</span>.</div>
+              </div>
+            </div>
+            <div class="wrapper">
+              <span class="label">Código de verificação</span>
+              <div class="otpRoot" id="twofa-otp">
+                <input class="otpCell" type="text" inputmode="numeric" maxlength="1" aria-label="Dígito 1" />
+                <input class="otpCell" type="text" inputmode="numeric" maxlength="1" aria-label="Dígito 2" />
+                <input class="otpCell" type="text" inputmode="numeric" maxlength="1" aria-label="Dígito 3" />
+                <input class="otpCell" type="text" inputmode="numeric" maxlength="1" aria-label="Dígito 4" />
+                <input class="otpCell" type="text" inputmode="numeric" maxlength="1" aria-label="Dígito 5" />
+                <input class="otpCell" type="text" inputmode="numeric" maxlength="1" aria-label="Dígito 6" />
+              </div>
+              <span class="errorText" id="twofa-otp-error" hidden>
+                <span class="msgIcon"><i data-lucide="circle-x" width="14" height="14"></i></span>
+                Digite o código completo de 6 dígitos.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dialogFooter">
+        <button class="btn ghost" type="button" onclick="twofaClose()">Cancelar</button>
+        <button class="btn primary" type="button" id="twofa-action">Continuar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="shared/sidebar.js"></script>
+  <script>
+    lucide.createIcons();
+
+    /* ── Tabs — alterna painéis na própria página ────────────────────────── */
+    const tabBtns = document.querySelectorAll('.tabBtn');
+
+    function switchTab(tab) {
+      tabBtns.forEach((b) => {
+        b.classList.toggle('tabBtnActive', b.dataset.tab === tab);
+        b.setAttribute('aria-selected', String(b.dataset.tab === tab));
+      });
+      document.querySelectorAll('[role="tabpanel"]').forEach((panel) => {
+        panel.hidden = panel.id !== 'tab-' + tab;
+      });
+    }
+
+    tabBtns.forEach((btn) => {
+      btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+    });
+
+    /* ── Aparência — sistema de cores (claro/escuro), sincronizado com a sidebar ── */
+    const optDark = document.getElementById('opt-dark');
+    const optLight = document.getElementById('opt-light');
+
+    function syncThemeOptions() {
+      const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+      optDark.classList.toggle('selected', isDark);
+      optDark.setAttribute('aria-pressed', String(isDark));
+      optLight.classList.toggle('selected', !isDark);
+      optLight.setAttribute('aria-pressed', String(!isDark));
+    }
+
+    function selectColorScheme(scheme) {
+      const isDark = scheme === 'dark';
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      localStorage.setItem('app-theme', isDark ? 'dark' : 'light');
+      syncThemeOptions();
+
+      /* mantém o botão de tema da sidebar coerente com a seleção feita aqui */
+      const themeIcon = document.getElementById('theme-icon');
+      const themeBtn = document.getElementById('theme-btn');
+      if (themeIcon && themeBtn) {
+        const nextIcon = isDark ? 'sun' : 'moon';
+        const nextLabel = isDark ? 'Modo claro' : 'Modo escuro';
+        themeIcon.innerHTML = `<i data-lucide="${nextIcon}" width="16" height="16"></i>`;
+        themeBtn.setAttribute('aria-label', nextLabel);
+        themeBtn.setAttribute('title', nextLabel);
+        lucide.createIcons();
+      }
+    }
+
+    syncThemeOptions();
+
+    document.getElementById('aparencia-salvar').addEventListener('click', () => {
+      const feedbackAparencia = document.getElementById('feedback-aparencia');
+      feedbackAparencia.hidden = false;
+      lucide.createIcons();
+      document.querySelector('.pageContent').scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* ── Notificações — salvar preferências (protótipo) ──────────────────── */
+    document.getElementById('notificacoes-salvar').addEventListener('click', () => {
+      const feedbackNotificacoes = document.getElementById('feedback-notificacoes');
+      feedbackNotificacoes.hidden = false;
+      lucide.createIcons();
+      document.querySelector('.pageContent').scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* ── Foto de perfil — dropzone com ações (visualizar/alterar/remover) ── */
+    const fotoInput = document.getElementById('foto-input');
+    const fotoDropzone = document.getElementById('foto-dropzone');
+    const fotoEmpty = document.getElementById('foto-empty');
+    const fotoPreview = document.getElementById('foto-preview');
+    const fotoImg = document.getElementById('foto-preview-img');
+
+    function mostrarFoto(src) {
+      fotoEmpty.hidden = !!src;
+      fotoPreview.hidden = !src;
+      if (src) fotoImg.src = src;
+    }
+
+    fotoInput.addEventListener('change', () => {
+      const file = fotoInput.files?.[0];
+      if (file) mostrarFoto(URL.createObjectURL(file));
+    });
+    document.getElementById('foto-view').addEventListener('click', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      window.open(fotoImg.src, '_blank');
+    });
+    document.getElementById('foto-change').addEventListener('click', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      fotoInput.click();
+    });
+    document.getElementById('foto-remove').addEventListener('click', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      fotoInput.value = '';
+      mostrarFoto(null);
+    });
+    fotoDropzone.addEventListener('dragover', (e) => { e.preventDefault(); fotoDropzone.classList.add('dragOver'); });
+    fotoDropzone.addEventListener('dragleave', () => fotoDropzone.classList.remove('dragOver'));
+    fotoDropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      fotoDropzone.classList.remove('dragOver');
+      const file = e.dataTransfer.files?.[0];
+      if (file) { fotoInput.files = e.dataTransfer.files; mostrarFoto(URL.createObjectURL(file)); }
+    });
+
+    /* ── 2FA — ativar abre o dialog em duas etapas (login → OTP) ─────────── */
+    const twofaBtn = document.getElementById('twofa-btn');
+    const twofaDialog = document.getElementById('twofa-dialog');
+    const twofaStep1 = document.getElementById('twofa-step1');
+    const twofaStep2 = document.getElementById('twofa-step2');
+    const twofaAction = document.getElementById('twofa-action');
+    const twofaSenha = document.getElementById('twofa-senha');
+    const otpCells = [...document.querySelectorAll('#twofa-otp .otpCell')];
+    const twofaStatus = document.getElementById('twofa-status');
+    const twofaOtpTimer = document.getElementById('twofa-otp-timer');
+    let twofaEtapa = 1;
+    let twofaOtpInterval = null;
+
+    function twofaStartOtpTimer() {
+      clearInterval(twofaOtpInterval);
+      let segundosRestantes = 10 * 60;
+      const atualizar = () => {
+        const min = String(Math.floor(segundosRestantes / 60)).padStart(2, '0');
+        const seg = String(segundosRestantes % 60).padStart(2, '0');
+        twofaOtpTimer.textContent = `${min}:${seg}`;
+      };
+      atualizar();
+      twofaOtpInterval = setInterval(() => {
+        segundosRestantes--;
+        atualizar();
+        if (segundosRestantes <= 0) clearInterval(twofaOtpInterval);
+      }, 1000);
+    }
+
+    function twofaSetAtivo(ativo) {
+      twofaStatus.classList.toggle('success', ativo);
+      twofaStatus.classList.toggle('error', !ativo);
+      twofaStatus.textContent = ativo ? 'Ativado' : 'Desativado';
+      twofaBtn.textContent = ativo ? 'Desativar autenticação de dois fatores' : 'Ativar autenticação de dois fatores';
+    }
+
+    twofaBtn.addEventListener('click', () => {
+      if (twofaStatus.classList.contains('success')) {
+        twofaSetAtivo(false);
+        return;
+      }
+      twofaOpen();
+    });
+
+    function twofaOpen() {
+      clearInterval(twofaOtpInterval);
+      twofaEtapa = 1;
+      twofaStep1.hidden = false;
+      twofaStep2.hidden = true;
+      twofaAction.textContent = 'Continuar';
+      twofaSenha.value = '';
+      document.getElementById('twofa-senha-wrapper').classList.remove('error');
+      document.getElementById('twofa-senha-error').hidden = true;
+      otpCells.forEach((c) => { c.value = ''; c.classList.remove('filled', 'error'); });
+      document.getElementById('twofa-otp-error').hidden = true;
+      twofaDialog.style.display = 'flex';
+      twofaSenha.focus();
+    }
+
+    function twofaClose() {
+      twofaDialog.style.display = 'none';
+      clearInterval(twofaOtpInterval);
+    }
+
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') twofaClose(); });
+
+    function twofaGoStep2() {
+      twofaEtapa = 2;
+      twofaStep1.hidden = true;
+      twofaStep2.hidden = false;
+      twofaAction.textContent = 'Ativar';
+      lucide.createIcons();
+      otpCells[0].focus();
+      twofaStartOtpTimer();
+    }
+
+    twofaAction.addEventListener('click', () => {
+      if (twofaEtapa === 1) {
+        const senhaVazia = !twofaSenha.value.trim();
+        document.getElementById('twofa-senha-wrapper').classList.toggle('error', senhaVazia);
+        document.getElementById('twofa-senha-error').hidden = !senhaVazia;
+        if (senhaVazia) return;
+        twofaGoStep2();
+        return;
+      }
+      /* etapa 2 — valida o código completo */
+      const codigo = otpCells.map((c) => c.value).join('');
+      const incompleto = codigo.length < 6;
+      otpCells.forEach((c) => c.classList.toggle('error', incompleto && !c.value));
+      document.getElementById('twofa-otp-error').hidden = !incompleto;
+      if (incompleto) return;
+
+      twofaClose();
+      twofaSetAtivo(true);
+      const feedback2fa = document.getElementById('feedback-2fa');
+      feedback2fa.hidden = false;
+      lucide.createIcons();
+      document.querySelector('.pageContent').scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* abre direto num estado do fluxo 2FA via hash (registro no prototipo.html) */
+    if (location.hash === '#2fa-etapa1') {
+      twofaOpen();
+    } else if (location.hash === '#2fa-etapa2') {
+      twofaOpen();
+      twofaGoStep2();
+    } else if (location.hash === '#2fa-ativada') {
+      twofaSetAtivo(true);
+      document.getElementById('feedback-2fa').hidden = false;
+    } else if (location.hash === '#aparencia') {
+      switchTab('aparencia');
+    } else if (location.hash === '#notificacoes') {
+      switchTab('notificacoes');
+    } else if (location.hash === '#sobre') {
+      switchTab('sobre');
+    }
+
+    /* OTP — auto-avanço, backspace volta, aceita só dígitos */
+    otpCells.forEach((cell, i) => {
+      cell.addEventListener('input', () => {
+        cell.value = cell.value.replace(/\D/g, '').slice(0, 1);
+        cell.classList.toggle('filled', !!cell.value);
+        cell.classList.remove('error');
+        if (cell.value && i < otpCells.length - 1) otpCells[i + 1].focus();
+      });
+      cell.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !cell.value && i > 0) otpCells[i - 1].focus();
+      });
+      cell.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const digitos = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6);
+        digitos.split('').forEach((d, j) => {
+          if (otpCells[j]) { otpCells[j].value = d; otpCells[j].classList.add('filled'); }
+        });
+        otpCells[Math.min(digitos.length, 5)].focus();
+      });
+    });
+
+    /* ── Validação simples + salvar (protótipo) ──────────────────────────── */
+    const form = document.getElementById('perfil-form');
+    const feedback = document.getElementById('form-feedback');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let temErro = false;
+
+      const nomeVazio = !document.getElementById('nome').value.trim();
+      document.getElementById('nome-wrapper').classList.toggle('error', nomeVazio);
+      document.getElementById('nome-error').hidden = !nomeVazio;
+      if (nomeVazio) temErro = true;
+
+      const emailInvalido = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('email').value.trim());
+      document.getElementById('email-wrapper').classList.toggle('error', emailInvalido);
+      document.getElementById('email-error').hidden = !emailInvalido;
+      if (emailInvalido) temErro = true;
+
+      /* senhas: só valida se o usuário preencheu a nova */
+      const nova = document.getElementById('senha-nova').value;
+      const confirmar = document.getElementById('senha-confirmar').value;
+      const senhasDiferentes = !!nova && nova !== confirmar;
+      document.getElementById('senha-nova-wrapper').classList.toggle('error', senhasDiferentes);
+      document.getElementById('senha-nova-error').hidden = !senhasDiferentes;
+      if (senhasDiferentes) temErro = true;
+
+      if (temErro) return;
+
+      feedback.hidden = false;
+      lucide.createIcons();
+      document.querySelector('.pageContent').scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>

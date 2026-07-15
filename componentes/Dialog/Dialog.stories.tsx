@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Dialog } from './Dialog';
 import { Button } from '../Button/Button';
 
-const meta: Meta<typeof Dialog> = { title: 'Components/Dialog', component: Dialog, tags: ['autodocs'],
+const meta: Meta<typeof Dialog> = { title: 'Primitives/Dialog', component: Dialog, tags: ['autodocs'],
   parameters: { layout: 'fullscreen' } };
 export default meta;
 type Story = StoryObj<typeof Dialog>;

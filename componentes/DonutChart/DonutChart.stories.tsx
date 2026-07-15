@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DonutChart } from './DonutChart';
 
 const meta: Meta<typeof DonutChart> = {
-  title: 'Components/DonutChart',
+  title: 'Primitives/DonutChart',
   component: DonutChart,
   parameters: { layout: 'padded' },
   decorators: [

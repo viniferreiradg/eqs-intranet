@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Novo Link — EQS Intranet</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/Background/Background.module.css" />
+  <link rel="stylesheet" href="../componentes/Breadcrumb/Breadcrumb.module.css" />
+  <link rel="stylesheet" href="../componentes/Card/Card.module.css" />
+  <link rel="stylesheet" href="../componentes/Divider/Divider.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/IconPicker/IconPicker.module.css" />
+  <link rel="stylesheet" href="../componentes/Toggle/Toggle.module.css" />
+  <link rel="stylesheet" href="../componentes/Feedback/Feedback.module.css" />
+</head>
+<body class="layout-dashboard" data-page="links-uteis">
+
+  <aside id="sidebar-root"></aside>
+
+  <main class="main bgWrapper">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <div class="pageHeader">
+      <nav aria-label="Breadcrumb" class="nav">
+        <ol class="list">
+          <li class="item">
+            <a href="links-uteis-lista.html" class="link">
+              Links Úteis
+              <span class="sep" aria-hidden="true"><i data-lucide="chevron-right" width="12" height="12"></i></span>
+            </a>
+          </li>
+          <li class="item"><span class="current">Novo Link</span></li>
+        </ol>
+      </nav>
+      <h1 class="pageTitle">Novo Link</h1>
+      <p class="pageSubtitle">Preencha as informações abaixo para adicionar um link útil ao portal.</p>
+    </div>
+
+    <div class="pageContent">
+      <form class="card" id="link-form" novalidate>
+        <div class="formSection">
+          <div class="alert error" id="form-feedback" role="alert" hidden>
+            <span class="fbIcon"><i data-lucide="circle-x" width="18" height="18"></i></span>
+            <div class="fbBody">
+              <div class="fbTitle">Não foi possível salvar</div>
+              <div class="fbMessage" id="form-feedback-msg">Revise os campos destacados.</div>
+            </div>
+          </div>
+
+          <div class="formGrid">
+            <div class="iconPickerRoot" id="icone-picker">
+              <span class="label">Ícone</span>
+              <button type="button" class="iconPickerTrigger" id="icone-trigger" aria-haspopup="listbox" aria-expanded="false">
+                <span class="iconPickerPreview" id="icone-preview"><i data-lucide="link" width="14" height="14"></i></span>
+                <span class="iconPickerValue" id="icone-value">link</span>
+                <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+              </button>
+              <div class="iconPickerMenu" id="icone-menu" role="listbox" aria-label="Ícones"></div>
+              <span class="helperText">Aparece no card do link na página de Links Úteis do portal.</span>
+            </div>
+
+            <div class="wrapper" id="titulo-wrapper">
+              <label class="label" for="titulo">Título</label>
+              <div class="inputWrap">
+                <input class="input" id="titulo" name="titulo" type="text" placeholder="Ex: Central de Suporte" />
+              </div>
+              <span class="errorText" id="titulo-error" hidden>
+                <span class="msgIcon"><i data-lucide="circle-x" width="14" height="14"></i></span>
+                O título é obrigatório.
+              </span>
+            </div>
+
+            <div class="wrapper" id="url-wrapper">
+              <label class="label" for="url">URL</label>
+              <div class="inputWrap hasLeft">
+                <span class="iconLeft"><i data-lucide="link" width="16" height="16"></i></span>
+                <input class="input" id="url" name="url" type="url" placeholder="https://suporte.eqs.com.br" />
+              </div>
+              <span class="errorText" id="url-error" hidden>
+                <span class="msgIcon"><i data-lucide="circle-x" width="14" height="14"></i></span>
+                Informe uma URL válida, começando com https://
+              </span>
+            </div>
+
+            <div class="wrapper">
+              <label class="label" for="descricao">Descrição curta</label>
+              <div class="inputWrap">
+                <input class="input" id="descricao" name="descricao" type="text" placeholder="Ex: Abra um chamado com o time de TI ou Facilities" />
+              </div>
+              <span class="helperText">Aparece abaixo do título no card do link. Recomendado: até 140 caracteres.</span>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="formSection toggleField">
+          <label class="toggleWrapper" for="link-ativo">
+            <input type="checkbox" class="toggleInput" id="link-ativo" name="link-ativo" checked />
+            <span class="toggleTrack"><span class="toggleThumb"></span></span>
+            <span class="toggleLabel">Link ativo</span>
+          </label>
+          <span class="helperText" id="ativo-hint">O link ficará visível na página de Links Úteis imediatamente após salvar.</span>
+        </div>
+
+        <div class="formFooter">
+          <button class="btn secondary" type="button" onclick="location.href='links-uteis-lista.html'">Cancelar</button>
+          <button class="btn primary hasLeft" type="submit">
+            <span class="icon"><i data-lucide="save" width="16" height="16"></i></span>
+            Salvar
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="shared/sidebar.js"></script>
+  <script>
+    /* ── IconPicker (vanilla) — ícones típicos de links úteis ────────────── */
+    const ICON_OPTIONS = [
+      'link', 'external-link', 'globe', 'book-open', 'book-marked', 'file-text',
+      'shield-check', 'lock', 'life-buoy', 'headset', 'gift', 'receipt',
+      'calendar-check', 'clock', 'wallet', 'graduation-cap', 'truck', 'package',
+      'message-circle', 'mail', 'phone', 'briefcase', 'building-2', 'archive',
+    ];
+
+    const pickerRoot = document.getElementById('icone-picker');
+    const pickerTrigger = document.getElementById('icone-trigger');
+    const pickerMenu = document.getElementById('icone-menu');
+    const pickerPreview = document.getElementById('icone-preview');
+    const pickerValue = document.getElementById('icone-value');
+    let iconeSelecionado = 'link';
+
+    pickerMenu.innerHTML = ICON_OPTIONS.map((name) => `
+      <button type="button" role="option" title="${name}" data-icon="${name}"
+        class="iconPickerOption${name === iconeSelecionado ? ' selected' : ''}"
+        aria-selected="${name === iconeSelecionado}">
+        <i data-lucide="${name}" width="18" height="18"></i>
+      </button>`).join('');
+
+    lucide.createIcons();
+
+    pickerTrigger.addEventListener('click', () => {
+      const open = pickerRoot.classList.toggle('open');
+      pickerTrigger.setAttribute('aria-expanded', String(open));
+    });
+
+    pickerMenu.querySelectorAll('.iconPickerOption').forEach((option) => {
+      option.addEventListener('click', () => {
+        iconeSelecionado = option.dataset.icon;
+        pickerMenu.querySelectorAll('.iconPickerOption').forEach((o) => {
+          o.classList.toggle('selected', o === option);
+          o.setAttribute('aria-selected', String(o === option));
+        });
+        pickerPreview.innerHTML = `<i data-lucide="${iconeSelecionado}" width="14" height="14"></i>`;
+        pickerValue.textContent = iconeSelecionado;
+        lucide.createIcons();
+        pickerRoot.classList.remove('open');
+        pickerTrigger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!pickerRoot.contains(e.target)) {
+        pickerRoot.classList.remove('open');
+        pickerTrigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    /* ── Toggle "Link ativo" — atualiza o texto de apoio ─────────────────── */
+    const ativoInput = document.getElementById('link-ativo');
+    const ativoHint = document.getElementById('ativo-hint');
+    ativoInput.addEventListener('change', () => {
+      ativoHint.textContent = ativoInput.checked
+        ? 'O link ficará visível na página de Links Úteis imediatamente após salvar.'
+        : 'O link será salvo como inativo, sem aparecer no portal.';
+    });
+
+    /* ── Validação simples + submit (protótipo) ──────────────────────────── */
+    const form = document.getElementById('link-form');
+    const feedback = document.getElementById('form-feedback');
+    const feedbackMsg = document.getElementById('form-feedback-msg');
+    const titulo = document.getElementById('titulo');
+    const url = document.getElementById('url');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let temErro = false;
+
+      const tituloVazio = !titulo.value.trim();
+      document.getElementById('titulo-wrapper').classList.toggle('error', tituloVazio);
+      document.getElementById('titulo-error').hidden = !tituloVazio;
+      if (tituloVazio) temErro = true;
+
+      const urlInvalida = !/^https?:\/\/.+\..+/.test(url.value.trim());
+      document.getElementById('url-wrapper').classList.toggle('error', urlInvalida);
+      document.getElementById('url-error').hidden = !urlInvalida;
+      if (urlInvalida) temErro = true;
+
+      if (temErro) {
+        feedbackMsg.textContent = 'Revise os campos destacados.';
+        feedback.hidden = false;
+        return;
+      }
+
+      feedback.hidden = true;
+      location.href = 'links-uteis-lista.html';
+    });
+  </script>
+</body>
+</html>

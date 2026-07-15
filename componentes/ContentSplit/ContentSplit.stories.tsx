@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ContentSplit } from './ContentSplit';
 
 const meta: Meta<typeof ContentSplit> = {
-  title: 'Components/ContentSplit',
+  title: 'Primitives/ContentSplit',
   component: ContentSplit,
   tags: ['autodocs'],
   parameters: {

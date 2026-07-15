@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Card } from './Card';
 
 const meta: Meta<typeof Card> = {
-  title: 'Components/Card',
+  title: 'Primitives/Card',
   component: Card,
   parameters: { layout: 'centered' },
 };
@@ -25,10 +25,9 @@ export const Default: Story = {
   },
 };
 
-export const Glass2: Story = {
-  name: 'Glass 2 — rgba(255,255,255,0.40)',
+export const Elevated: Story = {
   args: {
-    variant: 'glass2',
+    variant: 'elevated',
     children: <SampleContent />,
   },
 };

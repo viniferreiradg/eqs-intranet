@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentos — EQS Intranet</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/Background/Background.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../componentes/Table/Table.module.css" />
+  <link rel="stylesheet" href="../componentes/Pagination/Pagination.module.css" />
+</head>
+<body class="layout-dashboard" data-page="documentos">
+
+  <aside id="sidebar-root"></aside>
+
+  <main class="main bgWrapper">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <div class="pageHeader pageHeaderRow">
+      <div>
+        <h1 class="pageTitle">Documentos</h1>
+        <p class="pageSubtitle" id="documentos-count">10 documentos cadastrados</p>
+      </div>
+      <button class="btn primary hasLeft" type="button" onclick="location.href='documentos-cadastrar.html'">
+        <span class="icon"><i data-lucide="plus" width="16" height="16"></i></span>
+        Novo Documento
+      </button>
+    </div>
+
+    <div class="pageContent">
+      <div class="toolbar">
+        <div class="wrapper searchWrap">
+          <div class="inputWrap hasLeft">
+            <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+            <input class="input" type="text" id="search-input" placeholder="Buscar documento..." />
+          </div>
+        </div>
+
+        <div class="wrapper filterWrap" id="vinculo-dropdown">
+          <div class="trigger" id="vinculo-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+            <span id="vinculo-value">Todos os vínculos</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu" role="listbox">
+            <div class="option selected" data-value="" role="option">Todos os vínculos</div>
+            <div class="option" data-value="evento" role="option">Eventos</div>
+            <div class="option" data-value="setor" role="option">Setores</div>
+            <div class="option" data-value="geral" role="option">Sem vínculo</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="tableWrap">
+          <table class="table">
+            <thead>
+              <tr class="headerRow">
+                <th class="th thFirst">Documento</th>
+                <th class="th">Arquivo</th>
+                <th class="th">Vinculado a</th>
+                <th class="th">Atualizado em</th>
+                <th class="th">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="documentos-tbody">
+              <tr class="tr" data-vinculo="setor">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="file-text" width="14" height="14"></i></span>
+                    Manual da Marca EQS
+                  </span>
+                </td>
+                <td class="td tdMono">PDF · 8.4 MB</td>
+                <td class="td"><span class="badge" data-status="violet"><span class="badgeDot"></span>Setor: Marketing</span></td>
+                <td class="td tdMono">12/05/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='documentos-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-vinculo="geral">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="file-text" width="14" height="14"></i></span>
+                    Código de Conduta
+                  </span>
+                </td>
+                <td class="td tdMono">PDF · 1.2 MB</td>
+                <td class="td"><span class="badge" data-status="disabled"><span class="badgeDot"></span>Geral</span></td>
+                <td class="td tdMono">12/05/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='documentos-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-vinculo="geral">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="file-text" width="14" height="14"></i></span>
+                    Política de Privacidade
+                  </span>
+                </td>
+                <td class="td tdMono">PDF · 1.5 MB</td>
+                <td class="td"><span class="badge" data-status="disabled"><span class="badgeDot"></span>Geral</span></td>
+                <td class="td tdMono">10/05/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='documentos-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-vinculo="geral">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="file-text" width="14" height="14"></i></span>
+                    Portal de Benefícios
+                  </span>
+                </td>
+                <td class="td tdMono">PDF · 2.4 MB</td>
+                <td class="td"><span class="badge" data-status="disabled"><span class="badgeDot"></span>Geral</span></td>
+                <td class="td tdMono">08/05/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='documentos-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-vinculo="setor">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="file-text" width="14" height="14"></i></span>
+                    Solicitação de Férias
+                  </span>
+                </td>
+                <td class="td tdMono">PDF · 600 KB</td>
+                <td class="td"><span class="badge" data-status="violet"><span class="badgeDot"></span>Setor: Recursos Humanos</span></td>
+                <td class="td tdMono">05/05/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='documentos-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-vinculo="setor">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="file-text" width="14" height="14"></i></span>
+                    Reembolso de Despesas
+                  </span>
+                </td>
+                <td class="td tdMono">PDF · 1.1 MB</td>
+                <td class="td"><span class="badge" data-status="violet"><span class="badgeDot"></span>Setor: Financeiro</span></td>
+                <td class="td tdMono">02/05/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='documentos-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-vinculo="setor">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="file-text" width="14" height="14"></i></span>
+                    Catálogo de Fornecedores
+                  </span>
+                </td>
+                <td class="td tdMono">PDF · 3.7 MB</td>
+                <td class="td"><span class="badge" data-status="violet"><span class="badgeDot"></span>Setor: Suprimentos</span></td>
+                <td class="td tdMono">30/04/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='documentos-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-vinculo="setor">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="file-text" width="14" height="14"></i></span>
+                    Base de Conhecimento Técnico
+                  </span>
+                </td>
+                <td class="td tdMono">PDF · 4.8 MB</td>
+                <td class="td"><span class="badge" data-status="violet"><span class="badgeDot"></span>Setor: Engenharia</span></td>
+                <td class="td tdMono">28/04/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='documentos-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-vinculo="evento">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="file-text" width="14" height="14"></i></span>
+                    Apresentação BIM 4.0
+                  </span>
+                </td>
+                <td class="td tdMono">PDF · 8.4 MB</td>
+                <td class="td"><span class="badge" data-status="info"><span class="badgeDot"></span>Evento: Workshop BIM 4.0</span></td>
+                <td class="td tdMono">25/04/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='documentos-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr" data-vinculo="evento">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="file-text" width="14" height="14"></i></span>
+                    Cronograma do Workshop de Segurança
+                  </span>
+                </td>
+                <td class="td tdMono">PDF · 900 KB</td>
+                <td class="td"><span class="badge" data-status="info"><span class="badgeDot"></span>Evento: Workshop de Segurança</span></td>
+                <td class="td tdMono">22/04/2026</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='documentos-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="pagination">
+        <span class="info">Exibindo 1–10 de 10 resultados</span>
+        <div class="controls">
+          <button class="paginBtn" aria-label="Página anterior" disabled><i data-lucide="chevron-left" width="14" height="14"></i></button>
+          <button class="paginBtn paginBtnActive" aria-current="page">1</button>
+          <button class="paginBtn" aria-label="Próxima página" disabled><i data-lucide="chevron-right" width="14" height="14"></i></button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="shared/sidebar.js"></script>
+  <script>
+    lucide.createIcons();
+
+    /* ── Dropdown de vínculo (padrão documentado em rules.md) ────────────── */
+    document.querySelectorAll('[id$="-dropdown"]').forEach((dropdown) => {
+      const trigger = dropdown.querySelector('.trigger');
+      const menu = dropdown.querySelector('.menu');
+      trigger.addEventListener('click', () => menu.classList.toggle('open'));
+      dropdown.querySelectorAll('.option').forEach((option) => {
+        option.addEventListener('click', () => {
+          dropdown.querySelectorAll('.option').forEach((o) => o.classList.remove('selected'));
+          option.classList.add('selected');
+          dropdown.querySelector('[id$="-value"]').textContent = option.textContent;
+          menu.classList.remove('open');
+          filtrarDocumentos();
+        });
+      });
+      document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) menu.classList.remove('open');
+      });
+    });
+
+    /* ── Busca + filtro de vínculo ───────────────────────────────────────── */
+    const searchInput = document.getElementById('search-input');
+    const rows = [...document.querySelectorAll('#documentos-tbody .tr')];
+    const countLabel = document.getElementById('documentos-count');
+
+    function filtrarDocumentos() {
+      const termo = searchInput.value.trim().toLowerCase();
+      const vinculo = document.querySelector('#vinculo-dropdown .option.selected').dataset.value;
+      let visiveis = 0;
+      rows.forEach((row) => {
+        const texto = row.textContent.toLowerCase();
+        const bateBusca = texto.includes(termo);
+        const bateVinculo = !vinculo || row.dataset.vinculo === vinculo;
+        const show = bateBusca && bateVinculo;
+        row.hidden = !show;
+        if (show) visiveis++;
+      });
+      countLabel.textContent = `${visiveis} documento${visiveis !== 1 ? 's' : ''} encontrado${visiveis !== 1 ? 's' : ''}`;
+    }
+
+    searchInput.addEventListener('input', filtrarDocumentos);
+  </script>
+</body>
+</html>

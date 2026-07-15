@@ -67,11 +67,11 @@
   align-items: center;
   gap: var(--spacing-2xs);
   padding: var(--spacing-2xs) var(--spacing-xs);
-  background: var(--color-bg-brand);
-  border: var(--border-width-thin) solid var(--color-action-primary);
+  background: var(--color-bg-subtle);
+  border: var(--border-width-thin) solid var(--color-border-default);
   border-radius: var(--radius-full);
   font-size: var(--font-size-xs);
-  color: var(--color-text-brand);
+  color: var(--color-text-secondary);
   line-height: 1;
   flex-shrink: 0;
 }
@@ -93,15 +93,15 @@
   border: none;
   background: none;
   cursor: pointer;
-  color: var(--color-text-brand);
+  color: var(--color-text-secondary);
   border-radius: var(--radius-full);
   transition: background var(--transition-fast), color var(--transition-fast);
   flex-shrink: 0;
 }
 
 .msChipRemove:hover {
-  background: var(--color-action-primary);
-  color: var(--color-gray-white);
+  background: var(--color-bg-disabled);
+  color: var(--color-text-primary);
 }
 
 /* ── Chevron ────────────────────────────────────── */
@@ -137,6 +137,29 @@
   display: none;
 }
 
+/* ── Variante dropUp — menu abre para cima ───────
+   Usar quando o campo fica perto do fim da página e
+   o menu para baixo sairia da tela. */
+.msMenu.msMenuUp {
+  top: auto;
+  bottom: calc(100% + var(--spacing-xs));
+}
+
+/* ── Avatar nas opções e chips (variante com pessoas) ── */
+.msAvatar {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--color-bg-subtle);
+}
+
+.msChip .msAvatar {
+  width: 16px;
+  height: 16px;
+}
+
 /* ── Opção ──────────────────────────────────────── */
 .msOption {
   display: flex;
@@ -155,7 +178,7 @@
 }
 
 .msOption.msSelected {
-  background: var(--color-bg-brand);
+  background: var(--color-bg-subtle);
 }
 
 /* ── Checkbox ────────────────────────────────────── */
@@ -175,9 +198,9 @@
 }
 
 .msOption.msSelected .msCheck {
-  background: var(--color-action-primary);
-  border-color: var(--color-action-primary);
-  color: var(--color-gray-white);
+  background: var(--color-bg-disabled);
+  border-color: var(--color-border-muted);
+  color: var(--color-text-primary);
 }
 
 .msOptionLabel {
@@ -190,7 +213,7 @@
 }
 
 .msOption.msSelected .msOptionLabel {
-  color: var(--color-text-brand);
+  color: var(--color-text-primary);
 }
 
 /* ── Estados: disabled / error ───────────────────── */

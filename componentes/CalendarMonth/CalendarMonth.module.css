@@ -1,0 +1,154 @@
+/* ── CalendarMonth ──────────────────────────────────────────────────────────
+   Grade mensal de eventos (visão calendário do painel) — 7 colunas DOM–SÁB,
+   células de dia com chips de evento (dot de status + hora + título).
+   Classes prefixadas com "evCal" para não conflitar com o DatePicker (.calGrid,
+   .calDay) nem com o EventCalendar da Home.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.evCal {
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+/* ── Cabeçalho dos dias da semana ─────────────────── */
+.evCalWeekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+.evCalWeekday {
+  padding: var(--spacing-sm);
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+/* ── Grade de dias ────────────────────────────────── */
+.evCalGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.evCalDay {
+  min-height: 112px;
+  padding: var(--spacing-xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  border-top: var(--border-width-thin) solid var(--color-border-subtle);
+  border-left: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+.evCalDay:nth-child(7n + 1) { border-left: none; }
+.evCalGrid .evCalDay:nth-child(-n + 7) { border-top: none; }
+
+.evCalDay { position: relative; }
+
+.evCalDayNumber {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-primary);
+  padding: var(--spacing-2xs);
+}
+
+/* ── Botão de adição rápida — aparece no hover do dia ─────────
+   "Chip fantasma": frame de largura total, mesma família visual do
+   .evCalEvent, com o "+" centralizado. Fica abaixo dos chips do dia. */
+.evCalDayAdd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 32px;
+  border: var(--border-width-thin) dashed var(--color-border-default);
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.evCalDay:hover .evCalDayAdd {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.evCalDayAdd:hover {
+  background: var(--color-bg-subtle);
+  border-color: var(--color-border-muted);
+  color: var(--color-text-primary);
+}
+
+/* dia de outro mês — número esmaecido */
+.evCalDayOutside .evCalDayNumber { color: var(--color-text-disabled); }
+
+/* dia atual — destaque em cinza neutro (nunca a cor da marca) */
+.evCalDayToday { background: var(--color-bg-subtle); }
+.evCalDayToday .evCalDayNumber { font-weight: var(--font-weight-semibold); }
+
+/* ── Chip de evento ───────────────────────────────── */
+.evCalEvent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+  padding: var(--spacing-xs);
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-body);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.evCalEvent:hover {
+  background: var(--color-bg-subtle);
+  border-color: var(--color-border-muted);
+}
+
+.evCalEventTime {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.evCalEventDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  background: var(--color-status-success-fg);
+}
+
+/* rascunho — dot cinza */
+.evCalEventDotMuted { background: var(--color-status-disabled-fg); }
+
+.evCalEventTitle {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-snug);
+}
+
+/* ── Label do mês (toolbar do calendário) ─────────── */
+.evCalMonthLabel {
+  font-family: var(--font-display);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--spacing-sm);
+}

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Tooltip } from './Tooltip';
 import { Button } from '../Button/Button';
 
-const meta: Meta<typeof Tooltip> = { title: 'Components/Tooltip', component: Tooltip, tags: ['autodocs'],
+const meta: Meta<typeof Tooltip> = { title: 'Primitives/Tooltip', component: Tooltip, tags: ['autodocs'],
   decorators: [(S) => <div style={{ padding: 60, display: 'flex', justifyContent: 'center' }}><S /></div>] };
 export default meta;
 type Story = StoryObj<typeof Tooltip>;

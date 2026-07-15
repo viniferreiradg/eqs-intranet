@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Lightbox } from './Lightbox';
 
 const meta: Meta<typeof Lightbox> = {
-  title: 'Components/Lightbox',
+  title: 'Primitives/Lightbox',
   component: Lightbox,
   tags: ['autodocs'],
   parameters: {

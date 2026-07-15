@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { SiteHeader } from './SiteHeader';
 
 const meta: Meta<typeof SiteHeader> = {
-  title: 'Components/SiteHeader',
+  title: 'Composed/SiteHeader',
   component: SiteHeader,
   tags: ['autodocs'],
   parameters: {

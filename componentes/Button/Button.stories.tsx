@@ -3,7 +3,7 @@ import { Save, ArrowRight, ArrowLeft, Trash, Plus, X, Download, Search } from 'l
 import { Button } from './Button';
 
 const meta: Meta<typeof Button> = {
-  title: 'Components/Button',
+  title: 'Primitives/Button',
   component: Button,
   tags: ['autodocs'],
   argTypes: {

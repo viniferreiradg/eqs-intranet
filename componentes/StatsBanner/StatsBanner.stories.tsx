@@ -3,7 +3,7 @@ import { Clock, Users, Map, ShieldCheck } from 'lucide-react';
 import { StatsBanner } from './StatsBanner';
 
 const meta: Meta<typeof StatsBanner> = {
-  title: 'Components/StatsBanner',
+  title: 'Primitives/StatsBanner',
   component: StatsBanner,
   tags: ['autodocs'],
   parameters: {

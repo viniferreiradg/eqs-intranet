@@ -103,6 +103,43 @@
 
 .previewRemove:hover { background: rgba(0, 0, 0, 0.7); }
 
+/* ── Ações sobre a imagem existente (visualizar / alterar / remover) ──
+   Usar no lugar do .previewRemove sozinho quando a imagem já existe
+   e o usuário pode gerenciá-la. */
+.previewActions {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.previewAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  background: var(--color-overlay);
+  color: var(--color-gray-white);
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.previewAction:hover { background: rgba(0, 0, 0, 0.7); }
+
+/* ── Modificador contain — logos e artes que não podem ser cortadas.
+   Altura fixa compacta: a arte se ajusta dentro dela, sem esticar o dropzone. ── */
+.previewContain .previewImg {
+  object-fit: contain;
+  height: 180px;
+  min-height: 0;
+  padding: var(--spacing-lg);
+  background: var(--color-bg-subtle);
+}
+
 .errorText {
   display: flex;
   align-items: flex-start;

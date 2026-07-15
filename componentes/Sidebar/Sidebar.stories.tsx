@@ -70,7 +70,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
 
 /* ── Meta ───────────────────────────────────────────────────────────────── */
 const meta: Meta<typeof Sidebar> = {
-  title: 'Components/Sidebar',
+  title: 'Composed/Sidebar',
   component: Sidebar,
   tags: ['autodocs'],
   parameters: { layout: 'fullscreen' },

@@ -3,7 +3,7 @@ import { Calendar, MapPin, Users, CheckCircle } from 'lucide-react';
 import { EventInfoCard } from './EventInfoCard';
 
 const meta: Meta<typeof EventInfoCard> = {
-  title: 'Components/EventInfoCard',
+  title: 'Primitives/EventInfoCard',
   component: EventInfoCard,
   tags: ['autodocs'],
   parameters: {

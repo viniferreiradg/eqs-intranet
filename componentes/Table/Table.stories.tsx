@@ -32,7 +32,7 @@ const statusMap = {
 };
 
 const meta: Meta<typeof Table<Product>> = {
-  title: 'Components/Table',
+  title: 'Composed/Table',
   component: Table,
   tags: ['autodocs'],
   decorators: [(S) => <div style={{ padding: 32 }}><S /></div>],

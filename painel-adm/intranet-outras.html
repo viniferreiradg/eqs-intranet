@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intranet — EQS Intranet</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/Background/Background.module.css" />
+  <link rel="stylesheet" href="../componentes/Card/Card.module.css" />
+  <link rel="stylesheet" href="../componentes/Divider/Divider.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/Textarea/Textarea.module.css" />
+  <link rel="stylesheet" href="../componentes/Tab/Tab.module.css" />
+  <link rel="stylesheet" href="../componentes/Feedback/Feedback.module.css" />
+</head>
+<body class="layout-dashboard" data-page="intranet">
+
+  <aside id="sidebar-root"></aside>
+
+  <main class="main bgWrapper">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <div class="pageHeader">
+      <h1 class="pageTitle">Intranet</h1>
+      <p class="pageSubtitle">Edite o conteúdo das páginas do site da intranet.</p>
+    </div>
+
+    <div class="pageContent">
+      <div class="tabNav">
+        <div class="tabList" role="tablist">
+          <button class="tabBtn" role="tab" aria-selected="false" type="button" onclick="location.href='intranet.html'">Home</button>
+          <button class="tabBtn" role="tab" aria-selected="false" type="button" onclick="location.href='intranet-sobre.html'">Sobre</button>
+          <button class="tabBtn tabBtnActive" role="tab" aria-selected="true" type="button">Outras páginas</button>
+        </div>
+      </div>
+
+      <!-- ── Outras páginas — cabeçalhos das listagens do site ─────── -->
+      <form class="card" id="outras-form" novalidate>
+        <div class="formSection">
+          <div class="alert success" id="form-feedback" role="alert" hidden>
+            <span class="fbIcon"><i data-lucide="circle-check" width="18" height="18"></i></span>
+            <div class="fbBody">
+              <div class="fbTitle">Alterações salvas</div>
+              <div class="fbMessage">Os cabeçalhos das páginas foram atualizados no portal.</div>
+            </div>
+            <button class="fbDismiss" type="button" aria-label="Fechar" onclick="this.closest('.alert').hidden = true"><i data-lucide="x" width="14" height="14"></i></button>
+          </div>
+
+          <h2 class="sectionTitle">Notícias</h2>
+          <p class="sectionSubtitle">Cabeçalho da página de Notícias.</p>
+          <div class="formGrid">
+            <div class="wrapper">
+              <label class="label" for="noticias-eyebrow">Eyebrow</label>
+              <div class="inputWrap"><input class="input" id="noticias-eyebrow" type="text" value="Fique por dentro" /></div>
+            </div>
+            <div class="wrapper">
+              <label class="label" for="noticias-titulo">Título</label>
+              <div class="inputWrap"><input class="input" id="noticias-titulo" type="text" value="Notícias" /></div>
+            </div>
+            <div class="wrapper">
+              <label class="label" for="noticias-subtitulo">Subtítulo</label>
+              <textarea class="textarea" id="noticias-subtitulo" rows="2">Acompanhe as novidades, conquistas e atualizações da EQS Engenharia.</textarea>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="formSection">
+          <h2 class="sectionTitle">Eventos</h2>
+          <p class="sectionSubtitle">Cabeçalho da página de Eventos.</p>
+          <div class="formGrid">
+            <div class="wrapper">
+              <label class="label" for="eventos-eyebrow">Eyebrow</label>
+              <div class="inputWrap"><input class="input" id="eventos-eyebrow" type="text" value="Agenda" /></div>
+            </div>
+            <div class="wrapper">
+              <label class="label" for="eventos-titulo">Título</label>
+              <div class="inputWrap"><input class="input" id="eventos-titulo" type="text" value="Eventos" /></div>
+            </div>
+            <div class="wrapper">
+              <label class="label" for="eventos-subtitulo">Subtítulo</label>
+              <textarea class="textarea" id="eventos-subtitulo" rows="2">Confira a agenda de workshops, treinamentos e confraternizações da EQS Engenharia.</textarea>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="formSection">
+          <h2 class="sectionTitle">Comunicados</h2>
+          <p class="sectionSubtitle">Cabeçalho da página de Comunicados.</p>
+          <div class="formGrid">
+            <div class="wrapper">
+              <label class="label" for="comunicados-eyebrow">Eyebrow</label>
+              <div class="inputWrap"><input class="input" id="comunicados-eyebrow" type="text" value="Avisos" /></div>
+            </div>
+            <div class="wrapper">
+              <label class="label" for="comunicados-titulo">Título</label>
+              <div class="inputWrap"><input class="input" id="comunicados-titulo" type="text" value="Comunicados" /></div>
+            </div>
+            <div class="wrapper">
+              <label class="label" for="comunicados-subtitulo">Subtítulo</label>
+              <textarea class="textarea" id="comunicados-subtitulo" rows="2">Avisos e comunicados oficiais da EQS Engenharia para todos os colaboradores.</textarea>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="formSection">
+          <h2 class="sectionTitle">Setores</h2>
+          <p class="sectionSubtitle">Cabeçalho da página de Setores.</p>
+          <div class="formGrid">
+            <div class="wrapper">
+              <label class="label" for="setores-eyebrow">Eyebrow</label>
+              <div class="inputWrap"><input class="input" id="setores-eyebrow" type="text" value="Nossa estrutura" /></div>
+            </div>
+            <div class="wrapper">
+              <label class="label" for="setores-titulo">Título</label>
+              <div class="inputWrap"><input class="input" id="setores-titulo" type="text" value="Setores" /></div>
+            </div>
+            <div class="wrapper">
+              <label class="label" for="setores-subtitulo">Subtítulo</label>
+              <textarea class="textarea" id="setores-subtitulo" rows="2">Conheça as áreas que compõem a EQS Engenharia e os profissionais que trabalham para transformar projetos em soluções.</textarea>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="formSection">
+          <h2 class="sectionTitle">Links Úteis</h2>
+          <p class="sectionSubtitle">Cabeçalho da página de Links Úteis.</p>
+          <div class="formGrid">
+            <div class="wrapper">
+              <label class="label" for="links-eyebrow">Eyebrow</label>
+              <div class="inputWrap"><input class="input" id="links-eyebrow" type="text" value="Recursos" /></div>
+            </div>
+            <div class="wrapper">
+              <label class="label" for="links-titulo">Título</label>
+              <div class="inputWrap"><input class="input" id="links-titulo" type="text" value="Links Úteis" /></div>
+            </div>
+            <div class="wrapper">
+              <label class="label" for="links-subtitulo">Subtítulo</label>
+              <textarea class="textarea" id="links-subtitulo" rows="2">Acesso rápido a manuais, políticas e ferramentas do dia a dia na EQS Engenharia.</textarea>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="formSection">
+          <h2 class="sectionTitle">Documentos</h2>
+          <p class="sectionSubtitle">Cabeçalho da página de Documentos.</p>
+          <div class="formGrid">
+            <div class="wrapper">
+              <label class="label" for="documentos-eyebrow">Eyebrow</label>
+              <div class="inputWrap"><input class="input" id="documentos-eyebrow" type="text" value="Recursos" /></div>
+            </div>
+            <div class="wrapper">
+              <label class="label" for="documentos-titulo">Título</label>
+              <div class="inputWrap"><input class="input" id="documentos-titulo" type="text" value="Documentos" /></div>
+            </div>
+            <div class="wrapper">
+              <label class="label" for="documentos-subtitulo">Subtítulo</label>
+              <textarea class="textarea" id="documentos-subtitulo" rows="2">Acesse e faça download de manuais, políticas, formulários e outros documentos importantes da EQS Engenharia.</textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="formFooter">
+          <button class="btn secondary" type="button" onclick="location.reload()">Descartar alterações</button>
+          <button class="btn primary hasLeft" type="submit">
+            <span class="icon"><i data-lucide="save" width="16" height="16"></i></span>
+            Salvar alterações
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="shared/sidebar.js"></script>
+  <script>
+    lucide.createIcons();
+
+    /* ── Salvar (protótipo) — mostra feedback de sucesso ─────────────────── */
+    const form = document.getElementById('outras-form');
+    const feedback = document.getElementById('form-feedback');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      feedback.hidden = false;
+      lucide.createIcons();
+      document.querySelector('.pageContent').scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>

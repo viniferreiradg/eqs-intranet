@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Colaboradores — EQS Intranet</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/Background/Background.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/Tab/Tab.module.css" />
+  <link rel="stylesheet" href="../componentes/Table/Table.module.css" />
+  <link rel="stylesheet" href="../componentes/Pagination/Pagination.module.css" />
+</head>
+<body class="layout-dashboard" data-page="usuarios">
+
+  <aside id="sidebar-root"></aside>
+
+  <main class="main bgWrapper">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <div class="pageHeader pageHeaderRow">
+      <div>
+        <h1 class="pageTitle">Colaboradores</h1>
+        <p class="pageSubtitle" id="usuarios-count">10 colaboradores cadastrados</p>
+      </div>
+      <button class="btn primary hasLeft" type="button" onclick="location.href='usuarios-cadastrar.html'">
+        <span class="icon"><i data-lucide="plus" width="16" height="16"></i></span>
+        Novo Colaborador
+      </button>
+    </div>
+
+    <div class="pageContent">
+      <!-- Tabs Colaboradores|Setores ocultas por enquanto — remover o hidden se voltarem -->
+      <div class="tabNav" hidden>
+        <div class="tabList" role="tablist">
+          <button class="tabBtn tabBtnActive" role="tab" aria-selected="true" type="button">Colaboradores</button>
+          <button class="tabBtn" role="tab" aria-selected="false" type="button" onclick="location.href='setores-lista.html'">Setores</button>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="wrapper searchWrap">
+          <div class="inputWrap hasLeft">
+            <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+            <input class="input" type="text" id="search-input" placeholder="Buscar colaborador..." />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="tableWrap">
+          <table class="table">
+            <thead>
+              <tr class="headerRow">
+                <th class="th thFirst">Colaborador</th>
+                <th class="th">E-mail</th>
+                <th class="th">Setor</th>
+                <th class="th">Cargo</th>
+                <th class="th">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="usuarios-tbody">
+              <tr class="tr">
+                <td class="td tdFirst">
+                  <span class="cellUser">
+                    <span class="avatar sm"><img class="avatarImg" src="../src/avatar/team-01.jpg" alt="Camila Rocha" /></span>
+                    Camila Rocha
+                  </span>
+                </td>
+                <td class="td">camila.rocha@eqs.com.br</td>
+                <td class="td">Marketing</td>
+                <td class="td">Gerente de Marketing</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='usuarios-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td tdFirst">
+                  <span class="cellUser">
+                    <span class="avatar sm"><img class="avatarImg" src="../src/avatar/team-02.jpg" alt="João Pereira" /></span>
+                    João Pereira
+                  </span>
+                </td>
+                <td class="td">joao.pereira@eqs.com.br</td>
+                <td class="td">Marketing</td>
+                <td class="td">Analista de Marketing Pleno</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='usuarios-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td tdFirst">
+                  <span class="cellUser">
+                    <span class="avatar sm"><img class="avatarImg" src="../src/avatar/team-03.jpg" alt="Felipe Lima" /></span>
+                    Felipe Lima
+                  </span>
+                </td>
+                <td class="td">felipe.lima@eqs.com.br</td>
+                <td class="td">Marketing</td>
+                <td class="td">Designer Gráfico</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='usuarios-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td tdFirst">
+                  <span class="cellUser">
+                    <span class="avatar sm"><img class="avatarImg" src="../src/avatar/team-04.jpg" alt="Ricardo Nunes" /></span>
+                    Ricardo Nunes
+                  </span>
+                </td>
+                <td class="td">ricardo.nunes@eqs.com.br</td>
+                <td class="td">Engenharia</td>
+                <td class="td">Engenheiro Civil Sênior</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='usuarios-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td tdFirst">
+                  <span class="cellUser">
+                    <span class="avatar sm"><img class="avatarImg" src="../src/avatar/team-05.jpg" alt="Mariana Santos" /></span>
+                    Mariana Santos
+                  </span>
+                </td>
+                <td class="td">mariana.santos@eqs.com.br</td>
+                <td class="td">Marketing</td>
+                <td class="td">Especialista em Conteúdo</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='usuarios-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td tdFirst">
+                  <span class="cellUser">
+                    <span class="avatar sm"><img class="avatarImg" src="../src/avatar/team-06.jpg" alt="André Souza" /></span>
+                    André Souza
+                  </span>
+                </td>
+                <td class="td">andre.souza@eqs.com.br</td>
+                <td class="td">TI</td>
+                <td class="td">Analista de Infraestrutura</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='usuarios-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td tdFirst">
+                  <span class="cellUser">
+                    <span class="avatar sm"><img class="avatarImg" src="../src/avatar/team-07.jpg" alt="Beatriz Alves" /></span>
+                    Beatriz Alves
+                  </span>
+                </td>
+                <td class="td">beatriz.alves@eqs.com.br</td>
+                <td class="td">Marketing</td>
+                <td class="td">Analista de Comunicação</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='usuarios-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td tdFirst">
+                  <span class="cellUser">
+                    <span class="avatar sm"><img class="avatarImg" src="../src/avatar/team-08.jpg" alt="Paula Martins" /></span>
+                    Paula Martins
+                  </span>
+                </td>
+                <td class="td">paula.martins@eqs.com.br</td>
+                <td class="td">Recursos Humanos</td>
+                <td class="td">Coordenadora de RH</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='usuarios-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td tdFirst">
+                  <span class="cellUser">
+                    <span class="avatar sm"><img class="avatarImg" src="../src/avatar/team-09.jpg" alt="Gustavo Ferraz" /></span>
+                    Gustavo Ferraz
+                  </span>
+                </td>
+                <td class="td">gustavo.ferraz@eqs.com.br</td>
+                <td class="td">Financeiro</td>
+                <td class="td">Analista Financeiro Pleno</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='usuarios-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td tdFirst">
+                  <span class="cellUser">
+                    <span class="avatar sm"><img class="avatarImg" src="../src/avatar/team-10.jpg" alt="Larissa Campos" /></span>
+                    Larissa Campos
+                  </span>
+                </td>
+                <td class="td">larissa.campos@eqs.com.br</td>
+                <td class="td">Engenharia</td>
+                <td class="td">Engenheira de Planejamento</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='usuarios-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="pagination">
+        <span class="info">Exibindo 1–10 de 10 resultados</span>
+        <div class="controls">
+          <button class="paginBtn" aria-label="Página anterior" disabled><i data-lucide="chevron-left" width="14" height="14"></i></button>
+          <button class="paginBtn paginBtnActive" aria-current="page">1</button>
+          <button class="paginBtn" aria-label="Próxima página" disabled><i data-lucide="chevron-right" width="14" height="14"></i></button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="shared/sidebar.js"></script>
+  <script>
+    lucide.createIcons();
+
+    /* ── Busca — filtra por nome, e-mail, setor e cargo ──────────────────── */
+    const searchInput = document.getElementById('search-input');
+    const rows = [...document.querySelectorAll('#usuarios-tbody .tr')];
+    const countLabel = document.getElementById('usuarios-count');
+
+    function filtrarUsuarios() {
+      const termo = searchInput.value.trim().toLowerCase();
+      let visiveis = 0;
+      rows.forEach((row) => {
+        const texto = row.textContent.toLowerCase();
+        const show = texto.includes(termo);
+        row.hidden = !show;
+        if (show) visiveis++;
+      });
+      countLabel.textContent = `${visiveis} colaborador${visiveis !== 1 ? 'es' : ''} encontrado${visiveis !== 1 ? 's' : ''}`;
+    }
+
+    searchInput.addEventListener('input', filtrarUsuarios);
+  </script>
+</body>
+</html>

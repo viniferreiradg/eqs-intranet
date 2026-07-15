@@ -3,7 +3,7 @@ import { Megaphone } from 'lucide-react';
 import { DepartmentCard } from './DepartmentCard';
 
 const meta: Meta<typeof DepartmentCard> = {
-  title: 'Components/DepartmentCard',
+  title: 'Composed/DepartmentCard',
   component: DepartmentCard,
   tags: ['autodocs'],
   parameters: {

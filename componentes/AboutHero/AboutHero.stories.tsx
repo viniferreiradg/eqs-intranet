@@ -3,7 +3,7 @@ import { Calendar, Users, MapPin, Building2 } from 'lucide-react';
 import { AboutHero } from './AboutHero';
 
 const meta: Meta<typeof AboutHero> = {
-  title: 'Components/AboutHero',
+  title: 'Primitives/AboutHero',
   component: AboutHero,
   tags: ['autodocs'],
   parameters: {

@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intranet — EQS Intranet</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/Background/Background.module.css" />
+  <link rel="stylesheet" href="../componentes/Card/Card.module.css" />
+  <link rel="stylesheet" href="../componentes/Divider/Divider.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/Textarea/Textarea.module.css" />
+  <link rel="stylesheet" href="../componentes/IconPicker/IconPicker.module.css" />
+  <link rel="stylesheet" href="../componentes/ImageUpload/ImageUpload.module.css" />
+  <link rel="stylesheet" href="../componentes/Tab/Tab.module.css" />
+  <link rel="stylesheet" href="../componentes/Feedback/Feedback.module.css" />
+</head>
+<body class="layout-dashboard" data-page="intranet">
+
+  <aside id="sidebar-root"></aside>
+
+  <main class="main bgWrapper">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <div class="pageHeader">
+      <h1 class="pageTitle">Intranet</h1>
+      <p class="pageSubtitle">Edite o conteúdo das páginas do site da intranet.</p>
+    </div>
+
+    <div class="pageContent">
+      <div class="tabNav">
+        <div class="tabList" role="tablist">
+          <button class="tabBtn" role="tab" aria-selected="false" type="button" onclick="location.href='intranet.html'">Home</button>
+          <button class="tabBtn tabBtnActive" role="tab" aria-selected="true" type="button">Sobre</button>
+          <button class="tabBtn" role="tab" aria-selected="false" type="button" onclick="location.href='intranet-outras.html'">Outras páginas</button>
+        </div>
+      </div>
+
+      <!-- ── Formulário: Sobre ─────────────────────────────────────── -->
+      <form class="card" id="sobre-form" novalidate>
+        <div class="formSection">
+          <div class="alert success" id="sobre-feedback" role="alert" hidden>
+            <span class="fbIcon"><i data-lucide="circle-check" width="18" height="18"></i></span>
+            <div class="fbBody">
+              <div class="fbTitle">Alterações salvas</div>
+              <div class="fbMessage">O conteúdo da página Sobre foi atualizado no portal.</div>
+            </div>
+            <button class="fbDismiss" type="button" aria-label="Fechar" onclick="this.closest('.alert').hidden = true"><i data-lucide="x" width="14" height="14"></i></button>
+          </div>
+
+          <h2 class="sectionTitle">Hero</h2>
+          <p class="sectionSubtitle">Bloco de abertura da página, com a foto e o card de números da empresa.</p>
+
+          <div class="formGrid">
+            <div class="wrapper">
+              <label class="label" for="sobre-hero-eyebrow">Eyebrow</label>
+              <div class="inputWrap">
+                <input class="input" id="sobre-hero-eyebrow" type="text" value="Sobre a EQS" />
+              </div>
+            </div>
+
+            <div class="wrapper">
+              <label class="label" for="sobre-hero-titulo">Título</label>
+              <div class="inputWrap">
+                <input class="input" id="sobre-hero-titulo" type="text" value="Construindo o futuro com engenharia, inovação e compromisso" />
+              </div>
+            </div>
+
+            <div class="wrapper">
+              <label class="label" for="sobre-hero-texto">Texto</label>
+              <textarea class="textarea" id="sobre-hero-texto" rows="3">Há mais de 20 anos, a EQS Engenharia entrega soluções inteligentes e seguras para os desafios mais complexos de infraestrutura e construções industriais em todo o Brasil.</textarea>
+            </div>
+
+            <div class="grid2">
+              <div class="wrapper">
+                <label class="label" for="sobre-hero-link-titulo">Título do link</label>
+                <div class="inputWrap">
+                  <input class="input" id="sobre-hero-link-titulo" type="text" value="Conheça nossa história" />
+                </div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="sobre-hero-link">Link</label>
+                <div class="inputWrap hasLeft">
+                  <span class="iconLeft"><i data-lucide="link" width="16" height="16"></i></span>
+                  <input class="input" id="sobre-hero-link" type="url" value="#historia" />
+                </div>
+              </div>
+            </div>
+
+            <div class="wrapper">
+              <span class="label">Imagem</span>
+              <label class="dropzone" id="sobre-hero-dropzone">
+                <input type="file" accept="image/*" class="hiddenInput" id="sobre-hero-input" />
+                <div class="empty" id="sobre-hero-empty" hidden>
+                  <span class="emptyIcon"><i data-lucide="image-plus" width="24" height="24"></i></span>
+                  <span class="emptyText">Clique ou arraste a imagem</span>
+                  <span class="emptyHint">PNG ou JPG, até 5MB</span>
+                </div>
+                <div class="preview" id="sobre-hero-preview">
+                  <img class="previewImg" id="sobre-hero-preview-img" src="../src/beautiful-shot-oresund-bridge-malmo-sweden.jpg" alt="Imagem atual do hero da página Sobre" />
+                  <div class="previewActions">
+                    <button type="button" class="previewAction" id="sobre-hero-view" aria-label="Visualizar imagem" title="Visualizar"><i data-lucide="eye" width="14" height="14"></i></button>
+                    <button type="button" class="previewAction" id="sobre-hero-change" aria-label="Alterar imagem" title="Alterar"><i data-lucide="upload" width="14" height="14"></i></button>
+                    <button type="button" class="previewAction" id="sobre-hero-remove" aria-label="Remover imagem" title="Remover"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </div>
+              </label>
+            </div>
+
+            <div class="grid3" data-sobre-stat-row="1">
+              <div class="iconPickerRoot" id="sobre-stat1-picker">
+                <span class="label">Ícone do número 1</span>
+                <button type="button" class="iconPickerTrigger" id="sobre-stat1-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="iconPickerPreview" id="sobre-stat1-preview"><i data-lucide="clock" width="14" height="14"></i></span>
+                  <span class="iconPickerValue" id="sobre-stat1-value">clock</span>
+                  <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                </button>
+                <div class="iconPickerMenu" id="sobre-stat1-menu" role="listbox" aria-label="Ícones"></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="sobre-stat1-numero">Número 1</label>
+                <div class="inputWrap"><input class="input" id="sobre-stat1-numero" type="text" value="20+" /></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="sobre-stat1-texto">Texto 1</label>
+                <div class="inputWrap"><input class="input" id="sobre-stat1-texto" type="text" value="Anos de história" /></div>
+              </div>
+            </div>
+
+            <div class="grid3" data-sobre-stat-row="2">
+              <div class="iconPickerRoot" id="sobre-stat2-picker">
+                <span class="label">Ícone do número 2</span>
+                <button type="button" class="iconPickerTrigger" id="sobre-stat2-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="iconPickerPreview" id="sobre-stat2-preview"><i data-lucide="users" width="14" height="14"></i></span>
+                  <span class="iconPickerValue" id="sobre-stat2-value">users</span>
+                  <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                </button>
+                <div class="iconPickerMenu" id="sobre-stat2-menu" role="listbox" aria-label="Ícones"></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="sobre-stat2-numero">Número 2</label>
+                <div class="inputWrap"><input class="input" id="sobre-stat2-numero" type="text" value="350+" /></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="sobre-stat2-texto">Texto 2</label>
+                <div class="inputWrap"><input class="input" id="sobre-stat2-texto" type="text" value="Colaboradores" /></div>
+              </div>
+            </div>
+
+            <div class="grid3" data-sobre-stat-row="3">
+              <div class="iconPickerRoot" id="sobre-stat3-picker">
+                <span class="label">Ícone do número 3</span>
+                <button type="button" class="iconPickerTrigger" id="sobre-stat3-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="iconPickerPreview" id="sobre-stat3-preview"><i data-lucide="map" width="14" height="14"></i></span>
+                  <span class="iconPickerValue" id="sobre-stat3-value">map</span>
+                  <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                </button>
+                <div class="iconPickerMenu" id="sobre-stat3-menu" role="listbox" aria-label="Ícones"></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="sobre-stat3-numero">Número 3</label>
+                <div class="inputWrap"><input class="input" id="sobre-stat3-numero" type="text" value="18" /></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="sobre-stat3-texto">Texto 3</label>
+                <div class="inputWrap"><input class="input" id="sobre-stat3-texto" type="text" value="Estados atendidos" /></div>
+              </div>
+            </div>
+
+            <div class="grid3" data-sobre-stat-row="4">
+              <div class="iconPickerRoot" id="sobre-stat4-picker">
+                <span class="label">Ícone do número 4</span>
+                <button type="button" class="iconPickerTrigger" id="sobre-stat4-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="iconPickerPreview" id="sobre-stat4-preview"><i data-lucide="shield-check" width="14" height="14"></i></span>
+                  <span class="iconPickerValue" id="sobre-stat4-value">shield-check</span>
+                  <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                </button>
+                <div class="iconPickerMenu" id="sobre-stat4-menu" role="listbox" aria-label="Ícones"></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="sobre-stat4-numero">Número 4</label>
+                <div class="inputWrap"><input class="input" id="sobre-stat4-numero" type="text" value="7" /></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="sobre-stat4-texto">Texto 4</label>
+                <div class="inputWrap"><input class="input" id="sobre-stat4-texto" type="text" value="Escritórios" /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="formSection">
+          <h2 class="sectionTitle">Nossa história</h2>
+          <p class="sectionSubtitle">Bloco de imagem e texto sobre a trajetória da empresa.</p>
+
+          <div class="formGrid">
+            <div class="wrapper">
+              <label class="label" for="sobre-historia-eyebrow">Eyebrow</label>
+              <div class="inputWrap">
+                <input class="input" id="sobre-historia-eyebrow" type="text" value="Nossa história" />
+              </div>
+            </div>
+
+            <div class="wrapper">
+              <label class="label" for="sobre-historia-titulo">Título</label>
+              <div class="inputWrap">
+                <input class="input" id="sobre-historia-titulo" type="text" value="De um propósito sólido para grandes conquistas" />
+              </div>
+            </div>
+
+            <div class="wrapper">
+              <label class="label" for="sobre-historia-texto">Texto</label>
+              <textarea class="textarea" id="sobre-historia-texto" rows="6">A EQS nasceu com o propósito de transformar desafios em oportunidades, combinando conhecimento técnico, gestão eficiente e relacionamento de confiança.
+Ao longo dessas duas décadas, evoluímos constantemente, ampliamos nossa atuação e construímos parcerias duradouras que geram valor para nossos clientes e para a sociedade.
+Seguimos comprometidos com a excelência, a segurança e a inovação para continuar construindo um futuro cada vez melhor.</textarea>
+              <span class="helperText">Cada linha vira um parágrafo na página.</span>
+            </div>
+
+            <div class="grid2">
+              <div class="wrapper">
+                <label class="label" for="sobre-historia-link-titulo">Título do link</label>
+                <div class="inputWrap">
+                  <input class="input" id="sobre-historia-link-titulo" type="text" value="Linha do tempo" />
+                </div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="sobre-historia-link">Link</label>
+                <div class="inputWrap hasLeft">
+                  <span class="iconLeft"><i data-lucide="link" width="16" height="16"></i></span>
+                  <input class="input" id="sobre-historia-link" type="url" value="#" />
+                </div>
+              </div>
+            </div>
+
+            <div class="wrapper">
+              <span class="label">Imagem</span>
+              <label class="dropzone" id="sobre-historia-dropzone">
+                <input type="file" accept="image/*" class="hiddenInput" id="sobre-historia-input" />
+                <div class="empty" id="sobre-historia-empty" hidden>
+                  <span class="emptyIcon"><i data-lucide="image-plus" width="24" height="24"></i></span>
+                  <span class="emptyText">Clique ou arraste a imagem</span>
+                  <span class="emptyHint">PNG ou JPG, até 5MB</span>
+                </div>
+                <div class="preview" id="sobre-historia-preview">
+                  <img class="previewImg" id="sobre-historia-preview-img" src="../src/ChatGPT-Image-9-de-jul.jpg" alt="Imagem atual da seção Nossa história" />
+                  <div class="previewActions">
+                    <button type="button" class="previewAction" id="sobre-historia-view" aria-label="Visualizar imagem" title="Visualizar"><i data-lucide="eye" width="14" height="14"></i></button>
+                    <button type="button" class="previewAction" id="sobre-historia-change" aria-label="Alterar imagem" title="Alterar"><i data-lucide="upload" width="14" height="14"></i></button>
+                    <button type="button" class="previewAction" id="sobre-historia-remove" aria-label="Remover imagem" title="Remover"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="formSection">
+          <h2 class="sectionTitle">Nossos valores</h2>
+          <p class="sectionSubtitle">Seção com os cinco princípios da empresa.</p>
+
+          <div class="formGrid">
+            <div class="wrapper">
+              <label class="label" for="sobre-valores-eyebrow">Eyebrow</label>
+              <div class="inputWrap">
+                <input class="input" id="sobre-valores-eyebrow" type="text" value="Nossos valores" />
+              </div>
+            </div>
+
+            <div class="wrapper">
+              <label class="label" for="sobre-valores-titulo">Título</label>
+              <div class="inputWrap">
+                <input class="input" id="sobre-valores-titulo" type="text" value="Princípios que guiam tudo o que fazemos" />
+              </div>
+            </div>
+
+            <div class="grid3" data-valor-row="1">
+              <div class="iconPickerRoot" id="valor1-picker">
+                <span class="label">Ícone do valor 1</span>
+                <button type="button" class="iconPickerTrigger" id="valor1-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="iconPickerPreview" id="valor1-preview"><i data-lucide="shield-check" width="14" height="14"></i></span>
+                  <span class="iconPickerValue" id="valor1-value">shield-check</span>
+                  <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                </button>
+                <div class="iconPickerMenu" id="valor1-menu" role="listbox" aria-label="Ícones"></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="valor1-titulo">Título do valor 1</label>
+                <div class="inputWrap"><input class="input" id="valor1-titulo" type="text" value="Segurança" /></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="valor1-texto">Texto do valor 1</label>
+                <div class="inputWrap"><input class="input" id="valor1-texto" type="text" value="Cuidamos das pessoas acima de tudo, sempre." /></div>
+              </div>
+            </div>
+
+            <div class="grid3" data-valor-row="2">
+              <div class="iconPickerRoot" id="valor2-picker">
+                <span class="label">Ícone do valor 2</span>
+                <button type="button" class="iconPickerTrigger" id="valor2-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="iconPickerPreview" id="valor2-preview"><i data-lucide="user" width="14" height="14"></i></span>
+                  <span class="iconPickerValue" id="valor2-value">user</span>
+                  <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                </button>
+                <div class="iconPickerMenu" id="valor2-menu" role="listbox" aria-label="Ícones"></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="valor2-titulo">Título do valor 2</label>
+                <div class="inputWrap"><input class="input" id="valor2-titulo" type="text" value="Ética" /></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="valor2-texto">Texto do valor 2</label>
+                <div class="inputWrap"><input class="input" id="valor2-texto" type="text" value="Agimos com integridade, transparência e respeito." /></div>
+              </div>
+            </div>
+
+            <div class="grid3" data-valor-row="3">
+              <div class="iconPickerRoot" id="valor3-picker">
+                <span class="label">Ícone do valor 3</span>
+                <button type="button" class="iconPickerTrigger" id="valor3-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="iconPickerPreview" id="valor3-preview"><i data-lucide="lightbulb" width="14" height="14"></i></span>
+                  <span class="iconPickerValue" id="valor3-value">lightbulb</span>
+                  <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                </button>
+                <div class="iconPickerMenu" id="valor3-menu" role="listbox" aria-label="Ícones"></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="valor3-titulo">Título do valor 3</label>
+                <div class="inputWrap"><input class="input" id="valor3-titulo" type="text" value="Inovação" /></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="valor3-texto">Texto do valor 3</label>
+                <div class="inputWrap"><input class="input" id="valor3-texto" type="text" value="Buscamos soluções criativas e eficientes." /></div>
+              </div>
+            </div>
+
+            <div class="grid3" data-valor-row="4">
+              <div class="iconPickerRoot" id="valor4-picker">
+                <span class="label">Ícone do valor 4</span>
+                <button type="button" class="iconPickerTrigger" id="valor4-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="iconPickerPreview" id="valor4-preview"><i data-lucide="handshake" width="14" height="14"></i></span>
+                  <span class="iconPickerValue" id="valor4-value">handshake</span>
+                  <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                </button>
+                <div class="iconPickerMenu" id="valor4-menu" role="listbox" aria-label="Ícones"></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="valor4-titulo">Título do valor 4</label>
+                <div class="inputWrap"><input class="input" id="valor4-titulo" type="text" value="Compromisso" /></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="valor4-texto">Texto do valor 4</label>
+                <div class="inputWrap"><input class="input" id="valor4-texto" type="text" value="Entregamos resultados com responsabilidade." /></div>
+              </div>
+            </div>
+
+            <div class="grid3" data-valor-row="5">
+              <div class="iconPickerRoot" id="valor5-picker">
+                <span class="label">Ícone do valor 5</span>
+                <button type="button" class="iconPickerTrigger" id="valor5-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="iconPickerPreview" id="valor5-preview"><i data-lucide="users" width="14" height="14"></i></span>
+                  <span class="iconPickerValue" id="valor5-value">users</span>
+                  <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                </button>
+                <div class="iconPickerMenu" id="valor5-menu" role="listbox" aria-label="Ícones"></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="valor5-titulo">Título do valor 5</label>
+                <div class="inputWrap"><input class="input" id="valor5-titulo" type="text" value="Valorização de pessoas" /></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="valor5-texto">Texto do valor 5</label>
+                <div class="inputWrap"><input class="input" id="valor5-texto" type="text" value="Acreditamos no talento e no trabalho em equipe." /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="formSection">
+          <h2 class="sectionTitle">Atuação</h2>
+          <p class="sectionSubtitle">Seção com os cinco segmentos de atuação da empresa.</p>
+
+          <div class="formGrid">
+            <div class="wrapper">
+              <label class="label" for="sobre-atuacao-eyebrow">Eyebrow</label>
+              <div class="inputWrap">
+                <input class="input" id="sobre-atuacao-eyebrow" type="text" value="Atuação" />
+              </div>
+            </div>
+
+            <div class="wrapper">
+              <label class="label" for="sobre-atuacao-titulo">Título</label>
+              <div class="inputWrap">
+                <input class="input" id="sobre-atuacao-titulo" type="text" value="Soluções completas em engenharia e infraestrutura" />
+              </div>
+            </div>
+
+            <div class="wrapper">
+              <label class="label" for="sobre-atuacao-texto">Texto</label>
+              <textarea class="textarea" id="sobre-atuacao-texto" rows="2">Atuamos em diferentes segmentos com excelência técnica, foco em segurança e compromisso com prazos e qualidade.</textarea>
+            </div>
+
+            <div class="grid3" data-atuacao-row="1">
+              <div class="iconPickerRoot" id="atuacao1-picker">
+                <span class="label">Ícone do card 1</span>
+                <button type="button" class="iconPickerTrigger" id="atuacao1-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="iconPickerPreview" id="atuacao1-preview"><i data-lucide="landmark" width="14" height="14"></i></span>
+                  <span class="iconPickerValue" id="atuacao1-value">landmark</span>
+                  <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                </button>
+                <div class="iconPickerMenu" id="atuacao1-menu" role="listbox" aria-label="Ícones"></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="atuacao1-titulo">Título do card 1</label>
+                <div class="inputWrap"><input class="input" id="atuacao1-titulo" type="text" value="Infraestrutura" /></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="atuacao1-texto">Texto do card 1</label>
+                <div class="inputWrap"><input class="input" id="atuacao1-texto" type="text" value="Obras de infraestrutura urbana, rodoviária e de saneamento." /></div>
+              </div>
+            </div>
+
+            <div class="grid3" data-atuacao-row="2">
+              <div class="iconPickerRoot" id="atuacao2-picker">
+                <span class="label">Ícone do card 2</span>
+                <button type="button" class="iconPickerTrigger" id="atuacao2-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="iconPickerPreview" id="atuacao2-preview"><i data-lucide="building-2" width="14" height="14"></i></span>
+                  <span class="iconPickerValue" id="atuacao2-value">building-2</span>
+                  <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                </button>
+                <div class="iconPickerMenu" id="atuacao2-menu" role="listbox" aria-label="Ícones"></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="atuacao2-titulo">Título do card 2</label>
+                <div class="inputWrap"><input class="input" id="atuacao2-titulo" type="text" value="Industrial" /></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="atuacao2-texto">Texto do card 2</label>
+                <div class="inputWrap"><input class="input" id="atuacao2-texto" type="text" value="Construções e montagens industriais com alta complexidade técnica." /></div>
+              </div>
+            </div>
+
+            <div class="grid3" data-atuacao-row="3">
+              <div class="iconPickerRoot" id="atuacao3-picker">
+                <span class="label">Ícone do card 3</span>
+                <button type="button" class="iconPickerTrigger" id="atuacao3-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="iconPickerPreview" id="atuacao3-preview"><i data-lucide="zap" width="14" height="14"></i></span>
+                  <span class="iconPickerValue" id="atuacao3-value">zap</span>
+                  <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                </button>
+                <div class="iconPickerMenu" id="atuacao3-menu" role="listbox" aria-label="Ícones"></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="atuacao3-titulo">Título do card 3</label>
+                <div class="inputWrap"><input class="input" id="atuacao3-titulo" type="text" value="Energia" /></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="atuacao3-texto">Texto do card 3</label>
+                <div class="inputWrap"><input class="input" id="atuacao3-texto" type="text" value="Soluções para geração, transmissão e distribuição de energia." /></div>
+              </div>
+            </div>
+
+            <div class="grid3" data-atuacao-row="4">
+              <div class="iconPickerRoot" id="atuacao4-picker">
+                <span class="label">Ícone do card 4</span>
+                <button type="button" class="iconPickerTrigger" id="atuacao4-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="iconPickerPreview" id="atuacao4-preview"><i data-lucide="droplet" width="14" height="14"></i></span>
+                  <span class="iconPickerValue" id="atuacao4-value">droplet</span>
+                  <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                </button>
+                <div class="iconPickerMenu" id="atuacao4-menu" role="listbox" aria-label="Ícones"></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="atuacao4-titulo">Título do card 4</label>
+                <div class="inputWrap"><input class="input" id="atuacao4-titulo" type="text" value="Óleo &amp; Gás" /></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="atuacao4-texto">Texto do card 4</label>
+                <div class="inputWrap"><input class="input" id="atuacao4-texto" type="text" value="Projetos e execução para o setor de óleo &amp; gás e petroquímico." /></div>
+              </div>
+            </div>
+
+            <div class="grid3" data-atuacao-row="5">
+              <div class="iconPickerRoot" id="atuacao5-picker">
+                <span class="label">Ícone do card 5</span>
+                <button type="button" class="iconPickerTrigger" id="atuacao5-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="iconPickerPreview" id="atuacao5-preview"><i data-lucide="briefcase" width="14" height="14"></i></span>
+                  <span class="iconPickerValue" id="atuacao5-value">briefcase</span>
+                  <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+                </button>
+                <div class="iconPickerMenu" id="atuacao5-menu" role="listbox" aria-label="Ícones"></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="atuacao5-titulo">Título do card 5</label>
+                <div class="inputWrap"><input class="input" id="atuacao5-titulo" type="text" value="Construções Corporativas" /></div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="atuacao5-texto">Texto do card 5</label>
+                <div class="inputWrap"><input class="input" id="atuacao5-texto" type="text" value="Edificações comerciais e corporativas com alto padrão." /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="formSection">
+          <h2 class="sectionTitle">Liderança</h2>
+          <p class="sectionSubtitle">Seção com o texto de apresentação e os três diretores.</p>
+
+          <div class="formGrid">
+            <div class="wrapper">
+              <label class="label" for="sobre-lideranca-eyebrow">Eyebrow</label>
+              <div class="inputWrap">
+                <input class="input" id="sobre-lideranca-eyebrow" type="text" value="Liderança" />
+              </div>
+            </div>
+
+            <div class="wrapper">
+              <label class="label" for="sobre-lideranca-titulo">Título</label>
+              <div class="inputWrap">
+                <input class="input" id="sobre-lideranca-titulo" type="text" value="Experiência que inspira confiança" />
+              </div>
+            </div>
+
+            <div class="wrapper">
+              <label class="label" for="sobre-lideranca-texto">Texto</label>
+              <textarea class="textarea" id="sobre-lideranca-texto" rows="2">Nossa liderança combina visão estratégica, sólida experiência e paixão por engenharia.</textarea>
+            </div>
+
+            <div class="grid2">
+              <div class="wrapper">
+                <label class="label" for="sobre-lideranca-link-titulo">Título do link</label>
+                <div class="inputWrap">
+                  <input class="input" id="sobre-lideranca-link-titulo" type="text" value="Conheça nossa liderança" />
+                </div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="sobre-lideranca-link">Link</label>
+                <div class="inputWrap hasLeft">
+                  <span class="iconLeft"><i data-lucide="link" width="16" height="16"></i></span>
+                  <input class="input" id="sobre-lideranca-link" type="url" value="#" />
+                </div>
+              </div>
+            </div>
+
+            <div class="gridLider" data-lider="1">
+              <div class="wrapper">
+                <span class="label">Foto do líder 1</span>
+                <label class="dropzone" id="lider1-dropzone">
+                  <input type="file" accept="image/*" class="hiddenInput" id="lider1-input" />
+                  <div class="empty" id="lider1-empty" hidden>
+                    <span class="emptyIcon"><i data-lucide="image-plus" width="24" height="24"></i></span>
+                    <span class="emptyText">Clique ou arraste a foto</span>
+                    <span class="emptyHint">PNG ou JPG, até 5MB</span>
+                  </div>
+                  <div class="preview" id="lider1-preview">
+                    <img class="previewImg" id="lider1-preview-img" src="../src/Gemini_Generated_Image_2hjt7r2hjt7r2hjt_03.jpg" alt="Foto atual do líder 1" />
+                    <div class="previewActions">
+                      <button type="button" class="previewAction" id="lider1-view" aria-label="Visualizar foto" title="Visualizar"><i data-lucide="eye" width="14" height="14"></i></button>
+                      <button type="button" class="previewAction" id="lider1-change" aria-label="Alterar foto" title="Alterar"><i data-lucide="upload" width="14" height="14"></i></button>
+                      <button type="button" class="previewAction" id="lider1-remove" aria-label="Remover foto" title="Remover"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div class="formGrid">
+                <div class="wrapper">
+                  <label class="label" for="lider1-nome">Nome</label>
+                  <div class="inputWrap"><input class="input" id="lider1-nome" type="text" value="Marcos Aurélio" /></div>
+                </div>
+                <div class="grid2">
+                  <div class="wrapper">
+                    <label class="label" for="lider1-cargo">Cargo</label>
+                    <div class="inputWrap"><input class="input" id="lider1-cargo" type="text" value="Diretor Presidente" /></div>
+                  </div>
+                  <div class="wrapper">
+                    <label class="label" for="lider1-linkedin">LinkedIn</label>
+                    <div class="inputWrap hasLeft">
+                      <span class="iconLeft"><i data-lucide="link" width="16" height="16"></i></span>
+                      <input class="input" id="lider1-linkedin" type="url" value="#" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="gridLider" data-lider="2">
+              <div class="wrapper">
+                <span class="label">Foto do líder 2</span>
+                <label class="dropzone" id="lider2-dropzone">
+                  <input type="file" accept="image/*" class="hiddenInput" id="lider2-input" />
+                  <div class="empty" id="lider2-empty" hidden>
+                    <span class="emptyIcon"><i data-lucide="image-plus" width="24" height="24"></i></span>
+                    <span class="emptyText">Clique ou arraste a foto</span>
+                    <span class="emptyHint">PNG ou JPG, até 5MB</span>
+                  </div>
+                  <div class="preview" id="lider2-preview">
+                    <img class="previewImg" id="lider2-preview-img" src="../src/Gemini_Generated_Image_2hjt7r2hjt7r2hjt_05.jpg" alt="Foto atual do líder 2" />
+                    <div class="previewActions">
+                      <button type="button" class="previewAction" id="lider2-view" aria-label="Visualizar foto" title="Visualizar"><i data-lucide="eye" width="14" height="14"></i></button>
+                      <button type="button" class="previewAction" id="lider2-change" aria-label="Alterar foto" title="Alterar"><i data-lucide="upload" width="14" height="14"></i></button>
+                      <button type="button" class="previewAction" id="lider2-remove" aria-label="Remover foto" title="Remover"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div class="formGrid">
+                <div class="wrapper">
+                  <label class="label" for="lider2-nome">Nome</label>
+                  <div class="inputWrap"><input class="input" id="lider2-nome" type="text" value="Juliana Prado" /></div>
+                </div>
+                <div class="grid2">
+                  <div class="wrapper">
+                    <label class="label" for="lider2-cargo">Cargo</label>
+                    <div class="inputWrap"><input class="input" id="lider2-cargo" type="text" value="Diretora Operacional" /></div>
+                  </div>
+                  <div class="wrapper">
+                    <label class="label" for="lider2-linkedin">LinkedIn</label>
+                    <div class="inputWrap hasLeft">
+                      <span class="iconLeft"><i data-lucide="link" width="16" height="16"></i></span>
+                      <input class="input" id="lider2-linkedin" type="url" value="#" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="gridLider" data-lider="3">
+              <div class="wrapper">
+                <span class="label">Foto do líder 3</span>
+                <label class="dropzone" id="lider3-dropzone">
+                  <input type="file" accept="image/*" class="hiddenInput" id="lider3-input" />
+                  <div class="empty" id="lider3-empty" hidden>
+                    <span class="emptyIcon"><i data-lucide="image-plus" width="24" height="24"></i></span>
+                    <span class="emptyText">Clique ou arraste a foto</span>
+                    <span class="emptyHint">PNG ou JPG, até 5MB</span>
+                  </div>
+                  <div class="preview" id="lider3-preview">
+                    <img class="previewImg" id="lider3-preview-img" src="../src/Gemini_Generated_Image_2hjt7r2hjt7r2hjt_07.jpg" alt="Foto atual do líder 3" />
+                    <div class="previewActions">
+                      <button type="button" class="previewAction" id="lider3-view" aria-label="Visualizar foto" title="Visualizar"><i data-lucide="eye" width="14" height="14"></i></button>
+                      <button type="button" class="previewAction" id="lider3-change" aria-label="Alterar foto" title="Alterar"><i data-lucide="upload" width="14" height="14"></i></button>
+                      <button type="button" class="previewAction" id="lider3-remove" aria-label="Remover foto" title="Remover"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div class="formGrid">
+                <div class="wrapper">
+                  <label class="label" for="lider3-nome">Nome</label>
+                  <div class="inputWrap"><input class="input" id="lider3-nome" type="text" value="Ricardo Almeida" /></div>
+                </div>
+                <div class="grid2">
+                  <div class="wrapper">
+                    <label class="label" for="lider3-cargo">Cargo</label>
+                    <div class="inputWrap"><input class="input" id="lider3-cargo" type="text" value="Diretor Administrativo" /></div>
+                  </div>
+                  <div class="wrapper">
+                    <label class="label" for="lider3-linkedin">LinkedIn</label>
+                    <div class="inputWrap hasLeft">
+                      <span class="iconLeft"><i data-lucide="link" width="16" height="16"></i></span>
+                      <input class="input" id="lider3-linkedin" type="url" value="#" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="formSection">
+          <h2 class="sectionTitle">CTA final</h2>
+          <p class="sectionSubtitle">Banner de encerramento da página, com chamada para contato.</p>
+
+          <div class="formGrid">
+            <div class="wrapper">
+              <label class="label" for="sobre-cta-eyebrow">Eyebrow</label>
+              <div class="inputWrap">
+                <input class="input" id="sobre-cta-eyebrow" type="text" value="Juntos, vamos mais longe" />
+              </div>
+            </div>
+
+            <div class="wrapper">
+              <label class="label" for="sobre-cta-titulo">Título</label>
+              <div class="inputWrap">
+                <input class="input" id="sobre-cta-titulo" type="text" value="Prontos para construir o próximo capítulo?" />
+              </div>
+            </div>
+
+            <div class="wrapper">
+              <label class="label" for="sobre-cta-texto">Texto</label>
+              <textarea class="textarea" id="sobre-cta-texto" rows="2">Estamos sempre abertos a novas parcerias e desafios que impulsionam o desenvolvimento do país.</textarea>
+            </div>
+
+            <div class="grid2">
+              <div class="wrapper">
+                <label class="label" for="sobre-cta-link-titulo">Título do link</label>
+                <div class="inputWrap">
+                  <input class="input" id="sobre-cta-link-titulo" type="text" value="Fale com a EQS" />
+                </div>
+              </div>
+              <div class="wrapper">
+                <label class="label" for="sobre-cta-link">Link</label>
+                <div class="inputWrap hasLeft">
+                  <span class="iconLeft"><i data-lucide="link" width="16" height="16"></i></span>
+                  <input class="input" id="sobre-cta-link" type="url" value="links-uteis.html" />
+                </div>
+              </div>
+            </div>
+
+            <div class="wrapper">
+              <span class="label">Imagem de fundo</span>
+              <label class="dropzone" id="sobre-cta-dropzone">
+                <input type="file" accept="image/*" class="hiddenInput" id="sobre-cta-input" />
+                <div class="empty" id="sobre-cta-empty" hidden>
+                  <span class="emptyIcon"><i data-lucide="image-plus" width="24" height="24"></i></span>
+                  <span class="emptyText">Clique ou arraste a imagem</span>
+                  <span class="emptyHint">PNG ou JPG, até 5MB</span>
+                </div>
+                <div class="preview" id="sobre-cta-preview">
+                  <img class="previewImg" id="sobre-cta-preview-img" src="../src/xasunset-hercilio-luz-bridge-florianopolis.jpg" alt="Imagem de fundo atual do banner final" />
+                  <div class="previewActions">
+                    <button type="button" class="previewAction" id="sobre-cta-view" aria-label="Visualizar imagem" title="Visualizar"><i data-lucide="eye" width="14" height="14"></i></button>
+                    <button type="button" class="previewAction" id="sobre-cta-change" aria-label="Alterar imagem" title="Alterar"><i data-lucide="upload" width="14" height="14"></i></button>
+                    <button type="button" class="previewAction" id="sobre-cta-remove" aria-label="Remover imagem" title="Remover"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="formFooter">
+          <button class="btn secondary" type="button" onclick="location.reload()">Descartar alterações</button>
+          <button class="btn primary hasLeft" type="submit">
+            <span class="icon"><i data-lucide="save" width="16" height="16"></i></span>
+            Salvar alterações
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="shared/sidebar.js"></script>
+  <script>
+    /* ── Dropzones com imagem existente (visualizar/alterar/remover) ─────── */
+    function setupImageUpload(prefixo) {
+      const dropzone = document.getElementById(prefixo + '-dropzone');
+      const input = document.getElementById(prefixo + '-input');
+      const empty = document.getElementById(prefixo + '-empty');
+      const preview = document.getElementById(prefixo + '-preview');
+      const img = document.getElementById(prefixo + '-preview-img');
+
+      function mostrarImagem(src) {
+        empty.hidden = !!src;
+        preview.hidden = !src;
+        if (src) img.src = src;
+      }
+
+      input.addEventListener('change', () => {
+        const file = input.files?.[0];
+        if (file) mostrarImagem(URL.createObjectURL(file));
+      });
+
+      document.getElementById(prefixo + '-view').addEventListener('click', (e) => {
+        e.preventDefault(); e.stopPropagation();
+        window.open(img.src, '_blank');
+      });
+
+      document.getElementById(prefixo + '-change').addEventListener('click', (e) => {
+        e.preventDefault(); e.stopPropagation();
+        input.click();
+      });
+
+      document.getElementById(prefixo + '-remove').addEventListener('click', (e) => {
+        e.preventDefault(); e.stopPropagation();
+        input.value = '';
+        mostrarImagem(null);
+      });
+
+      dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragOver'); });
+      dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragOver'));
+      dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('dragOver');
+        const file = e.dataTransfer.files?.[0];
+        if (file) { input.files = e.dataTransfer.files; mostrarImagem(URL.createObjectURL(file)); }
+      });
+    }
+
+    setupImageUpload('sobre-hero');
+    setupImageUpload('sobre-historia');
+    setupImageUpload('lider1');
+    setupImageUpload('lider2');
+    setupImageUpload('lider3');
+    setupImageUpload('sobre-cta');
+
+    /* ── IconPickers (números, valores e cards de atuação) ───────────────── */
+    const ICON_OPTIONS = [
+      'clock', 'users', 'map', 'shield-check', 'building-2', 'trophy',
+      'award', 'briefcase', 'chart-line', 'globe', 'hard-hat', 'handshake',
+      'target', 'rocket', 'star', 'heart', 'lightbulb', 'map-pin',
+      'landmark', 'ruler', 'wrench', 'zap', 'leaf', 'calendar',
+      'user', 'droplet',
+    ];
+
+    function setupIconPicker(id, inicial) {
+      const root = document.getElementById(id + '-picker');
+      const trigger = document.getElementById(id + '-trigger');
+      const menu = document.getElementById(id + '-menu');
+      const preview = document.getElementById(id + '-preview');
+      const value = document.getElementById(id + '-value');
+      let selecionado = inicial;
+
+      menu.innerHTML = ICON_OPTIONS.map((name) => `
+        <button type="button" role="option" title="${name}" data-icon="${name}"
+          class="iconPickerOption${name === selecionado ? ' selected' : ''}"
+          aria-selected="${name === selecionado}">
+          <i data-lucide="${name}" width="18" height="18"></i>
+        </button>`).join('');
+
+      trigger.addEventListener('click', () => {
+        const open = root.classList.toggle('open');
+        trigger.setAttribute('aria-expanded', String(open));
+      });
+
+      menu.querySelectorAll('.iconPickerOption').forEach((option) => {
+        option.addEventListener('click', () => {
+          selecionado = option.dataset.icon;
+          menu.querySelectorAll('.iconPickerOption').forEach((o) => {
+            o.classList.toggle('selected', o === option);
+            o.setAttribute('aria-selected', String(o === option));
+          });
+          preview.innerHTML = `<i data-lucide="${selecionado}" width="14" height="14"></i>`;
+          value.textContent = selecionado;
+          lucide.createIcons();
+          root.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!root.contains(e.target)) {
+          root.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    setupIconPicker('sobre-stat1', 'clock');
+    setupIconPicker('sobre-stat2', 'users');
+    setupIconPicker('sobre-stat3', 'map');
+    setupIconPicker('sobre-stat4', 'shield-check');
+
+    setupIconPicker('valor1', 'shield-check');
+    setupIconPicker('valor2', 'user');
+    setupIconPicker('valor3', 'lightbulb');
+    setupIconPicker('valor4', 'handshake');
+    setupIconPicker('valor5', 'users');
+
+    setupIconPicker('atuacao1', 'landmark');
+    setupIconPicker('atuacao2', 'building-2');
+    setupIconPicker('atuacao3', 'zap');
+    setupIconPicker('atuacao4', 'droplet');
+    setupIconPicker('atuacao5', 'briefcase');
+
+    /* ── Salvar (protótipo) — mostra feedback de sucesso ─────────────────── */
+    const form = document.getElementById('sobre-form');
+    const feedback = document.getElementById('sobre-feedback');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      feedback.hidden = false;
+      lucide.createIcons();
+      document.querySelector('.pageContent').scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>

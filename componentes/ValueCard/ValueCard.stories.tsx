@@ -3,7 +3,7 @@ import { ShieldCheck, User, Lightbulb, Handshake, Users } from 'lucide-react';
 import { ValueCard } from './ValueCard';
 
 const meta: Meta<typeof ValueCard> = {
-  title: 'Components/ValueCard',
+  title: 'Primitives/ValueCard',
   component: ValueCard,
   tags: ['autodocs'],
   parameters: {

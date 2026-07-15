@@ -111,7 +111,7 @@ function DatePickerDemo({ hasValue = false }: { hasValue?: boolean }) {
 }
 
 const meta: Meta = {
-  title: 'Components/DatePicker',
+  title: 'Primitives/DatePicker',
   parameters: { layout: 'fullscreen' },
 };
 export default meta;

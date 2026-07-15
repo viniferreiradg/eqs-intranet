@@ -988,7 +988,244 @@ html:has(.hideScrollbar)::-webkit-scrollbar,
 }
 /* Toolbar e grids usados dentro de .pageContent (sem padding lateral extra) */
 .pageContent .toolbar     { padding-left: 0; padding-right: 0; }
+.pageContent .tabNav      { padding-left: 0; padding-right: 0; }
 .pageContent .metricsGrid5 { padding: 0; margin-bottom: var(--spacing-md); }
+/* Espaçador flexível — empurra o grupo seguinte para a direita da toolbar */
+.toolbarSpacer { flex: 1; }
+
+/* ── Dashboard: painel genérico (card + título + conteúdo) ─────────────────── */
+.dashPanel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+}
+.dashPanelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+}
+.dashPanelTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+}
+.dashPanelLink {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-brand);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+}
+.dashPanelLink:hover { text-decoration: underline; }
+
+/* ── Dashboard: lista de itens (próximos eventos, rascunhos) ───────────────── */
+.dashList { display: flex; flex-direction: column; gap: var(--spacing-sm); }
+.dashItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background: none;
+  text-align: left;
+  font-family: var(--font-body);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+.dashItem:hover { background: var(--color-bg-subtle); border-color: var(--color-border-default); }
+.dashItemIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-xs);
+  color: var(--color-text-brand);
+}
+.dashItemText { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--spacing-2xs); }
+.dashItemTitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dashItemMeta { font-size: var(--font-size-xs); color: var(--color-text-tertiary); }
+
+/* ── Dashboard: ranking (notícias mais lidas) — barra preenchida via JS ─────── */
+.rankList { display: flex; flex-direction: column; gap: var(--spacing-md); }
+.rankItem { display: flex; flex-direction: column; gap: var(--spacing-2xs); }
+.rankHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+.rankTitle { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rankViews { flex-shrink: 0; font-size: var(--font-size-xs); color: var(--color-text-tertiary); }
+.rankBar { height: 6px; border-radius: var(--radius-full); background: var(--color-bg-subtle); overflow: hidden; }
+.rankBarFill { height: 100%; border-radius: var(--radius-full); background: var(--color-action-primary); }
+
+/* ── Dashboard: grade de acesso rápido ─────────────────────────────────────── */
+.quickGrid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-sm); }
+
+/* ── Frame de 2FA (configuracoes.html): título + status à esquerda, ação à direita ── */
+.twofaFrame {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+}
+.twofaFrameText { display: flex; flex-direction: column; align-items: flex-start; gap: var(--spacing-2xs); }
+.twofaFrameTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+.twofaFrameStatus { font-size: var(--font-size-xs); color: var(--color-text-tertiary); }
+.twofaFrameStatus.ativado { color: var(--color-text-success); }
+
+/* ── Aba Aparência (configuracoes.html): grid de seletores de tema claro/escuro ── */
+.themeOptionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+  max-width: 640px;
+}
+.themeOption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  border: var(--border-width-medium) solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-subtle);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-body);
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+.themeOption:hover { border-color: var(--color-border-muted); }
+.themeOption.selected {
+  border-color: var(--color-action-primary);
+  background: var(--color-action-primary);
+}
+.themeOption.selected .themeOptionLabel { color: var(--color-gray-white); }
+.themeOption.selected .themeOptionDesc { color: var(--color-on-brand-sub); }
+
+/* Preview em miniatura dentro do card de opção */
+.themeOptionPreview {
+  width: 100%;
+  height: var(--spacing-4xl);
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+  display: flex;
+  flex-shrink: 0;
+}
+.themeOptionPreview--dark  { background: var(--color-gray-950); }
+.themeOptionPreview--light { background: var(--color-gray-100); }
+
+.themeOptionPreviewSidebar {
+  width: 28%;
+  padding: var(--spacing-xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  flex-shrink: 0;
+}
+.themeOptionPreview--dark  .themeOptionPreviewSidebar { background: var(--color-gray-black); }
+.themeOptionPreview--light .themeOptionPreviewSidebar { background: var(--color-gray-200); }
+
+.themeOptionPreviewSidebarDot {
+  height: var(--spacing-xs);
+  border-radius: var(--radius-full);
+}
+.themeOptionPreview--dark  .themeOptionPreviewSidebarDot { background: var(--color-gray-700); }
+.themeOptionPreview--light .themeOptionPreviewSidebarDot { background: var(--color-gray-400); }
+.themeOptionPreviewSidebarDot.active { background: var(--color-action-primary); }
+
+.themeOptionPreviewMain {
+  flex: 1;
+  padding: var(--spacing-xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+.themeOptionPreviewBar {
+  height: var(--spacing-xs);
+  width: 45%;
+  border-radius: var(--radius-full);
+}
+.themeOptionPreview--dark  .themeOptionPreviewBar { background: var(--color-gray-700); }
+.themeOptionPreview--light .themeOptionPreviewBar { background: var(--color-gray-300); }
+
+.themeOptionPreviewArea {
+  flex: 1;
+  border-radius: var(--radius-xs);
+  border: var(--border-width-thin) solid transparent;
+}
+.themeOptionPreview--dark  .themeOptionPreviewArea { background: var(--color-gray-800); }
+.themeOptionPreview--light .themeOptionPreviewArea { background: var(--color-gray-white); border-color: var(--color-gray-200); }
+
+/* Rodapé do card de opção: label + descrição + checkmark */
+.themeOptionFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+}
+.themeOptionInfo { display: flex; flex-direction: column; gap: var(--spacing-2xs); }
+.themeOptionLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+.themeOptionDesc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+.themeOptionCheck {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-lg);
+  height: var(--spacing-lg);
+  border-radius: var(--radius-full);
+  background: var(--color-action-primary);
+  color: var(--color-gray-white);
+  flex-shrink: 0;
+  opacity: 0;
+  transform: scale(0.75);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+.themeOption.selected .themeOptionCheck {
+  opacity: 1;
+  transform: scale(1);
+  background: var(--color-gray-white);
+  color: var(--color-action-primary);
+}
+
+/* Linha de item da programação de evento (eventos-cadastrar.html):
+   hora fixa · título · descrição · botão remover alinhado à base */
+.scheduleRow {
+  display: grid;
+  grid-template-columns: 120px 1fr 2fr auto;
+  gap: var(--spacing-sm);
+  align-items: end;
+}
 .searchWrap    { width: 280px; }
 .searchWrapFlex { flex: 1; min-width: 200px; }
 .filterWrap    { width: 180px; }
@@ -1069,9 +1306,12 @@ html:has(.hideScrollbar)::-webkit-scrollbar,
 
 /* ── Grids de formulário ─────────────────────────────────────────────────────── */
 .formGrid { display: grid; gap: var(--spacing-md); }
-.grid2 { grid-template-columns: 1fr 1fr; }
-.grid3 { grid-template-columns: 1fr 1fr 1fr; }
-.grid4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+.grid2 { display: grid; gap: var(--spacing-md); grid-template-columns: 1fr 1fr; }
+.grid3 { display: grid; gap: var(--spacing-md); grid-template-columns: 1fr 1fr 1fr; }
+.grid4 { display: grid; gap: var(--spacing-md); grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+/* ── Formulário Intranet (Sobre): bloco de líder — foto à esquerda, campos à direita ── */
+.gridLider { display: grid; gap: var(--spacing-md); grid-template-columns: 240px 1fr; align-items: start; }
 
 /* ── Tarifas: linha de cabeçalho de seção (título + toggle) ─────────────────── */
 .sectionHeaderRow {
@@ -1138,6 +1378,16 @@ html:has(.hideScrollbar)::-webkit-scrollbar,
   font-family: var(--font-mono, monospace);
   color: var(--color-text-tertiary);
 }
+
+/* ── Aba Sobre (configuracoes.html): hero centrado (logo + tagline) ─────────── */
+.aboutHero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-md);
+}
+.aboutTagline { font-size: var(--font-size-sm); color: var(--color-text-tertiary); margin: 0; }
 
 /* ── Campo com toggle + texto de apoio empilhado abaixo ──────────────────────── */
 /* Toggle.module.css usa .toggleWrapper { display: inline-flex }, então texto
@@ -1810,137 +2060,6 @@ html:has(.hideScrollbar)::-webkit-scrollbar,
   flex-shrink: 0;
   margin-top: 3px;
   white-space: nowrap;
-}
-
-/* ── Temas: grid de seletores de opção visual ────────────────────────────── */
-.themeOptionGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-md);
-  margin-top: var(--spacing-md);
-}
-.themeOption {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-md);
-  border: var(--border-width-medium) solid var(--color-border-subtle);
-  border-radius: var(--radius-sm);
-  background: var(--color-bg-subtle);
-  cursor: pointer;
-  text-align: left;
-  font-family: var(--font-body);
-  transition: border-color var(--transition-fast), background var(--transition-fast);
-}
-.themeOption:hover { border-color: var(--color-border-muted); }
-.themeOption.selected {
-  border-color: var(--color-action-primary);
-  background: var(--color-bg-brand);
-}
-
-/* Preview strip */
-.themeOptionPreview {
-  width: 100%;
-  height: var(--spacing-4xl);
-  border-radius: var(--radius-xs);
-  overflow: hidden;
-  display: flex;
-  flex-shrink: 0;
-}
-/* Background das 4 variantes — dark/light usam tokens de paleta fixos */
-.themeOptionPreview--dark    { background: var(--color-gray-950); }
-.themeOptionPreview--light   { background: var(--color-gray-100); }
-.themeOptionPreview--glass   { background: var(--color-bg-subtle); }
-.themeOptionPreview--minimal { background: var(--color-bg-subtle); }
-
-/* Mini sidebar dentro do preview */
-.themeOptionPreviewSidebar {
-  width: 28%;
-  padding: var(--spacing-xs);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
-  flex-shrink: 0;
-}
-.themeOptionPreview--dark    .themeOptionPreviewSidebar { background: var(--color-gray-black); }
-.themeOptionPreview--light   .themeOptionPreviewSidebar { background: var(--color-gray-200); }
-.themeOptionPreview--glass   .themeOptionPreviewSidebar { background: var(--color-bg-elevated); }
-.themeOptionPreview--minimal .themeOptionPreviewSidebar { background: var(--color-bg-surface); }
-
-/* Pontos de navegação na mini sidebar */
-.themeOptionPreviewSidebarDot {
-  height: var(--spacing-xs);
-  border-radius: var(--radius-full);
-}
-.themeOptionPreview--dark    .themeOptionPreviewSidebarDot { background: var(--color-gray-700); }
-.themeOptionPreview--light   .themeOptionPreviewSidebarDot { background: var(--color-gray-400); }
-.themeOptionPreview--glass   .themeOptionPreviewSidebarDot { background: var(--color-border-muted); }
-.themeOptionPreview--minimal .themeOptionPreviewSidebarDot { background: var(--color-border-default); }
-/* Ponto ativo: sempre brand */
-.themeOptionPreviewSidebarDot.active { background: var(--color-action-primary); }
-
-/* Área de conteúdo principal no preview */
-.themeOptionPreviewMain {
-  flex: 1;
-  padding: var(--spacing-xs);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
-}
-.themeOptionPreviewBar {
-  height: var(--spacing-xs);
-  width: 45%;
-  border-radius: var(--radius-full);
-}
-.themeOptionPreview--dark    .themeOptionPreviewBar { background: var(--color-gray-700); }
-.themeOptionPreview--light   .themeOptionPreviewBar { background: var(--color-gray-300); }
-.themeOptionPreview--glass   .themeOptionPreviewBar { background: var(--color-border-muted); }
-.themeOptionPreview--minimal .themeOptionPreviewBar { background: var(--color-border-default); }
-
-.themeOptionPreviewArea {
-  flex: 1;
-  border-radius: var(--radius-xs);
-  border: var(--border-width-thin) solid transparent;
-}
-.themeOptionPreview--dark    .themeOptionPreviewArea { background: var(--color-gray-800); }
-.themeOptionPreview--light   .themeOptionPreviewArea { background: var(--color-gray-white); border-color: var(--color-gray-200); }
-.themeOptionPreview--glass   .themeOptionPreviewArea { background: var(--color-bg-elevated); border-color: var(--color-border-subtle); }
-.themeOptionPreview--minimal .themeOptionPreviewArea { background: var(--color-bg-surface); border-color: var(--color-border-subtle); }
-
-/* Rodapé do card de opção: label + checkmark */
-.themeOptionFooter {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-sm);
-}
-.themeOptionInfo { display: flex; flex-direction: column; gap: var(--spacing-2xs); }
-.themeOptionLabel {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-}
-.themeOptionDesc {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-tertiary);
-}
-.themeOptionCheck {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--spacing-lg);
-  height: var(--spacing-lg);
-  border-radius: var(--radius-full);
-  background: var(--color-action-primary);
-  color: var(--color-gray-white);
-  flex-shrink: 0;
-  opacity: 0;
-  transform: scale(0.75);
-  transition: opacity var(--transition-fast), transform var(--transition-fast);
-}
-.themeOption.selected .themeOptionCheck {
-  opacity: 1;
-  transform: scale(1);
 }
 
 /* ── Dashboard: saudação (Bom dia, João) ────────────────────────────────── */
@@ -2948,6 +3067,24 @@ html:has(.hideScrollbar)::-webkit-scrollbar,
 .badge[data-status="neutral"] {
   background: var(--color-status-disabled-bg);
   color: var(--color-status-disabled-fg);
+}
+
+/* ── Badge/Batch de status — compacto ───────────────────────────────────── */
+.batch {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+.batch.success {
+  background: var(--color-status-success-bg);
+  color: var(--color-status-success-fg);
+}
+.batch.error {
+  background: var(--color-status-error-bg);
+  color: var(--color-status-error-fg);
 }
 
 /* ── Logs de falhas — elementos específicos ─────────────────────────────── */
@@ -3958,6 +4095,26 @@ html:has(.hideScrollbar)::-webkit-scrollbar,
 .sheetHeader.profileSheetHeader {
   justify-content: flex-start;
   gap: var(--spacing-sm);
+}
+
+/* Célula de título com o ícone do item (comunicados-lista.html) — icon box
+   outline padrão (borda gray-300, sem fundo) em tamanho de tabela */
+.cellTitleWithIcon {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.cellTitleIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: var(--border-width-thin) solid var(--color-gray-300);
+  border-radius: var(--radius-xs);
+  color: var(--color-text-brand);
+  flex-shrink: 0;
 }
 
 /* ── Página Detalhes do Setor (detalhes-setor.html) ──────────────────────────── */

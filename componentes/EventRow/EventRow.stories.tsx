@@ -3,7 +3,7 @@ import { Calendar, MapPin, Clock } from 'lucide-react';
 import { EventRow } from './EventRow';
 
 const meta: Meta<typeof EventRow> = {
-  title: 'Components/EventRow',
+  title: 'Primitives/EventRow',
   component: EventRow,
   tags: ['autodocs'],
   parameters: {

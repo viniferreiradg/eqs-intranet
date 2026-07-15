@@ -9,7 +9,7 @@ const options = [
 ];
 
 const meta: Meta<typeof RadioButton> = {
-  title: 'Components/Radio Button',
+  title: 'Primitives/Radio Button',
   component: RadioButton,
   tags: ['autodocs'],
 };

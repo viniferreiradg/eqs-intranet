@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { EventGalleryItem } from './EventGalleryItem';
 
 const meta: Meta<typeof EventGalleryItem> = {
-  title: 'Components/EventGalleryItem',
+  title: 'Primitives/EventGalleryItem',
   component: EventGalleryItem,
   tags: ['autodocs'],
   parameters: {
@@ -18,7 +18,7 @@ type Story = StoryObj<typeof EventGalleryItem>;
 
 export const Default: Story = {
   args: {
-    src: '/src/hero-eventos.jpg',
+    src: 'https://placehold.co/400x300/2a2a2a/eee?text=Foto',
     alt: '',
   },
 };
@@ -26,10 +26,10 @@ export const Default: Story = {
 export const Grid: Story = {
   render: () => (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'var(--spacing-md)', width: 600 }}>
-      <EventGalleryItem src="/src/hero-eventos.jpg" />
-      <EventGalleryItem src="/src/noticia-1.jpg" />
-      <EventGalleryItem src="/src/noticia-2.jpg" />
-      <EventGalleryItem src="/src/noticia-3.jpg" />
+      <EventGalleryItem src="https://placehold.co/400x300/2a2a2a/eee?text=1" />
+      <EventGalleryItem src="https://placehold.co/400x300/2a2a2a/eee?text=2" />
+      <EventGalleryItem src="https://placehold.co/400x300/2a2a2a/eee?text=3" />
+      <EventGalleryItem src="https://placehold.co/400x300/2a2a2a/eee?text=4" />
     </div>
   ),
 };

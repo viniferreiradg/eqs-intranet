@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Setores — EQS Intranet</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/Background/Background.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/Tab/Tab.module.css" />
+  <link rel="stylesheet" href="../componentes/Table/Table.module.css" />
+  <link rel="stylesheet" href="../componentes/Pagination/Pagination.module.css" />
+</head>
+<body class="layout-dashboard" data-page="setores">
+
+  <aside id="sidebar-root"></aside>
+
+  <main class="main bgWrapper">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <div class="pageHeader pageHeaderRow">
+      <div>
+        <h1 class="pageTitle">Setores</h1>
+        <p class="pageSubtitle" id="setores-count">6 setores cadastrados</p>
+      </div>
+      <button class="btn primary hasLeft" type="button" onclick="location.href='setores-cadastrar.html'">
+        <span class="icon"><i data-lucide="plus" width="16" height="16"></i></span>
+        Novo Setor
+      </button>
+    </div>
+
+    <div class="pageContent">
+      <!-- Tabs Colaboradores|Setores ocultas por enquanto — remover o hidden se voltarem -->
+      <div class="tabNav" hidden>
+        <div class="tabList" role="tablist">
+          <button class="tabBtn" role="tab" aria-selected="false" type="button" onclick="location.href='usuarios-lista.html'">Colaboradores</button>
+          <button class="tabBtn tabBtnActive" role="tab" aria-selected="true" type="button">Setores</button>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="wrapper searchWrap">
+          <div class="inputWrap hasLeft">
+            <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+            <input class="input" type="text" id="search-input" placeholder="Buscar setor..." />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="tableWrap">
+          <table class="table">
+            <thead>
+              <tr class="headerRow">
+                <th class="th thFirst">Setor</th>
+                <th class="th">Gestor</th>
+                <th class="th">Colaboradores</th>
+                <th class="th">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="setores-tbody">
+              <tr class="tr">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="megaphone" width="14" height="14"></i></span>
+                    Marketing
+                  </span>
+                </td>
+                <td class="td">
+                  <span class="cellUser">
+                    <span class="avatar sm"><img class="avatarImg" src="../src/avatar/team-01.jpg" alt="Camila Rocha" /></span>
+                    Camila Rocha
+                  </span>
+                </td>
+                <td class="td">5 colaboradores</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='setores-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="hard-hat" width="14" height="14"></i></span>
+                    Engenharia
+                  </span>
+                </td>
+                <td class="td">
+                  <span class="cellUser">
+                    <span class="avatar sm"><img class="avatarImg" src="../src/avatar/team-04.jpg" alt="Ricardo Nunes" /></span>
+                    Ricardo Nunes
+                  </span>
+                </td>
+                <td class="td">12 colaboradores</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='setores-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="laptop" width="14" height="14"></i></span>
+                    TI
+                  </span>
+                </td>
+                <td class="td">
+                  <span class="cellUser">
+                    <span class="avatar sm"><img class="avatarImg" src="../src/avatar/team-06.jpg" alt="André Souza" /></span>
+                    André Souza
+                  </span>
+                </td>
+                <td class="td">6 colaboradores</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='setores-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="users" width="14" height="14"></i></span>
+                    Recursos Humanos
+                  </span>
+                </td>
+                <td class="td">
+                  <span class="cellUser">
+                    <span class="avatar sm"><img class="avatarImg" src="../src/avatar/team-08.jpg" alt="Paula Martins" /></span>
+                    Paula Martins
+                  </span>
+                </td>
+                <td class="td">4 colaboradores</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='setores-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="landmark" width="14" height="14"></i></span>
+                    Financeiro
+                  </span>
+                </td>
+                <td class="td">
+                  <span class="cellUser">
+                    <span class="avatar sm"><img class="avatarImg" src="../src/avatar/team-09.jpg" alt="Gustavo Ferraz" /></span>
+                    Gustavo Ferraz
+                  </span>
+                </td>
+                <td class="td">7 colaboradores</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='setores-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td tdFirst">
+                  <span class="cellTitleWithIcon">
+                    <span class="cellTitleIcon"><i data-lucide="package" width="14" height="14"></i></span>
+                    Suprimentos
+                  </span>
+                </td>
+                <td class="td">
+                  <span class="cellUser">
+                    <span class="avatar sm"><span class="avatarInitials">SA</span></span>
+                    Sérgio Almeida
+                  </span>
+                </td>
+                <td class="td">5 colaboradores</td>
+                <td class="td tdActions">
+                  <div class="cellActions">
+                    <button class="actionBtn" aria-label="Editar" title="Editar" onclick="location.href='setores-editar.html'"><i data-lucide="pencil" width="14" height="14"></i></button>
+                    <button class="actionBtn actionDanger" aria-label="Excluir" title="Excluir"><i data-lucide="trash-2" width="14" height="14"></i></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="pagination">
+        <span class="info">Exibindo 1–6 de 6 resultados</span>
+        <div class="controls">
+          <button class="paginBtn" aria-label="Página anterior" disabled><i data-lucide="chevron-left" width="14" height="14"></i></button>
+          <button class="paginBtn paginBtnActive" aria-current="page">1</button>
+          <button class="paginBtn" aria-label="Próxima página" disabled><i data-lucide="chevron-right" width="14" height="14"></i></button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="shared/sidebar.js"></script>
+  <script>
+    lucide.createIcons();
+
+    /* ── Busca — filtra por nome do setor e gestor ───────────────────────── */
+    const searchInput = document.getElementById('search-input');
+    const rows = [...document.querySelectorAll('#setores-tbody .tr')];
+    const countLabel = document.getElementById('setores-count');
+
+    function filtrarSetores() {
+      const termo = searchInput.value.trim().toLowerCase();
+      let visiveis = 0;
+      rows.forEach((row) => {
+        const texto = row.textContent.toLowerCase();
+        const show = texto.includes(termo);
+        row.hidden = !show;
+        if (show) visiveis++;
+      });
+      countLabel.textContent = `${visiveis} setor${visiveis !== 1 ? 'es' : ''} encontrado${visiveis !== 1 ? 's' : ''}`;
+    }
+
+    searchInput.addEventListener('input', filtrarSetores);
+  </script>
+</body>
+</html>

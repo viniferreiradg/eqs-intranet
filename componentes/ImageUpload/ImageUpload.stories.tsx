@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ImageUpload } from './ImageUpload';
 
 const meta: Meta<typeof ImageUpload> = {
-  title: 'Components/ImageUpload',
+  title: 'Primitives/ImageUpload',
   component: ImageUpload,
   tags: ['autodocs'],
   parameters: {
@@ -32,6 +32,16 @@ export const Filled: Story = {
   args: {
     label: 'Imagem de capa',
     value: 'https://placehold.co/640x360/1a1a1a/eee?text=Preview',
-    helperText: 'Clique na imagem para trocar.',
+    helperText: 'Imagem existente — visualize, altere ou remova pelas ações no canto.',
+  },
+};
+
+export const LogoContain: Story = {
+  args: {
+    label: 'Logo',
+    value: 'https://placehold.co/300x160/ffffff/2a2a2a?text=Logo',
+    fit: 'contain',
+    hint: 'PNG com fundo transparente, até 2MB',
+    helperText: 'fit="contain" — a arte aparece inteira, sem corte, sobre fundo sutil.',
   },
 };

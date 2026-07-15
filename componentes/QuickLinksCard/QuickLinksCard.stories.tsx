@@ -3,7 +3,7 @@ import { LifeBuoy, BookOpen, ShieldCheck } from 'lucide-react';
 import { QuickLinksCard } from './QuickLinksCard';
 
 const meta: Meta<typeof QuickLinksCard> = {
-  title: 'Components/QuickLinksCard',
+  title: 'Primitives/QuickLinksCard',
   component: QuickLinksCard,
   tags: ['autodocs'],
   parameters: {

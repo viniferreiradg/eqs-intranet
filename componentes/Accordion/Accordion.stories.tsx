@@ -8,7 +8,7 @@ const items = [
 ];
 
 const meta: Meta<typeof Accordion> = {
-  title: 'Components/Accordion',
+  title: 'Primitives/Accordion',
   component: Accordion,
   tags: ['autodocs'],
   decorators: [(Story) => <div style={{ width: 480 }}><Story /></div>],

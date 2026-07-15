@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Novo Comunicado — EQS Intranet</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../componentes/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../componentes/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../componentes/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../componentes/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../componentes/Background/Background.module.css" />
+  <link rel="stylesheet" href="../componentes/Breadcrumb/Breadcrumb.module.css" />
+  <link rel="stylesheet" href="../componentes/Card/Card.module.css" />
+  <link rel="stylesheet" href="../componentes/Divider/Divider.module.css" />
+  <link rel="stylesheet" href="../componentes/Button/Button.module.css" />
+  <link rel="stylesheet" href="../componentes/Input/Input.module.css" />
+  <link rel="stylesheet" href="../componentes/Textarea/Textarea.module.css" />
+  <link rel="stylesheet" href="../componentes/IconPicker/IconPicker.module.css" />
+  <link rel="stylesheet" href="../componentes/Toggle/Toggle.module.css" />
+  <link rel="stylesheet" href="../componentes/Feedback/Feedback.module.css" />
+</head>
+<body class="layout-dashboard" data-page="comunicados">
+
+  <aside id="sidebar-root"></aside>
+
+  <main class="main bgWrapper">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <div class="pageHeader">
+      <nav aria-label="Breadcrumb" class="nav">
+        <ol class="list">
+          <li class="item">
+            <a href="comunicados-lista.html" class="link">
+              Comunicados
+              <span class="sep" aria-hidden="true"><i data-lucide="chevron-right" width="12" height="12"></i></span>
+            </a>
+          </li>
+          <li class="item"><span class="current">Novo Comunicado</span></li>
+        </ol>
+      </nav>
+      <h1 class="pageTitle">Novo Comunicado</h1>
+      <p class="pageSubtitle">Preencha as informações abaixo para publicar um comunicado no portal.</p>
+    </div>
+
+    <div class="pageContent">
+      <form class="card" id="comunicado-form" novalidate>
+        <div class="formSection">
+          <div class="alert error" id="form-feedback" role="alert" hidden>
+            <span class="fbIcon"><i data-lucide="circle-x" width="18" height="18"></i></span>
+            <div class="fbBody">
+              <div class="fbTitle">Não foi possível salvar</div>
+              <div class="fbMessage" id="form-feedback-msg">Revise os campos destacados.</div>
+            </div>
+          </div>
+
+          <div class="formGrid">
+            <div class="iconPickerRoot" id="icone-picker">
+              <span class="label">Ícone</span>
+              <button type="button" class="iconPickerTrigger" id="icone-trigger" aria-haspopup="listbox" aria-expanded="false">
+                <span class="iconPickerPreview" id="icone-preview"><i data-lucide="megaphone" width="14" height="14"></i></span>
+                <span class="iconPickerValue" id="icone-value">megaphone</span>
+                <span class="iconPickerChevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+              </button>
+              <div class="iconPickerMenu" id="icone-menu" role="listbox" aria-label="Ícones"></div>
+              <span class="helperText">Aparece ao lado do título na listagem de comunicados.</span>
+            </div>
+
+            <div class="wrapper" id="titulo-wrapper">
+              <label class="label" for="titulo">Título</label>
+              <div class="inputWrap">
+                <input class="input" id="titulo" name="titulo" type="text" placeholder="Ex: Manutenção programada no sistema financeiro" />
+              </div>
+              <span class="errorText" id="titulo-error" hidden>
+                <span class="msgIcon"><i data-lucide="circle-x" width="14" height="14"></i></span>
+                O título é obrigatório.
+              </span>
+            </div>
+
+            <div class="wrapper">
+              <label class="label" for="descricao">Descrição curta</label>
+              <div class="inputWrap">
+                <input class="input" id="descricao" name="descricao" type="text" placeholder="Resumo de uma linha — aparece na listagem de comunicados" />
+              </div>
+              <span class="helperText">Recomendado: até 140 caracteres.</span>
+            </div>
+
+            <div class="wrapper" id="conteudo-wrapper">
+              <label class="label" for="conteudo">Conteúdo completo</label>
+              <textarea class="textarea" id="conteudo" name="conteudo" rows="8" placeholder="Texto completo do comunicado — é exibido quando o colaborador expande o item no portal..."></textarea>
+              <span class="errorText" id="conteudo-error" hidden>
+                <span class="msgIcon"><i data-lucide="circle-x" width="14" height="14"></i></span>
+                O conteúdo é obrigatório.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="formSection toggleField">
+          <label class="toggleWrapper" for="publicar-agora">
+            <input type="checkbox" class="toggleInput" id="publicar-agora" name="publicar-agora" checked />
+            <span class="toggleTrack"><span class="toggleThumb"></span></span>
+            <span class="toggleLabel">Publicar agora</span>
+          </label>
+          <span class="helperText" id="publicar-hint">O comunicado ficará visível no portal imediatamente após salvar.</span>
+        </div>
+
+        <div class="formFooter">
+          <button class="btn secondary" type="button" onclick="location.href='comunicados-lista.html'">Cancelar</button>
+          <button class="btn primary hasLeft" type="submit">
+            <span class="icon"><i data-lucide="save" width="16" height="16"></i></span>
+            Salvar
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="shared/sidebar.js"></script>
+  <script>
+    /* ── IconPicker (vanilla) — grade com os principais ícones Lucide ────── */
+    const ICON_OPTIONS = [
+      'megaphone', 'bell', 'info', 'triangle-alert', 'calendar-clock', 'users',
+      'heart-pulse', 'shield-check', 'badge-dollar-sign', 'briefcase', 'laptop', 'wrench',
+      'building-2', 'car-front', 'bus', 'plane', 'utensils-crossed', 'package',
+      'zap', 'droplets', 'key', 'mail', 'phone', 'gift',
+    ];
+
+    const pickerRoot = document.getElementById('icone-picker');
+    const pickerTrigger = document.getElementById('icone-trigger');
+    const pickerMenu = document.getElementById('icone-menu');
+    const pickerPreview = document.getElementById('icone-preview');
+    const pickerValue = document.getElementById('icone-value');
+    let iconeSelecionado = 'megaphone';
+
+    pickerMenu.innerHTML = ICON_OPTIONS.map((name) => `
+      <button type="button" role="option" title="${name}" data-icon="${name}"
+        class="iconPickerOption${name === iconeSelecionado ? ' selected' : ''}"
+        aria-selected="${name === iconeSelecionado}">
+        <i data-lucide="${name}" width="18" height="18"></i>
+      </button>`).join('');
+
+    lucide.createIcons();
+
+    pickerTrigger.addEventListener('click', () => {
+      const open = pickerRoot.classList.toggle('open');
+      pickerTrigger.setAttribute('aria-expanded', String(open));
+    });
+
+    pickerMenu.querySelectorAll('.iconPickerOption').forEach((option) => {
+      option.addEventListener('click', () => {
+        iconeSelecionado = option.dataset.icon;
+        pickerMenu.querySelectorAll('.iconPickerOption').forEach((o) => {
+          o.classList.toggle('selected', o === option);
+          o.setAttribute('aria-selected', String(o === option));
+        });
+        pickerPreview.innerHTML = `<i data-lucide="${iconeSelecionado}" width="14" height="14"></i>`;
+        pickerValue.textContent = iconeSelecionado;
+        lucide.createIcons();
+        pickerRoot.classList.remove('open');
+        pickerTrigger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!pickerRoot.contains(e.target)) {
+        pickerRoot.classList.remove('open');
+        pickerTrigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    /* ── Toggle "Publicar agora" — atualiza o texto de apoio ─────────────── */
+    const publicarInput = document.getElementById('publicar-agora');
+    const publicarHint = document.getElementById('publicar-hint');
+    publicarInput.addEventListener('change', () => {
+      publicarHint.textContent = publicarInput.checked
+        ? 'O comunicado ficará visível no portal imediatamente após salvar.'
+        : 'O comunicado será salvo como rascunho, sem aparecer no portal.';
+    });
+
+    /* ── Validação simples + submit (protótipo) ──────────────────────────── */
+    const form = document.getElementById('comunicado-form');
+    const feedback = document.getElementById('form-feedback');
+    const feedbackMsg = document.getElementById('form-feedback-msg');
+    const titulo = document.getElementById('titulo');
+    const conteudo = document.getElementById('conteudo');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let temErro = false;
+
+      const tituloVazio = !titulo.value.trim();
+      document.getElementById('titulo-wrapper').classList.toggle('error', tituloVazio);
+      document.getElementById('titulo-error').hidden = !tituloVazio;
+      if (tituloVazio) temErro = true;
+
+      const conteudoVazio = !conteudo.value.trim();
+      document.getElementById('conteudo-wrapper').classList.toggle('error', conteudoVazio);
+      document.getElementById('conteudo-error').hidden = !conteudoVazio;
+      if (conteudoVazio) temErro = true;
+
+      if (temErro) {
+        feedbackMsg.textContent = 'Revise os campos destacados.';
+        feedback.hidden = false;
+        return;
+      }
+
+      feedback.hidden = true;
+      location.href = 'comunicados-lista.html';
+    });
+  </script>
+</body>
+</html>

@@ -5,6 +5,8 @@ import styles from './MultiSelect.module.css';
 export interface MultiSelectOption {
   label: string;
   value: string;
+  /** URL da foto — exibe avatar redondo na opção e no chip */
+  avatar?: string;
 }
 
 export interface MultiSelectProps {
@@ -24,6 +26,8 @@ export interface MultiSelectProps {
   helperText?: string;
   /** Mensagem de erro (mostra borda vermelha) */
   error?: string;
+  /** Abre o menu para cima — usar quando o campo fica perto do fim da página */
+  dropUp?: boolean;
 }
 
 export function MultiSelect({
@@ -35,6 +39,7 @@ export function MultiSelect({
   disabled = false,
   helperText,
   error,
+  dropUp = false,
 }: MultiSelectProps) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -88,6 +93,7 @@ export function MultiSelect({
               const opt = options.find(o => o.value === val);
               return opt ? (
                 <span key={val} className={styles.msChip}>
+                  {opt.avatar && <img className={styles.msAvatar} src={opt.avatar} alt="" />}
                   <span className={styles.msChipLabel}>{opt.label}</span>
                   <button
                     className={styles.msChipRemove}
@@ -108,7 +114,11 @@ export function MultiSelect({
       </div>
 
       {open && (
-        <div className={styles.msMenu} role="listbox" aria-multiselectable="true">
+        <div
+          className={[styles.msMenu, dropUp ? styles.msMenuUp : ''].filter(Boolean).join(' ')}
+          role="listbox"
+          aria-multiselectable="true"
+        >
           {options.map(opt => {
             const isSelected = value.includes(opt.value);
             return (
@@ -122,6 +132,7 @@ export function MultiSelect({
                 <span className={styles.msCheck}>
                   {isSelected && <Check size={10} />}
                 </span>
+                {opt.avatar && <img className={styles.msAvatar} src={opt.avatar} alt="" />}
                 <span className={styles.msOptionLabel}>{opt.label}</span>
               </div>
             );

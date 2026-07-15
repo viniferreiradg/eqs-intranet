@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { EventScheduleItem } from './EventScheduleItem';
 
 const meta: Meta<typeof EventScheduleItem> = {
-  title: 'Components/EventScheduleItem',
+  title: 'Primitives/EventScheduleItem',
   component: EventScheduleItem,
   tags: ['autodocs'],
   parameters: {

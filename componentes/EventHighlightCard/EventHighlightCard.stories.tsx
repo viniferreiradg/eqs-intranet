@@ -3,7 +3,7 @@ import { MapPin, Clock, Calendar } from 'lucide-react';
 import { EventHighlightCard } from './EventHighlightCard';
 
 const meta: Meta<typeof EventHighlightCard> = {
-  title: 'Components/EventHighlightCard',
+  title: 'Primitives/EventHighlightCard',
   component: EventHighlightCard,
   tags: ['autodocs'],
   parameters: {

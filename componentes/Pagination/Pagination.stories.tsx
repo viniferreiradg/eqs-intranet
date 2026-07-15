@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Pagination } from './Pagination';
 
 const meta: Meta<typeof Pagination> = {
-  title: 'Components/Pagination',
+  title: 'Primitives/Pagination',
   component: Pagination,
   parameters: { layout: 'padded' },
 };
